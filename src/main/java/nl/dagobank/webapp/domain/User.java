@@ -6,6 +6,8 @@ import java.util.Date;
 
 @Entity
 public abstract class User {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -40,6 +42,33 @@ public abstract class User {
 
     public User() {
     }
+    public User(int id, String firstName, String prefix, String lastName, String phoneNumber, String streetName, int houseNumber,
+                String houseNumberAnnex, String postCode, String city, String email, Date date, int bsn) {
+        this(id, firstName, prefix, lastName, phoneNumber, streetName, houseNumber, houseNumberAnnex,
+                postCode, city, email, date, bsn, new UsernameGenerator().createUsername(firstName, lastName),
+                new PasswordGenerator(new PasswordGenerator.PasswordGeneratorBuilder()).generate(10));
+    }
+
+    public User(int id, String firstName, String prefix, String lastName, String phoneNumber, String streetName, int houseNumber,
+                String houseNumberAnnex, String postCode, String city,String email, Date birthDate, int bsn, String userName, String password) {
+        super();
+        this.firstName = firstName;
+        this.prefix = prefix;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.streetName = streetName;
+        this.houseNumber = houseNumber;
+        this.houseNumberAnnex = houseNumberAnnex;
+        this.postCode = postCode;
+        this.city = city;
+        this.email = email;
+        this.birthDate = birthDate;
+        this.bsn = bsn;
+        this.userName = userName;
+        this.password = password;
+    }
+
+
 
     @Override
     public String toString() {
@@ -49,7 +78,7 @@ public abstract class User {
                 ", lastName='" + lastName + '\'' +
                 '}';
     }
-    // TODO Args constructor
+
 
 
     public int getId() {
