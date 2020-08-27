@@ -4,124 +4,64 @@
     <meta charset="UTF-8">
     <title>Registratie</title>
     <link rel="stylesheet" type="text/css"
-          th:href="@{css/stylesheet.css}" />
+          th:href="@{css/stylesheet.css}"/>
 </head>
 <body>
-<h1>
-    Registreer
-</h1>
-<h2>
-    Vul het formulier in
-</h2>
+<h1>Registreer</h1>
+<h2>Vul het formulier in</h2>
 <form method="post" th:action="@{register}">
     <table>
         <tr>
-            <td>
-                Voornaam :
-            </td>
-            <td>
-                <input type="text" name="first_name"/>
-            </td>
+            <td>Voornaam :</td>
+            <td><input type="text" name="first_name"/></td>
         </tr>
         <tr>
-            <td>
-                Tussenvoegsel :
-            </td>
-            <td>
-                <input type="text" name="prefix"/>
-            </td>
+            <td>Tussenvoegsel :</td>
+            <td><input type="text" name="prefix"/></td>
         </tr>
         <tr>
+            <td>Achternaam :</td>
             <td>
-                Achternaam :
-            </td>
-            <td>
-                <input type="text" name="last_name"/>
-            </td>
+                <input type="text" name="last_name"/></td>
         </tr>
         <tr>
-            <td>
-                Voornaam :
-            </td>
-            <td>
-                <input type="text" name="first_name"/>
-            </td>
+            <td>Telefoon :</td>
+            <td><input type="text" name="phone_number"/></td>
         </tr>
         <tr>
-            <td>
-                Telefoon :
-            </td>
-            <td>
-                <input type="text" name="phone_number"/>
-            </td>
+            <td>Straatnaam :</td>
+            <td><input type="text" name="street_name"/></td>
         </tr>
         <tr>
-            <td>
-                Straatnaam :
-            </td>
-            <td>
-                <input type="text" name="street_name"/>
-            </td>
+            <td>Huisnummer :</td>
+            <td><input type="number" name="house_number"/></td>
         </tr>
         <tr>
-            <td>
-                Huisnummer :
-            </td>
-            <td>
-                <input type="text" name="house_number"/>
-            </td>
+            <td>Toevoeging :</td>
+            <td><input type="text" name="house_number_annex"/></td>
         </tr>
         <tr>
-            <td>
-                Toevoeging :
-            </td>
-            <td>
-                <input type="text" name="house_number_annex"/>
-            </td>
+            <td>Postcode :</td>
+            <td><input type="text" name="post_code"/></td>
         </tr>
         <tr>
-            <td>
-                Postcode :
-            </td>
-            <td>
-                <input type="text" name="post_code"/>
-            </td>
+            <td> Woonplaats :</td>
+            <td><input type="text" name="city"/></td>
         </tr>
         <tr>
-            <td>
-                Woonplaats :
-            </td>
-            <td>
-                <input type="text" name="city"/>
-            </td>
+            <td>Email :</td>
+            <td><input type="text" name="email"/></td>
         </tr>
         <tr>
-            <td>
-                Email :
-            </td>
-            <td>
-                <input type="text" name="email"/>
-            </td>
-        </tr>
-<!--        Show callander for brith options-->
-        <tr>
-            <td>
-                Geboortedatum :
-            </td>
-            <td>
-                <input type="date" name="birth_date"/>
-            </td>
+            <td>Geboortedatum :</td>
+            <td><input type="date" name="birth_date"/></td>
         </tr>
         <tr>
-            <td>
-                BSN :
-            </td>
-            <td>
-                <input type="number" name="bsn"/>
-            </td>
+            <td>BSN :</td>
+            <td><input type="number" name="bsn"/></td>
         </tr>
     </table>
 </form>
-<input type="submit" value="Registreer"/>
+<input type="submit" name="register" value="Registreer"/>
 </body>
 </html>
