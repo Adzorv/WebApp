@@ -16,7 +16,7 @@ public abstract class User {
     @Column
     private String lastName;
     @Column
-    private int phoneNumber;
+    private String phoneNumber;
     @Column
     private String streetName;
     @Column
@@ -84,11 +84,11 @@ public abstract class User {
         this.lastName = lastName;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber( int phoneNumber ) {
+    public void setPhoneNumber(String phoneNumber ) {
         this.phoneNumber = phoneNumber;
     }
 
