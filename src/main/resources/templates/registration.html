@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Registratie</title>
+</head>
+<body>
+<h1>
+    Registreer
+</h1>
+<h2>
+    Vul het formulier in
+</h2>
+<form method="post" th:aciton="@{register}">
+    <table>
+        <tr>
+            <td>
+                Voornaam :
+            </td>
+            <td>
+                <input type="text" name="first_name"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Tussenvoegsel :
+            </td>
+            <td>
+                <input type="text" name="prefix"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Achternaam :
+            </td>
+            <td>
+                <input type="text" name="last_name"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Voornaam :
+            </td>
+            <td>
+                <input type="text" name="first_name"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Telefoon :
+            </td>
+            <td>
+                <input type="text" name="phone_number"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Straatnaam :
+            </td>
+            <td>
+                <input type="text" name="street_name"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Huisnummer :
+            </td>
+            <td>
+                <input type="text" name="house_number"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Toevoeging :
+            </td>
+            <td>
+                <input type="text" name="house_number_annex"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Postcode :
+            </td>
+            <td>
+                <input type="text" name="post_code"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Woonplaats :
+            </td>
+            <td>
+                <input type="text" name="city"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Email :
+            </td>
+            <td>
+                <input type="text" name="email"/>
+            </td>
+        </tr>
+<!--        Show callander for brith options-->
+        <tr>
+            <td>
+                Geboortedatum :
+            </td>
+            <td>
+                <input type="date" name="birth_date"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                BSN :
+            </td>
+            <td>
+                <input type="number" name="bsn"/>
+            </td>
+        </tr>
+    </table>
+</form>
+<input type="submit" value="Registreer"/>
+</body>
+</html>

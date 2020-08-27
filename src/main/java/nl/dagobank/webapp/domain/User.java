@@ -1,22 +1,40 @@
-package com.dagobank.webapp.dagobank.domain;
+package nl.dagobank.webapp.domain;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
 public abstract class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    @Column
     private String firstName;
+    @Column
     private String prefix;
+    @Column
     private String lastName;
+    @Column
     private int phoneNumber;
+    @Column
     private String streetName;
+    @Column
     private int houseNumber;
+    @Column
     private String houseNumberAnnex;
+    @Column
     private String postCode;
+    @Column
     private String city;
+    @Column
     private String email;
+    @Column
     private Date birthDate;
+    @Column
     private int bsn;
+    @Column
     private String userName;
+    @Column
     private String password;
 
     public User() {
