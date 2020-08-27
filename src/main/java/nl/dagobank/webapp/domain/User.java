@@ -1,4 +1,4 @@
-package com.dagobank.webapp.dagobank.domain;
+package git com.dagobank.webapp.dagobank.domain;
 
 import java.util.Date;
 
