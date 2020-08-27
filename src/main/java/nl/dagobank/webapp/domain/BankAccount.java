@@ -1,4 +1,4 @@
-package com.dagobank.webapp.dagobank.domain;
+package nl.dagobank.webapp.domain;
 
 import java.math.BigDecimal;
 import java.util.List;

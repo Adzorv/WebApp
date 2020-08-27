@@ -1,4 +1,4 @@
-package com.dagobank.webapp.dagobank.domain;
+package nl.dagobank.webapp.domain;
 
 public class Employee extends User {
 
