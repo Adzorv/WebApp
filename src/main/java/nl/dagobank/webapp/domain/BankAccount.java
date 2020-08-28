@@ -5,9 +5,9 @@ import nl.dagobank.webapp.service.Iban;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
+import javax.persistence.OneToOne;
 import java.math.BigDecimal;
-import java.util.List;
+
 
 @Entity
 public abstract class BankAccount {
@@ -17,16 +17,19 @@ public abstract class BankAccount {
     private int id;
 
     private String accountName;
-    private Customer accountHolder;
-    private List<Customer> secondaryAccountHolders;
-    private Iban iban;
+    //private Customer accountHolder;
+    private String accountHolder;
+    //private List<Customer> secondaryAccountHolders;
+
+    private String iban;
+
     private BigDecimal balance;
-    private List<Transaction> transations;
+    //private List<Transaction> transations;
 
     private final BigDecimal BANKACCOUNT_BEGINBALANCE_GIFT = new BigDecimal("25");
-    private final Iban TESTIBAN = new Iban("NL58INGB0687603749");
+    private final String TESTIBAN = "NL58INGB0687603749";
 
-    public BankAccount(int id, String accountName, Customer accountHolder, BigDecimal balance) {
+    public BankAccount(int id, String accountName, String accountHolder, BigDecimal balance) {
         this.id = id;
         this.accountName = accountName;
         this.accountHolder = accountHolder;
@@ -37,7 +40,7 @@ public abstract class BankAccount {
     public BankAccount(){
         this.id = 0;
         this.accountName ="testaccountname";
-        this.accountHolder = null;
+        this.accountHolder = "Testaccountholder";
         this.iban = TESTIBAN;
         this.balance = BANKACCOUNT_BEGINBALANCE_GIFT;
     }
@@ -58,27 +61,27 @@ public abstract class BankAccount {
         this.accountName = accountName;
     }
 
-    public Customer getAccountHolder() {
+    public String getAccountHolder() {
         return accountHolder;
     }
 
-    public void setAccountHolder(Customer accountHolder) {
+    public void setAccountHolder(String accountHolder) {
         this.accountHolder = accountHolder;
     }
 
-    public List<Customer> getSecondaryAccountHolders() {
-        return secondaryAccountHolders;
-    }
+    //public List<Customer> getSecondaryAccountHolders() {
+        //return secondaryAccountHolders;
+    //}
 
-    public void setSecondaryAccountHolders(List<Customer> secondaryAccountHolders) {
-        this.secondaryAccountHolders = secondaryAccountHolders;
-    }
+//    public void setSecondaryAccountHolders(List<Customer> secondaryAccountHolders) {
+//        this.secondaryAccountHolders = secondaryAccountHolders;
+//    }
 
-    public Iban getIban() {
+    public String getIban() {
         return iban;
     }
 
-    public void setIban(Iban iban) {
+    public void setIban(String iban) {
         this.iban = iban;
     }
 
@@ -90,11 +93,11 @@ public abstract class BankAccount {
         this.balance = balance;
     }
 
-    public List<Transaction> getTransations() {
-        return transations;
-    }
+//    public List<Transaction> getTransations() {
+//        return transations;
+//    }
 
-    public void setTransations(List<Transaction> transations) {
-        this.transations = transations;
-    }
+//    public void setTransations(List<Transaction> transations) {
+//        this.transations = transations;
+//    }
 }

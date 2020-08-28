@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class User {
+public abstract class User {
 
 
     @Id
@@ -41,7 +41,9 @@ public class User {
     private String password;
 
     public User() {
+        this.firstName = "Karl";
     }
+
     public User(int id, String firstName, String prefix, String lastName, String phoneNumber, String streetName, int houseNumber,
                 String houseNumberAnnex, String postCode, String city, String email, Date date, int bsn) {
         this(id, firstName, prefix, lastName, phoneNumber, streetName, houseNumber, houseNumberAnnex,
@@ -200,4 +202,5 @@ public class User {
     public void setPassword( String password ) {
         this.password = password;
     }
+
 }
