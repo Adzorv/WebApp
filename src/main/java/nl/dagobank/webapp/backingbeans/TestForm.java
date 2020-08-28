@@ -1,11 +1,14 @@
 package nl.dagobank.webapp.backingbeans;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class TestForm {
 
     private int id;
     private String naam;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
 
     public TestForm() {
@@ -16,6 +19,7 @@ public class TestForm {
         super();
         this.id = id;
         this.naam = naam;
+        this.date = date;
     }
 
     public int getId() {
