@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public abstract class User {
+public class User {
 
 
     @Id
