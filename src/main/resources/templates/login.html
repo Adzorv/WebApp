@@ -5,13 +5,16 @@
     <title>Welkom!</title>
 </head>
 <body>
-<form method="post" th:action="@{login}">
+<form method="post" th:action="@{login}" th:object="${testform}">
     <table>
         <tr>
-            <td>Gebruikersnaam:</td><td><input type="text" name="input_name"></td>
+            <td>Gebruikersnaam:</td><td><input type="text" name="input_name" th:field="*{naam}"></td>
         </tr>
         <tr>
-            <td>Wachtwoord:</td><td><input type="password" name="input_password"></td>
+            <td>Id:</td><td><input type="number" name="input_id" th:field="*{id}"></td>
+        </tr>
+        <tr>
+            <td>Datum:</td><td><input type="date" name="input_date" th:field="*{date}"></td>
         </tr>
         <tr>
             <td><input type="submit" value="Login"></td>
