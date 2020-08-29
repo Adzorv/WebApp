@@ -1,4 +1,4 @@
-package nl.dagobank.webapp.domain;
+package nl.dagobank.webapp.service;
 
 public class Iban {
     private String iban;

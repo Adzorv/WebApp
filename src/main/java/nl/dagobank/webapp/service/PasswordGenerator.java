@@ -1,8 +1,11 @@
-package nl.dagobank.webapp.domain;
+package nl.dagobank.webapp.service;
+
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
 
 public class PasswordGenerator {
     private static final String LOWER = "abcdefghijklmnopqrstuvwxyz";
@@ -74,7 +77,7 @@ public class PasswordGenerator {
         StringBuilder password = new StringBuilder(length);
         Random random = new Random(System.nanoTime());
 
-        // Collect the categories to use.
+        // Collect the categories to use all set to true
         List<String> charCategories = new ArrayList<>(10);
         if (useLower) {
             charCategories.add(LOWER);

@@ -1,5 +1,7 @@
 package nl.dagobank.webapp.domain;
 
+import nl.dagobank.webapp.service.PasswordGenerator;
+import nl.dagobank.webapp.service.UsernameGenerator;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

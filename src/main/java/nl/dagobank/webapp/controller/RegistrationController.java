@@ -1,6 +1,5 @@
 package nl.dagobank.webapp.controller;
 
-import nl.dagobank.webapp.domain.Customer;
 import nl.dagobank.webapp.service.CustomerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -65,10 +64,10 @@ public class RegistrationController {
             @RequestParam(name = "bsn") int bsn,
             Model model) {
         model.addAttribute(bsn);
-        if(customerService.checkIfBSNInDB(bsn)){
+        if(customerService.checkIfBSNIsInDB(bsn)){
             return "BSNFoundInDB";
         }
-        if(!customerService.checkifBSNIsCorrect(bsn))
+        if(!customerService.checkIfBSNIsCorrect(bsn))
             return "BSNInvalid";
         else {
             return "default";

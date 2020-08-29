@@ -1,9 +1,21 @@
-package nl.dagobank.webapp.domain;
+package nl.dagobank.webapp.service;
+
+import nl.dagobank.webapp.dao.CustomerDao;
+
+
 
 public class UsernameGenerator {
     private String userName;
+    private final CustomerDao customerDao;
+
 
     public UsernameGenerator() {
+        this(null);
+    }
+
+    public UsernameGenerator(CustomerDao customerDao) {
+        super();
+        this.customerDao = customerDao;
     }
 
     public String createUsername(String firstName, String lastName) {
@@ -16,14 +28,19 @@ public class UsernameGenerator {
         } else {
             userName = String.format("%s%s%03d", lastName.substring(0, 3), firstName.substring(0, 3), 1);
         }
-        // while (checkIfUsernameExists(userName)) {//fixme how to access DB through JPA/Hibernate?
-        //userName = String.format("%s%03d", userName.substring(0, 6), (Integer.parseInt(userName.substring(6)) + 1));
-        // }
+       // while (customerDao.findByUserName(userName) != null) {//fixme: nullpointer exception
+           while(customerDao.existsByUserName(userName)) {
+        userName = String.format("%s%03d", userName.substring(0, 6), (Integer.parseInt(userName.substring(6)) + 1));
+         }
         return userName;
     }
 
     public String getUserName() {
         return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }
 

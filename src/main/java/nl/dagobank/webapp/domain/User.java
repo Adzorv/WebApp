@@ -1,6 +1,9 @@
 package nl.dagobank.webapp.domain;
 
 
+import nl.dagobank.webapp.service.PasswordGenerator;
+import nl.dagobank.webapp.service.UsernameGenerator;
+
 import javax.persistence.*;
 import java.util.Date;
 

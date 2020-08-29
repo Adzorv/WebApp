@@ -15,11 +15,11 @@ public class CustomerService {
         this.customerDao = customerDao;
     }
 
-    public boolean checkIfBSNInDB(int bsn) {
-        return this.customerDao.findByBsn(bsn);
+    public boolean checkIfBSNIsInDB(int bsn) {
+        return customerDao.findByBsn(bsn) != null;
     }
 
-    public boolean checkifBSNIsCorrect(int inputBSN) {
+    public boolean checkIfBSNIsCorrect(int inputBSN) {
         if (inputBSN <= 9999999 || inputBSN > 999999999) {
             return false;
         }
