@@ -10,18 +10,26 @@ public class CustomerService {
     private CustomerDao customerDao;
 
     @Autowired
-    public CustomerService( CustomerDao customerDao ) {
+    public CustomerService(CustomerDao customerDao) {
         super();
         this.customerDao = customerDao;
     }
 
-    public boolean checkIfBSNInDB(int bsn){
+    public boolean checkIfBSNInDB(int bsn) {
         return this.customerDao.findByBsn(bsn);
     }
 
-    public boolean checkifBSNIsCorrect(){
-        //fixme: implement the elftoets
-        return false;
-
+    public boolean checkifBSNIsCorrect(int inputBSN) {
+        if (inputBSN <= 9999999 || inputBSN > 999999999) {
+            return false;
+        }
+        int bsnToCheck = -1 * inputBSN % 10;
+        for (int multiplier = 2; inputBSN > 0; multiplier++) {
+            int val = (inputBSN /= 10) % 10;
+            bsnToCheck += multiplier * val;
+        }
+        return bsnToCheck != 0 && bsnToCheck % 11 == 0;
     }
+
+
 }

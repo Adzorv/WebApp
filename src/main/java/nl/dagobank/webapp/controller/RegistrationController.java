@@ -62,14 +62,13 @@ public class RegistrationController {
 
     @GetMapping("/switch-case")
     public String switchBSNValue(
-            //fixme: how to check if BSN is invalid or if it already exists?
             @RequestParam(name = "bsn") int bsn,
             Model model) {
         model.addAttribute(bsn);
         if(customerService.checkIfBSNInDB(bsn)){
             return "BSNFoundInDB";
         }
-        if(!customerService.checkifBSNIsCorrect())
+        if(!customerService.checkifBSNIsCorrect(bsn))
             return "BSNInvalid";
         else {
             return "default";
