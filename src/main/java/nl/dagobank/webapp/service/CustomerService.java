@@ -14,4 +14,14 @@ public class CustomerService {
         super();
         this.customerDao = customerDao;
     }
+
+    public boolean checkIfBSNInDB(int bsn){
+        return this.customerDao.findByBsn(bsn);
+    }
+
+    public boolean checkifBSNIsCorrect(){
+        //fixme: implement the elftoets
+        return false;
+
+    }
 }
