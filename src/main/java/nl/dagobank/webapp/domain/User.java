@@ -45,9 +45,7 @@ public abstract class User {
     private String password;
 
 
-    public User(){
-
-            }
+    public User(){}
 
     public User(String firstName, String prefix, String lastName, String phoneNumber, String streetName, int houseNumber,
                 String houseNumberAnnex, String postCode, String city,String email, Date birthDate, int bsn, String userName, String password) {
@@ -66,7 +64,6 @@ public abstract class User {
         this.userName = userName;
         this.password = password;
     }
-
 
 
     @Override

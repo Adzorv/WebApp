@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 
-
 @Controller
 public class RegistrationController {
     @Autowired
@@ -33,7 +32,6 @@ public class RegistrationController {
         return mav;
 
     }
-
 
     @PostMapping("register")
     public ModelAndView registrationHandler(@ModelAttribute RegistrationForm registrationForm) {

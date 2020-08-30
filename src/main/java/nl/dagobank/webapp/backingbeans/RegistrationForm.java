@@ -4,6 +4,8 @@ package nl.dagobank.webapp.backingbeans;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class RegistrationForm {
@@ -108,8 +110,8 @@ public class RegistrationForm {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+    public void setBirthDate(String date) throws ParseException {
+        this.birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
     }
 
     public int getBsn() {
