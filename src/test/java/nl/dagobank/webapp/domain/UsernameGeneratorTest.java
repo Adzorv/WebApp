@@ -3,14 +3,20 @@ package nl.dagobank.webapp.domain;
 import nl.dagobank.webapp.service.PasswordGenerator;
 import nl.dagobank.webapp.service.UsernameGenerator;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+@SpringBootTest
 class UsernameGeneratorTest {
+    @Autowired
+    UsernameGenerator usernameGenerator;
+    @Autowired
+    PasswordGenerator passwordGenerator;
 
     @Test
     void createUsername() {
-        UsernameGenerator usernameGenerator = new UsernameGenerator();
+
         String expected = "JanTes001";
         String actual = usernameGenerator.createUsername("Tessa", "Janssen");
         assertEquals(expected, actual);
@@ -48,7 +54,6 @@ class UsernameGeneratorTest {
     @Test
         //fixme: how to test randomly created Strings?
     void createPassword() {
-        PasswordGenerator passwordGenerator = new PasswordGenerator(new PasswordGenerator.PasswordGeneratorBuilder());
         for (int i = 0; i < 10; i++) {
             String actual = passwordGenerator.generate(10);
             System.out.println(actual);

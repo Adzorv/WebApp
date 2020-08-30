@@ -17,18 +17,18 @@ class RegistrationControllerTest {
     }
 
     @Test
-    void registrationpageHandler() {
+    void registrationPageHandle() {
     }
 
     @Test
-    void registrationHandler() {
+    void testRegistrationHandler() {
     }
 
     @Test
-    void registrationFailedHandler() {
+    void testRegistrationFailedHandler() {
     }
 
     @Test
-    void switchBSNValue() {
+    void testSwitchBSNValue() {
     }
 }

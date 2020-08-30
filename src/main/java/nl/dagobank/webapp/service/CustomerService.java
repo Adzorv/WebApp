@@ -1,19 +1,15 @@
 package nl.dagobank.webapp.service;
 
 import nl.dagobank.webapp.dao.CustomerDao;
+import nl.dagobank.webapp.domain.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CustomerService {
 
-    private CustomerDao customerDao;
-
     @Autowired
-    public CustomerService(CustomerDao customerDao) {
-        super();
-        this.customerDao = customerDao;
-    }
+    private CustomerDao customerDao;
 
     public boolean checkIfBSNIsInDB(int bsn) {
         return customerDao.findByBsn(bsn) != null;
@@ -32,4 +28,8 @@ public class CustomerService {
     }
 
 
+    public void saveCustomer(Customer customer) {
+        customerDao.save(customer);
+
+    }
 }

@@ -8,7 +8,6 @@ public class ContactForm {
     private String phoneNumber;
 
     public ContactForm() {
-        this(null, null, null, null, null);
     }
 
     public ContactForm(String firstName, String prefix, String lastName, String email, String phoneNumber) {

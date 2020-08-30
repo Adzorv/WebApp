@@ -1,22 +1,23 @@
 package nl.dagobank.webapp.service;
 
 import nl.dagobank.webapp.dao.CustomerDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 
-
+@Service
 public class UsernameGenerator {
     private String userName;
-    private final CustomerDao customerDao;
 
+    @Autowired
+    public CustomerDao customerDao;
 
     public UsernameGenerator() {
-        this(null);
     }
-
-    public UsernameGenerator(CustomerDao customerDao) {
-        super();
+    /* public UsernameGenerator(CustomerDao customerDao) {
         this.customerDao = customerDao;
-    }
+    }*/
+
 
     public String createUsername(String firstName, String lastName) {
         if (lastName.length() < 3 && firstName.length() < 3) {
@@ -28,7 +29,6 @@ public class UsernameGenerator {
         } else {
             userName = String.format("%s%s%03d", lastName.substring(0, 3), firstName.substring(0, 3), 1);
         }
-       // while (customerDao.findByUserName(userName) != null) {//fixme: nullpointer exception
            while(customerDao.existsByUserName(userName)) {
         userName = String.format("%s%03d", userName.substring(0, 6), (Integer.parseInt(userName.substring(6)) + 1));
          }
