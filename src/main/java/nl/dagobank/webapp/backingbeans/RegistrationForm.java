@@ -17,7 +17,7 @@ public class RegistrationForm {
     private String postCode;
     private String city;
     private String email;
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
     private int bsn;
 
