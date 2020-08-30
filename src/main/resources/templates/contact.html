@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact</title>
+</head>
+<body>
+<h1>Contact pagina</h1>
+<h2>Vul het contact formulier in.</h2>
+<h3> Wij nemen zo spoedig moegelijk contact met je op</h3>
+<form method="post" th:action="@{contact}" th:object="${contactform}">
+    <table>
+        <tr>
+            <td>Voornaam:</td><td><input type="text" name="input_firstName" th:field="*{firstName}"></td>
+        </tr>
+        <tr>
+            <td>Tussenvoegsel:</td><td><input type="text" name="input_prefix" th:field="*{prefix}"></td>
+        </tr>
+        <tr>
+            <td>Achternaam:</td><td><input type="text" name="input_lastName" th:field="*{lastName}"></td>
+        </tr>
+        <tr>
+        <tr>
+            <td>Email:</td><td><input type="text" name="input_email" th:field="*{email}"></td>
+        </tr>
+        <tr>
+        <tr>
+            <td>Telefoon:</td><td><input type="text" name="input_phoneNumber" th:field="*{phoneNumber}"></td>
+        </tr>
+        <tr>
+            <td><input type="submit" name="contact" value="contact"></td>
+        </tr>
+    </table>
+</form>
+<a href="/homepage">Terug naar home</a>
+</body>
+</html>

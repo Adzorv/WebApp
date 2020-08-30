@@ -9,59 +9,46 @@
 <body>
 <h1>Registreer</h1>
 <h2>Vul het formulier in</h2>
-<form method="post" th:action="@{register}">
+<form method="post" th:action="@{register}" th:object="${registrationForm}">
     <table>
         <tr>
-            <td>Voornaam :</td>
-            <td><input type="text" name="first_name"/></td>
+            <td>Voornaam :</td><td><input type="text" name="input_firstName" th:field="*{firstName}" required></td>
         </tr>
         <tr>
-            <td>Tussenvoegsel :</td>
-            <td><input type="text" name="prefix"/></td>
+            <td>Tussenvoegsel :</td><td><input type="text" name="input_prefix" th:field="*{prefix}"></td>
         </tr>
         <tr>
-            <td>Achternaam :</td>
-            <td>
-                <input type="text" name="last_name"/></td>
+            <td>Achternaam :</td><td><input type="text" name="input_lastName" th:field="*{lastName}" required></td>
         </tr>
         <tr>
-            <td>Telefoon :</td>
-            <td><input type="text" name="phone_number"/></td>
+            <td>Telefoon :</td><td><input type="text" name="input_lastName" th:field="*{phoneNumber}" required></td>
         </tr>
         <tr>
-            <td>Straatnaam :</td>
-            <td><input type="text" name="street_name"/></td>
+            <td>Straat :</td><td><input type="text" name="input_streetName" th:field="*{streetName}" required></td>
         </tr>
         <tr>
-            <td>Huisnummer :</td>
-            <td><input type="number" name="house_number"/></td>
+            <td>Huisnummer :</td><td><input type="number" name="input_houseNumber" th:field="*{houseNumber}" required></td>
         </tr>
         <tr>
-            <td>Toevoeging :</td>
-            <td><input type="text" name="house_number_annex"/></td>
+            <td>Toevoeging :</td><td><input type="text" name="input_house_number_annex" th:field="*{houseNumberAnnex}"></td>
         </tr>
         <tr>
-            <td>Postcode :</td>
-            <td><input type="text" name="post_code"/></td>
+            <td>Postcode :</td><td><input type="text" name="input_post_code" th:field="*{postCode}" required></td>
         </tr>
         <tr>
-            <td> Woonplaats :</td>
-            <td><input type="text" name="city"/></td>
+            <td> Woonplaats :</td><td><input type="text" name="input_city" th:field="*{city}" required></td>
         </tr>
         <tr>
-            <td>Email :</td>
-            <td><input type="text" name="email"/></td>
+            <td>Email :</td><td><input type="text" name="input_email" th:field="*{email}" required></td>
         </tr>
         <tr>
-            <td>Geboortedatum :</td>
-            <td><input type="date" name="birth_date"/></td>
+            <td>Geboortedatum :</td><td><input type="date" name="input_birth_date" th:field="*{birthDate}" required></td>
         </tr>
         <tr>
-            <td>BSN :</td>
-            <td><input type="number" name="bsn"/></td>
+            <td>BSN :</td><td><input type="number" name="bsn"th:field="*{bsn}" required></td>
         </tr>
     </table>
+    <input type="submit" name="register" value="Registreer"/>
 </form>
-<input type="submit" name="register" value="Registreer"/>
 </body>
 </html>

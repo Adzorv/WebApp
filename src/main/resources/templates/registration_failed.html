@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Registratie mislukt</title>
+</head>
+<body>
+<h1> Registratie is niet gelukt.</h1>
+<h2>Registratie is niet gelukt omdat: </h2>
+
+<!--fixme: switch case for reasons why registration did not work-->
+<!--<table>
+    <tr>
+        <td th:switch=""
+    </tr>
+</table>-->
+<div th:if="${bsnValue} eq 'BSNInValid'" }>Het Burger Service Nummer is incorrect.</div>
+<div th:if="${bsnValue} eq 'BSNFoundInDB'" }> Je bent al geregistreerd met dit Burger Service Nummer.
+    <p>Hier kun je <a href="/login">inloggen.</a></p>
+    <p>Ben je je inloggegevens vergeten of heb je hulp nodig?</p>
+    <p>Neem dan <a href="/contact">contact</a> met ons op.</p>
+</div>
+<div th:if="${bsnValue} eq 'default'" }>Er is iets fout gegaan. Neem <a href="/contact">contact</a> met ons op.
+</div>
+</body>
+</html>

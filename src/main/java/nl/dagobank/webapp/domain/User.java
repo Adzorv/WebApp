@@ -1,10 +1,14 @@
 package nl.dagobank.webapp.domain;
 
 
+import nl.dagobank.webapp.service.PasswordGenerator;
+import nl.dagobank.webapp.service.UsernameGenerator;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "user")
 public abstract class User {
 
 
@@ -40,10 +44,6 @@ public abstract class User {
     @Column
     private String password;
 
-    public User() {
-        this.firstName = "Karl";
-    }
-
     public User(int id, String firstName, String prefix, String lastName, String phoneNumber, String streetName, int houseNumber,
                 String houseNumberAnnex, String postCode, String city, String email, Date date, int bsn) {
         this(id, firstName, prefix, lastName, phoneNumber, streetName, houseNumber, houseNumberAnnex,
@@ -51,9 +51,11 @@ public abstract class User {
                 new PasswordGenerator(new PasswordGenerator.PasswordGeneratorBuilder()).generate(10));
     }
 
-    public User(int id, String firstName, String prefix, String lastName, String phoneNumber, String streetName, int houseNumber,
+
+    public User(){}
+
+    public User(String firstName, String prefix, String lastName, String phoneNumber, String streetName, int houseNumber,
                 String houseNumberAnnex, String postCode, String city,String email, Date birthDate, int bsn, String userName, String password) {
-        super();
         this.firstName = firstName;
         this.prefix = prefix;
         this.lastName = lastName;
@@ -69,7 +71,6 @@ public abstract class User {
         this.userName = userName;
         this.password = password;
     }
-
 
 
     @Override

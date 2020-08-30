@@ -1,7 +1,6 @@
 package nl.dagobank.webapp.domain;
 
 import nl.dagobank.webapp.service.Iban;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
