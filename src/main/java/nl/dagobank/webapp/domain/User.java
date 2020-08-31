@@ -34,6 +34,7 @@ public abstract class User {
     @Column
     private LocalDate birthDate;
     @Column(unique = true, nullable = false)
+
     private int bsn;
     @Column
     private String userName;
