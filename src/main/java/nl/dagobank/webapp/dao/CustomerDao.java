@@ -16,6 +16,9 @@ public interface CustomerDao extends CrudRepository<Customer, Integer> {
 
     boolean existsByUserName(String userName);
 
+    Customer findByUserNameAndPassword(String userName, String password);
+
+    Optional<Customer> findByUserName(String userName);
 
 }
 

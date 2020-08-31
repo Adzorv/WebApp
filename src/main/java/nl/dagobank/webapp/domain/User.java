@@ -33,7 +33,8 @@ public abstract class User {
     private String email;
     @Column
     private Date birthDate;
-    @Column(unique = true, nullable = false)
+//    @Column(unique = true, nullable = false)
+    @Column
     private int bsn;
     @Column
     private String userName;
