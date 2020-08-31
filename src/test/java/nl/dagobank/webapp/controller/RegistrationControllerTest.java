@@ -45,8 +45,8 @@ class RegistrationControllerTest {
         customer.setPostCode("1014AA");
         customer.setCity("Amsterdam");
         customer.setPhoneNumber("0612345678");
-        //date = new LocalDate(2000, 11, 11);
-        //customer.setBirthDate(date);//FIXME: how to input date?
+        date = LocalDate.of(2000, 11, 11);
+        customer.setBirthDate(date);//FIXME: how to input date?
         customer.setEmail("janj@gmail.com");
         customer.setBsn(135076569);
         String password = passwordGenerator.generate(10);
