@@ -25,7 +25,6 @@ public class LoginController {
         mav.addObject( "testform", new TestForm() );
         mav.addObject( "customer", new Customer() );
         return mav;
-
     }
 
     @PostMapping("login")
