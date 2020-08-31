@@ -46,7 +46,7 @@ class RegistrationControllerTest {
         customer.setCity("Amsterdam");
         customer.setPhoneNumber("0612345678");
         date = LocalDate.of(2000, 11, 11);
-        customer.setBirthDate(date);//FIXME: how to input date?
+        customer.setBirthDate(date);
         customer.setEmail("janj@gmail.com");
         customer.setBsn(135076569);
         String password = passwordGenerator.generate(10);
@@ -65,7 +65,7 @@ class RegistrationControllerTest {
         customer2.setPostCode("1011AZ");
         customer2.setCity("Amsterdam");
         customer2.setPhoneNumber("0624345678");
-        //customer.setBirthDate(new LocalDate(2000,11,1));
+        customer.setBirthDate(LocalDate.of(2000,11,1));
         customer2.setEmail("joop@gmail.com");
         customer2.setBsn(135076569);//je kunt niet 2x registreren met hetzelfde bsn dus geeft het een foutmelding ??/**/
         password = passwordGenerator.generate(10);
