@@ -1,9 +1,6 @@
 package nl.dagobank.webapp.backingbeans;
 
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import org.springframework.format.annotation.DateTimeFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 public class RegistrationForm {

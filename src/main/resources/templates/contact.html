@@ -8,7 +8,7 @@
 <h1>Contact pagina</h1>
 <h2>Vul het contact formulier in.</h2>
 <h3> Wij nemen zo spoedig moegelijk contact met je op</h3>
-<form method="post" th:action="@{contact}" th:object="${contactForm}">
+<form method="post" th:action="@{contact}" th:object="${contactform}">
     <table>
         <tr>
             <td>Voornaam:</td>
@@ -23,27 +23,24 @@
             <td><input type="text" name="input_lastName" th:field="*{lastName}"></td>
         </tr>
         <tr>
-        <tr>
             <td>Email:</td>
             <td><input type="text" name="input_email" th:field="*{email}"></td>
         </tr>
-        <tr>
         <tr>
             <td>Telefoon:</td>
             <td><input type="text" name="input_phoneNumber" th:field="*{phoneNumber}"></td>
         </tr>
         <tr>
-        <tr>
-        <td>Betreft:</td><!--hoe werkt het dropdownmenu onderwerpen niet zichtbaar -->
+            <td>Betreft:</td>
             <td><select th:field="*{subjects}">
-                <option> Kies het onderwerp</option>
-                <option th:each="subject : ${subjects}" th:value="${subject.subjects}" th:text="${subject.subjects}"></option>
-            </select></td>
+                <option th:each="subject : ${subjects}" th:value="${subject}" th:text="${subject}"></option>
+                <option value="Maak een keuze..." selected disabled>Maak een keuze...</option>
+            </select> </td>
         </tr>
         <tr>
-        <tr>
             <td>Bericht:</td>
-            <td><input type="text" name="input_message" th:field="*{message}"></td>
+            <td><input type="text" name="input_message" th:field="*{message}"
+                       insert="Schrijf hier je vraag of opmerking...."></td>
         </tr>
         <tr>
             <td><input type="submit" name="contact" value="Verzend bericht"></td>

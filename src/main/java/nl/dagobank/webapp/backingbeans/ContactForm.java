@@ -9,8 +9,8 @@ public class ContactForm {
     private String lastName;
     private String email;
     private String phoneNumber;
-    private String subject;
-    private List<String> subjects = Arrays.asList("Inloggegevens", "Registratie", "Openen rekening", "Aanmaken mederekeninghouder");
+
+    public static List<String> subjects = Arrays.asList("Maak een keuze...", "1. Inloggegevens", "2. Registratie", "3. Openen rekening", "4. Mederekeninghouder", "5. Klacht", "6. Compliment", "7. Anders");
     private String message;
 
     public ContactForm() {
@@ -64,13 +64,13 @@ public class ContactForm {
         this.message = message;
     }
 
-    public String getSubject() {
+    /*public String getSubject() {
         return subject;
     }
 
     public void setSubject(String subject) {
         this.subject = subject;
-    }
+    }*/
 
     public List<String> getSubjects() {
         return subjects;
