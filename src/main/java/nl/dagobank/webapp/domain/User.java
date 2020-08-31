@@ -40,7 +40,6 @@ public abstract class User {
     @Column
     private String password;
 
-
     public User(){}
 
     public User(String firstName, String prefix, String lastName, String phoneNumber, String streetName, int houseNumber,
@@ -192,4 +191,5 @@ public abstract class User {
     public void setPassword( String password ) {
         this.password = password;
     }
+
 }
