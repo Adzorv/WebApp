@@ -1,5 +1,6 @@
 package nl.dagobank.webapp.service;
 
+import nl.dagobank.webapp.dao.CustomerDao;
 import nl.dagobank.webapp.domain.Customer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +11,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 class UsernameGeneratorTest {
     @Autowired
+    CustomerDao customerDao;
+    @Autowired
+    CustomerService customerService;
+    @Autowired
     UsernameGenerator usernameGenerator;
     @Autowired
     PasswordGenerator passwordGenerator;
+
 
     @Test
     void createUsername() {
@@ -45,14 +51,13 @@ class UsernameGeneratorTest {
         actual = usernameGenerator.createUsername("Martje", "Teissen");
         assertEquals(expected, actual);
 
-      /*  Customer customer = new Customer();
+        Customer customer = new Customer();
         customer.setUserName("TeiMar001");
-        CustomerService customerService = new CustomerService();
-        customerService.saveCustomer(customer);//FIXME: customerdao gives null pointer exception why?
+        customerService.saveCustomer(customer);
 
         expected = "TeiMar002";
         actual = usernameGenerator.createUsername("Martha", "Teil");
-        assertEquals(expected, actual);*/
+        assertEquals(expected, actual);
 
         expected = "UpxMox001";
         actual = usernameGenerator.createUsername("Mo", "Up");

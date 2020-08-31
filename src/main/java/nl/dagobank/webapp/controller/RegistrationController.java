@@ -67,7 +67,7 @@ public class RegistrationController {
         if (customerService.checkIfBSNIsInDB(bsn)) {
             return "BSNFoundInDB";
         }
-        if (!customerService.checkIfBSNIsCorrect(bsn))
+        else if (!customerService.checkIfBSNIsCorrect(bsn))
             return "BSNInvalid";
         else {
             return "default";

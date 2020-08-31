@@ -23,30 +23,26 @@
             <td><input type="text" name="input_lastName" th:field="*{lastName}"></td>
         </tr>
         <tr>
-        <tr>
             <td>Email:</td>
             <td><input type="text" name="input_email" th:field="*{email}"></td>
         </tr>
-        <tr>
         <tr>
             <td>Telefoon:</td>
             <td><input type="text" name="input_phoneNumber" th:field="*{phoneNumber}"></td>
         </tr>
         <tr>
-        <tr>
-        <td>Betreft:</td><!--hoe werkt het dropdownmenu onderwerpen niet zichtbaar-->
+            <td>Betreft:</td>
             <td><select th:field="*{subjects}">
-                <option value=""> Kies het onderwerp</option>
                 <option th:each="subject : ${subjects}" th:value="${subject}" th:text="${subject}"></option>
-            </select></td>
+                <option value="Maak een keuze..." selected disabled>Maak een keuze...</option>
+            </select> </td>
         </tr>
-        <tr>
         <tr>
             <td>Bericht:</td>
-            <td><input type="text" name="input_message" th:field="*{message}"></td>
-        </tr>
-        <tr>
-            <td><input type="submit" name="contact" value="contact"></td>
+            <td><input type="text" name="input_message" th:field="*{message}"
+                       value="Schrijf hier je vraag of opmerking...." disabled></td> <!--ik wil in grijs deze tekst laten zien waar je dan overheen schrijft-->
+        </tr>        <tr>
+            <td><input type="submit" name="contact" value="Verzend bericht"></td>
         </tr>
     </table>
 </form>

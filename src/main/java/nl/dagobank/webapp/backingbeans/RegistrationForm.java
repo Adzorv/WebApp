@@ -1,9 +1,7 @@
 package nl.dagobank.webapp.backingbeans;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class RegistrationForm {
     private String firstName;
@@ -16,8 +14,8 @@ public class RegistrationForm {
     private String postCode;
     private String city;
     private String email;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date birthDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate birthDate;
     private int bsn;
 
     public RegistrationForm() {
@@ -103,12 +101,12 @@ public class RegistrationForm {
         this.email = email;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(String date) throws ParseException {
-        this.birthDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+    public void setBirthDate(LocalDate birthday) {
+       this.birthDate = birthday;
     }
 
     public int getBsn() {
