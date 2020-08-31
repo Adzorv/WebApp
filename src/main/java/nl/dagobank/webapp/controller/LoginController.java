@@ -6,6 +6,7 @@ import nl.dagobank.webapp.domain.Customer;
 import nl.dagobank.webapp.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,34 +40,29 @@ public class LoginController {
     }
 
     @PostMapping( "login" )
-    public ModelAndView welcomeHandler( @ModelAttribute LoginForm loginForm ) {
-        ModelAndView mav = new ModelAndView();
+    public String welcomeHandler(Model model, @ModelAttribute LoginForm loginForm ) {
         String username = loginForm.getUsername();
         String password = loginForm.getPassword();
         Optional<Customer> customerOptional = customerDao.findByUserName( username );
         if ( customerOptional.isPresent() ) {
             Customer customer = customerOptional.get();
             System.out.println( "User gevonden!" );
-
             if ( customer.getPassword().equals( password ) ) {
-                mav.addObject( "user", customer );
-                mav.setViewName( "login_success" );
+                model.addAttribute( "user", customer );
+                return "redirect:/overview";
             } else {
                 loginForm.setPasswordError( "verkeerd wachtwoord" );
-                mav.addObject( "loginform", loginForm );
-                mav.setViewName( "login" );
+                model.addAttribute( "loginform", loginForm );
                 System.out.println("Verkeerd wachtwoord ingevoerd!");
+                return "login";
             }
-
         } else {
             loginForm.setUsernameError( USERNAMEERROR );
-            mav.addObject( "user", null );
-            mav.addObject( "loginform", loginForm );
-            mav.setViewName( "login" );
+            model.addAttribute( "loginform", loginForm );
+            model.addAttribute( "user", null );
             System.out.println( "Geen user gevonden!" );
+            return "login";
         }
-
-        return mav;
     }
 
     @GetMapping( "vuldatabase" )

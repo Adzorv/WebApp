@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Overview</title>
@@ -18,8 +18,11 @@
         <div class="card">
             <div class="container">
                 <h2>Particuliere Rekening</h2>
-                <p class="title">V.M. VAN DER STRUIS</p>
-                <p>NL 09 DAGO 0483 8498 84</p>
+                <p class="title" th:text="${user.userName}"> </p>
+                <p class="title" th:text="${user.bsn}"> </p>
+                <p class="title" th:text="${user.firstName}"> </p>
+                <p class="title" th:text="${user.firstName}"> </p>
+
                 <p><button class="button">Ga naar transacties</button></p>
             </div>
         </div>
