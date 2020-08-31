@@ -20,14 +20,12 @@ import java.util.Optional;
 @SessionAttributes( "user" )
 public class LoginController {
 
-    private CustomerService customerService;
     private CustomerDao customerDao;
-    private final String USERNAMEERROR = "Deze gebruikersnaam bestaat niet";
+    private static final String USERNAMEERROR = "Deze gebruikersnaam bestaat niet";
 
     @Autowired
-    public LoginController( CustomerService customerService, CustomerDao customerDao ) {
+    public LoginController( CustomerDao customerDao ) {
         super();
-        this.customerService = customerService;
         this.customerDao = customerDao;
     }
 
@@ -44,6 +42,7 @@ public class LoginController {
         String username = loginForm.getUsername();
         String password = loginForm.getPassword();
         Optional<Customer> customerOptional = customerDao.findByUserName( username );
+
         if ( customerOptional.isPresent() ) {
             Customer customer = customerOptional.get();
             System.out.println( "User gevonden!" );
@@ -55,7 +54,7 @@ public class LoginController {
                 loginForm.setPasswordError( "verkeerd wachtwoord" );
                 mav.addObject( "loginform", loginForm );
                 mav.setViewName( "login" );
-                System.out.println("Verkeerd wachtwoord ingevoerd!");
+                System.out.println( "Verkeerd wachtwoord ingevoerd!" );
             }
 
         } else {
