@@ -19,7 +19,6 @@ public class ContactpageController {
         ModelAndView mav = new ModelAndView("contact");
         mav.addObject("contactform", new ContactForm());
         return mav;
-
     }
 
     @PostMapping("contact")
