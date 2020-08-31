@@ -31,4 +31,7 @@ public class CustomerService {
         customerDao.save(customer);
     }
 
+    public boolean isBSNValid(int bsn) {
+        return (checkIfBSNIsCorrect(bsn) && !checkIfBSNIsInDB(bsn));
+    }
 }

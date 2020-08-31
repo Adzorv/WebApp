@@ -34,44 +34,47 @@ public class RegistrationController {
     }
 
     @PostMapping("register")
-    public ModelAndView registrationHandler(@ModelAttribute RegistrationForm registrationForm) {
+    public ModelAndView registrationHandler(@ModelAttribute RegistrationForm registrationForm, Model model) {
         ModelAndView mav = new ModelAndView("registration_success");
         String userName = usernameGenerator.createUsername(registrationForm.getFirstName(), registrationForm.getLastName());
         String password = passwordGenerator.generate(10);
-        Customer customer = new Customer(registrationForm.getFirstName(),
-                registrationForm.getPrefix(),
-                registrationForm.getLastName(),
-                registrationForm.getPhoneNumber(),
-                registrationForm.getStreetName(),
-                registrationForm.getHouseNumber(),
-                registrationForm.getHouseNumberAnnex(),
-                registrationForm.getPostCode(),
-                registrationForm.getCity(),
-                registrationForm.getEmail(),
-                registrationForm.getBirthDate(),
-                registrationForm.getBsn(), userName, password);
-        customerService.saveCustomer(customer);
-        return mav;
+
+        if (customerService.isBSNValid(registrationForm.getBsn())) {
+            Customer customer = new Customer(registrationForm.getFirstName(),
+                    registrationForm.getPrefix(),
+                    registrationForm.getLastName(),
+                    registrationForm.getPhoneNumber(),
+                    registrationForm.getStreetName(),
+                    registrationForm.getHouseNumber(),
+                    registrationForm.getHouseNumberAnnex(),
+                    registrationForm.getPostCode(),
+                    registrationForm.getCity(),
+                    registrationForm.getEmail(),
+                    registrationForm.getBirthDate(),
+                    registrationForm.getBsn(), userName, password);
+            customerService.saveCustomer(customer);
+            model.addAttribute("user", customer);
+            return mav;
+        } else {
+            ModelAndView mavFail = new ModelAndView("registration_failed");
+            if (customerService.checkIfBSNIsInDB(registrationForm.getBsn())) {
+                model.addAttribute("bsnValue", "BSNFoundInDB");
+                return mavFail;
+            } else if (!customerService.checkIfBSNIsCorrect(registrationForm.getBsn())) {
+                model.addAttribute("bsnValue", "BSNInvalid");
+                return mavFail;
+            } else {
+                model.addAttribute("bsnValue", "default");
+                return mavFail;
+            }
+        }
     }
+
 
     @GetMapping("registration_failed")
     public String registrationFailedHandler() {
         return "registration_failed";
     }
 
-    @GetMapping("switch-case")
-    public String switchBSNValue(
-            @RequestParam(name = "bsn") int bsn,
-            Model model) {
-        model.addAttribute(bsn);
-        if (customerService.checkIfBSNIsInDB(bsn)) {
-            return "BSNFoundInDB";
-        }
-        else if (!customerService.checkIfBSNIsCorrect(bsn))
-            return "BSNInvalid";
-        else {
-            return "default";
-        }
-    }
-}
 
+}
