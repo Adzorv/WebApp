@@ -10,7 +10,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,12 +23,34 @@ import static org.junit.jupiter.api.Assertions.*;
 class RegistrationControllerTest {
     @Autowired
     CustomerDao customerDao;
+    @Autowired
+    UsernameGenerator usernameGenerator;
+    @Autowired
+    PasswordGenerator passwordGenerator;
 
     public RegistrationControllerTest() {
     }
 
     @BeforeEach
     void setUp() {
+        /*Customer customer = new Customer();
+        customer.setFirstName("Jan");
+        customer.setPrefix("van de");
+        customer.setLastName("Jansen");
+        customer.setStreetName("Overtoom");
+        customer.setHouseNumber(23);
+        customer.setHouseNumberAnnex("2 hoog");
+        customer.setPostCode("1014AA");
+        customer.setCity("Amsterdam");
+        customer.setPhoneNumber("0612345678");
+        customer.setBirthDate(new LocalDate(2000, 11, 11));//FIXME: how to input date?
+        customer.setEmail("janj@gmail.com");
+        customer.setBsn(135076569);
+        String password = passwordGenerator.generate(10);
+        customer.setPassword(password);
+        String userName = usernameGenerator.createUsername(customer.getFirstName(), customer.getLastName());
+        customer.setUserName(userName);*/
+
     }
 
     @AfterEach
@@ -48,21 +73,19 @@ class RegistrationControllerTest {
         customer.setPostCode("1014AA");
         customer.setCity("Amsterdam");
         customer.setPhoneNumber("0612345678");
-        //customer.setBirthDate('2010/02/11');//FIXME: how to input date?
+        //git acustomer.setBirthDate(new LocalDate(2011,11,1));//FIXME: how to input date?
         customer.setEmail("janj@gmail.com");
         customer.setBsn(135076569);
-        PasswordGenerator passwordGenerator = new PasswordGenerator();
         String password = passwordGenerator.generate(10);
         customer.setPassword(password);
-       /* UsernameGenerator usernameGenerator = new UsernameGenerator();
         String userName = usernameGenerator.createUsername(customer.getFirstName(), customer.getLastName());
-        customer.setUserName(userName);//FIXME: gives a nullpointerexception for customerDao why?
-*/
-        customerDao.save(customer);
+        customer.setUserName(userName);
+
+       customerDao.save(customer);
 
         assertNotNull(customerDao.findById(customer.getId()));
         assertTrue(customerDao.findByBsn(135076569).getPostCode().equals("1014AA"));
-        //assertTrue(customerDao.existsByUserName("JanJan001"));
+        assertTrue(customerDao.existsByUserName("JanJan001"));
         List<Customer> customerList = Arrays.asList(customerDao.findAllByCity("Amsterdam"));
         assertTrue(customerList.size() == 1);
 
@@ -76,7 +99,7 @@ class RegistrationControllerTest {
         customer2.setPostCode("1014AA");
         customer2.setCity("Amsterdam");
         customer2.setPhoneNumber("0612345678");
-        //customer.setBirthDate('2010/02/11');//FIXME: how to input date?
+        //customer.setBirthDate(new LocalDate(2000,11,1));
         customer2.setEmail("janj@gmail.com");
         customer2.setBsn(135076569);//je kunt niet 2x registreren met hetzelfde bsn
 
