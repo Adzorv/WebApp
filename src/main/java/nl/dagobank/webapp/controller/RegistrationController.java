@@ -34,7 +34,7 @@ public class RegistrationController {
     }
 
     @PostMapping("register")
-    public ModelAndView registrationHandler(@ModelAttribute RegistrationForm registrationForm) {
+    public ModelAndView registrationHandler(@ModelAttribute RegistrationForm registrationForm, Model model) {
         ModelAndView mav = new ModelAndView("registration_success");
         String userName = usernameGenerator.createUsername(registrationForm.getFirstName(), registrationForm.getLastName());
         String password = passwordGenerator.generate(10);
@@ -51,6 +51,7 @@ public class RegistrationController {
                 registrationForm.getBirthDate(),
                 registrationForm.getBsn(), userName, password);
         customerService.saveCustomer(customer);
+        model.addAttribute("user", customer);
         return mav;
     }
 
