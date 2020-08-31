@@ -6,11 +6,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CustomerServiceTest {
 
-    @Test
-    void checkIfBSNInDB() {
-    }
 
     @Test
-    void checkifBSNIsCorrect() {
+    void checkifBSNIsCorrectTest() {
+        CustomerService customerService = new CustomerService();
+        assertFalse(customerService.checkIfBSNIsCorrect(012345));
+        assertFalse(customerService.checkIfBSNIsCorrect(101234567));
+        assertTrue(customerService.checkIfBSNIsCorrect(138335011));
+
     }
 }

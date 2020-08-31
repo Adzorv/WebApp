@@ -11,24 +11,38 @@
 <form method="post" th:action="@{contact}" th:object="${contactform}">
     <table>
         <tr>
-            <td>Voornaam:</td><td><input type="text" name="input_firstName" th:field="*{firstName}"></td>
+            <td>Voornaam:</td>
+            <td><input type="text" name="input_firstName" th:field="*{firstName}"></td>
         </tr>
         <tr>
-            <td>Tussenvoegsel:</td><td><input type="text" name="input_prefix" th:field="*{prefix}"></td>
+            <td>Tussenvoegsel:</td>
+            <td><input type="text" name="input_prefix" th:field="*{prefix}"></td>
         </tr>
         <tr>
-            <td>Achternaam:</td><td><input type="text" name="input_lastName" th:field="*{lastName}"></td>
+            <td>Achternaam:</td>
+            <td><input type="text" name="input_lastName" th:field="*{lastName}"></td>
         </tr>
         <tr>
-        <tr>
-            <td>Email:</td><td><input type="text" name="input_email" th:field="*{email}"></td>
+            <td>Email:</td>
+            <td><input type="text" name="input_email" th:field="*{email}"></td>
         </tr>
         <tr>
-        <tr>
-            <td>Telefoon:</td><td><input type="text" name="input_phoneNumber" th:field="*{phoneNumber}"></td>
+            <td>Telefoon:</td>
+            <td><input type="text" name="input_phoneNumber" th:field="*{phoneNumber}"></td>
         </tr>
         <tr>
-            <td><input type="submit" name="contact" value="contact"></td>
+            <td>Betreft:</td>
+            <td><select th:field="*{subjects}">
+                <option th:each="subject : ${subjects}" th:value="${subject}" th:text="${subject}"></option>
+                <option value="Maak een keuze..." selected disabled>Maak een keuze...</option>
+            </select> </td>
+        </tr>
+        <tr>
+            <td>Bericht:</td>
+            <td><input type="textarea" name="input_message" th:field="*{message}"
+                       placeholder="Schrijf hier je vraag of opmerking...."></td> <!--hoe maak ik de box groter?-->
+        </tr>        <tr>
+            <td><input type="submit" name="contact" value="Verzend bericht"></td>
         </tr>
     </table>
 </form>

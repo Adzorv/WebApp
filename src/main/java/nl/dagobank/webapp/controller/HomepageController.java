@@ -11,7 +11,7 @@ public class HomepageController {
         super();
     }
 
-    @GetMapping("homepage")
+    @GetMapping("/")
     public String homepageHandler() {
         return "homepage";
     }

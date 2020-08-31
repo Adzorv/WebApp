@@ -1,14 +1,10 @@
 package nl.dagobank.webapp.domain;
 
-
-import nl.dagobank.webapp.service.PasswordGenerator;
-import nl.dagobank.webapp.service.UsernameGenerator;
-
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "user")
+//@Table(schema = "dagobank") //assign datasource
 public abstract class User {
 
 
@@ -36,8 +32,8 @@ public abstract class User {
     @Column
     private String email;
     @Column
-    private Date birthDate;
-    @Column
+    private LocalDate birthDate;
+    @Column(unique = true, nullable = false)
     private int bsn;
     @Column
     private String userName;
@@ -47,7 +43,7 @@ public abstract class User {
     public User(){}
 
     public User(String firstName, String prefix, String lastName, String phoneNumber, String streetName, int houseNumber,
-                String houseNumberAnnex, String postCode, String city,String email, Date birthDate, int bsn, String userName, String password) {
+                String houseNumberAnnex, String postCode, String city, String email, LocalDate birthDate, int bsn, String userName, String password) {
         this.firstName = firstName;
         this.prefix = prefix;
         this.lastName = lastName;
@@ -164,11 +160,11 @@ public abstract class User {
         this.email = email;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate( Date birthDate ) {
+    public void setBirthDate(LocalDate birthDate ) {
         this.birthDate = birthDate;
     }
 

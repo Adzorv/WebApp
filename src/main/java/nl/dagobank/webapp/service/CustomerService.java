@@ -27,9 +27,8 @@ public class CustomerService {
         return bsnToCheck != 0 && bsnToCheck % 11 == 0;
     }
 
-
     public void saveCustomer(Customer customer) {
         customerDao.save(customer);
-
     }
+
 }

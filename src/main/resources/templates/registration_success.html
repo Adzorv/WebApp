@@ -1,12 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+<html xmlns:th="http://www.w3.org/1999/xhtml" >
+
+<head th:replace="fragments/header :: head">
+</head>
+<meta charset="UTF-8">
     <title>Title</title>
 </head>
+
 <body>
 <h1>Registratie gelukt</h1>
-<p>Hier kun je <a href="/login">inloggen.</a> </p>
 
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+    Bekijk uw login gegevens
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="login_details">Inloggegevens</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body">
+                    <h1>Welkom <span th:text="${user.firstName}"></span></h1>
+                    <h3>Username: <span th:text="${user.userName}"></span></h3>
+                    <h3>Password: <span th:text="${user.password}"></span></h3>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<p>Hier kun je <a href="/login">inloggen.</a> </p>
 </body>
 </html>

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+
 @Controller
 public class RegistrationController {
     @Autowired
@@ -22,6 +23,7 @@ public class RegistrationController {
     UsernameGenerator usernameGenerator;
     @Autowired
     PasswordGenerator passwordGenerator;
+
 
     @GetMapping("registration")
     public ModelAndView registrationPageHandle() {
@@ -32,7 +34,7 @@ public class RegistrationController {
     }
 
     @PostMapping("register")
-    public ModelAndView registrationHandler(@ModelAttribute RegistrationForm registrationForm) {
+    public ModelAndView registrationHandler(@ModelAttribute RegistrationForm registrationForm, Model model) {
         ModelAndView mav = new ModelAndView("registration_success");
         String userName = usernameGenerator.createUsername(registrationForm.getFirstName(), registrationForm.getLastName());
         String password = passwordGenerator.generate(10);
@@ -49,6 +51,7 @@ public class RegistrationController {
                 registrationForm.getBirthDate(),
                 registrationForm.getBsn(), userName, password);
         customerService.saveCustomer(customer);
+        model.addAttribute("user", customer);
         return mav;
     }
 
@@ -65,7 +68,7 @@ public class RegistrationController {
         if (customerService.checkIfBSNIsInDB(bsn)) {
             return "BSNFoundInDB";
         }
-        if (!customerService.checkIfBSNIsCorrect(bsn))
+        else if (!customerService.checkIfBSNIsCorrect(bsn))
             return "BSNInvalid";
         else {
             return "default";

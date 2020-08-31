@@ -12,7 +12,14 @@ import java.util.Optional;
 public interface CustomerDao extends CrudRepository<Customer, Integer> {
     Customer findByBsn(int bsn);
 
+    Customer findAllByCity(String city);
+
     boolean existsByUserName(String userName);
+
+    Customer findByUserNameAndPassword(String userName, String password);
+
+    Optional<Customer> findByUserName(String userName);
+
 }
 
 

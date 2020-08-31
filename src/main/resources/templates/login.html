@@ -5,21 +5,21 @@
     <title>Welkom!</title>
 </head>
 <body>
-<form method="post" th:action="@{login}" th:object="${testform}">
+<form method="post" th:action="@{login}" th:object="${loginform}">
     <table>
         <tr>
-            <td>Gebruikersnaam:</td><td><input type="text" name="input_name" th:field="*{naam}"></td>
+            <td>Gebruikersnaam:</td><td><input type="text" name="input_name" th:field="*{username}"></td>
+            <td><span th:text="*{usernameError}"></span></td>
         </tr>
         <tr>
-            <td>Id:</td><td><input type="number" name="input_id" th:field="*{id}"></td>
-        </tr>
-        <tr>
-            <td>Datum:</td><td><input type="date" name="input_date" th:field="*{date}"></td>
+            <td>Wachtwoord:</td><td><input type="password" name="input_id" th:field="*{password}"></td>
+            <td><span th:text="*{passwordError}"></span></td>
         </tr>
         <tr>
             <td><input type="submit" value="Login"></td>
         </tr>
     </table>
 </form>
+<a href="/vuldatabase">Vul database met testgebruikers (gn: test, ww: test)</a>
 </body>
 </html>

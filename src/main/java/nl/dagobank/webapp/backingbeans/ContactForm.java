@@ -1,5 +1,8 @@
 package nl.dagobank.webapp.backingbeans;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class ContactForm {
     private String firstName;
     private String prefix;
@@ -7,16 +10,10 @@ public class ContactForm {
     private String email;
     private String phoneNumber;
 
-    public ContactForm() {
-    }
+    public static List<String> subjects = Arrays.asList("Maak een keuze...", "1. Inloggegevens", "2. Registratie", "3. Openen rekening", "4. Mederekeninghouder", "5. Klacht", "6. Compliment", "7. Anders");
+    private String message;
 
-    public ContactForm(String firstName, String prefix, String lastName, String email, String phoneNumber) {
-        super();
-        this.firstName = firstName;
-        this.prefix = prefix;
-        this.lastName = lastName;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
+    public ContactForm() {
     }
 
     public String getFirstName() {
@@ -57,5 +54,29 @@ public class ContactForm {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    /*public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }*/
+
+    public List<String> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(List<String> subjects) {
+        this.subjects = subjects;
     }
 }

@@ -1,18 +1,24 @@
-package nl.dagobank.webapp.domain;
+package nl.dagobank.webapp.service;
 
-import nl.dagobank.webapp.service.PasswordGenerator;
-import nl.dagobank.webapp.service.UsernameGenerator;
+import nl.dagobank.webapp.dao.CustomerDao;
+import nl.dagobank.webapp.domain.Customer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @SpringBootTest
 class UsernameGeneratorTest {
+    @Autowired
+    CustomerDao customerDao;
+    @Autowired
+    CustomerService customerService;
     @Autowired
     UsernameGenerator usernameGenerator;
     @Autowired
     PasswordGenerator passwordGenerator;
+
 
     @Test
     void createUsername() {
@@ -43,6 +49,14 @@ class UsernameGeneratorTest {
 
         expected = "TeiMar001";
         actual = usernameGenerator.createUsername("Martje", "Teissen");
+        assertEquals(expected, actual);
+
+        Customer customer = new Customer();
+        customer.setUserName("TeiMar001");
+        customerService.saveCustomer(customer);
+
+        expected = "TeiMar002";
+        actual = usernameGenerator.createUsername("Martha", "Teil");
         assertEquals(expected, actual);
 
         expected = "UpxMox001";

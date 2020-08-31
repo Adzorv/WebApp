@@ -14,10 +14,6 @@ public class UsernameGenerator {
 
     public UsernameGenerator() {
     }
-    /* public UsernameGenerator(CustomerDao customerDao) {
-        this.customerDao = customerDao;
-    }*/
-
 
     public String createUsername(String firstName, String lastName) {
         if (lastName.length() < 3 && firstName.length() < 3) {
@@ -29,9 +25,9 @@ public class UsernameGenerator {
         } else {
             userName = String.format("%s%s%03d", lastName.substring(0, 3), firstName.substring(0, 3), 1);
         }
-           while(customerDao.existsByUserName(userName)) {
-        userName = String.format("%s%03d", userName.substring(0, 6), (Integer.parseInt(userName.substring(6)) + 1));
-         }
+        while (customerDao.existsByUserName(userName)) {
+            userName = String.format("%s%03d", userName.substring(0, 6), (Integer.parseInt(userName.substring(6)) + 1));
+        }
         return userName;
     }
 
