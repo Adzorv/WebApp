@@ -44,14 +44,6 @@ public abstract class User {
     @Column
     private String password;
 
-    public User(int id, String firstName, String prefix, String lastName, String phoneNumber, String streetName, int houseNumber,
-                String houseNumberAnnex, String postCode, String city, String email, Date date, int bsn) {
-        this(id, firstName, prefix, lastName, phoneNumber, streetName, houseNumber, houseNumberAnnex,
-                postCode, city, email, date, bsn, new UsernameGenerator().createUsername(firstName, lastName),
-                new PasswordGenerator(new PasswordGenerator.PasswordGeneratorBuilder()).generate(10));
-    }
-
-
     public User(){}
 
     public User(String firstName, String prefix, String lastName, String phoneNumber, String streetName, int houseNumber,

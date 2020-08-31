@@ -1,10 +1,8 @@
 package nl.dagobank.webapp.domain;
 
-import nl.dagobank.webapp.service.Iban;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import java.math.BigDecimal;
 
 
@@ -37,11 +35,6 @@ public abstract class BankAccount {
     }
 
     public BankAccount(){
-        this.id = 0;
-        this.accountName ="testaccountname";
-        this.accountHolder = "Testaccountholder";
-        this.iban = TESTIBAN;
-        this.balance = BANKACCOUNT_BEGINBALANCE_GIFT;
     }
 
     public int getId() {
