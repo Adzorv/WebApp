@@ -1,14 +1,10 @@
 package nl.dagobank.webapp.domain;
 
-
-import nl.dagobank.webapp.service.PasswordGenerator;
-import nl.dagobank.webapp.service.UsernameGenerator;
-
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "user")
+//@Table(schema = "dagobank") //assign datasource
 public abstract class User {
 
 
@@ -37,7 +33,7 @@ public abstract class User {
     private String email;
     @Column
     private Date birthDate;
-    @Column
+    @Column(unique = true, nullable = false)
     private int bsn;
     @Column
     private String userName;

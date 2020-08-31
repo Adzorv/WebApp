@@ -1,14 +1,16 @@
 package nl.dagobank.webapp.service;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class Iban {
     private String iban;
 
-    public Iban( String iban ) {
-        this.iban = iban;
+    public Iban() {
     }
 
-    public Iban() {
-        super();
+    public String createIban(){
+        return "";
     }
 
     public String getIban() {
