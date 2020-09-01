@@ -5,9 +5,8 @@
     <title>Registratie mislukt</title>
 </head>
 <body>
+<div th:insert="fragments/navigation :: navigation"></div>
 <h2>Registratie is niet gelukt omdat: </h2>
-
-<!--fixme: switch case for reasons why registration did not work-->
 
 <div th:switch="${bsnValue}">
 
@@ -21,7 +20,7 @@
     <div th:case="'*'">Er is iets fout gegaan. Neem <a href="/contact">contact</a> met ons op.</div>
 </div>
 
-
+<div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>
 

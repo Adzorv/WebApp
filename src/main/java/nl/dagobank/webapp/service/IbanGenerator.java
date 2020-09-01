@@ -1,45 +1,58 @@
 package nl.dagobank.webapp.service;
 
+import nl.dagobank.webapp.dao.BankAccountDao;
+import nl.dagobank.webapp.dao.CustomerDao;
+import nl.dagobank.webapp.dao.PrivateAccountDao;
 import nl.dagobank.webapp.domain.BankAccount;
+import org.iban4j.CountryCode;
+import org.iban4j.Iban;
+import org.iban4j.IbanFormatException;
+import org.iban4j.UnsupportedCountryException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 @Service
 public class IbanGenerator {
+    Iban iban;
+    String accountnumber;
 
-    private String countryCode = "NL";
-    private String bankCode = "DAGO";
-    private int checkNumber;
-    private int accountNumber;
-
-    private final int DUMMY_CHECKNUMBER = 99;
-
-
-
-    public IbanGenerator(int accountNumber) {
-        this.accountNumber = accountNumber;
-        this.checkNumber = DUMMY_CHECKNUMBER;
-    }
+    @Autowired
+    public PrivateAccountDao privateAccountDao;
 
     public IbanGenerator() {
-        this(1234567890);
+    }
+
+    public Iban createIban() {
+        while (!privateAccountDao.existsByIban(iban)) {
+            try {
+                Iban iban = Iban.random(CountryCode.NL);
+                iban = Iban.random();
+                iban = new Iban.Builder()
+                        .countryCode(CountryCode.NL)
+                        .bankCode("DAGO")
+                        .buildRandom();
+                return iban;
+            } catch (IbanFormatException e) {
+                e.printStackTrace();
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            } catch (UnsupportedCountryException e) {
+                e.printStackTrace();
+            }
+        }
+        return iban;
+    }
+
+    public Iban getIban() {
+        return iban;
+    }
+
+    public void setIban(Iban iban) {
+        this.iban = iban;
     }
 
     @Override
     public String toString() {
-        return countryCode + checkNumber + bankCode + accountNumber;
+        return iban.toString();
     }
-    public int getAccountNumber() {
-        return accountNumber;
-    }
-
-    public void setAccountNumber(int accountNumber) {
-        this.accountNumber = accountNumber;
-    }
-
-
 }
