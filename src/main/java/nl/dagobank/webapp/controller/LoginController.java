@@ -22,9 +22,6 @@ import org.springframework.web.servlet.view.RedirectView;
 @SessionAttributes( "user" )
 public class LoginController {
 
-    private CustomerDao customerDao;
-    private LoginForm loginForm;
-    private CustomerService customerService;
     private static final String POSTLOGIN_VIEW = "redirect:/overview", LOGIN_VIEW = "login";
     private static final Logger LOG = LogManager.getLogger( LoginController.class );
 
@@ -33,14 +30,11 @@ public class LoginController {
         return loginForm;
     }
 
-
     @Autowired
-    public LoginController( CustomerDao customerDao ) {
-        super();
-        this.customerDao = customerDao;
-        this.loginForm = new LoginForm();
-        this.customerService = new CustomerService( customerDao );
-    }
+    private CustomerDao customerDao;
+    private LoginForm loginForm = new LoginForm();
+    @Autowired
+    private CustomerService customerService;
 
     @GetMapping( "login" )
     public ModelAndView login() {
