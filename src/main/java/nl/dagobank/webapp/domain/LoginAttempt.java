@@ -12,16 +12,20 @@ public class LoginAttempt {
     @GeneratedValue( strategy = GenerationType.AUTO )
     private String id;
 
-    @Column
+    @OneToOne
     private Customer customer;
     @Column
     private int failedAttempts;
     @Column
     private LocalDateTime lastAttempt;
 
-    @Autowired
     public LoginAttempt( Customer customer ) {
+        super();
         this.customer = customer;
+    }
+
+    public LoginAttempt() {
+        super();
     }
 
     public String getId() {
