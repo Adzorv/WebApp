@@ -6,6 +6,7 @@ public class LoginForm {
     private String password;
     private String usernameError;
     private String passwordError;
+    private String loginAttemptsError;
 
     public LoginForm( String username, String password, String usernameError, String passwordError ) {
         this.username = username;
@@ -52,5 +53,13 @@ public class LoginForm {
 
     public void setPasswordError( String passwordError ) {
         this.passwordError = passwordError;
+    }
+
+    public String getLoginAttemptsError() {
+        return loginAttemptsError;
+    }
+
+    public void setLoginAttemptsError( String loginAttemptsError ) {
+        this.loginAttemptsError = loginAttemptsError;
     }
 }

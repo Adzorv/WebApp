@@ -37,12 +37,13 @@ public class LoginController {
     private CustomerService customerService;
 
     @GetMapping( "login" )
-    public ModelAndView login() {
-        return new ModelAndView( "login" );
+    public String login( Model model ) {
+        model.addAttribute( "loginform", new LoginForm() );
+        return "login";
     }
 
     @PostMapping( "login" )
-    public String loginAttempt( Model model, @ModelAttribute("loginform") LoginForm loginForm ) {
+    public String loginAttempt( Model model, LoginForm loginForm ) {
         LoginValidation lv = customerService.validateCredentials( loginForm );
         String view;
 
@@ -50,6 +51,7 @@ public class LoginController {
             model.addAttribute( "user", lv.getCustomer() );
             view = POSTLOGIN_VIEW;
         } else {
+            model.addAttribute( "loginform", loginForm );
             view = LOGIN_VIEW;
         }
         LOG.info( lv.getLogMessage() );

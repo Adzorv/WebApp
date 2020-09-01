@@ -1,7 +1,5 @@
 package nl.dagobank.webapp.domain;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -17,13 +15,24 @@ public class LoginAttempt {
     @Column
     private int failedAttempts;
     @Column
-    private LocalDateTime lastAttempt;
+    private LocalDateTime timeAtLastLoginAttempt;
+
+    public LocalDateTime getBlockedUntil() {
+        return blockedUntil;
+    }
+
+    public void setBlockedUntil( LocalDateTime blockedUntil ) {
+        this.blockedUntil = blockedUntil;
+    }
+
+    @Column
+    private LocalDateTime blockedUntil;
 
     public LoginAttempt( Customer customer ) {
         super();
         this.customer = customer;
-        this.failedAttempts = 1;
-        this.lastAttempt = LocalDateTime.now();
+        this.failedAttempts = 0;
+        this.timeAtLastLoginAttempt = LocalDateTime.now();
     }
 
     public LoginAttempt() {
@@ -54,16 +63,20 @@ public class LoginAttempt {
         this.failedAttempts = failedAttempts;
     }
 
-    public LocalDateTime getLastAttempt() {
-        return lastAttempt;
+    public LocalDateTime getTimeAtLastLoginAttempt() {
+        return timeAtLastLoginAttempt;
     }
 
-    public void setLastAttempt( LocalDateTime lastAttempt ) {
-        this.lastAttempt = lastAttempt;
+    public void setTimeAtLastLoginAttempt( LocalDateTime timeAtLastLoginAttempt ) {
+        this.timeAtLastLoginAttempt = timeAtLastLoginAttempt;
     }
 
     public void incrementFailedAttempts() {
         failedAttempts++;
+    }
+
+    public void resetFailedAttempts() {
+        failedAttempts = 0;
     }
 
     @Override
@@ -71,6 +84,6 @@ public class LoginAttempt {
         return "LoginAttempt: " +
                 "\nUser= " + customer +
                 "\nfailedAttempts=" + failedAttempts +
-                "\nlastAttempt=" + lastAttempt;
+                "\ntimeAtLastLoginAttempt=" + timeAtLastLoginAttempt;
     }
 }
