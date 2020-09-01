@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/html">
 <head>
-    <meta charset="UTF-8">
-    <title>Welkom!</title>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=1">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css" th:href="@{css/style.css}" media="screen">
+
 </head>
 <body>
+<!--FIXME: How to show the active tab?-->
+<div th:replace="fragments/navigation :: navigation"></div>
 <form method="post" th:action="@{login}" th:object="${loginform}">
     <table>
         <tr>
@@ -21,5 +28,6 @@
     </table>
 </form>
 <a href="/vuldatabase">Vul database met testgebruikers (gn: test, ww: test)</a>
+<div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>

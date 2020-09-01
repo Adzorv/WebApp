@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class FragmentsController {
 
-    @GetMapping("framents")
+    @GetMapping("fragments")
     public String getHome() {
         return "fragments";
     }

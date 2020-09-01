@@ -5,22 +5,23 @@
     <title>Footer</title>
 </head>
 <body>
-<navigation th:fragment="navigation">
+<div th:fragment="navigation(active)">
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">Dagobank logo</a>
         </div>
         <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="/login">Inloggen</a></li>
-            <li><a href="/registration">Registreren</a></li>
-            <li><a href="/over_ons">Over Ons</a></li>
-            <li><a href="/contact">Contact</a></li>
+            <li class="${active}"><a href="#">Home</a></li>
+            <li><a href="/overOns">Over Ons</a></li>
+            <li><a href="/contact"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/registration"><span class="glyphicon glyphicon-user"></span> Registreren</a></li>
+            <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Inloggen </a></li>
         </ul>
     </div>
 </nav>
-
+</div>
 </body>
-
 </html>
