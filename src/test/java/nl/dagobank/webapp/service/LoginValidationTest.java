@@ -50,8 +50,5 @@ class LoginValidationTest {
         assertNotNull( lv );
         assertTrue( lv.isUserValidated() );
         assertTrue( lv.isPasswordValidated() );
-
-
-
     }
 }
