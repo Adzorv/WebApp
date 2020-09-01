@@ -1,6 +1,5 @@
 package nl.dagobank.webapp.service;
 
-import lombok.extern.java.Log;
 import nl.dagobank.webapp.backingbeans.LoginForm;
 import nl.dagobank.webapp.dao.CustomerDao;
 import nl.dagobank.webapp.dao.LoginAttemptDao;
@@ -57,7 +56,8 @@ public class LoginValidation {
         }
         logMessage = WRONGPASSWORD + " | " + loginForm.getPassword();
         loginForm.setPasswordError( LOGINERROR_PASSWORD );
-        LoginAttempt la = getLoginAttempt( customer );
+        LoginAttempt la = getOrCreateLoginAttempt( customer );
+        loginAttemptDao.save( la );
         System.out.println( la );
 
         return false;
@@ -80,12 +80,11 @@ public class LoginValidation {
         return customer;
     }
 
-    private LoginAttempt getLoginAttempt( Customer customer ) {
+    private LoginAttempt getOrCreateLoginAttempt( Customer customer ) {
         Optional<LoginAttempt> loginAttemptOptional = loginAttemptDao.findByCustomer( customer );
         if ( loginAttemptOptional.isPresent() ) {
             LoginAttempt loginAttempt = loginAttemptOptional.get();
-            System.out.println(loginAttempt);
-            System.out.println("loginattempt gevonden in database");
+            loginAttempt.incrementFailedAttempts();
             return loginAttempt;
         } else {
             return new LoginAttempt( customer );

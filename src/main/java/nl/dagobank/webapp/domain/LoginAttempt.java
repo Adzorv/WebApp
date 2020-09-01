@@ -10,7 +10,7 @@ public class LoginAttempt {
 
     @Id
     @GeneratedValue( strategy = GenerationType.AUTO )
-    private String id;
+    private int id;
 
     @OneToOne
     private Customer customer;
@@ -30,11 +30,11 @@ public class LoginAttempt {
         super();
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId( String id ) {
+    public void setId( int id ) {
         this.id = id;
     }
 
@@ -60,6 +60,10 @@ public class LoginAttempt {
 
     public void setLastAttempt( LocalDateTime lastAttempt ) {
         this.lastAttempt = lastAttempt;
+    }
+
+    public void incrementFailedAttempts() {
+        failedAttempts++;
     }
 
     @Override
