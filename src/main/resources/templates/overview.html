@@ -2,44 +2,44 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:insert="fragments/head :: head">
     <title>Overview</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css" media="screen">
 </head>
 <body>
 <div th:insert="fragments/navigation :: navigation"></div>
 <div class="about-section">
     <h1>Overzicht</h1>
-    <p>Overboeken</p>
-    <button type="button">Overboeken</button>
+
 </div>
+
+<!--<td>Betreft:</td>-->
+<!--<td><select th:field="*{subjects}">-->
+<!--    <option th:each="subject : ${subjects}" th:value="${subject}" th:text="${subject}"></option>-->
+<!--    <option value="Maak een keuze..." selected disabled>Maak een keuze...</option>-->
+<!--</select> </td>-->
+<!--</tr>-->
 
 
 <div class="row">
-    <div class="column">
-        <div class="card">
-            <div class="container">
-                <h2>Particuliere Rekening</h2>
-                <p class="title" th:text="${user.userName}"> </p>
-                <p class="title" th:text="${user.bsn}"> </p>
-                <p class="title" th:text="${user.firstName}"> </p>
-                <p class="title" th:text="${user.firstName}"> </p>
-
-                <p><button class="button">Ga naar transacties</button></p>
-            </div>
+<div class="column">
+    <div class="card">
+        <div class="container">
+            <h2>Rekening</h2>
+<!--            <p class="title" th:text="${bankAccountDao.accountName}"> </p>-->
+            <p class="title" th:text="${user.firstName}"></p>
+            <p class="title" th:text="${user.lastName}"></p>
+<!--            <p class="title" th:text="${bankAccountDao.iban}"></p>-->
+<!--            <p class="title" th:text="${bankAccount.saldo}"></p>-->
+            <p><button class="button">Ga naar transacties</button></p>
         </div>
     </div>
-
-    <div class="column">
-        <div class="card">
-            <div class="container">
-                <h2>Zakelijke rekening</h2>
-                <p class="title">V.M. VAN DER STRUIS</p>
-                <p>NL 09 DAGO 0483 6666 84</p>
-                <p><button class="button">Ga naar transacties</button></p>
-            </div>
-        </div>
-    </div>
-
+</div>
 
 </div>
+<div class="button"> <a href="/openBankAccount">Open account </a></div>
 <div th:insert="fragments/footer :: footer"></div>
+
 </body>
 </html>

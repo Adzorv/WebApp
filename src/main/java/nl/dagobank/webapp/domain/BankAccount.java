@@ -1,8 +1,6 @@
 package nl.dagobank.webapp.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 
@@ -12,21 +10,20 @@ public abstract class BankAccount {
     @Id
     @GeneratedValue
     private int id;
-
     private String accountName;
-    //private Customer accountHolder;
-    private String accountHolder;
+
+    @OneToOne
+    private Customer accountHolder;
+
     //private List<Customer> secondaryAccountHolders;
 
     private String iban;
-
     private BigDecimal balance;
-    //private List<Transaction> transations;
 
     private final BigDecimal BANKACCOUNT_BEGINBALANCE_GIFT = new BigDecimal("25");
     private final String TESTIBAN = "NL58INGB0687603749";
 
-    public BankAccount(int id, String accountName, String accountHolder, BigDecimal balance) {
+    public BankAccount(int id, String accountName, Customer accountHolder, BigDecimal balance) {
         this.id = id;
         this.accountName = accountName;
         this.accountHolder = accountHolder;
@@ -35,6 +32,11 @@ public abstract class BankAccount {
     }
 
     public BankAccount(){
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s, %s rekeninghouder:[%s] Saldo:  %.2f €", accountName, iban, accountHolder.getFirstName(),balance );
     }
 
     public int getId() {
@@ -53,11 +55,11 @@ public abstract class BankAccount {
         this.accountName = accountName;
     }
 
-    public String getAccountHolder() {
+    public Customer getAccountHolder() {
         return accountHolder;
     }
 
-    public void setAccountHolder(String accountHolder) {
+    public void setAccountHolder(Customer accountHolder) {
         this.accountHolder = accountHolder;
     }
 
@@ -92,4 +94,5 @@ public abstract class BankAccount {
 //    public void setTransations(List<Transaction> transations) {
 //        this.transations = transations;
 //    }
+
 }
