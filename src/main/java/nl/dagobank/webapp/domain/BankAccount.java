@@ -12,16 +12,10 @@ public abstract class BankAccount {
     @Id
     @GeneratedValue
     private int id;
-
     private String accountName;
-    //private Customer accountHolder;
     private String accountHolder;
-    //private List<Customer> secondaryAccountHolders;
-
     private String iban;
-
     private BigDecimal balance;
-    //private List<Transaction> transations;
 
     private final BigDecimal BANKACCOUNT_BEGINBALANCE_GIFT = new BigDecimal("25");
     private final String TESTIBAN = "NL58INGB0687603749";
@@ -92,4 +86,18 @@ public abstract class BankAccount {
 //    public void setTransations(List<Transaction> transations) {
 //        this.transations = transations;
 //    }
+
+
+    @Override
+    public String toString() {
+        return "BankAccount{" +
+                "id=" + id +
+                ", accountName='" + accountName + '\'' +
+                ", accountHolder='" + accountHolder + '\'' +
+                ", iban='" + iban + '\'' +
+                ", balance=" + balance +
+                ", BANKACCOUNT_BEGINBALANCE_GIFT=" + BANKACCOUNT_BEGINBALANCE_GIFT +
+                ", TESTIBAN='" + TESTIBAN + '\'' +
+                '}';
+    }
 }

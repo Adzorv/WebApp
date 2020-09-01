@@ -2,6 +2,7 @@ package nl.dagobank.webapp.controller;
 
 import nl.dagobank.webapp.backingbeans.TestForm;
 import nl.dagobank.webapp.domain.Customer;
+import nl.dagobank.webapp.domain.User;
 import org.apache.catalina.filters.ExpiresFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

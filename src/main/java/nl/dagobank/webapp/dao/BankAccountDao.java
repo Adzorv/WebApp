@@ -9,5 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BankAccountDao extends CrudRepository<BankAccount, Integer> {
     boolean existsByIban(Iban iban);
+    BankAccount findAllByAccountHolder(String accountHolder);
 }
 
