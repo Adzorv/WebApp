@@ -12,6 +12,11 @@ public class HomepageController {
     }
 
     @GetMapping("/")
+    public String homepageHandlerDefault() {
+        return "homepage";
+    }
+
+    @GetMapping("/homepage")
     public String homepageHandler() {
         return "homepage";
     }
