@@ -60,21 +60,24 @@ public class RegistrationController {
             if (customerService.checkIfBSNIsInDB(registrationForm.getBsn())) {
                 model.addAttribute("bsnValue", "BSNFoundInDB");
                 return mavFail;
+
             } else if (!customerService.checkIfBSNIsCorrect(registrationForm.getBsn())) {
                 model.addAttribute("bsnValue", "BSNInvalid");
                 return mavFail;
+
             } else {
                 model.addAttribute("bsnValue", "default");
                 return mavFail;
             }
+
+
         }
     }
-
 
     @GetMapping("registration_failed")
     public String registrationFailedHandler() {
         return "registration_failed";
     }
 
-
 }
+

@@ -8,17 +8,20 @@
 <h2>Registratie is niet gelukt omdat: </h2>
 
 <!--fixme: switch case for reasons why registration did not work-->
+
 <div th:switch="${bsnValue}">
-    <div th:case="'BSNFoundInDB'">Je bent al geregistreerd met dit Burger Service Nummer.
+
+    <div th:case="'BSNFoundInDB'">Je bent al geregistreerd met dit Burger Service Nummer!
         <p>Hier kun je <a href="/login">inloggen.</a></p>
         <p>Ben je je inloggegevens vergeten of heb je hulp nodig?</p>
-        <p>Neem dan <a href="/contact">contact</a> met ons op.</p>
+        <p>Neem dan <a href="/contact">contact</a> met ons op.</p></div>
+    <div th:case="'BSNInvalid'">Het Burger Service Nummer is incorrect!<br>
+        <p>Probeer het opnieuw <a href="/registration">Registeer</a></p><br>
     </div>
-    <div th:case="'BSNInValid'">Het Burger Service Nummer is incorrect.<br>
-        <p>Probeer het opnieuw <a href="/registration">Registreer</a></p>
-    </div>
-    <div th:case="'*'">Er is iets fout gegaan. Neem <a href="/contact">contact</a> met ons op.
-    </div>
+    <div th:case="'*'">Er is iets fout gegaan. Neem <a href="/contact">contact</a> met ons op.</div>
 </div>
+
+
 </body>
 </html>
+
