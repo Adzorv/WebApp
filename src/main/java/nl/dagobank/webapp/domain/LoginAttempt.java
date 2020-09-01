@@ -31,7 +31,7 @@ public class LoginAttempt {
     public LoginAttempt( Customer customer ) {
         super();
         this.customer = customer;
-        this.failedAttempts = 0;
+        this.failedAttempts = 1;
         this.timeAtLastLoginAttempt = LocalDateTime.now();
     }
 
@@ -76,7 +76,7 @@ public class LoginAttempt {
     }
 
     public void resetFailedAttempts() {
-        failedAttempts = 0;
+        failedAttempts = 1;
     }
 
     @Override

@@ -51,20 +51,24 @@ public class LoginValidation {
     private boolean validatePassword( LoginForm loginForm ) {
         LoginAttempt loginAttempt = getOrCreateLoginAttempt( customer );
 
-        if ( loginAttempt.getBlockedUntil() != null && loginAttempt.getBlockedUntil().isBefore( LocalDateTime.now() )) {
-            System.out.println("U mag weer inloggen");
-        } else {
-            System.out.println("U mag nog niet inloggen");
+        LocalDateTime blockedUntil = loginAttempt.getBlockedUntil();
+        if ( blockedUntil != null ) {
+            if ( loginAttempt.getBlockedUntil().isBefore( LocalDateTime.now() ) ) {
+                loginAttempt.resetFailedAttempts();
+                loginAttempt.setBlockedUntil( null );
+            }
+        }
+
+
+        if ( loginAttempt.getFailedAttempts() > 2 ) {
+            blockedUntil = loginAttempt.getTimeAtLastLoginAttempt().plusMinutes( 2 );
+            loginAttempt.setBlockedUntil( blockedUntil );
+            loginForm.setLoginAttemptsError( String.format( "3x fout ingelogd! Je mag pas weer inloggen om %s", blockedUntil.toLocalTime().toString() ) );
+            loginAttemptDao.save( loginAttempt );
             return false;
         }
 
-        if ( loginAttempt.getFailedAttempts() >= 3 ) {
-            System.out.println( "Vaker dan 3 x fout ingelogd" );
-            LocalDateTime blockedUntil = loginAttempt.getTimeAtLastLoginAttempt().plusMinutes( 15 );
-            loginAttempt.setBlockedUntil( blockedUntil );
-            loginForm.setLoginAttemptsError( String.format( "Vaker dan 3x fout ingelogd! Je mag pas weer inloggen om %s", blockedUntil.toString() ) );
-            return false;
-        }
+
         if ( customer != null ) {
             if ( customer.getPassword().equals( loginForm.getPassword() ) ) {
                 logMessage = SUCCESS + " | " + customer;
@@ -76,12 +80,9 @@ public class LoginValidation {
         }
         logMessage = WRONGPASSWORD + " | " + loginForm.getPassword();
         loginForm.setPasswordError( LOGINERROR_PASSWORD );
-
+        loginForm.setLoginAttemptsError( String.format("Nog %d inlogpogingen over..", 3 - loginAttempt.getFailedAttempts()) );
         loginAttempt.incrementFailedAttempts();
         loginAttemptDao.save( loginAttempt );
-
-        System.out.println( loginAttempt );
-
         return false;
     }
 
