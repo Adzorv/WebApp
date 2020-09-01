@@ -4,6 +4,9 @@ import nl.dagobank.webapp.backingbeans.LoginForm;
 import nl.dagobank.webapp.dao.CustomerDao;
 import nl.dagobank.webapp.domain.Customer;
 import nl.dagobank.webapp.service.CustomerService;
+import nl.dagobank.webapp.service.LoginValidation;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,55 +17,49 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.Optional;
-
 
 @Controller
 @SessionAttributes( "user" )
 public class LoginController {
 
     private CustomerDao customerDao;
-    private static final String USERNAMEERROR = "Deze gebruikersnaam bestaat niet";
+    private LoginForm loginForm;
+    private CustomerService customerService;
+    private static final String POSTLOGIN_VIEW = "redirect:/overview", LOGIN_VIEW = "login";
+    private static final Logger LOG = LogManager.getLogger( LoginController.class );
+
+    @ModelAttribute( "loginform" )
+    public LoginForm getLoginForm() {
+        return loginForm;
+    }
+
 
     @Autowired
     public LoginController( CustomerDao customerDao ) {
         super();
         this.customerDao = customerDao;
+        this.loginForm = new LoginForm();
+        this.customerService = new CustomerService( customerDao );
     }
 
     @GetMapping( "login" )
     public ModelAndView login() {
-        ModelAndView mav = new ModelAndView( "login" );
-        mav.addObject( "loginform", new LoginForm() );
-        return mav;
+        return new ModelAndView( "login" );
     }
 
     @PostMapping( "login" )
-    public String welcomeHandler(Model model, @ModelAttribute LoginForm loginForm ) {
-        String username = loginForm.getUsername();
-        String password = loginForm.getPassword();
-        Optional<Customer> customerOptional = customerDao.findByUserName( username );
-
-        if ( customerOptional.isPresent() ) {
-            Customer customer = customerOptional.get();
-            System.out.println( "User gevonden!" );
-            if ( customer.getPassword().equals( password ) ) {
-                model.addAttribute( "user", customer );
-                return "redirect:/overview";
-            } else {
-                loginForm.setPasswordError( "verkeerd wachtwoord" );
-
-                model.addAttribute( "loginform", loginForm );
-                System.out.println("Verkeerd wachtwoord ingevoerd!");
-                return "login";
-            }
+    public String loginAttempt( Model model, LoginForm loginForm ) {
+        LoginValidation lv = customerService.validateCredentials( loginForm );
+        String view;
+        if ( lv.isUserValidated() && lv.isPasswordValidated() ) {
+            model.addAttribute( "user", lv.getCustomer() );
+            view = POSTLOGIN_VIEW;
         } else {
-            loginForm.setUsernameError( USERNAMEERROR );
-            model.addAttribute( "loginform", loginForm );
-            model.addAttribute( "user", null );
-            System.out.println( "Geen user gevonden!" );
-            return "login";
+            model.addAttribute( "loginform", lv.getLoginForm() );
+            view = LOGIN_VIEW;
         }
+        LOG.info( lv.getLogMessage() );
+        return view;
     }
 
     @GetMapping( "vuldatabase" )
@@ -83,7 +80,7 @@ public class LoginController {
         customer.setPassword( "test" );
         customer.setUserName( "test" );
         customerDao.save( customer );
-        System.out.println( "Database gevuld met test test gebruiker" );
+        LOG.info( "Database gevuld met test test gebruiker" );
         return new RedirectView( "login" );
     }
 }
