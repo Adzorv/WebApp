@@ -11,6 +11,8 @@ public class CustomerService {
 
     @Autowired
     private CustomerDao customerDao;
+    @Autowired
+    private LoginValidation loginValidation;
 
     public boolean checkIfBSNIsInDB( int bsn ) {
         return customerDao.findByBsn( bsn ) != null;
@@ -33,13 +35,11 @@ public class CustomerService {
     }
 
     public LoginValidation validateCredentials( LoginForm loginForm ) {
-        LoginValidation lv = new LoginValidation( customerDao );
-        lv.setLoginForm( loginForm );
-        lv.validateCredentials();
-        return lv;
+        loginValidation.validateCredentials( loginForm );
+        return loginValidation;
     }
 
-    public boolean isBSNValid(int bsn) {
-        return (checkIfBSNIsCorrect(bsn) && !checkIfBSNIsInDB(bsn));
+    public boolean isBSNValid( int bsn ) {
+        return ( checkIfBSNIsCorrect( bsn ) && !checkIfBSNIsInDB( bsn ) );
     }
 }

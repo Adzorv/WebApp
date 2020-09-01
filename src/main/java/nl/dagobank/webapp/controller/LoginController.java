@@ -42,14 +42,14 @@ public class LoginController {
     }
 
     @PostMapping( "login" )
-    public String loginAttempt( Model model, LoginForm loginForm ) {
+    public String loginAttempt( Model model, @ModelAttribute("loginform") LoginForm loginForm ) {
         LoginValidation lv = customerService.validateCredentials( loginForm );
         String view;
+
         if ( lv.isUserValidated() && lv.isPasswordValidated() ) {
             model.addAttribute( "user", lv.getCustomer() );
             view = POSTLOGIN_VIEW;
         } else {
-            model.addAttribute( "loginform", lv.getLoginForm() );
             view = LOGIN_VIEW;
         }
         LOG.info( lv.getLogMessage() );

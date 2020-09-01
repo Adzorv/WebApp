@@ -22,6 +22,8 @@ public class LoginAttempt {
     public LoginAttempt( Customer customer ) {
         super();
         this.customer = customer;
+        this.failedAttempts = 1;
+        this.lastAttempt = LocalDateTime.now();
     }
 
     public LoginAttempt() {
@@ -58,5 +60,13 @@ public class LoginAttempt {
 
     public void setLastAttempt( LocalDateTime lastAttempt ) {
         this.lastAttempt = lastAttempt;
+    }
+
+    @Override
+    public String toString() {
+        return "LoginAttempt: " +
+                "\nUser= " + customer +
+                "\nfailedAttempts=" + failedAttempts +
+                "\nlastAttempt=" + lastAttempt;
     }
 }

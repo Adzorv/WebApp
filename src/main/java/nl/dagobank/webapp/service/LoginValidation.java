@@ -1,8 +1,11 @@
 package nl.dagobank.webapp.service;
 
+import lombok.extern.java.Log;
 import nl.dagobank.webapp.backingbeans.LoginForm;
 import nl.dagobank.webapp.dao.CustomerDao;
+import nl.dagobank.webapp.dao.LoginAttemptDao;
 import nl.dagobank.webapp.domain.Customer;
+import nl.dagobank.webapp.domain.LoginAttempt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +14,10 @@ import java.util.Optional;
 @Service
 public class LoginValidation {
 
-    private LoginForm loginForm;
+    @Autowired
     private CustomerDao customerDao;
+    @Autowired
+    LoginAttemptDao loginAttemptDao;
     private Customer customer;
     private boolean userValidated, passwordValidated;
     private String logMessage;
@@ -22,25 +27,17 @@ public class LoginValidation {
             LOGINERROR_USERNAME = "Gebruikersnaam bestaat niet",
             LOGINERROR_PASSWORD = "Verkeerd wachtwoord";
 
-    @Autowired
-    public LoginValidation( CustomerDao customerDao ) {
-        this.customerDao = customerDao;
-    }
 
-    public void setLoginForm( LoginForm loginForm ) {
-        this.loginForm = loginForm;
-    }
-
-    public void validateCredentials() {
-        this.userValidated = validateUserName();
+    public void validateCredentials( LoginForm loginForm ) {
+        this.userValidated = validateUserName( loginForm );
         if ( this.userValidated ) {
-            this.passwordValidated = validatePassword();
+            this.passwordValidated = validatePassword( loginForm );
         } else {
             this.passwordValidated = false;
         }
     }
 
-    private boolean validateUserName() {
+    private boolean validateUserName( LoginForm loginForm ) {
         Optional customerOptional = customerDao.findByUserName( loginForm.getUsername() );
         if ( customerOptional.isPresent() ) {
             customer = (Customer) customerOptional.get();
@@ -51,15 +48,18 @@ public class LoginValidation {
         return false;
     }
 
-    private boolean validatePassword() {
+    private boolean validatePassword( LoginForm loginForm ) {
         if ( customer != null ) {
             if ( customer.getPassword().equals( loginForm.getPassword() ) ) {
-                logMessage = SUCCESS + customer;
+                logMessage = SUCCESS + " | " + customer;
                 return true;
             }
         }
         logMessage = WRONGPASSWORD + " | " + loginForm.getPassword();
         loginForm.setPasswordError( LOGINERROR_PASSWORD );
+        LoginAttempt la = getLoginAttempt( customer );
+        System.out.println( la );
+
         return false;
     }
 
@@ -80,7 +80,17 @@ public class LoginValidation {
         return customer;
     }
 
-    public LoginForm getLoginForm() {
-        return loginForm;
+    private LoginAttempt getLoginAttempt( Customer customer ) {
+        Optional<LoginAttempt> loginAttemptOptional = loginAttemptDao.findByCustomer( customer );
+        if ( loginAttemptOptional.isPresent() ) {
+            LoginAttempt loginAttempt = loginAttemptOptional.get();
+            System.out.println(loginAttempt);
+            System.out.println("loginattempt gevonden in database");
+            return loginAttempt;
+        } else {
+            return new LoginAttempt( customer );
+        }
+//            return loginAttemptOptional.orElseGet( () -> new LoginAttempt( customer ) );
     }
+
 }
