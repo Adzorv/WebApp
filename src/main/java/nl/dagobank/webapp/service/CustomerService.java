@@ -9,12 +9,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomerService {
 
-    private CustomerDao customerDao;
-
     @Autowired
-    public CustomerService( CustomerDao customerDao ) {
-        this.customerDao = customerDao;
-    }
+    private CustomerDao customerDao;
 
     public boolean checkIfBSNIsInDB( int bsn ) {
         return customerDao.findByBsn( bsn ) != null;
