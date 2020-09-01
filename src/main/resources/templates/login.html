@@ -23,12 +23,10 @@
             <td><span th:text="*{passwordError}"></span></td>
         </tr>
         <tr>
-            <td><span th:text="*{loginAttemptsError}"></span></td>
-        </tr>
-        <tr>
             <td><input type="submit" value="Login"></td>
         </tr>
     </table>
+    <p><span th:text="*{loginAttemptsError}"></span></p>
 </form>
 <a href="/vuldatabase">Vul database met testgebruikers (gn: test, ww: test)</a>
 <div th:insert="fragments/footer :: footer"></div>
