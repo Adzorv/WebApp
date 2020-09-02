@@ -10,36 +10,28 @@
 <body>
 <div th:insert="fragments/navigation :: navigation"></div>
 <div class="about-section">
-    <h1>Overzicht</h1>
+
+    <h1 class="title" >Overzicht</h1>
 
 </div>
-
-<!--<td>Betreft:</td>-->
-<!--<td><select th:field="*{subjects}">-->
-<!--    <option th:each="subject : ${subjects}" th:value="${subject}" th:text="${subject}"></option>-->
-<!--    <option value="Maak een keuze..." selected disabled>Maak een keuze...</option>-->
-<!--</select> </td>-->
-<!--</tr>-->
-
 
 <div class="row">
 <div class="column">
     <div class="card">
         <div class="container">
             <h2>Rekening</h2>
-<!--            <p class="title" th:text="${bankAccountDao.accountName}"> </p>-->
             <p class="title" th:text="${user.firstName}"></p>
             <p class="title" th:text="${user.lastName}"></p>
             <p>  <span th:text="${bankAccounts}"/></p>
-<!--            <p class="title" th:text="${bankAccountDao.iban}"></p>-->
-<!--            <p class="title" th:text="${bankAccount.saldo}"></p>-->
             <p><button class="button">Ga naar transacties</button></p>
         </div>
     </div>
 </div>
 
 </div>
-<div class="button"> <a href="/openBankAccount">Open account </a></div>
+    <div class="button"> <a href="/openBankAccount">Open account </a>
+</div>
+
 <div th:insert="fragments/footer :: footer"></div>
 
 </body>
