@@ -9,9 +9,11 @@
 
     <h1 class="title">Overzicht</h1>
 
+
 </div>
 
 <div class="row">
+<<<<<<< HEAD
     <div class="column">
         <div class="card">
             <div class="container">
@@ -23,13 +25,29 @@
                     <button class="button">Ga naar transacties</button>
                 </p>
             </div>
+=======
+<div class="column">
+    <div class="card">
+        <div class="container">
+            <h2>Rekening</h2>
+
+            <p class="title" th:text="${user.firstName}"></p>
+            <p class="title" th:text="${user.lastName}"></p>
+            <p> <span th:text="${bankAccounts}"/></p>
+            <p><button class="button">Ga naar transacties</button></p>
+
+>>>>>>> b742ffa75f698d67f6f73c325a2f5e39b3122dc1
         </div>
     </div>
 
 </div>
+<<<<<<< HEAD
 <div class="button"><a href="/openBankAccount">Open account </a>
 </div>
 
+=======
+<div class="button"> <a href="/openBankAccount">Open account </a></div>
+>>>>>>> b742ffa75f698d67f6f73c325a2f5e39b3122dc1
 <div th:insert="fragments/footer :: footer"></div>
 
 </body>
