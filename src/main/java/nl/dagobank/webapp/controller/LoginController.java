@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.Optional;
-
 
 @Controller
 @SessionAttributes( "user" )
@@ -47,7 +45,6 @@ public class LoginController {
     public String loginAttempt( Model model, LoginForm loginForm ) {
         LoginValidation lv = customerService.validateCredentials( loginForm );
         String view;
-
         if ( lv.isUserValidated() && lv.isPasswordValidated() ) {
             model.addAttribute( "user", lv.getCustomer() );
             view = POSTLOGIN_VIEW;
