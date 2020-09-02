@@ -1,5 +1,6 @@
 package nl.dagobank.webapp.controller;
 
+import nl.dagobank.webapp.backingbeans.BankAccountNameForm;
 import nl.dagobank.webapp.dao.BankAccountDao;
 import nl.dagobank.webapp.domain.BankAccount;
 import nl.dagobank.webapp.domain.Customer;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,22 +29,24 @@ public class OpenBankAccountSucessController {
     @Autowired
     IbanGenerator ibanGenerator;
 
-    @GetMapping("/openBankAccountSuccess")
-    public ModelAndView openBankAccountSuccessHandler(PrivateAccount privateAccount, ModelAndView modelAndView, Model model) {
-        Customer user = (Customer)model.getAttribute( "user" );
+
+
+    @PostMapping("/openAndSaveBankAccount")
+    public ModelAndView openBankAccountSuccessHandler(@ModelAttribute BankAccountNameForm bankAccountNameForm, Model model, PrivateAccount privateAccount) {
+        ModelAndView modelAndView = new ModelAndView("openBankAccountSuccess");
+        Customer user = (Customer) model.getAttribute("user");
+
         privateAccount.setAccountHolder(user);
-        privateAccount.setAccountName("Rekening van " + user.getFirstName());
+        privateAccount.setAccountName(bankAccountNameForm.getBankAccountName());
         privateAccount.setBalance(new BigDecimal("25"));
         Iban iban = ibanGenerator.createIban();
-
         privateAccount.setIban(iban.toString());
-
         bankAccountDao.save(privateAccount);
 
-        modelAndView.setViewName("openBankAccountSuccess");
         modelAndView.addObject("message", "De volgende rekening is aangemaak:");
         modelAndView.addObject("bankaccount", privateAccount.toString());
-
         return modelAndView;
     }
+
+
 }

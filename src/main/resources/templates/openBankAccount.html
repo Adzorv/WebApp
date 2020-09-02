@@ -7,7 +7,16 @@
 <body>
 <h1> Hoi <span th:text="${customerName}"/> !</h1>
 <h2> <span th:text="${message}"/></h2>
+<h2> Je kunt de naam van de bankrekening nog aanpassen...</h2>
+<form method="post" th:action="@{openAndSaveBankAccount}" th:object="${bankAccountNameForm}">
 
-<a href="/openBankAccountSuccess">Maak rekening aan</a>
+    <table>
+        <tr>
+            <td> Naam van te open bankrekening : </td><td><input type="text" name="input_bankAccountName" th:field="*{bankAccountName}"</td>
+        </tr>
+    </table>
+    <input type="submit" name="anmakenRekening" value="Maak rekening aan"/>
+</form>
+
 </body>
 </html>
