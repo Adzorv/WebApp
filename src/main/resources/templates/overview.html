@@ -6,24 +6,24 @@
 <body>
 <div th:insert="fragments/navigation :: navigation"></div>
 <div class="about-section">
-    <h1 class="title">Overzicht</h1>
+    <h1 class="intro">Overzicht</h1>
 </div>
-<div class="row">
 
-            <div class="column">
-    <div class="card">
-        <div class="container">
-            <table>
-                <tr th:each="rekening : ${bankAccounts}">
-                    <h1>Rekening</h1>
-                    <p class="title" th:text="${user.firstName}"></p>
-                    <p class="title" th:text="${user.lastName}"></p>
-                    <td><span th:text="${rekening.iban}"></span></td>
-                    <p><button class="button">Ga naar transacties</button></p>
-                </tr>
-            </table>
+<div class="row">
+    <div class="column">
+        <div class="card">
+            <div class="container">
+                <table>
+                    <tr th:each="rekening : ${bankAccounts}">
+                        <h1>Rekening</h1>
+                        <p class="title" th:text="${user.firstName}"></p>
+                        <p class="title" th:text="${user.lastName}"></p>
+                        <td><span th:text="${rekening.iban}"></span></td>
+                        <p><button class="button">Ga naar transacties</button></p>
+                    </tr>
+                </table>
+            </div>
         </div>
-    </div>
 </div>
 
 

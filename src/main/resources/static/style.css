@@ -1,1 +1,36 @@
+* {
+    padding: 0;
+    margin: 0;
+    outline: 0;
+    box-sizing: border-box;
+}
+
+
+h1.intro {
+    max-width: 700px;
+    margin: auto;
+    width: 50%;
+    padding: 30px;
+    line-height: 1;
+    font-size: 60px;
+}
+
+
+.button {
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+
 
