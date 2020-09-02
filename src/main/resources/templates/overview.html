@@ -13,6 +13,7 @@
 </div>
 
 <div class="row">
+
     <div class="column">
         <div class="card">
             <div class="container">
@@ -25,12 +26,12 @@
                 </p>
             </div>
 
+
+
 <div class="column">
     <div class="card">
         <div class="container">
-
             <table>
-
                 <tr th:each="rekening : ${bankAccounts}">
                     <h1>Rekening</h1>
                     <p class="title" th:text="${user.firstName}"></p>
@@ -39,18 +40,14 @@
                     <p><button class="button">Ga naar transacties</button></p>
                 </tr>
             </table>
-
-
         </div>
     </div>
-
 </div>
 <div class="button"><a href="/openBankAccount">Open account </a>
 </div>
-
-
+<div class="button"><a href="/openBankAccount">Open account </a>
+</div>
 <div class="button"> <a href="/openBankAccount">Open account </a></div>
 <div th:insert="fragments/footer :: footer"></div>
-
 </body>
 </html>
