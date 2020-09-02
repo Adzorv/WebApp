@@ -2,39 +2,53 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:insert="fragments/head :: head">
     <title>Overview</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div th:insert="fragments/navigation :: navigation"></div>
 <div class="about-section">
-    <h1>Overzicht</h1>
+
+    <h1 class="title">Overzicht</h1>
+
 
 </div>
 
 <div class="row">
+    <div class="column">
+        <div class="card">
+            <div class="container">
+                <h2>Rekening</h2>
+                <p class="title" th:text="${user.firstName}"></p>
+                <p class="title" th:text="${user.lastName}"></p>
+                <p><span th:text="${bankAccounts}"/></p>
+                <p>
+                    <button class="button">Ga naar transacties</button>
+                </p>
+            </div>
+
 <div class="column">
     <div class="card">
         <div class="container">
-            <h2>Rekening</h2>
 
-            <p class="title" th:text="${user.firstName}"></p>
-            <p class="title" th:text="${user.lastName}"></p>
             <table>
-                <tr th:each="rekening : ${bankAccounts}">
-                    <td><span th:text="${rekening.iban}"></span></td>
-<!--                    <p> <span th:text="${bankAccounts}"/></p>-->
 
+                <tr th:each="rekening : ${bankAccounts}">
+                    <h1>Rekening</h1>
+                    <p class="title" th:text="${user.firstName}"></p>
+                    <p class="title" th:text="${user.lastName}"></p>
+                    <td><span th:text="${rekening.iban}"></span></td>
+                    <p><button class="button">Ga naar transacties</button></p>
                 </tr>
             </table>
-            <p><button class="button">Ga naar transacties</button></p>
+
 
         </div>
     </div>
-</div>
 
 </div>
+<div class="button"><a href="/openBankAccount">Open account </a>
+</div>
+
+
 <div class="button"> <a href="/openBankAccount">Open account </a></div>
 <div th:insert="fragments/footer :: footer"></div>
 
