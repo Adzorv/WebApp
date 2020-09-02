@@ -21,7 +21,13 @@
 
             <p class="title" th:text="${user.firstName}"></p>
             <p class="title" th:text="${user.lastName}"></p>
-            <p> <span th:text="${bankAccounts}"/></p>
+            <table>
+                <tr th:each="rekening : ${bankAccounts}">
+                    <td><span th:text="${rekening.iban}"></span></td>
+<!--                    <p> <span th:text="${bankAccounts}"/></p>-->
+
+                </tr>
+            </table>
             <p><button class="button">Ga naar transacties</button></p>
 
         </div>
