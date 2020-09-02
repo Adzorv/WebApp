@@ -12,40 +12,40 @@
 <form method="post" th:action="@{register}" th:object="${registrationForm}">
     <table>
         <tr>
-            <td>Voornaam :</td><td><input type="text" name="input_firstName" th:field="*{firstName}" required></td>
+            <td>Voornaam :</td><td><input type="text" name="input_firstName" th:field="*{firstName}" placeholder="Voornaam" pattern="[A-Za-z].{1,}" required></td>
         </tr>
         <tr>
-            <td>Tussenvoegsel :</td><td><input type="text" name="input_prefix" th:field="*{prefix}"></td>
+            <td>Tussenvoegsel :</td><td><input type="text" name="input_prefix" th:field="*{prefix}" placeholder="Tussenvoegsel" pattern="[A-Za-z].{1,}" ></td>
         </tr>
         <tr>
-            <td>Achternaam :</td><td><input type="text" name="input_lastName" th:field="*{lastName}" required></td>
+            <td>Achternaam :</td><td><input type="text" name="input_lastName" th:field="*{lastName}" placeholder="Achternaam" pattern="[A-Za-z].{1,}" required></td>
         </tr>
         <tr>
-            <td>Telefoon :</td><td><input type="text" name="input_lastName" th:field="*{phoneNumber}" required></td>
+            <td>Telefoon : </td><td><input type="text" name="input_phoneNumber" th:field="*{phoneNumber}" placeholder="00000000" pattern="[0-9]{8}" required></td>
         </tr>
         <tr>
-            <td>Straat :</td><td><input type="text" name="input_streetName" th:field="*{streetName}" required></td>
+            <td>Straat :</td><td><input type="text" name="input_streetName" th:field="*{streetName}" placeholder="Straatnaam" pattern="[A-Za-z].{1,}" required></td>
         </tr>
         <tr>
-            <td>Huisnummer :</td><td><input type="number" name="input_houseNumber" th:field="*{houseNumber}" required></td>
+            <td>Huisnummer :</td><td><input type="number" name="input_houseNumber" th:field="*{houseNumber}" placeholder="000" pattern="[0-9].{1,}"required></td>
         </tr>
         <tr>
-            <td>Toevoeging :</td><td><input type="text" name="input_house_number_annex" th:field="*{houseNumberAnnex}"></td>
+            <td>Toevoeging :</td><td><input type="text" name="input_house_number_annex" th:field="*{houseNumberAnnex}" pattern="[A-Za-z].{1,}" placeholder="Toevoeging"></td>
         </tr>
         <tr>
-            <td>Postcode :</td><td><input type="text" name="input_post_code" th:field="*{postCode}" required></td>
+            <td>Postcode :</td><td><input type="text" name="input_post_code" th:field="*{postCode}" placeholder="0000XX" pattern="[0-9]{4}[A-Za-z]{2}" required></td>
         </tr>
         <tr>
-            <td> Woonplaats :</td><td><input type="text" name="input_city" th:field="*{city}" required></td>
+            <td> Woonplaats :</td><td><input type="text" name="input_city" th:field="*{city}" placeholder="Woonplaats" pattern="[A-Za-z].{1,}" required></td>
         </tr>
         <tr>
-            <td>Email :</td><td><input type="email" name="input_email" th:field="*{email}" required></td>
+            <td>Email :</td><td><input type="text" name="input_email" th:field="*{email}" placeholder="Naam@Email.com" pattern="\b[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}\b" required></td>
         </tr>
         <tr>
             <td>Geboortedatum :</td><td><input type="date" name="input_birth_date" th:field="*{birthDate}" required></td>
         </tr>
         <tr>
-            <td>BSN :</td><td><input type="number" name="bsn"th:field="*{bsn}" required></td>
+            <td>BSN :</td><td><input type="number" name="bsn"th:field="*{bsn}" placeholder="123456789" required></td>
         </tr>
     </table>
     <input type="submit" name="register" value="Registreer"/>
