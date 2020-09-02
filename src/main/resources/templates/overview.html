@@ -15,10 +15,12 @@
             <div class="container">
                 <table>
                     <tr th:each="rekening : ${bankAccounts}">
-                        <h1>Rekening</h1>
+
+                      <!--  <h1>Rekening</h1>
+                      <a href="@{/guardian/delete/${guardian.id}}" >
                         <p class="title" th:text="${user.firstName}"></p>
-                        <p class="title" th:text="${user.lastName}"></p>
-                        <td><span th:text="${rekening.iban}"></span></td>
+                        <p class="title" th:text="${user.lastName}"></p>-->
+                        <td><a th:href="@{/accountView(id=${rekening.id})}"> <span th:text="${rekening} "></span></a></td>
                         <p><button class="button">Ga naar transacties</button></p>
                     </tr>
                 </table>
