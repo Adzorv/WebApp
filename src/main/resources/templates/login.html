@@ -6,23 +6,40 @@
 <body>
 <!--FIXME: How to show the active tab?-->
 <div th:replace="fragments/navigation :: navigation"></div>
-<form method="post" th:action="@{login}" th:object="${loginform}">
-    <table>
-        <tr>
-            <td>Gebruikersnaam:</td><td><input type="text" name="input_name" th:field="*{username}"></td>
-            <td><span th:text="*{usernameError}"></span></td>
-        </tr>
-        <tr>
-            <td>Wachtwoord:</td><td><input type="password" name="input_id" th:field="*{password}"></td>
-            <td><span th:text="*{passwordError}"></span></td>
-        </tr>
-        <tr>
-            <td><input type="submit" value="Login"></td>
-        </tr>
-    </table>
-    <p><span th:text="*{loginAttemptsError}"></span></p>
-</form>
-<a href="/vuldatabase">Vul database met testgebruikers (gn: test, ww: test)</a>
+
+
+<div th:switch="${user == null}">
+    <div th:case="${false}">
+        <p>Hoi <span th:text="${user.firstName}"/>, je bent al ingelogd!</p>
+        <!--        <form method="post" th:action="@{logout}" >-->
+        <!--            <input type="submit" value="Uitloggen">-->
+        <!--        </form>-->
+        <a href="/logout">Uitloggen</a>
+    </div>
+    <div th:case="${true}">
+        <form method="post" th:action="@{login}" th:object="${loginform}">
+            <table>
+                <tr>
+                    <td>Gebruikersnaam:</td>
+                    <td><input type="text" name="input_name" th:field="*{username}"></td>
+                    <td><span th:text="*{usernameError}"></span></td>
+                </tr>
+                <tr>
+                    <td>Wachtwoord:</td>
+                    <td><input type="password" name="input_id" th:field="*{password}"></td>
+                    <td><span th:text="*{passwordError}"></span></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" value="Login"></td>
+                </tr>
+            </table>
+            <p><span th:text="*{loginAttemptsError}"></span></p>
+        </form>
+        <a href="/vuldatabase">Vul database met testgebruikers (gn: test, ww: test)</a>
+    </div>
+</div>
+
+
 <div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>

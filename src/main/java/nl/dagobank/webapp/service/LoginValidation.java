@@ -17,7 +17,9 @@ public class LoginValidation {
     @Autowired
     private CustomerDao customerDao;
     @Autowired
-    LoginAttemptDao loginAttemptDao;
+    private LoginAttemptDao loginAttemptDao;
+    private LoginAttempt loginAttempt;
+    private LoginForm loginForm;
     private Customer customer;
     private boolean userValidated, passwordValidated;
     private String logMessage;
@@ -26,18 +28,21 @@ public class LoginValidation {
             SUCCESS = "Gebruiker ingelogd",
             LOGINERROR_USERNAME = "Gebruikersnaam bestaat niet",
             LOGINERROR_PASSWORD = "Verkeerd wachtwoord";
+    private static final int MAXIMUM_TRIES = 3, TIME0UT = 2;
 
 
     public void validateCredentials( LoginForm loginForm ) {
-        this.userValidated = validateUserName( loginForm );
+        this.loginForm = loginForm;
+        this.userValidated = validateUserName();
+
         if ( this.userValidated ) {
-            this.passwordValidated = validatePassword( loginForm );
+            this.passwordValidated = validatePassword();
         } else {
             this.passwordValidated = false;
         }
     }
 
-    private boolean validateUserName( LoginForm loginForm ) {
+    private boolean validateUserName() {
         Optional customerOptional = customerDao.findByUserName( loginForm.getUsername() );
         if ( customerOptional.isPresent() ) {
             customer = (Customer) customerOptional.get();
@@ -48,44 +53,46 @@ public class LoginValidation {
         return false;
     }
 
-    private boolean validatePassword( LoginForm loginForm ) {
-        LoginAttempt loginAttempt = getOrCreateLoginAttempt( customer );
+    private boolean validatePassword() {
+        loginAttempt = getOrCreateLoginAttempt();
+        checkResetBlockedCustomer();
+        if ( loginAttempt.getFailedAttempts() > MAXIMUM_TRIES - 1 ) return blockCustomer();
+        if ( customer != null ) return passwordCheck();
+        return false;
+    }
 
-        LocalDateTime blockedUntil = loginAttempt.getBlockedUntil();
-        if ( blockedUntil != null ) {
+    private void checkResetBlockedCustomer() {
+        if ( loginAttempt.getBlockedUntil() != null ) {
             if ( loginAttempt.getBlockedUntil().isBefore( LocalDateTime.now() ) ) {
                 loginAttempt.resetFailedAttempts();
                 loginAttempt.setBlockedUntil( null );
             }
         }
+    }
 
-
-        if ( loginAttempt.getFailedAttempts() > 2 ) {
-            blockedUntil = loginAttempt.getTimeAtLastLoginAttempt().plusMinutes( 2 );
-            loginAttempt.setBlockedUntil( blockedUntil );
-            loginForm.setLoginAttemptsError( String.format( "3x fout ingelogd! Je mag pas weer inloggen om %s", blockedUntil.toLocalTime().toString() ) );
-            loginAttemptDao.save( loginAttempt );
-            return false;
-        }
-
-
-        if ( customer != null ) {
-            if ( customer.getPassword().equals( loginForm.getPassword() ) ) {
-                logMessage = SUCCESS + " | " + customer;
-                loginAttempt.resetFailedAttempts();
-                loginAttemptDao.save( loginAttempt );
-                System.out.println( loginAttempt );
-                return true;
-            }
-        }
-        logMessage = WRONGPASSWORD + " | " + loginForm.getPassword();
-        loginForm.setPasswordError( LOGINERROR_PASSWORD );
-        loginForm.setLoginAttemptsError( String.format("Nog %d inlogpogingen over..", 3 - loginAttempt.getFailedAttempts()) );
-        loginAttempt.incrementFailedAttempts();
+    private boolean blockCustomer() {
+        LocalDateTime blockedUntil = loginAttempt.getTimeAtLastLoginAttempt().plusMinutes( TIME0UT );
+        loginAttempt.setBlockedUntil( blockedUntil );
+        loginForm.setLoginAttemptsError( String.format( "3x fout ingelogd! Je mag pas weer inloggen om %s", blockedUntil.toLocalTime().toString() ) );
         loginAttemptDao.save( loginAttempt );
         return false;
     }
 
+    private boolean passwordCheck() {
+        if ( customer.getPassword().equals( loginForm.getPassword() ) ) {
+            logMessage = SUCCESS + " | " + customer;
+            loginAttempt.resetFailedAttempts();
+            loginAttemptDao.save( loginAttempt );
+            return true;
+        } else {
+            logMessage = WRONGPASSWORD + " | " + loginForm.getPassword();
+            loginForm.setPasswordError( LOGINERROR_PASSWORD );
+            loginForm.setLoginAttemptsError( String.format( "Nog %d inlogpogingen over..", MAXIMUM_TRIES - loginAttempt.getFailedAttempts() ) );
+            loginAttempt.incrementFailedAttempts();
+            loginAttemptDao.save( loginAttempt );
+            return false;
+        }
+    }
 
     public boolean isUserValidated() {
         return userValidated;
@@ -103,10 +110,8 @@ public class LoginValidation {
         return customer;
     }
 
-    private LoginAttempt getOrCreateLoginAttempt( Customer customer ) {
-        Optional<LoginAttempt> loginAttemptOptional = loginAttemptDao.findByCustomer( customer );
-        return loginAttemptOptional.orElseGet( () -> new LoginAttempt( customer ) );
-
+    private LoginAttempt getOrCreateLoginAttempt() {
+        return loginAttemptDao.findByCustomer( customer ).orElseGet( () -> new LoginAttempt( customer ) );
     }
 
 }

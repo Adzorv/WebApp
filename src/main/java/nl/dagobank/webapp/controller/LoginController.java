@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.Optional;
 
 
 @Controller
@@ -38,7 +40,6 @@ public class LoginController {
 
     @GetMapping( "login" )
     public String login( Model model ) {
-        model.addAttribute( "loginform", new LoginForm() );
         return "login";
     }
 
@@ -56,6 +57,12 @@ public class LoginController {
         }
         LOG.info( lv.getLogMessage() );
         return view;
+    }
+
+    @GetMapping( "logout" )
+    public String logout( SessionStatus status ) {
+        status.setComplete();
+        return "loggedout";
     }
 
     @GetMapping( "vuldatabase" )
