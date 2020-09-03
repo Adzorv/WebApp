@@ -19,7 +19,7 @@
             <td>Achternaam :</td><td><input type="text" name="input_lastName" th:field="*{lastName}" placeholder="Achternaam" pattern="[A-Za-z ]{1,}" required></td>
         </tr>
         <tr>
-            <td>Telefoon : </td><td><input type="text" name="input_phoneNumber" th:field="*{phoneNumber}" placeholder="00000000" pattern="[0-9 +]{8}" required></td>
+            <td>Telefoon : </td><td><input type="text" name="input_phoneNumber" th:field="*{phoneNumber}" placeholder="00000000" pattern="[0-9 +]{8,}" required></td>
         </tr>
         <tr>
             <td>Straat :</td><td><input type="text" name="input_streetName" th:field="*{streetName}" placeholder="Straatnaam" pattern="[A-Za-z ]{1,}" required></td>
