@@ -19,7 +19,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/registration"><span class="glyphicon glyphicon-user"></span> Registreren</a></li>
                 <li th:switch="${session.user != null}">
-                    <a th:case="${true}" href="/login"><span class="glyphicon glyphicon-log-in"></span> Uitloggen </a>
+                    <a th:case="${true}" href="/logout"><span class="glyphicon glyphicon-log-in"></span> Uitloggen </a>
                     <a th:case="${false}" href="/login"><span class="glyphicon glyphicon-log-out"></span> Inloggen </a>
                 </li>
             </ul>
