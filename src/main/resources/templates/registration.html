@@ -22,13 +22,13 @@
             <td>Telefoon : </td><td><input type="text" name="input_phoneNumber" th:field="*{phoneNumber}" placeholder="00000000" pattern="[0-9 +]{8,}" required></td>
         </tr>
         <tr>
-            <td>Straat :</td><td><input type="text" name="input_streetName" th:field="*{streetName}" placeholder="Straatnaam" pattern="[A-Za-z ]{1,}" required></td>
+            <td>Straat :</td><td><input type="text" name="input_streetName" th:field="*{streetName}" placeholder="Straatnaam" required></td>
         </tr>
         <tr>
             <td>Huisnummer :</td><td><input type="number" name="input_houseNumber" th:field="*{houseNumber}" placeholder="000" pattern="[0-9]{1,}" required></td>
         </tr>
         <tr>
-            <td>Toevoeging :</td><td><input type="text" name="input_house_number_annex" th:field="*{houseNumberAnnex}" pattern="[A-Za-z]{1,}" placeholder="Toevoeging"></td>
+            <td>Toevoeging :</td><td><input type="text" name="input_house_number_annex" th:field="*{houseNumberAnnex}" placeholder="Toevoeging"></td>
         </tr>
         <tr>
             <td>Postcode :</td><td><input type="text" name="input_post_code" th:field="*{postCode}" placeholder="0000XX" pattern="[0-9]{4}[A-Za-z]{2}" required></td>
