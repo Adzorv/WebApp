@@ -30,7 +30,6 @@ public class RegistrationController {
         ModelAndView mav = new ModelAndView("registration");
         mav.addObject("registrationForm", new RegistrationForm());
         return mav;
-
     }
 
     @PostMapping("register")

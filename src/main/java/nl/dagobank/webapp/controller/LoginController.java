@@ -8,6 +8,7 @@ import nl.dagobank.webapp.service.LoginValidation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.sql.SQLIntegrityConstraintViolationException;
 
 
 @Controller
@@ -79,7 +82,13 @@ public class LoginController {
         customer.setBsn( 135076569 );
         customer.setPassword( "test" );
         customer.setUserName( "test" );
-        customerDao.save( customer );
+        try {
+            customerDao.save( customer );
+        } catch ( DataIntegrityViolationException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+
         LOG.info( "Database gevuld met test test gebruiker" );
         return new RedirectView( "login" );
     }
