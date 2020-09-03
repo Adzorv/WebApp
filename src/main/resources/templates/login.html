@@ -20,11 +20,13 @@
                 </div>
                 <div th:case="${true}">
                     <form method="post" th:action="@{login}" th:object="${loginform}">
-                        <input class="loginInput" type="text" name="input_name" th:field="*{username}" placeholder="gebruikersnaam">
-                        <input class="loginInput" type="password" name="input_id" th:field="*{password}" placeholder="wachtwoord">
+                        <input class="loginInput" type="text" name="input_name" th:field="*{username}"
+                               placeholder="gebruikersnaam">
+                        <input class="loginInput" type="password" name="input_id" th:field="*{password}"
+                               placeholder="wachtwoord">
                         <input class="buttonLogin" type="submit" value="Login">
-                        <p> <span th:text="*{passwordError}"></span></p>
-                        <p> <span th:text="*{loginAttemptsError}"></span></p>
+                        <p><span th:text="*{passwordError}"></span> <span th:text="*{loginAttemptsError}"></span> <span
+                                th:text="*{usernameError}"></span></p>
                     </form>
                 </div>
             </div>
@@ -32,7 +34,6 @@
         </div>
     </div>
 </div>
-
 
 
 <div th:insert="fragments/footer :: footer"></div>
