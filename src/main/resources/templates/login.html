@@ -8,24 +8,28 @@
 <div th:replace="fragments/navigation :: navigation"></div>
 <div th:switch="${user == null}">
     <div th:case="${true}">
-        <div class="login-container">
+        <div class="login-container dagobertBackground">
 
-            <div class="loginbox shadow">
+            <div class="loginboxwrap">
+                <div class="loginbox shadow">
 
 
-                <h1>Login</h1>
+                    <h1>Login</h1>
 
-                <div>
-                    <form method="post" th:action="@{login}" th:object="${loginform}">
-                        <input class="loginInput" type="text" name="input_name" th:field="*{username}"
-                               placeholder="gebruikersnaam">
-                        <input class="loginInput" type="password" name="input_id" th:field="*{password}"
-                               placeholder="wachtwoord">
-                        <input class="buttonLogin" type="submit" value="Login">
-                        <p><span th:text="*{passwordError}"></span> <span th:text="*{loginAttemptsError}"></span> <span
-                                th:text="*{usernameError}"></span></p>
-                    </form>
+                    <div>
+                        <form method="post" th:action="@{login}" th:object="${loginform}">
+                            <input class="loginInput" type="text" name="input_name" th:field="*{username}"
+                                   placeholder="gebruikersnaam">
+                            <input class="loginInput" type="password" name="input_id" th:field="*{password}"
+                                   placeholder="wachtwoord">
+                            <input class="buttonLogin" type="submit" value="inloggen">
+
+                        </form>
+                    </div>
                 </div>
+                <p class="loginError"><span th:text="${loginform.passwordError}"></span> <span
+                        th:text="${loginform.loginAttemptsError}"></span> <span
+                        th:text="${loginform.usernameError}"></span></p>
             </div>
         </div>
     </div>

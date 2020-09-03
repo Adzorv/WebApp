@@ -33,12 +33,16 @@ h1.intro {
 }
 
 .loginbox {
-    background-color: #c40410;
+    background-color: #ffc107;
     border-radius: 30px;
     padding: 40px;
     width: 300px;
     height: 200px;
-    margin: auto;
+    margin-top: 50px;
+}
+
+.loginboxwrap {
+    margin-left: 100px;
 }
 
 .shadow {
@@ -58,6 +62,7 @@ h1.intro {
 
 .login-container {
     position: relative;
+    margin-top: -20px;
 }
 
 .buttonLogin {
@@ -72,8 +77,19 @@ h1.intro {
     width: 100%;
 }
 
-.loginError {
-    color: white;
+p.loginError span {
+    color: red;
     font-style: italic;
+    text-align: center;
+    margin-left: 10px;
+}
+
+.dagobertBackground {
+    background: rgba(0,0,0,0.5) url(img/bg1.jpg) no-repeat;
+    background-positon: center;
+    background-size: cover;
+    min-height: 100vh;
+    overflow: hidden;
+    background-blend-mode: overlay;
 }
 
