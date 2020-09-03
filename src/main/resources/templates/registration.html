@@ -13,19 +13,19 @@
             <td>Voornaam :</td><td><input type="text" name="input_firstName" th:field="*{firstName}" placeholder="Voornaam" pattern="[A-Za-z ]{1,}" required></td>
         </tr>
         <tr>
-            <td>Tussenvoegsel :</td><td><input type="text" name="input_prefix" th:field="*{prefix}" placeholder="Tussenvoegsel" pattern="[A-Za-z ]{1,}" ></td>
+            <td>Tussenvoegsel :</td><td><input type="text" name="input_prefix" th:field="*{prefix}" placeholder="Tussenvoegsel" pattern="[A-Za-z ]{1,}"></td>
         </tr>
         <tr>
             <td>Achternaam :</td><td><input type="text" name="input_lastName" th:field="*{lastName}" placeholder="Achternaam" pattern="[A-Za-z ]{1,}" required></td>
         </tr>
         <tr>
-            <td>Telefoon : </td><td><input type="text" name="input_phoneNumber" th:field="*{phoneNumber}" placeholder="00000000" pattern="[0-9 ]{8,}" required></td>
+            <td>Telefoon : </td><td><input type="text" name="input_phoneNumber" th:field="*{phoneNumber}" placeholder="00000000" pattern="[0-9 +]{8}" required></td>
         </tr>
         <tr>
             <td>Straat :</td><td><input type="text" name="input_streetName" th:field="*{streetName}" placeholder="Straatnaam" pattern="[A-Za-z ]{1,}" required></td>
         </tr>
         <tr>
-            <td>Huisnummer :</td><td><input type="number" name="input_houseNumber" th:field="*{houseNumber}" placeholder="000" pattern="[0-9].{1,}"required></td>
+            <td>Huisnummer :</td><td><input type="number" name="input_houseNumber" th:field="*{houseNumber}" placeholder="000" pattern="[0-9]{1,}" required></td>
         </tr>
         <tr>
             <td>Toevoeging :</td><td><input type="text" name="input_house_number_annex" th:field="*{houseNumberAnnex}" pattern="[A-Za-z]{1,}" placeholder="Toevoeging"></td>
