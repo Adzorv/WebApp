@@ -6,9 +6,9 @@
 <body>
 <div th:insert="fragments/navigation :: navigation"></div>
 <h2></h2>
-<h2> <span th:text="${message}"/></h2>
-<h2> <h1> <span th:text="${bankaccount}"/></h1></h2>
-<h3> <a href="/overview">terug naar overzicht</a> </h3>
+<h2 class="sh_subTitle"> <span th:text="${message}"/></h2>
+<h2 class="sh_resultText"> <span th:text="${bankaccount}"/></h2>
+<h3 class="sh_button"> <a href="/overview">terug naar overzicht</a> </h3>
 <div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>

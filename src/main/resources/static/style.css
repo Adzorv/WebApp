@@ -17,7 +17,7 @@ h1.intro {
 
 
 .button {
-    background-color: #4CAF50;
+    background-color: #ffc107;
     border: none;
     border-radius: 8px;
     color: white;
@@ -31,6 +31,61 @@ h1.intro {
     top: 50%;
     left: 50%;
 }
+
+.sh_title{
+    text-align: center;
+
+}
+
+.sh_subTitle{
+    text-align: center;
+}
+
+.sh_td_subTitle {
+    text-align: center;
+}
+
+.sh_resultText {
+    text-align: center;
+    color: #ffc107
+}
+
+.sh_input{
+    position: absolute;
+    width: 40%;
+    margin-right: 30%;
+    margin-left: 30%;
+    border: 1px solid #000;
+    font-size: 2em;
+}
+
+
+footer.sh_footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: gray;
+    text-align: center;
+}
+
+.sh_button {
+    background-color: #ffc107;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 0;
+    position: absolute;
+    top: 30%;
+    left: 45%;
+    alignment: center;
+}
+
 
 
 
