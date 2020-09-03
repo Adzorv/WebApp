@@ -6,19 +6,16 @@
 <body>
 <!--FIXME: How to show the active tab?-->
 <div th:replace="fragments/navigation :: navigation"></div>
+<div th:switch="${user == null}">
+    <div th:case="${true}">
+        <div class="login-container">
 
-<div class="login-container">
-    <div class="loginbox shadow">
-        <div th:switch="${user == null}">
+            <div class="loginbox shadow">
 
-            <h1>Login</h1>
 
-            <div>
-                <div th:case="${false}">
-                    <p>Hoi <span th:text="${user.firstName}"/>, je bent al ingelogd!</p>
-                    <a href="/logout">Uitloggen</a>
-                </div>
-                <div th:case="${true}">
+                <h1>Login</h1>
+
+                <div>
                     <form method="post" th:action="@{login}" th:object="${loginform}">
                         <input class="loginInput" type="text" name="input_name" th:field="*{username}"
                                placeholder="gebruikersnaam">
@@ -30,8 +27,11 @@
                     </form>
                 </div>
             </div>
-
         </div>
+    </div>
+    <div th:case="${false}">
+        <p>Hoi <span th:text="${user.firstName}"/>, je bent al ingelogd!</p>
+        <a href="/logout">Uitloggen</a>
     </div>
 </div>
 
