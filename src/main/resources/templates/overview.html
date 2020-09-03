@@ -21,7 +21,7 @@
                         <p class="title" th:text="${user.firstName}"></p>
                         <p class="title" th:text="${user.lastName}"></p>-->
                         <td><a th:href="@{/accountView(id=${rekening.id})}"> <span th:text="${rekening} "></span></a></td>
-                        <p><button class="button">Ga naar transacties</button></p>
+                     <!--   <p><button class="button">Ga naar transacties</button></p> -->
                     </tr>
                 </table>
             </div>
@@ -32,5 +32,6 @@
 
 <div class="button"> <a href="/openBankAccount">Open account</a></div>
 <div th:insert="fragments/footer :: footer"></div>
+</div>
 </body>
 </html>

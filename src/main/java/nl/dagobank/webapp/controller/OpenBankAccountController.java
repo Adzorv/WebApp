@@ -22,7 +22,7 @@ BankAccountDao bankAccountDao;
     public ModelAndView openBankAccountHandler(Model model) {
         ModelAndView modelAndView = new ModelAndView("openBankAccount");
         Customer user = (Customer) model.getAttribute("user");
-        modelAndView.addObject("message", "Op dit moment kunnen alleen particulier rekeningen worden geopend, klik de link om een rekening te openen.");
+        modelAndView.addObject("message", "Op dit moment kunnen alleen particulier rekeningen worden geopend.");
         modelAndView.addObject("customerName", user.getFirstName());
         BankAccountNameForm bankAccountNameForm = new BankAccountNameForm();
 

@@ -2,22 +2,24 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:insert="fragments/head" :: head>
     <title>Open Bank Account</title>
+
+
 </head>
 <body>
-<h1> Hoi <span th:text="${customerName}"/> !</h1>
-<h2> <span th:text="${message}"/></h2>
-<h2> Je kunt de naam van de bankrekening nog aanpassen...</h2>
+<div th:insert="fragments/navigation :: navigation"></div>
+<h1 class="sh_title"> Hoi <span th:text="${customerName}"/> !</h1>
+<h2 class="sh_subTitle"> <span th:text="${message}"/></h2>
+<p></p>
+<p></p>
+<h2 class="sh_subTitle"> Je kunt de naam van de bankrekening nog aanpassen...</h2>
+<p></p>
+<p></p>
+<h2 class="sh_subTitle"> Naam van te openen bankrekening</h2>
 <form method="post" th:action="@{openAndSaveBankAccount}" th:object="${bankAccountNameForm}">
-
-    <table>
-        <tr>
-            <td> Naam van te open bankrekening : </td><td><input type="text" name="input_bankAccountName" th:field="*{bankAccountName}"</td>
-
-
-        </tr>
-    </table>
-    <input type="submit" name="anmakenRekening" value="Maak rekening aan"/>
+    <p><input class="sh_input" type="text" name="input_bankAccountName" th:field="*{bankAccountName}"></td></p>
+    <input class="sh_button" type="submit" name="anmakenRekening" value="Maak rekening aan"/>
 </form>
 
+<div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>
