@@ -12,16 +12,19 @@
                 <a class="navbar-brand" href="/homepage">Dagobank logo</a>
             </div>
             <ul class="nav navbar-nav">
-                <li><a href="/homepage">Home</a></li>
                 <li><a href="/overOns">Over Ons</a></li>
-                <li><a href="/contact"><span class="glyphicon glyphicon-envelope"></span> Contact</a></li>
+                <li><a href="/contact"><span class="glyphicon glyphicon-envelope"></span> Contact </a></li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right" th:switch="${session.user != null}">
+                <li th:if="${session.user != null}">
+                    <a href="/overview"><span class="glyphicon glyphicon-th-list"></span> Rekening overzicht </a>
+                </li>
                 <li><a href="/registration"><span class="glyphicon glyphicon-user"></span> Registreren</a></li>
-                <li th:switch="${session.user != null}">
+                <li>
                     <a th:case="${true}" href="/logout"><span class="glyphicon glyphicon-log-out"></span> Uitloggen </a>
                     <a th:case="${false}" href="/login"><span class="glyphicon glyphicon-log-in"></span> Inloggen </a>
                 </li>
+
             </ul>
         </div>
     </nav>
