@@ -6,7 +6,7 @@
 <body>
 <div th:insert="fragments/navigation :: navigation"></div>
 <div class="about-section">
-    <h1 class="intro">Overzicht</h1>
+    <h1 class="intro">Rekeningenoverzicht</h1>
 </div>
 
 <div class="row">
@@ -15,23 +15,21 @@
             <div class="container">
                 <table>
                     <tr th:each="rekening : ${bankAccounts}">
-
-                      <!--  <h1>Rekening</h1>
-                      <a href="@{/guardian/delete/${guardian.id}}" >
-                        <p class="title" th:text="${user.firstName}"></p>
-                        <p class="title" th:text="${user.lastName}"></p>-->
-                        <td><a th:href="@{/accountView(id=${rekening.id})}"> <span th:text="${rekening} "></span></a></td>
-                     <!--   <p><button class="button">Ga naar transacties</button></p> -->
+                        <h3><span class="glyphicon glyphicon-credit-card"></span> PARTICULIERE REKENING</h3>
+                        <p class="title" th:text="${user.firstName + ' ' + user.prefix + ' ' + user.lastName}"></p>
+                        <p th:text="${rekening.iban +  '&emsp;' + '&emsp;' +'&#8364;' + '  ' + rekening.balance}"></p>
+                        <a th:href="@{/accountView(id=${rekening.id})}">
+                            <button>Toon alle transactie</button>
+                        </a>
+                        <hr>
+                        <!--<td><a th:href="@{/accountView(id=${rekening.id})}"> <span th:text="${rekening} "></span></a></td>-->
                     </tr>
                 </table>
             </div>
         </div>
     </div>
 </div>
-
-
-<div class="button"> <a href="/openBankAccount">Open account</a></div>
+<div class="button"><a href="/openBankAccount">Rekening Openen</a></div>
 <div th:insert="fragments/footer :: footer"></div>
-</div>
 </body>
 </html>
