@@ -81,14 +81,16 @@ public class LoginValidation {
     private boolean passwordCheck() {
         if ( customer.getPassword().equals( loginForm.getPassword() ) ) {
             logMessage = SUCCESS + " | " + customer;
-            loginAttempt.resetFailedAttempts();
-            loginAttemptDao.save( loginAttempt );
+//            loginAttempt.resetFailedAttempts();
+//            loginAttemptDao.save( loginAttempt );
+            loginAttemptDao.delete( loginAttempt );
             return true;
         } else {
             logMessage = WRONGPASSWORD + " | " + loginForm.getPassword();
             loginForm.setPasswordError( LOGINERROR_PASSWORD );
             loginForm.setLoginAttemptsError( String.format( "Nog %d inlogpogingen over..", MAXIMUM_TRIES - loginAttempt.getFailedAttempts() ) );
             loginAttempt.incrementFailedAttempts();
+            loginAttempt.setTimeAtLastLoginAttempt( LocalDateTime.now() );
             loginAttemptDao.save( loginAttempt );
             return false;
         }
