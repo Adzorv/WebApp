@@ -86,7 +86,6 @@ public class LoginValidation {
                 loginForm.setPasswordError( LOGINERROR_PASSWORD );
                 loginForm.setLoginAttemptsError( String.format( "Nog %d inlogpogingen over..", MAXIMUM_TRIES - loginAttempt.getFailedAttempts() ) );
                 loginAttempt.incrementFailedAttempts();
-//                loginAttempt.setTimeAtLastLoginAttempt( LocalDateTime.now() );
                 loginAttemptDao.save( loginAttempt );
                 return false;
             }

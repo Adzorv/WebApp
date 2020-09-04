@@ -59,18 +59,6 @@ public class LoginAttempt {
         return failedAttempts;
     }
 
-    public void setFailedAttempts( int failedAttempts ) {
-        this.failedAttempts = failedAttempts;
-    }
-
-    public LocalDateTime getTimeAtLastLoginAttempt() {
-        return timeAtLastLoginAttempt;
-    }
-
-    public void setTimeAtLastLoginAttempt( LocalDateTime timeAtLastLoginAttempt ) {
-        this.timeAtLastLoginAttempt = timeAtLastLoginAttempt;
-    }
-
     public void incrementFailedAttempts() {
         failedAttempts++;
     }
