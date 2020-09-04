@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @Service
@@ -28,18 +29,13 @@ public class LoginValidation {
             SUCCESS = "Gebruiker ingelogd",
             LOGINERROR_USERNAME = "Gebruikersnaam bestaat niet",
             LOGINERROR_PASSWORD = "Verkeerd wachtwoord";
-    private static final int MAXIMUM_TRIES = 3, TIME0UT = 2;
+    private static final int MAXIMUM_TRIES = 3, TIME0UT = 1;
 
 
     public void validateCredentials( LoginForm loginForm ) {
         this.loginForm = loginForm;
         this.userValidated = validateUserName();
-
-        if ( this.userValidated ) {
-            this.passwordValidated = validatePassword();
-        } else {
-            this.passwordValidated = false;
-        }
+        this.passwordValidated = this.userValidated && validatePassword();
     }
 
     private boolean validateUserName() {
@@ -56,9 +52,11 @@ public class LoginValidation {
     private boolean validatePassword() {
         loginAttempt = getOrCreateLoginAttempt();
         checkResetBlockedCustomer();
-        if ( loginAttempt.getFailedAttempts() > MAXIMUM_TRIES - 1 ) return blockCustomer();
-        if ( customer != null ) return passwordCheck();
-        return false;
+        if ( loginAttempt.getFailedAttempts() > MAXIMUM_TRIES - 1 ) {
+            blockCustomer();
+            return false;
+        }
+        return passwordCheck();
     }
 
     private void checkResetBlockedCustomer() {
@@ -70,30 +68,29 @@ public class LoginValidation {
         }
     }
 
-    private boolean blockCustomer() {
-        LocalDateTime blockedUntil = loginAttempt.getTimeAtLastLoginAttempt().plusMinutes( TIME0UT );
+    private void blockCustomer() {
+        LocalDateTime blockedUntil = LocalDateTime.now().plusMinutes( TIME0UT );
         loginAttempt.setBlockedUntil( blockedUntil );
-        loginForm.setLoginAttemptsError( String.format( "3x fout ingelogd! Je mag pas weer inloggen om %s", blockedUntil.toLocalTime().toString() ) );
+        loginForm.setLoginAttemptsError( String.format( "3x fout ingelogd! Je mag pas weer inloggen om %s", blockedUntil.toLocalTime().format( DateTimeFormatter.ofPattern("HH:mm:ss") ) ) );
         loginAttemptDao.save( loginAttempt );
-        return false;
     }
 
     private boolean passwordCheck() {
-        if ( customer.getPassword().equals( loginForm.getPassword() ) ) {
-            logMessage = SUCCESS + " | " + customer;
-//            loginAttempt.resetFailedAttempts();
-//            loginAttemptDao.save( loginAttempt );
-            loginAttemptDao.delete( loginAttempt );
-            return true;
-        } else {
-            logMessage = WRONGPASSWORD + " | " + loginForm.getPassword();
-            loginForm.setPasswordError( LOGINERROR_PASSWORD );
-            loginForm.setLoginAttemptsError( String.format( "Nog %d inlogpogingen over..", MAXIMUM_TRIES - loginAttempt.getFailedAttempts() ) );
-            loginAttempt.incrementFailedAttempts();
-            loginAttempt.setTimeAtLastLoginAttempt( LocalDateTime.now() );
-            loginAttemptDao.save( loginAttempt );
-            return false;
+        if ( customer != null ) {
+            if ( customer.getPassword().equals( loginForm.getPassword() ) ) {
+                logMessage = SUCCESS + " | " + customer;
+                loginAttemptDao.delete( loginAttempt );
+                return true;
+            } else {
+                logMessage = WRONGPASSWORD + " | " + loginForm.getPassword();
+                loginForm.setPasswordError( LOGINERROR_PASSWORD );
+                loginForm.setLoginAttemptsError( String.format( "Nog %d inlogpogingen over..", MAXIMUM_TRIES - loginAttempt.getFailedAttempts() ) );
+                loginAttempt.incrementFailedAttempts();
+                loginAttemptDao.save( loginAttempt );
+                return false;
+            }
         }
+        return false;
     }
 
     public boolean isUserValidated() {
