@@ -4,7 +4,8 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-public class Customer extends User {
+public class
+Customer extends User {
 
     public Customer() {
         super();

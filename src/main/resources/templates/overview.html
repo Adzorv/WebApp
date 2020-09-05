@@ -16,6 +16,7 @@
                 <table>
                     <tr th:each="rekening : ${bankAccounts}">
                         <h3><span class="glyphicon glyphicon-credit-card"></span> PARTICULIERE REKENING</h3>
+                        <p class="title" th:text="${rekening.accountName}"></p>
                         <p class="title" th:text="${user.firstName + ' ' + user.prefix + ' ' + user.lastName}"></p>
                         <p th:text="${rekening.iban +  '&emsp;' + '&emsp;' +'&#8364;' + '  ' + rekening.balance}"></p>
                         <a th:href="@{/accountView(id=${rekening.id})}">
