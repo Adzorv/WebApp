@@ -2,6 +2,7 @@ package nl.dagobank.webapp.controller;
 
 import nl.dagobank.webapp.backingbeans.RegistrationForm;
 import nl.dagobank.webapp.domain.Customer;
+import nl.dagobank.webapp.service.CustomerBuilder;
 import nl.dagobank.webapp.service.CustomerService;
 import nl.dagobank.webapp.service.PasswordGenerator;
 import nl.dagobank.webapp.service.UsernameGenerator;
@@ -24,6 +25,8 @@ public class RegistrationController {
     @Autowired
     PasswordGenerator passwordGenerator;
 
+    CustomerBuilder customerBuilder;
+
 
     @GetMapping("registration")
     public ModelAndView registrationPageHandle() {
@@ -39,7 +42,8 @@ public class RegistrationController {
         String password = passwordGenerator.generate(10);
 
         if (customerService.isBSNValid(registrationForm.getBsn())) {
-            Customer customer = new Customer(registrationForm.getFirstName(),
+            Customer customer = new Customer();
+         /*   Customer customer = new Customer(registrationForm.getFirstName(),
                     registrationForm.getPrefix(),
                     registrationForm.getLastName(),
                     registrationForm.getPhoneNumber(),
@@ -50,7 +54,7 @@ public class RegistrationController {
                     registrationForm.getCity(),
                     registrationForm.getEmail(),
                     registrationForm.getBirthDate(),
-                    registrationForm.getBsn(), userName, password);
+                    registrationForm.getBsn(), userName, password);*/
             customerService.saveCustomer(customer);
             model.addAttribute("user", customer);
             return mav;
@@ -68,7 +72,6 @@ public class RegistrationController {
                 model.addAttribute("bsnValue", "default");
                 return mavFail;
             }
-
 
         }
     }

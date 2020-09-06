@@ -7,37 +7,23 @@ import java.time.LocalDate;
 //@Table(schema = "dagobank") //assign datasource
 public abstract class User {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @Column
     private String firstName;
-    @Column
     private String prefix;
-    @Column
     private String lastName;
-    @Column
     private String phoneNumber;
-    @Column
     private String streetName;
-    @Column
     private int houseNumber;
-    @Column
     private String houseNumberAnnex;
-    @Column
     private String postCode;
-    @Column
     private String city;
-    @Column
     private String email;
-    @Column
     private LocalDate birthDate;
     @Column(unique = true, nullable = false)
     private int bsn;
-    @Column
     private String userName;
-    @Column
     private String password;
 
     public User(){}

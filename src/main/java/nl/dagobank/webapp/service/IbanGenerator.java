@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class IbanGenerator {
     Iban iban;
-    String accountnumber;
 
     @Autowired
     public PrivateAccountDao privateAccountDao;

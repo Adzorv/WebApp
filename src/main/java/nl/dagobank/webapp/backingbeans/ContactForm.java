@@ -10,7 +10,7 @@ public class ContactForm {
     private String email;
     private String phoneNumber;
 
-    public static List<String> subjects = Arrays.asList("Maak een keuze...", "1. Inloggegevens", "2. Registratie", "3. Openen rekening", "4. Mederekeninghouder", "5. Klacht", "6. Compliment", "7. Anders");
+    public static List<String> subjects = Arrays.asList("Maak een keuze...", "1. Inloggegevens", "2. Registratie", "3. Openen rekening", "4. Mederekeninghouder", "5. Klacht", "6. Compliment", "7. Rekening sluiten", "8. Anders");
     private String message;
 
     public ContactForm() {

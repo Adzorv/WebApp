@@ -1,18 +1,20 @@
 package nl.dagobank.webapp.domain;
 
+import nl.dagobank.webapp.service.CustomerBuilder;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 public class Customer extends User {
 
-    public Customer() {
-        super();
+    public Customer(UserFullName userFullName, UserAddress userAddress, UserContactDetails userContactDetails, UserInlogCredentials userInlogCredentials, LocalDate birthDate, int bsn) {
+        super(userFullName.getFirstName(), userFullName.getPrefix(), userFullName.getLastName(), userContactDetails.getPhoneNumber(),
+                userAddress.getStreetName(), userAddress.getHouseNumber(), userAddress.getHouseNumberAnnex(), userAddress.getPostCode(), userAddress.getCity(),
+                userContactDetails.getEmail(), birthDate, bsn, userInlogCredentials.getUserName(), userInlogCredentials.getPassword());
     }
 
-    public Customer (String firstName, String prefix, String lastName, String phoneNumber, String streetName, int houseNumber,
-                     String houseNumberAnnex, String postCode, String city, String email, LocalDate birthDate, int bsn, String userName, String password) {
-        super(firstName, prefix, lastName, phoneNumber, streetName, houseNumber, houseNumberAnnex, postCode, city,
-        email, birthDate, bsn, userName, password);
+    public Customer() {
+
     }
 }

@@ -14,7 +14,9 @@ public class UsernameGenerator {
 
     public UsernameGenerator() {
     }
-
+    //Een gebruikersnaam wordt gecreeerd op basis van de eerste 3 letter van je achternaam + eerste 3 letters voornaam + 001.
+    //Als deze gebuikersnaam al bestaat wordt een nieuwe aangemaakt waarbij cijfer +1 is 001 -> 002
+    //Is je voor- en/of achternaam korter dan 3 letters wordt er een x toegevoegd
     public String createUsername(String firstName, String lastName) {
         if (lastName.length() < 3 && firstName.length() < 3) {
             userName = String.format("%s%s%s%s%03d", lastName, "x", firstName, "x", 1);
