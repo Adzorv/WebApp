@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/head :: head">
+    <meta charset="UTF-8">
+    <title>Rekeninghouder toevoegen</title>
+</head>
+<body>
+<p class="title" th:text="${selectedBankAccount.accountName}"></p>
+<p class="title" th:text="${selectedBankAccount.iban}"></p>
+
+<form method="post" th:action="@{saveBankAccountHolderAddition}" th:object="${AddAdditionalBankAccountHolderForm}">
+    <p>Gebruikers login naam van klant wie je als rekeninghouder wilt toevoegen: <input class="" type="text" name="loginNameAdditionalAccountHolder"></td></p>
+    <p>Veiligheidscode (5 cijvers) : <input class="" type="text" name="connectionCode" placeholder="00000" pattern="[0-9]{5}" required></td>
+        </tr></td></p>
+
+    <input class="sh_button" type="submit" name="saveHolderConnection" value="Sla koppeling op"/>
+
+
+</form>
+<div th:insert="fragments/footer :: footer"></div>
+</body>
+</html>
