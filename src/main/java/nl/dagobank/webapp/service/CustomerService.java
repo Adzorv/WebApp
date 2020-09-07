@@ -14,6 +14,10 @@ public class CustomerService {
     @Autowired
     private LoginValidation loginValidation;
 
+    public boolean isRegisteredUserName(String userName){
+        return customerDao.existsByUserName(userName);
+    }
+
     public boolean checkIfBSNIsInDB( int bsn ) {
         return customerDao.findByBsn( bsn ) != null;
     }

@@ -10,14 +10,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
 @Controller
-@SessionAttributes( "selectedBankAccount" )
+@SessionAttributes( "user" )
 public class AccountViewController {
 
-    @Autowired
     BankAccountDao bankAccountDao;
+    HttpSession session;
+
+    @Autowired
+    AccountViewController(BankAccountDao bankAccountDao, HttpSession session){
+        this.bankAccountDao = bankAccountDao;
+        this.session = session;
+    }
+
 
     @GetMapping("/accountView{id}")
     ModelAndView AccountViewHandler(@RequestParam("id") int id){
@@ -25,8 +33,8 @@ public class AccountViewController {
         convertedId.add(id);
         Iterable<BankAccount> selectedAccount = bankAccountDao.findAllById(convertedId);
         ModelAndView modelAndView = new ModelAndView("accountView");
-        modelAndView.addObject("selectedBankAccount", selectedAccount.iterator().next());
-
+        session.setAttribute("selectedBankAccount", selectedAccount.iterator().next());
+        modelAndView.addObject("selectedBankAccount", session.getAttribute("selectedBankAccount"));
         return modelAndView;
     }
 }
