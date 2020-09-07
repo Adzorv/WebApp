@@ -26,8 +26,13 @@ public class LoginValidatorEmployee {
             employee = optional.get();
             if ( employee.getPassword().equals( loginForm.getPassword() )) {
                 loginValidated = true;
+                logMessage = "Gebruikersnaam en wachtwoord correct";
+                return;
             }
         }
+        logMessage = "Foute gebruikersnaam en/of wachtwoord";
+        loginForm.setGeneralError( "Foute gebruikersnaam en/of wachtwoord" );
+
     }
 
     public boolean isLoginValidated() {
@@ -36,5 +41,9 @@ public class LoginValidatorEmployee {
 
     public Employee getEmployee() {
         return employee;
+    }
+
+    public String getLogMessage() {
+        return logMessage;
     }
 }

@@ -3,6 +3,8 @@ package nl.dagobank.webapp.controller;
 import nl.dagobank.webapp.backingbeans.LoginForm;
 import nl.dagobank.webapp.service.EmployeeService;
 import nl.dagobank.webapp.service.LoginValidatorEmployee;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,8 @@ public class LoginEmployeeController {
 
     @Autowired
     EmployeeService employeeService;
+    private static final Logger LOG = LogManager.getLogger( LoginEmployeeController.class );
+
 
     @GetMapping( "werknemer" )
     public String loginEmployee( Model model ) {
@@ -27,12 +31,15 @@ public class LoginEmployeeController {
 
     @PostMapping( "werknemer" )
     public String loginAttemptEmployee( Model model, @ModelAttribute LoginForm loginForm ) {
-
         LoginValidatorEmployee lv = employeeService.validateCredentials( loginForm );
         model.addAttribute( "loginform", loginForm );
-        System.out.println( lv.isLoginValidated() );
-
-        return "loginEmployee";
+        LOG.info( lv.getLogMessage() );
+        if ( lv.isLoginValidated() ) {
+            model.addAttribute( "user", lv.getEmployee() );
+            return "redirect:/overzicht";
+        } else {
+            return "loginEmployee";
+        }
     }
 
 }
