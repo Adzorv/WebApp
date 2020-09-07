@@ -23,22 +23,23 @@ class EmployeeDaoTest {
 
     @BeforeEach
     void setUp() {
-        employee= new Employee();
-        employee.setFirstName("Jan");
-        employee.setPrefix("van de");
-        employee.setLastName("Jansen");
-        employee.setStreetName("Overtoom");
-        employee.setHouseNumber(23);
-        employee.setHouseNumberAnnex("2 hoog");
-        employee.setPostCode("1014AA");
-        employee.setCity("Amsterdam");
-        employee.setPhoneNumber("0612345678");
-        employee.setBirthDate(LocalDate.of(2000, 11, 11));
-        employee.setEmail("janj@gmail.com");
-        employee.setBsn(111222333);
-        employee.setPassword("test2");
-        employee.setUserName("test2");
-        employeeDao.save(employee);
+        employee = new Employee();
+        employee.setFirstName( "Jan" );
+        employee.setPrefix( "van de" );
+        employee.setLastName( "Jansen" );
+        employee.setStreetName( "Overtoom" );
+        employee.setHouseNumber( 23 );
+        employee.setHouseNumberAnnex( "2 hoog" );
+        employee.setPostCode( "1014AA" );
+        employee.setCity( "Amsterdam" );
+        employee.setPhoneNumber( "0612345678" );
+        employee.setBirthDate( LocalDate.of( 2000, 11, 11 ) );
+        employee.setEmail( "janj@gmail.com" );
+        employee.setBsn( 111222333 );
+        employee.setPassword( "test2" );
+        employee.setUserName( "test2" );
+        employee.setRole( "HoofdMKB" );
+        employeeDao.save( employee );
 
     }
 
@@ -51,7 +52,18 @@ class EmployeeDaoTest {
     @Test
     void findByUserName() {
         Optional<Employee> optionalEmployee = employeeDao.findByUserName( "test2" );
-        assertTrue(optionalEmployee.isPresent());
+        assertTrue( optionalEmployee.isPresent() );
+        assertEquals( 111222333, optionalEmployee.get().getBsn() );
 
+    }
+
+    @Test
+    void findByRole() {
+        Optional<Employee> optionalEmployee = employeeDao.findByRole( "HoofdMKB" );
+        assertTrue( optionalEmployee.isPresent() );
+        assertEquals( 111222333, optionalEmployee.get().getBsn() );
+
+        Optional<Employee> optionalEmployee1 = employeeDao.findByRole( "hoofdmkb" );
+        assertTrue( optionalEmployee1.isPresent() );
     }
 }

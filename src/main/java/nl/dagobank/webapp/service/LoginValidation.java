@@ -19,6 +19,7 @@ public class LoginValidation {
     private CustomerDao customerDao;
     @Autowired
     private LoginAttemptDao loginAttemptDao;
+
     private LoginAttempt loginAttempt;
     private LoginForm loginForm;
     private Customer customer;
