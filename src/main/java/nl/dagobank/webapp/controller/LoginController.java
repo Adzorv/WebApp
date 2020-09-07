@@ -4,7 +4,7 @@ import nl.dagobank.webapp.backingbeans.LoginForm;
 import nl.dagobank.webapp.dao.CustomerDao;
 import nl.dagobank.webapp.domain.Customer;
 import nl.dagobank.webapp.service.CustomerService;
-import nl.dagobank.webapp.service.LoginValidation;
+import nl.dagobank.webapp.service.LoginValidatorCustomer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +44,7 @@ public class LoginController {
 
     @PostMapping( "login" )
     public String loginAttempt( Model model, LoginForm loginForm ) {
-        LoginValidation lv = customerService.validateCredentials( loginForm );
+        LoginValidatorCustomer lv = customerService.validateCredentials( loginForm );
         String view;
         if ( lv.isUserValidated() && lv.isPasswordValidated() ) {
             model.addAttribute( "user", lv.getCustomer() );

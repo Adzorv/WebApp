@@ -13,7 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @Service
-public class LoginValidation {
+public class LoginValidatorCustomer {
 
     @Autowired
     private CustomerDao customerDao;

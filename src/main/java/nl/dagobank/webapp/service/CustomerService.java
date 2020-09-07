@@ -12,7 +12,7 @@ public class CustomerService {
     @Autowired
     private CustomerDao customerDao;
     @Autowired
-    private LoginValidation loginValidation;
+    private LoginValidatorCustomer loginValidator;
 
     public boolean checkIfBSNIsInDB( int bsn ) {
         return customerDao.findByBsn( bsn ) != null;
@@ -34,9 +34,9 @@ public class CustomerService {
         customerDao.save( customer );
     }
 
-    public LoginValidation validateCredentials( LoginForm loginForm ) {
-        loginValidation.validateCredentials( loginForm );
-        return loginValidation;
+    public LoginValidatorCustomer validateCredentials( LoginForm loginForm ) {
+        loginValidator.validateCredentials( loginForm );
+        return loginValidator;
     }
 
     public boolean isBSNValid( int bsn ) {

@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class LoginValidationTest {
+class LoginValidatorTest {
 
     @Autowired
     LoginController loginController;
@@ -36,7 +36,7 @@ class LoginValidationTest {
 
     @Test
     void validateCredentials() {
-        LoginValidation lv = customerService.validateCredentials( WRONGLOGIN_FORM );
+        LoginValidatorCustomer lv = customerService.validateCredentials( WRONGLOGIN_FORM );
         assertNotNull( lv );
         assertFalse( lv.isUserValidated() );
         assertFalse( lv.isPasswordValidated() );
