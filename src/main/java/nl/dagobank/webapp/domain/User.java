@@ -28,7 +28,24 @@ public abstract class User {
 
     public User(){}
 
-    public User(String firstName, String prefix, String lastName, String phoneNumber, String streetName, int houseNumber,
+    public User(UserFullName userFullName, UserAddress userAddress, UserContactDetails userContactDetails, UserInlogCredentials userInlogCredentials, LocalDate birthDate, int bsn){
+        this.firstName = userFullName.getFirstName();
+        this.prefix = userFullName.getPrefix();
+        this.lastName = userFullName.getLastName();
+        this.streetName = userAddress.getStreetName();
+        this.houseNumber = userAddress.getHouseNumber();
+        this.houseNumberAnnex = userAddress.getHouseNumberAnnex();
+        this.postCode = userAddress.getPostCode();
+        this.city = userAddress.getCity();
+        this.phoneNumber = userContactDetails.getPhoneNumber();
+        this.email = userContactDetails.getEmail();
+        this.userName = userInlogCredentials.getUserName();
+        this.userName = userInlogCredentials.getPassword();
+        this.birthDate = birthDate;
+        this.bsn = bsn;
+    }
+
+   /* public User(String firstName, String prefix, String lastName, String phoneNumber, String streetName, int houseNumber,
                 String houseNumberAnnex, String postCode, String city, String email, LocalDate birthDate, int bsn, String userName, String password) {
         this.firstName = firstName;
         this.prefix = prefix;
@@ -44,7 +61,7 @@ public abstract class User {
         this.bsn = bsn;
         this.userName = userName;
         this.password = password;
-    }
+    }*/
 
 
     @Override

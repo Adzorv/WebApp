@@ -24,61 +24,57 @@ public class RegistrationController {
     @Autowired
     PasswordGenerator passwordGenerator;
 
-    CustomerFactory customerBuilder;
+    CustomerFactory customerFactory;
 
 
     @GetMapping("registration")
     public ModelAndView registrationPageHandle() {
-        ModelAndView mav = new ModelAndView("registration");
-        mav.addObject("registrationForm", new RegistrationForm());
-        return mav;
+        ModelAndView registrationPage = new ModelAndView("registration");
+        registrationPage.addObject("registrationForm", new RegistrationForm());
+        return registrationPage;
     }
 
     @PostMapping("register")
     public ModelAndView registrationHandler(@ModelAttribute RegistrationForm registrationForm, Model model) {
-        ModelAndView mav = new ModelAndView("registration_success");
         String userName = usernameGenerator.createUsername(registrationForm.getFirstName(), registrationForm.getLastName());
         String password = passwordGenerator.generate(10);
-
         if (customerService.isBSNValid(registrationForm.getBsn())) {
-            Customer customer = new CustomerFactory(registrationForm, userName, password).createCustomer();
-         /*   Customer customer = new Customer(registrationForm.getFirstName(),
-                    registrationForm.getPrefix(),
-                    registrationForm.getLastName(),
-                    registrationForm.getPhoneNumber(),
-                    registrationForm.getStreetName(),
-                    registrationForm.getHouseNumber(),
-                    registrationForm.getHouseNumberAnnex(),
-                    registrationForm.getPostCode(),
-                    registrationForm.getCity(),
-                    registrationForm.getEmail(),
-                    registrationForm.getBirthDate(),
-                    registrationForm.getBsn(), userName, password);*/
-            customerService.saveCustomer(customer);
-            model.addAttribute("user", customer);
-            return mav;
+            return showRegistrationSuccessPage(registrationForm, userName, password, model);
         } else {
-            ModelAndView mavFail = new ModelAndView("registration_failed");
-            if (customerService.checkIfBSNIsInDB(registrationForm.getBsn())) {
-                model.addAttribute("bsnValue", "BSNFoundInDB");
-                return mavFail;
-
-            } else if (!customerService.checkIfBSNIsCorrect(registrationForm.getBsn())) {
-                model.addAttribute("bsnValue", "BSNInvalid");
-                return mavFail;
-
-            } else {
-                model.addAttribute("bsnValue", "default");
-                return mavFail;
-            }
-
+            return showRegistrationFailedPage(registrationForm, model);
         }
     }
 
-    @GetMapping("registration_failed")
-    public String registrationFailedHandler() {
-        return "registration_failed";
+    private ModelAndView showRegistrationSuccessPage (@ModelAttribute RegistrationForm registrationForm, String
+        userName, String password, Model model){
+            ModelAndView registrationSuccess = new ModelAndView("registration_success");
+            customerFactory = new CustomerFactory(registrationForm, userName, password);
+            Customer customer = customerFactory.createCustomer();
+            customerService.saveCustomer(customer);
+            model.addAttribute("user", customer);
+            return registrationSuccess;
+        }
+
+    private ModelAndView showRegistrationFailedPage(RegistrationForm registrationForm, Model model) {
+        ModelAndView registrationFailedView = new ModelAndView("registration_failed");
+        if(customerService.checkIfBSNIsInDB(registrationForm.getBsn())){
+            model.addAttribute("bsnValue", "BSNFoundInDB");
+                return  registrationFailedView;
+            }
+            else if (customerService.checkIfBSNIsCorrect(registrationForm.getBsn())){
+                model.addAttribute("bsnValue", "BSNInvalid");
+                return registrationFailedView;
+            }
+            else {
+                model.addAttribute("bsnValue", "default");
+                return registrationFailedView;
+        }
     }
 
-}
+        @GetMapping("registration_failed")
+        public String registrationFailedHandler () {
+            return "registration_failed";
+        }
+
+    }
 
