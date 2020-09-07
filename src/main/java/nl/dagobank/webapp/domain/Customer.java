@@ -1,7 +1,5 @@
 package nl.dagobank.webapp.domain;
 
-import nl.dagobank.webapp.service.CustomerBuilder;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 

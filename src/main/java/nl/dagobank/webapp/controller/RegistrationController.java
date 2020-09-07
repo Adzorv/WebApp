@@ -2,7 +2,7 @@ package nl.dagobank.webapp.controller;
 
 import nl.dagobank.webapp.backingbeans.RegistrationForm;
 import nl.dagobank.webapp.domain.Customer;
-import nl.dagobank.webapp.service.CustomerBuilder;
+import nl.dagobank.webapp.service.CustomerFactory;
 import nl.dagobank.webapp.service.CustomerService;
 import nl.dagobank.webapp.service.PasswordGenerator;
 import nl.dagobank.webapp.service.UsernameGenerator;
@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -25,7 +24,7 @@ public class RegistrationController {
     @Autowired
     PasswordGenerator passwordGenerator;
 
-    CustomerBuilder customerBuilder;
+    CustomerFactory customerBuilder;
 
 
     @GetMapping("registration")
@@ -42,7 +41,7 @@ public class RegistrationController {
         String password = passwordGenerator.generate(10);
 
         if (customerService.isBSNValid(registrationForm.getBsn())) {
-            Customer customer = new Customer();
+            Customer customer = new CustomerFactory(registrationForm, userName, password).createCustomer();
          /*   Customer customer = new Customer(registrationForm.getFirstName(),
                     registrationForm.getPrefix(),
                     registrationForm.getLastName(),
