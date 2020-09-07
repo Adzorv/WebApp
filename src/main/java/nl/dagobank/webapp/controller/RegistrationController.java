@@ -61,7 +61,7 @@ public class RegistrationController {
             model.addAttribute("bsnValue", "BSNFoundInDB");
                 return  registrationFailedView;
             }
-            else if (customerService.checkIfBSNIsCorrect(registrationForm.getBsn())){
+            else if (!customerService.checkIfBSNIsCorrect(registrationForm.getBsn())){
                 model.addAttribute("bsnValue", "BSNInvalid");
                 return registrationFailedView;
             }
