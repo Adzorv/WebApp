@@ -40,7 +40,7 @@ public abstract class User {
         this.phoneNumber = userContactDetails.getPhoneNumber();
         this.email = userContactDetails.getEmail();
         this.userName = userInlogCredentials.getUserName();
-        this.userName = userInlogCredentials.getPassword();
+        this.password = userInlogCredentials.getPassword();
         this.birthDate = birthDate;
         this.bsn = bsn;
     }
