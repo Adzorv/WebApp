@@ -44,20 +44,16 @@ public class AddAccountHolderController {
         Customer user = (Customer)model.getAttribute( "user" );
         PrivateAccount selectedAccount = (PrivateAccount) session.getAttribute("selectedBankAccount");
         ModelAndView modelAndView = new ModelAndView("");
+        modelAndView.addObject("selectedBankAccount", selectedAccount);
 
         String codeFromForm = addAdditionalBankAccountHolderForm.getConnectionCode();
         String userNameFromForm = addAdditionalBankAccountHolderForm.getLoginNameAdditionalAccountHolder();
-        //String userNameOfCurrentUser = ((Customer)model.getAttribute("user")).getUserName();
-        System.out.println("current user:");
-        System.out.println(user.toString());
-        System.out.println("current Bank account");
-        System.out.println(selectedAccount);
-        if (!customerService.isRegisteredUserName(userNameFromForm)){
-            modelAndView.setViewName("addAccountHolder");
-            modelAndView.addObject("error", "Extra Rekeninghouder moet een bestaande klant login naam zijn!");
-            modelAndView.addObject("selectedBankAccount", selectedAccount);
-        } else {
+
+        if (customerService.isRegisteredUserName(userNameFromForm) && !userNameFromForm.equals(user.getUserName())){
             modelAndView.setViewName("addAccountHolderObjectSucess");
+        } else {
+            modelAndView.setViewName("addAccountHolder");
+            modelAndView.addObject("error", "Extra Rekeninghouder moet een bestaande klant login naam zijn, en mag niet je eigen naam zijn!");
         }
     return modelAndView;
     }
