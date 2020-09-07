@@ -22,14 +22,24 @@
                             <button>Toon alle transactie</button>
                         </a>
                         <hr>
-                        <!--<td><a th:href="@{/accountView(id=${rekening.id})}"> <span th:text="${rekening} "></span></a></td>-->
                     </tr>
                 </table>
             </div>
         </div>
     </div>
 </div>
-<div class="button"><a href="/openBankAccount">Rekening Openen</a></div>
+<div class="button">
+        <select>
+            <span>Rekening openen...</span>
+            <a th:href="@{openPrivateBankAccount}">
+                <option >Privérekening openen</option>
+            </a>
+            <a th:href="@{openBusinessBankAccount}">
+                <option >Zakelijke rekening openen</option>
+            </a>
+        </select>
+
+</div>
 <div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>

@@ -13,16 +13,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @SessionAttributes( "user" )
-public class OpenBankAccountController {
+public class OpenPrivateBankAccountController {
 
 @Autowired
 BankAccountDao bankAccountDao;
 
-    @GetMapping("/openBankAccount")
+    @GetMapping("/openPrivateBankAccount")
     public ModelAndView openBankAccountHandler(Model model) {
-        ModelAndView modelAndView = new ModelAndView("openBankAccount");
+        ModelAndView modelAndView = new ModelAndView("openPrivateBankAccount");
         Customer user = (Customer) model.getAttribute("user");
-        modelAndView.addObject("message", "Op dit moment kunnen alleen particulier rekeningen worden geopend.");
+        //modelAndView.addObject("message", "Op dit moment kunnen alleen particulier rekeningen worden geopend.");
         modelAndView.addObject("customerName", user.getFirstName());
         BankAccountNameForm bankAccountNameForm = new BankAccountNameForm();
 

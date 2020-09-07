@@ -2,7 +2,6 @@ package nl.dagobank.webapp.controller;
 
 import nl.dagobank.webapp.backingbeans.BankAccountNameForm;
 import nl.dagobank.webapp.dao.BankAccountDao;
-import nl.dagobank.webapp.domain.BankAccount;
 import nl.dagobank.webapp.domain.Customer;
 import nl.dagobank.webapp.domain.PrivateAccount;
 import nl.dagobank.webapp.service.IbanGenerator;
@@ -10,7 +9,6 @@ import org.iban4j.Iban;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -21,7 +19,7 @@ import java.math.BigDecimal;
 
 @Controller
 @SessionAttributes( "user" )
-public class OpenBankAccountSucessController {
+public class OpenPrivateBankAccountSuccessController {
 
     @Autowired
     private BankAccountDao bankAccountDao;
@@ -33,7 +31,7 @@ public class OpenBankAccountSucessController {
 
     @PostMapping("/openAndSaveBankAccount")
     public ModelAndView openBankAccountSuccessHandler(@ModelAttribute BankAccountNameForm bankAccountNameForm, Model model, PrivateAccount privateAccount) {
-        ModelAndView modelAndView = new ModelAndView("openBankAccountSuccess");
+        ModelAndView modelAndView = new ModelAndView("openPrivateBankAccountSuccess");
         Customer user = (Customer) model.getAttribute("user");
 
         privateAccount.setAccountHolder(user);

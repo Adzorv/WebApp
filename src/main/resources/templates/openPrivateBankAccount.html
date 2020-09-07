@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:insert="fragments/head" :: head>
-    <title>Open Bank Account</title>
+    <title>Open Privérekening</title>
 
 
 </head>
@@ -17,7 +17,7 @@
 <h2 class="sh_subTitle"> Naam van te openen bankrekening</h2>
 <form method="post" th:action="@{openAndSaveBankAccount}" th:object="${bankAccountNameForm}">
     <p><input class="sh_input" type="text" name="input_bankAccountName" th:field="*{bankAccountName}"></td></p>
-    <input class="sh_button" type="submit" name="anmakenRekening" value="Maak rekening aan"/>
+    <input class="sh_button" type="submit" name="aanmakenRekening" value="Maak rekening aan"/>
 </form>
 
 <div th:insert="fragments/footer :: footer"></div>
