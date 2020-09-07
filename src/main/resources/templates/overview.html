@@ -19,27 +19,23 @@
                         <p class="title" th:text="${user.firstName + ' ' + user.prefix + ' ' + user.lastName}"></p>
                         <p th:text="${rekening.iban +  '&emsp;' + '&emsp;' +'&#8364;' + '  ' + rekening.balance}"></p>
                         <a th:href="@{/accountView(id=${rekening.id})}">
-                            <button>Toon alle transactie</button>
+                            <button>Toon alle transacties</button>
                         </a>
                         <hr>
+                    </tr>
+                    <tr>
+                        <td class="button ">
+                            <p><a th:href="@{openPrivateBankAccount}">Privérekening openen</a></p>
+                            <hr>
+                            <p><a th:href="@{openBusinessBankAccount}">Zakelijke rekening openen</a></p>
+                        </td>
                     </tr>
                 </table>
             </div>
         </div>
     </div>
 </div>
-<div class="button">
-        <select>
-            <span>Rekening openen...</span>
-            <a th:href="@{openPrivateBankAccount}">
-                <option >Privérekening openen</option>
-            </a>
-            <a th:href="@{openBusinessBankAccount}">
-                <option >Zakelijke rekening openen</option>
-            </a>
-        </select>
 
-</div>
 <div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>

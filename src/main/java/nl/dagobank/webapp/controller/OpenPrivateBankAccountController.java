@@ -18,7 +18,7 @@ public class OpenPrivateBankAccountController {
 @Autowired
 BankAccountDao bankAccountDao;
 
-    @GetMapping("/openPrivateBankAccount")
+    @GetMapping("openPrivateBankAccount")
     public ModelAndView openBankAccountHandler(Model model) {
         ModelAndView modelAndView = new ModelAndView("openPrivateBankAccount");
         Customer user = (Customer) model.getAttribute("user");

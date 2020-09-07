@@ -27,7 +27,7 @@ public class ContactpageController {
 
     @PostMapping("contact")
     public ModelAndView contact(@ModelAttribute ContactForm contactform) {
-        ModelAndView mav = new ModelAndView("contact_form_send");
+        ModelAndView mav = new ModelAndView("contactFormSend");
         System.out.println(contactform.getFirstName());
         return mav;
     }
