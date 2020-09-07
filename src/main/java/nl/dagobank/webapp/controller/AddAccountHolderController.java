@@ -1,11 +1,11 @@
 package nl.dagobank.webapp.controller;
 
 import nl.dagobank.webapp.backingbeans.AddAdditionalBankAccountHolderForm;
-import nl.dagobank.webapp.domain.BankAccount;
+import nl.dagobank.webapp.domain.BankAccountHolderToken;
 import nl.dagobank.webapp.domain.Customer;
 import nl.dagobank.webapp.domain.PrivateAccount;
+import nl.dagobank.webapp.service.BankAccountHolderTokenService;
 import nl.dagobank.webapp.service.CustomerService;
-import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,14 +22,16 @@ import javax.servlet.http.HttpSession;
 public class AddAccountHolderController {
 
     private CustomerService customerService;
+    private BankAccountHolderTokenService bankAccountHolderTokenService;
 
     HttpSession session;
 
     @Autowired
-    public AddAccountHolderController(CustomerService customerService, HttpSession session){
+    public AddAccountHolderController(CustomerService customerService, HttpSession session, BankAccountHolderTokenService bankAccountHolderTokenService){
         super();
         this.customerService = customerService;
         this.session = session;
+        this.bankAccountHolderTokenService = bankAccountHolderTokenService;
     }
 
     @GetMapping("/addAccountHolder")
@@ -43,14 +45,19 @@ public class AddAccountHolderController {
     ModelAndView sendAddAccountHolderHandler(@ModelAttribute AddAdditionalBankAccountHolderForm addAdditionalBankAccountHolderForm, Model model) {
         Customer user = (Customer)model.getAttribute( "user" );
         PrivateAccount selectedAccount = (PrivateAccount) session.getAttribute("selectedBankAccount");
-        ModelAndView modelAndView = new ModelAndView("");
+        ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("selectedBankAccount", selectedAccount);
 
         String codeFromForm = addAdditionalBankAccountHolderForm.getConnectionCode();
         String userNameFromForm = addAdditionalBankAccountHolderForm.getLoginNameAdditionalAccountHolder();
 
         if (customerService.isRegisteredUserName(userNameFromForm) && !userNameFromForm.equals(user.getUserName())){
-            modelAndView.setViewName("addAccountHolderObjectSucess");
+            Customer accountHolderToAdd = customerService.getCustomerByUserName(userNameFromForm);
+            BankAccountHolderToken bankAccountHolderToken = new BankAccountHolderToken(accountHolderToAdd, codeFromForm, selectedAccount);
+            bankAccountHolderTokenService.saveBankAccountHolderToken(bankAccountHolderToken);
+            modelAndView.setViewName("redirect:/bankAccountHolderTokenSuccess");
+            session.setAttribute("bankAccountHolderToken", bankAccountHolderToken);
+            //modelAndView.addObject("bankAccountHolderToken", bankAccountHolderToken);
         } else {
             modelAndView.setViewName("addAccountHolder");
             modelAndView.addObject("error", "Extra Rekeninghouder moet een bestaande klant login naam zijn, en mag niet je eigen naam zijn!");

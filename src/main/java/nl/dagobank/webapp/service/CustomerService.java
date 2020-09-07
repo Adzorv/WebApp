@@ -18,6 +18,10 @@ public class CustomerService {
         return customerDao.existsByUserName(userName);
     }
 
+    public Customer getCustomerByUserName(String userName){
+        return customerDao.findByUserName(userName).get();
+    }
+
     public boolean checkIfBSNIsInDB( int bsn ) {
         return customerDao.findByBsn( bsn ) != null;
     }
