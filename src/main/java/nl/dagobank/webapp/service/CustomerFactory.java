@@ -2,17 +2,15 @@ package nl.dagobank.webapp.service;
 
 import nl.dagobank.webapp.backingbeans.RegistrationForm;
 import nl.dagobank.webapp.domain.*;
+import org.springframework.stereotype.Service;
 
-
-import java.time.LocalDate;
 
 public class CustomerFactory {
     private UserFullName userFullName;
     private UserAddress userAddress;
     private UserContactDetails userContactDetails;
     private UserInlogCredentials userInlogCredentials;
-    private LocalDate birthDate;
-    private int bsn;
+    private UserPersonalDetails userPersonalDetails;
 
     public CustomerFactory(RegistrationForm registrationForm, String userName, String password) {
         this.userFullName = new UserFullName(registrationForm.getFirstName(), registrationForm.getPrefix(), registrationForm.getLastName());
@@ -20,11 +18,11 @@ public class CustomerFactory {
                 registrationForm.getPostCode(), registrationForm.getCity());
         this.userContactDetails = new UserContactDetails(registrationForm.getPhoneNumber(), registrationForm.getEmail());
         this.userInlogCredentials = new UserInlogCredentials(userName, password);
-        this.birthDate = registrationForm.getBirthDate();
-        this.bsn = registrationForm.getBsn();
+        this.userPersonalDetails = new UserPersonalDetails(registrationForm.getBirthDate(), registrationForm.getBsn());
     }
 
     public Customer createCustomer() {
-        return new Customer(userFullName, userAddress, userContactDetails, userInlogCredentials, birthDate, bsn);
+        return new Customer(userFullName, userAddress, userContactDetails, userInlogCredentials, userPersonalDetails);
     }
 }
+

@@ -6,8 +6,8 @@ import java.time.LocalDate;
 @Entity
 public class Customer extends User {
 
-    public Customer(UserFullName userFullName, UserAddress userAddress, UserContactDetails userContactDetails, UserInlogCredentials userInlogCredentials, LocalDate birthDate, int bsn) {
-        super(userFullName, userAddress, userContactDetails, userInlogCredentials, birthDate, bsn);
+    public Customer(UserFullName userFullName, UserAddress userAddress, UserContactDetails userContactDetails, UserInlogCredentials userInlogCredentials, UserPersonalDetails userPersonalDetails) {
+        super(userFullName, userAddress, userContactDetails, userInlogCredentials, userPersonalDetails);
     }
 
     public Customer() {

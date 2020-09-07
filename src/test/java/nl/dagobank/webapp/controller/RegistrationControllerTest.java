@@ -2,6 +2,7 @@ package nl.dagobank.webapp.controller;
 
 import nl.dagobank.webapp.dao.CustomerDao;
 import nl.dagobank.webapp.domain.Customer;
+import nl.dagobank.webapp.service.CustomerFactory;
 import nl.dagobank.webapp.service.PasswordGenerator;
 import nl.dagobank.webapp.service.UsernameGenerator;
 import org.junit.jupiter.api.AfterEach;
@@ -25,6 +26,8 @@ class RegistrationControllerTest {
     UsernameGenerator usernameGenerator;
     @Autowired
     PasswordGenerator passwordGenerator;
+   /* @Autowired
+    CustomerFactory customerFactory;*/
 
     Customer customer;
     Customer customer2;
@@ -48,7 +51,7 @@ class RegistrationControllerTest {
         date = LocalDate.of(2000, 11, 11);
         customer.setBirthDate(date);
         customer.setEmail("janj@gmail.com");
-        customer.setBsn(135076569);
+        customer.setBsn(138335011);
         String password = passwordGenerator.generate(10);
         customer.setPassword(password);
         String userName = usernameGenerator.createUsername(customer.getFirstName(), customer.getLastName());

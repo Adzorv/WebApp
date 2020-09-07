@@ -28,7 +28,7 @@ public abstract class User {
 
     public User(){}
 
-    public User(UserFullName userFullName, UserAddress userAddress, UserContactDetails userContactDetails, UserInlogCredentials userInlogCredentials, LocalDate birthDate, int bsn){
+    public User(UserFullName userFullName, UserAddress userAddress, UserContactDetails userContactDetails, UserInlogCredentials userInlogCredentials, UserPersonalDetails userPersonalDetails){
         this.firstName = userFullName.getFirstName();
         this.prefix = userFullName.getPrefix();
         this.lastName = userFullName.getLastName();
@@ -41,8 +41,8 @@ public abstract class User {
         this.email = userContactDetails.getEmail();
         this.userName = userInlogCredentials.getUserName();
         this.password = userInlogCredentials.getPassword();
-        this.birthDate = birthDate;
-        this.bsn = bsn;
+        this.birthDate = userPersonalDetails.getBirthDate();
+        this.bsn = userPersonalDetails.getBsn();
     }
 
    /* public User(String firstName, String prefix, String lastName, String phoneNumber, String streetName, int houseNumber,
