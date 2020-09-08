@@ -10,5 +10,6 @@
 <h1>Info pagina van Rekening</h1>
 <h2> <span th:text="${bankAccountName}"/></h2>
 <div th:insert="fragments/footer :: footer"></div>
+<a th:href="@{/Transfer}" class="btn btn-primary"> Overboeken </a>
 </body>
 </html>
