@@ -2,6 +2,7 @@ package nl.dagobank.webapp.domain;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 
 @Entity
@@ -15,7 +16,8 @@ public abstract class BankAccount {
     @OneToOne
     private Customer accountHolder;
 
-    //private List<Customer> secondaryAccountHolders;
+    @OneToMany
+    private List<Customer> secondaryAccountHolders;
 
     private String iban;
     private BigDecimal balance;
