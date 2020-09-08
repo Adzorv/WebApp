@@ -231,6 +231,10 @@ footer.sh_footer {
     margin-top: 50px;
 }
 
+.loginbox.employee {
+    background-color: #5a6268;
+}
+
 .loginboxwrap {
     margin-left: 100px;
 }
@@ -245,6 +249,13 @@ footer.sh_footer {
     color: white;
     text-align: center;
     margin-top: 0;
+}
+
+.loginbox h2 {
+    white-space: nowrap;
+    color: white;
+    margin-top: 0;
+
 }
 
 .login-container {
