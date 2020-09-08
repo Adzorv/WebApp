@@ -1,15 +1,24 @@
 package nl.dagobank.webapp.domain;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
+@Entity
 public class Transaction {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
+    @OneToOne
     private BankAccount debitAccount;
+    @OneToOne
     private BankAccount creditAccount;
     private BigDecimal amount;
     private String description;
-    private Date date;
+    private LocalDate date;
 
     public Transaction() {
         super();
@@ -19,15 +28,16 @@ public class Transaction {
         return debitAccount;
     }
 
-    public void setDebitAccount( BankAccount debitAccount ) {
-        this.debitAccount = debitAccount;
-    }
 
     public BankAccount getCreditAccount() {
         return creditAccount;
     }
 
-    public void setCreditAccount( BankAccount creditAccount ) {
+    public void setDebitAccount(PrivateAccount debitAccount) {
+        this.debitAccount = debitAccount;
+    }
+
+    public void setCreditAccount(PrivateAccount creditAccount) {
         this.creditAccount = creditAccount;
     }
 
@@ -47,11 +57,28 @@ public class Transaction {
         this.description = description;
     }
 
-    public Date getDate() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate( Date date ) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
+
+
+
+    @Override
+    public String toString() {
+        return String.format("%s %s", creditAccount.getAccountHolder().getFirstName(), creditAccount.getIban());
+    }
+
+
 }

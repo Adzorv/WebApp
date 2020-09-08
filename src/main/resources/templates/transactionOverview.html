@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/head :: head">
+    <meta charset="UTF-8">
+
+    <title>Overzicht van Rekening</title>
+</head>
+<body>
+<div th:insert="fragments/navigation :: navigation"></div>
+
+<div class="container">
+    <div class="jumbotron">
+        <div class="card">
+            <div class="card-header">
+                <h2>Transactie Overzicht</h2>
+            </div>
+            <div class="card-body">
+                <h4>Type Rekening:  <span th:text="${selectedBankAccount.accountName}"/></h4>
+                <h4>Rekening nummer:  <span th:text="${selectedBankAccount.iban}"/></h4>
+                <h4>Saldo:  <span th:text="${selectedBankAccount.balance}"/></h4>
+                <a th:href="@{addAccountHolder}">
+                    <button class="button">Rekeninghouder toevoegen</button>
+                </a>
+                <table>
+<!--                    Fixme: itereerd nog niet goed over de lijst -->
+                    <tr th:each="transactie : ${transactions}">
+
+                        <p th:text="${transactie.id}"></p>
+                        <p th:text="${transactie.creditAccount.accountHolder + ' ' + transactie.creditAccount.iban}"></p>
+<!--                        Fixme: Accountholder laat alleen id zien maar nog geen naam    -->
+                        <p th:text="${transactie.description}"></p>
+                        <p th:text="${transactie.amount}"></p>
+                        <p th:text="${transactie.date}"></p>
+                        <hr>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:insert="fragments/footer :: footer"></div>
+
+</body>
+</html>
