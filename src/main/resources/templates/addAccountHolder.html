@@ -8,7 +8,7 @@
 <div th:insert="fragments/navigation :: navigation"></div>
 <p class="title" th:text="${selectedBankAccount.accountName}"></p>
 <p class="title" th:text="${selectedBankAccount.iban}"></p>
-<p class="title" th:text="${selectedBankAccount.id}"></p>
+
 
 <form method="post" th:action="@{addAccountHolder}" th:object="${AddAdditionalBankAccountHolderForm}">
     <p>Gebruikers login naam van klant wie je als rekeninghouder wilt toevoegen: <input class="" type="text" name="loginNameAdditionalAccountHolder"></td></p>

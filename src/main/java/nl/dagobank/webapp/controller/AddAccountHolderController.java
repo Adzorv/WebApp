@@ -54,7 +54,6 @@ public class AddAccountHolderController {
             bankAccountHolderTokenService.saveBankAccountHolderToken(bankAccountHolderToken);
             modelAndView.setViewName("bankAccountHolderTokenSuccess");
             modelAndView.addObject("bankAccountHolderToken", bankAccountHolderToken);
-            System.out.println(bankAccountHolderToken);
 
         } else {
             modelAndView.setViewName("addAccountHolder");
