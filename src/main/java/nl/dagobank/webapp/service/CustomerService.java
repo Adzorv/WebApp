@@ -76,7 +76,7 @@ public class CustomerService {
             System.out.println();
             System.out.println( MapUtil.entriesSortedByValues( result ) );
         }
-        return MapUtil.entriesSortedByValues( result ).subList( 0, 10 ); //TODO testen
+        return MapUtil.entriesSortedByValues( result ); //TODO limit10
     }
 
     private Iterator<Customer> getAllCustomersIterator() {
