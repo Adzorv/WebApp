@@ -30,11 +30,7 @@ public class OverviewController {
     public String overview(Model model) {
         Customer user = (Customer)model.getAttribute( "user" );
         List<BankAccount> bankAccountsOfUser = bankAccountDao.findAllByAccountHolder(user);
-        System.out.println(bankAccountsOfUser);
-        System.out.println(user);
         model.addAttribute("bankAccounts", bankAccountsOfUser);
         return "overview";
     }
-
-    // Lijst met bankaccounts
 }

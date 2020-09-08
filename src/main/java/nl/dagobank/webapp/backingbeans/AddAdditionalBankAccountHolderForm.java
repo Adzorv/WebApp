@@ -1,9 +1,12 @@
 package nl.dagobank.webapp.backingbeans;
 
+import nl.dagobank.webapp.domain.BankAccount;
+
 public class AddAdditionalBankAccountHolderForm {
 
     String loginNameAdditionalAccountHolder;
     String connectionCode;
+    int selectedBankAccountId;
 
     public AddAdditionalBankAccountHolderForm() {
     }
@@ -22,5 +25,13 @@ public class AddAdditionalBankAccountHolderForm {
 
     public void setConnectionCode(String connectionCode) {
         this.connectionCode = connectionCode;
+    }
+
+    public int getSelectedBankAccountId() {
+        return selectedBankAccountId;
+    }
+
+    public void setSelectedBankAccountId(int selectedBankAccountId) {
+        this.selectedBankAccountId = selectedBankAccountId;
     }
 }

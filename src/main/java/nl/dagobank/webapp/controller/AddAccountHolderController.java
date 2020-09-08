@@ -1,18 +1,17 @@
 package nl.dagobank.webapp.controller;
 
 import nl.dagobank.webapp.backingbeans.AddAdditionalBankAccountHolderForm;
+import nl.dagobank.webapp.domain.BankAccount;
 import nl.dagobank.webapp.domain.BankAccountHolderToken;
 import nl.dagobank.webapp.domain.Customer;
 import nl.dagobank.webapp.domain.PrivateAccount;
 import nl.dagobank.webapp.service.BankAccountHolderTokenService;
+import nl.dagobank.webapp.service.BankAccountService;
 import nl.dagobank.webapp.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -23,28 +22,26 @@ public class AddAccountHolderController {
 
     private CustomerService customerService;
     private BankAccountHolderTokenService bankAccountHolderTokenService;
-
-    HttpSession session;
+    private BankAccountService bankAccountService;
 
     @Autowired
-    public AddAccountHolderController(CustomerService customerService, HttpSession session, BankAccountHolderTokenService bankAccountHolderTokenService){
-        super();
+    public AddAccountHolderController(CustomerService customerService, BankAccountHolderTokenService bankAccountHolderTokenService, BankAccountService bankAccountService) {
         this.customerService = customerService;
-        this.session = session;
         this.bankAccountHolderTokenService = bankAccountHolderTokenService;
+        this.bankAccountService = bankAccountService;
     }
 
-    @GetMapping("/addAccountHolder")
-    String addAccountHolderHandler(Model model) {
+    @GetMapping("/addAccountHolder{id}")
+    String addAccountHolderHandler(@RequestParam("id") int id, Model model) {
         model.addAttribute("error", "");
-        model.addAttribute("selectedBankAccount", session.getAttribute("selectedBankAccount"));
+        model.addAttribute("selectedBankAccount", bankAccountService.getBankAccountById(id));
         return "addAccountHolder";
     }
 
     @PostMapping("addAccountHolder")
     ModelAndView sendAddAccountHolderHandler(@ModelAttribute AddAdditionalBankAccountHolderForm addAdditionalBankAccountHolderForm, Model model) {
         Customer user = (Customer)model.getAttribute( "user" );
-        PrivateAccount selectedAccount = (PrivateAccount) session.getAttribute("selectedBankAccount");
+        BankAccount selectedAccount = bankAccountService.getBankAccountById(addAdditionalBankAccountHolderForm.getSelectedBankAccountId());
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("selectedBankAccount", selectedAccount);
 
@@ -55,12 +52,13 @@ public class AddAccountHolderController {
             Customer accountHolderToAdd = customerService.getCustomerByUserName(userNameFromForm);
             BankAccountHolderToken bankAccountHolderToken = new BankAccountHolderToken(accountHolderToAdd, codeFromForm, selectedAccount);
             bankAccountHolderTokenService.saveBankAccountHolderToken(bankAccountHolderToken);
-            modelAndView.setViewName("redirect:/bankAccountHolderTokenSuccess");
-            session.setAttribute("bankAccountHolderToken", bankAccountHolderToken);
-            //modelAndView.addObject("bankAccountHolderToken", bankAccountHolderToken);
+            modelAndView.setViewName("bankAccountHolderTokenSuccess");
+            modelAndView.addObject("bankAccountHolderToken", bankAccountHolderToken);
+
         } else {
             modelAndView.setViewName("addAccountHolder");
             modelAndView.addObject("error", "Extra Rekeninghouder moet een bestaande klant login naam zijn, en mag niet je eigen naam zijn!");
+            modelAndView.addObject("selectedBankAccount", selectedAccount);
         }
     return modelAndView;
     }

@@ -18,8 +18,8 @@
                 <h4>Type Rekening:  <span th:text="${selectedBankAccount.accountName}"/></h4>
                 <h4>Rekening nummer:  <span th:text="${selectedBankAccount.iban}"/></h4>
                 <h4>Saldo:  <span th:text="${selectedBankAccount.balance}"/></h4>
-                <a th:href="@{addAccountHolder}">
-                    <button class="button">Rekeninghouder toevoegen</button>
+                <a th:href="@{addAccountHolder(id=${selectedBankAccount.id})}">
+                    <button>Rekeninghouder toevoegen</button>
                 </a>
                 <table>
 <!--                    Fixme: itereerd nog niet goed over de lijst -->

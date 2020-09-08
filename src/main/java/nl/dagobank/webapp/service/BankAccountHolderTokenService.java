@@ -1,25 +1,19 @@
 package nl.dagobank.webapp.service;
 
+import lombok.RequiredArgsConstructor;
 import nl.dagobank.webapp.dao.BankAccountDao;
 import nl.dagobank.webapp.dao.BankAccountHolderTokenDao;
 import nl.dagobank.webapp.dao.CustomerDao;
 import nl.dagobank.webapp.domain.BankAccountHolderToken;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BankAccountHolderTokenService {
 
-    BankAccountHolderToken bankAccountHolderToken;
-    CustomerDao customerDao;
-    BankAccountDao bankAccountDao;
-    BankAccountHolderTokenDao bankAccountHolderTokenDao;
+    private final BankAccountHolderTokenDao bankAccountHolderTokenDao;
 
-    @Autowired
-    public BankAccountHolderTokenService(CustomerDao customerDao, BankAccountDao bankAccountDao, BankAccountHolderTokenDao bankAccountHolderTokenDao) {
+    public BankAccountHolderTokenService(BankAccountHolderTokenDao bankAccountHolderTokenDao) {
         super();
-        this.bankAccountDao = bankAccountDao;
-        this.customerDao = customerDao;
         this.bankAccountHolderTokenDao = bankAccountHolderTokenDao;
     }
 
