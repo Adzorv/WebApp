@@ -5,11 +5,10 @@
     <title>Overzicht</title>
 </head>
 <body>
-<div th:switch="${session.user?.role == 'HoofdMKB'}">
-    <p th:case="${true}">Hallo, jij bent hoofd MKB</p>
+<div th:switch="${session.user?.role == 'HoofdParticulier'}">
+    <p th:case="${true}">Hallo, jij bent hoofd Particulier</p>
     <p th:case="${false}">Hallo, jij mag hier niet komen</p>
 
 </div>
-
 </body>
 </html>
