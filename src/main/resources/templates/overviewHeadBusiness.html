@@ -10,5 +10,11 @@
 <!--    <p th:case="${false}">Hallo, jij mag hier niet komen</p>-->
 <!--</div>-->
 <h1>Hier komt het MKB overzicht</h1>
+<table>
+    <tr th:each="instance : ${top10balance}">
+        <td th:text="${instance.key.firstName}"></td>
+        <td><span th:text="${instance.value}" ></span></td>
+    </tr>
+</table>
 </body>
 </html>
