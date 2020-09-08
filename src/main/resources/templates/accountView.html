@@ -12,8 +12,7 @@
 <h2> <span th:text="${selectedBankAccount.iban}"/></h2>
 <h2> <span th:text="${selectedBankAccount.balance}"/></h2>
 
-
-<a th:href="@{addAccountHolder}">
+<a th:href="@{addAccountHolder(id=${selectedBankAccount.id})}">
     <button>Rekeninghouder toevoegen</button>
 </a>
 <!-- <h2> <span th:text="${bankAccountName}"/></h2> -->

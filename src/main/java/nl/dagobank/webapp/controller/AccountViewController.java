@@ -2,6 +2,7 @@ package nl.dagobank.webapp.controller;
 
 import nl.dagobank.webapp.dao.BankAccountDao;
 import nl.dagobank.webapp.domain.BankAccount;
+import nl.dagobank.webapp.service.BankAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,24 +18,18 @@ import java.util.ArrayList;
 @SessionAttributes( "user" )
 public class AccountViewController {
 
-    BankAccountDao bankAccountDao;
-    HttpSession session;
+    BankAccountService bankAccountService;
 
     @Autowired
-    AccountViewController(BankAccountDao bankAccountDao, HttpSession session){
-        this.bankAccountDao = bankAccountDao;
-        this.session = session;
+    public AccountViewController(BankAccountService bankAccountService) {
+        this.bankAccountService = bankAccountService;
     }
-
 
     @GetMapping("/accountView{id}")
     ModelAndView AccountViewHandler(@RequestParam("id") int id){
-        ArrayList<Integer> convertedId = new ArrayList<>();
-        convertedId.add(id);
-        Iterable<BankAccount> selectedAccount = bankAccountDao.findAllById(convertedId);
+        BankAccount selectedBankAccount = bankAccountService.getBankAccountById(id);
         ModelAndView modelAndView = new ModelAndView("accountView");
-        session.setAttribute("selectedBankAccount", selectedAccount.iterator().next());
-        modelAndView.addObject("selectedBankAccount", session.getAttribute("selectedBankAccount"));
+        modelAndView.addObject("selectedBankAccount", selectedBankAccount);
         return modelAndView;
     }
 }
