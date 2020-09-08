@@ -32,7 +32,6 @@ public class LoginValidatorEmployee {
         }
         logMessage = "Foute gebruikersnaam en/of wachtwoord";
         loginForm.setGeneralError( "Foute gebruikersnaam en/of wachtwoord" );
-
     }
 
     public boolean isLoginValidated() {
