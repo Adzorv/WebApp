@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
 
@@ -36,15 +37,24 @@ public class LoginEmployeeController {
     }
 
     @PostMapping( "werknemer" )
-    public String loginAttemptEmployee( Model model, @ModelAttribute LoginForm loginForm ) {
+    public ModelAndView loginAttemptEmployee( Model model, @ModelAttribute LoginForm loginForm ) {
+        ModelAndView mav = new ModelAndView();
         LoginValidatorEmployee lv = employeeService.validateCredentials( loginForm );
         model.addAttribute( "loginform", loginForm );
         LOG.info( lv.getLogMessage() );
         if ( lv.isLoginValidated() ) {
-            model.addAttribute( "user", lv.getEmployee() );
-            return "redirect:/overzicht";
+            Employee employee = lv.getEmployee();
+            model.addAttribute( "user", employee );
+            if ( employee.getRole().equals( "HoofdMKB" )) {
+                mav.setViewName( "redirect:/overzichtmkb" );
+            } else if ( employee.getRole().equals( "HoofdParticulier" )) {
+                mav.setViewName( "redirect:/overzichtparticulier" );
+            }
+
+
         } else {
-            return "loginEmployee";
+            mav.setViewName( "loginEmployee" );
         }
+        return mav;
     }
 }
