@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/head :: head">
+    <meta charset="UTF-8">
+    <title>bankAccountHolderTokenSuccess</title>
+</head>
+<body>
+<div th:insert="fragments/navigation :: navigation"></div>
+<h2> Rekening token succesful aangemaakt!</h2>
+<h2>Gebruiker:</h2>
+<h2 th:text="${username}"></h2>
+<p></p>
+<h2 th:text="${bankAccountHolderToken.connectionCode}"></h2>
+<h2 th:text="${iban}"></h2>
+<div th:insert="fragments/footer :: footer"></div>
+</body>
+</html>
+
+

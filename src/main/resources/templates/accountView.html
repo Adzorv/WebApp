@@ -8,7 +8,16 @@
 <body>
 <div th:insert="fragments/navigation :: navigation"></div>
 <h1>Info pagina van Rekening</h1>
-<h2> <span th:text="${bankAccountName}"/></h2>
+<h2> <span th:text="${selectedBankAccount.accountName}"/></h2>
+<h2> <span th:text="${selectedBankAccount.iban}"/></h2>
+<h2> <span th:text="${selectedBankAccount.balance}"/></h2>
+
+
+<a th:href="@{addAccountHolder}">
+    <button>Rekeninghouder toevoegen</button>
+</a>
+<!-- <h2> <span th:text="${bankAccountName}"/></h2> -->
 <div th:insert="fragments/footer :: footer"></div>
+
 </body>
 </html>
