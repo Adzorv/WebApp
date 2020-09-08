@@ -5,7 +5,10 @@ import nl.dagobank.webapp.dao.BankAccountDao;
 import nl.dagobank.webapp.dao.BankAccountHolderTokenDao;
 import nl.dagobank.webapp.dao.CustomerDao;
 import nl.dagobank.webapp.domain.BankAccountHolderToken;
+import nl.dagobank.webapp.domain.Customer;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class BankAccountHolderTokenService {
@@ -20,5 +23,13 @@ public class BankAccountHolderTokenService {
     public void saveBankAccountHolderToken(BankAccountHolderToken bankAccountHolderToken){
         bankAccountHolderTokenDao.save(bankAccountHolderToken);
     }
+
+    public boolean existsValidToken(Customer customer, String iban, String connectionCode){
+        return (bankAccountHolderTokenDao.findAllByBecomingSecundaryAccountHolderAndAccountToAdd_IbanAndConnectionCode(customer, iban, connectionCode).size() > 0);
+    }
+
+
+
+
 
 }

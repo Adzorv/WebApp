@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/head :: head">
+    <meta charset="UTF-8">
+    <title>connect bank account</title>
+</head>
+<body>
+<div th:insert="fragments/navigation :: navigation"></div>
+
+<form method="post" th:action="@{connectBankAccount}" th:object="${ConnectBankAccountForm}">
+    <p>IBAN van rekening welke je wilt toevoegen: <input class="" type="text" name="iban"></td></p>
+    <p>Veiligheidscode (5 cijvers) : <input class="" type="text" name="connectionCode"></td></p>
+
+
+    <input class="sh_button" type="submit" name="connectBankAccount" value="Koppel Rekening"/>
+
+</form>
+<!-- <p class="loginError"> <span th:text="${error}"> </span> -->
+<div th:insert="fragments/footer :: footer"></div>
+</body>
+</html>
