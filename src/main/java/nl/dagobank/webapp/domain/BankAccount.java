@@ -65,9 +65,9 @@ public abstract class BankAccount {
         this.accountHolder = accountHolder;
     }
 
-    //public List<Customer> getSecondaryAccountHolders() {
-        //return secondaryAccountHolders;
-    //}
+    public List<Customer> getSecondaryAccountHolders() {
+        return secondaryAccountHolders;
+    }
 
 //    public void setSecondaryAccountHolders(List<Customer> secondaryAccountHolders) {
 //        this.secondaryAccountHolders = secondaryAccountHolders;
