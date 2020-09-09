@@ -14,16 +14,26 @@ public class BankAccountHolderToken {
     String connectionCode;
 
     @OneToOne
-    PrivateAccount accountToAdd;
+    BankAccount accountToAdd;
 
 
     public BankAccountHolderToken() {
     }
 
-    public BankAccountHolderToken(Customer becomingSecundaryAccountHolder, String connectionCode, PrivateAccount accountToAdd) {
+    public BankAccountHolderToken(Customer becomingSecundaryAccountHolder, String connectionCode, BankAccount accountToAdd) {
         this.becomingSecundaryAccountHolder = becomingSecundaryAccountHolder;
         this.connectionCode = connectionCode;
         this.accountToAdd = accountToAdd;
+    }
+
+    @Override
+    public String toString() {
+        return "BankAccountHolderToken{" +
+                "id=" + id +
+                ", becomingSecundaryAccountHolder=" + becomingSecundaryAccountHolder +
+                ", connectionCode='" + connectionCode + '\'' +
+                ", accountToAdd=" + accountToAdd +
+                '}';
     }
 
     public Customer getBecomingSecundaryAccountHolder() {
@@ -39,7 +49,7 @@ public class BankAccountHolderToken {
         return connectionCode;
     }
 
-    public PrivateAccount getAccountToAdd() {
+    public BankAccount getAccountToAdd() {
         return accountToAdd;
     }
 }
