@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/head" :: head>
+    <title>Open zakelijke rekening</title>
+</head>
+<body>
+<div th:insert="fragments/navigation :: navigation"></div>
+<h1> Hoi <span th:text="${customerName}"/> !</h1>
+<h2>Vul het formulier in voor het openen van een zakelijke rekening</h2>
+
+<form method="post" th:action="@{openBusinessAccount}" th:object="${openBusinessAccountForm}">
+    <table>
+        <tr>
+            <td>Bedrijfsnaam :</td>
+            <td><input type="text" name="input_businessName" th:field="*{businessName}" required /></td>
+        </tr>
+        <tr>
+            <td>KvK nummer :</td>
+            <td><input type="number" name="input_kvkNumber" th:field="*{kvkNumber}" placeholder="12345678"
+                       pattern="[0-9]{8}" required/></td>
+        </tr>
+        <tr>
+            <td>SBI-code :</td>
+            <td><select th:field="*{sbiCodes}">
+                <option th:each="sbiCode : ${sbiCodes}" th:value="${sbiCode}" th:text="${sbiCode}"></option>
+                <option value="Maak een keuze..." selected disabled>Maak een keuze...</option>
+            </select></td>
+        </tr>
+        <tr>
+            <td><input class="button" type="submit" name="aanmakenRekening" value="Maak rekening aan"/></td>
+        </tr>
+    </table>
+</form>
+<div th:insert="fragments/footer :: footer"></div>
+</body>
+</html>
