@@ -7,6 +7,7 @@ import nl.dagobank.webapp.domain.PrivateAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,7 +29,19 @@ public class BankAccountService {
     }
 
     public List<BankAccount> getAllAccountsFromCustomer(Customer customer){
-        return bankAccountDao.findAllByAccountHolderOrSecondaryAccountHoldersContains(customer, customer);
+        List<BankAccount> bankaccounts = bankAccountDao.findAllByAccountHolderOrSecondaryAccountHoldersContains(customer, customer);
+        List<BankAccount> sortedBankAccounts = new ArrayList<>();
+        for (BankAccount bankAccount : bankaccounts) {
+            if (bankAccount.getAccountHolder().equals(customer)){
+                sortedBankAccounts.add(bankAccount);
+            }
+        }
+        for (BankAccount bankAccount : bankaccounts) {
+            if (!bankAccount.getAccountHolder().equals(customer)){
+                sortedBankAccounts.add(bankAccount);
+            }
+        }
+        return sortedBankAccounts;
     }
 
     public int getNumberOfBankAccountsOfCustomer(Customer customer){
