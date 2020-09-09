@@ -6,6 +6,7 @@ import nl.dagobank.webapp.domain.BankAccount;
 import nl.dagobank.webapp.domain.Customer;
 import nl.dagobank.webapp.domain.PrivateAccount;
 import nl.dagobank.webapp.domain.User;
+import nl.dagobank.webapp.service.BankAccountService;
 import org.apache.catalina.filters.ExpiresFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,18 +24,14 @@ import java.util.List;
 public class OverviewController {
 
     @Autowired
-    private BankAccountDao bankAccountDao;
+    BankAccountService bankAccountService;
 
 
     @GetMapping("overview")
     public String overview(Model model) {
         Customer user = (Customer)model.getAttribute( "user" );
-        List<BankAccount> bankAccountsOfUser = bankAccountDao.findAllByAccountHolder(user);
-        System.out.println(bankAccountsOfUser);
-        System.out.println(user);
+        List<BankAccount> bankAccountsOfUser = bankAccountService.getAllAccountsFromCustomer(user);
         model.addAttribute("bankAccounts", bankAccountsOfUser);
         return "overview";
     }
-
-    // Lijst met bankaccounts
 }
