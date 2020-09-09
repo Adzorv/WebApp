@@ -5,49 +5,75 @@
 </head>
 <body>
 <div th:insert="fragments/navigation :: navigation"></div>
-<h1>Registreer</h1>
-<h2>Vul het formulier in</h2>
-<form method="post" th:action="@{register}" th:object="${registrationForm}">
-    <table>
-        <tr>
-            <td>Voornaam :</td><td><input type="text" name="input_firstName" th:field="*{firstName}" placeholder="Voornaam" pattern="[A-Za-z ]{1,}" required></td>
-        </tr>
-        <tr>
-            <td>Tussenvoegsel :</td><td><input type="text" name="input_prefix" th:field="*{prefix}" placeholder="Tussenvoegsel" pattern="[A-Za-z ]{1,}"></td>
-        </tr>
-        <tr>
-            <td>Achternaam :</td><td><input type="text" name="input_lastName" th:field="*{lastName}" placeholder="Achternaam" pattern="[A-Za-z ]{1,}" required></td>
-        </tr>
-        <tr>
-            <td>Telefoon : </td><td><input type="text" name="input_phoneNumber" th:field="*{phoneNumber}" placeholder="00000000" pattern="[0-9 +]{8,}" required></td>
-        </tr>
-        <tr>
-            <td>Straat :</td><td><input type="text" name="input_streetName" th:field="*{streetName}" placeholder="Straatnaam" required></td>
-        </tr>
-        <tr>
-            <td>Huisnummer :</td><td><input type="number" name="input_houseNumber" th:field="*{houseNumber}" placeholder="000" pattern="[0-9]{1,}" required></td>
-        </tr>
-        <tr>
-            <td>Toevoeging :</td><td><input type="text" name="input_house_number_annex" th:field="*{houseNumberAnnex}" placeholder="Toevoeging"></td>
-        </tr>
-        <tr>
-            <td>Postcode :</td><td><input type="text" name="input_post_code" th:field="*{postCode}" placeholder="0000XX" pattern="[0-9]{4}[A-Za-z]{2}" required></td>
-        </tr>
-        <tr>
-            <td> Woonplaats :</td><td><input type="text" name="input_city" th:field="*{city}" placeholder="Woonplaats" pattern="[A-Za-z ]{1,}" required></td>
-        </tr>
-        <tr>
-            <td>Email :</td><td><input type="text" name="input_email" th:field="*{email}" placeholder="Naam@Email.com" pattern="\b[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}\b" required></td>
-        </tr>
-        <tr>
-            <td>Geboortedatum :</td><td><input type="date" name="input_birth_date" th:field="*{birthDate}" required></td>
-        </tr>
-        <tr>
-            <td>BSN :</td><td><input type="number" name="bsn"th:field="*{bsn}" placeholder="123456789" required></td>
-        </tr>
-    </table>
-    <input type="submit" name="register" value="Registreer"/>
-</form>
-<div th:insert="fragments/footer :: footer"></div>
+<main class="wrap">
+    <h1>Registreren</h1>
+    <h2>Vul het registratie formulier in</h2>
+    <form method="post" th:action="@{register}" th:object="${registrationForm}">
+        <table>
+            <tr>
+                <td>Voornaam :</td>
+                <td><input type="text" name="input_firstName" th:field="*{firstName}" placeholder="Voornaam"
+                           pattern="[A-Za-z ]{1,}" required></td>
+            </tr>
+            <tr>
+                <td>Tussenvoegsel :</td>
+                <td><input type="text" name="input_prefix" th:field="*{prefix}" placeholder="Tussenvoegsel"
+                           pattern="[A-Za-z ]{1,}"></td>
+            </tr>
+            <tr>
+                <td>Achternaam :</td>
+                <td><input type="text" name="input_lastName" th:field="*{lastName}" placeholder="Achternaam"
+                           pattern="[A-Za-z ]{1,}" required></td>
+            </tr>
+            <tr>
+                <td>Telefoon :</td>
+                <td><input type="text" name="input_phoneNumber" th:field="*{phoneNumber}" placeholder="00000000"
+                           pattern="[0-9 +]{8,}" required></td>
+            </tr>
+            <tr>
+                <td>Straat :</td>
+                <td><input type="text" name="input_streetName" th:field="*{streetName}" placeholder="Straatnaam"
+                           required></td>
+            </tr>
+            <tr>
+                <td>Huisnummer :</td>
+                <td><input type="number" name="input_houseNumber" th:field="*{houseNumber}" placeholder="000"
+                           pattern="[0-9]{1,}" required></td>
+            </tr>
+            <tr>
+                <td>Toevoeging :</td>
+                <td><input type="text" name="input_house_number_annex" th:field="*{houseNumberAnnex}"
+                           placeholder="Toevoeging"></td>
+            </tr>
+            <tr>
+                <td>Postcode :</td>
+                <td><input type="text" name="input_post_code" th:field="*{postCode}" placeholder="0000XX"
+                           pattern="[0-9]{4}[A-Za-z]{2}" required></td>
+            </tr>
+            <tr>
+                <td> Woonplaats :</td>
+                <td><input type="text" name="input_city" th:field="*{city}" placeholder="Woonplaats"
+                           pattern="[A-Za-z ]{1,}" required></td>
+            </tr>
+            <tr>
+                <td>Email :</td>
+                <td><input type="text" name="input_email" th:field="*{email}" placeholder="Naam@Email.com"
+                           pattern="\b[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}\b" required></td>
+            </tr>
+            <tr>
+                <td>Geboortedatum :</td>
+                <td><input class="text-primary" type="date" name="input_birth_date" th:field="*{birthDate}" required></td>
+            </tr>
+            <tr>
+                <td>BSN :</td>
+                <td><input type="number" name="bsn" th:field="*{bsn}" placeholder="123456789" required></td>
+            </tr>
+            <tr>
+                <td><input class="button_bottom" type="submit" name="register" value="Registreer"/></td>
+            </tr>
+        </table>
+    </form>
+    <div th:insert="fragments/footer :: footer"></div>
+</main>
 </body>
 </html>

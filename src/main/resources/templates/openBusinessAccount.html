@@ -5,6 +5,7 @@
 </head>
 <body>
 <div th:insert="fragments/navigation :: navigation"></div>
+<main class="wrap">
 <h1> Hoi <span th:text="${customerName}"/> !</h1>
 <h2>Vul het formulier in voor het openen van een zakelijke rekening</h2>
 
@@ -16,21 +17,22 @@
         </tr>
         <tr>
             <td>KvK nummer :</td>
-            <td><input type="number" name="input_kvkNumber" th:field="*{kvkNumber}" placeholder="12345678"
+            <td><input class="text-primary" type="number" name="input_kvkNumber" th:field="*{kvkNumber}" placeholder="12345678"
                        pattern="[0-9]{8}" required/></td>
         </tr>
         <tr>
             <td>SBI-code :</td>
-            <td><select th:field="*{sbiCodes}">
+            <td><select class="text-primary" th:field="*{sbiCodes}">
                 <option th:each="sbiCode : ${sbiCodes}" th:value="${sbiCode}" th:text="${sbiCode}"></option>
                 <option value="Maak een keuze..." selected disabled>Maak een keuze...</option>
             </select></td>
         </tr>
         <tr>
-            <td><input class="button" type="submit" name="aanmakenRekening" value="Maak rekening aan"/></td>
+            <td><input class="button_bottom" type="submit" name="aanmakenRekening" value="Maak rekening aan"/></td>
         </tr>
     </table>
 </form>
+</main>
 <div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>

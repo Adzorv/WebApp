@@ -35,6 +35,26 @@
     background-blend-mode: overlay;
 }
 
+body {
+    background-color: black;
+    font-family: "Nova Round";
+    color: white;
+    font-size: 1.5em;
+
+}
+main {
+    margin-left: 15%;
+
+}
+
+form {
+    padding:  5% 0;
+}
+
+
+
+
+
 
 .wave {
     position: absolute;
@@ -167,6 +187,20 @@ h1.intro {
     left: 50%;
 }
 
+.button_bottom {
+    background-color: #ffc107;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 25% auto;
+
+}
+
 .sh_title {
     text-align: center;
 
@@ -229,6 +263,7 @@ footer.sh_footer {
     width: 300px;
     height: 200px;
     margin-top: 50px;
+    color: black;
 }
 
 .loginbox.employee {
