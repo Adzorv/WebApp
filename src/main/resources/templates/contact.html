@@ -32,16 +32,16 @@
             </tr>
             <tr>
                 <td>Betreft:</td>
-                <td><select class="text-primary" th:field="*{subjects}" style="width: 250px;">
+                <td><select th:field="*{subjects}" style="width: 250px;">
                     <option th:each="subject : ${subjects}" th:value="${subject}" th:text="${subject}"></option>
                     <option value="Maak een keuze..." selected disabled>Maak een keuze...</option>
                 </select></td>
             </tr>
             <tr>
                 <td>Bericht:</td>
-                <td><input type="text" name="input_message" th:field="*{message}"
-                           placeholder="Schrijf hier je vraag of opmerking...." style="height: 250px; width: 250px;">
-                </td> <!--how to position placeholder top left?-->
+                <td><textarea type="text" name="input_message" th:field="*{message}"
+                              placeholder="Schrijf hier je vraag of opmerking...." style="height: 250px; width: 250px;"></textarea>
+                </td>
             </tr>
             <tr>
             <td><input class="button_bottom" type="submit" name="contact" value="Verzend"/></td>
