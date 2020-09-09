@@ -16,7 +16,7 @@ public abstract class BankAccount {
     @OneToOne
     private Customer accountHolder;
 
-    @OneToMany
+    @OneToMany(fetch=FetchType.EAGER)
     private List<Customer> secondaryAccountHolders;
 
     private String iban;

@@ -28,8 +28,8 @@ public class BankAccountHolderTokenService {
         return (bankAccountHolderTokenDao.findAllByBecomingSecundaryAccountHolderAndAccountToAdd_IbanAndConnectionCode(customer, iban, connectionCode).size() > 0);
     }
 
-    public List<BankAccountHolderToken> getValidTokens(Customer customer, String iban, String connectionCode){
-        return bankAccountHolderTokenDao.findAllByBecomingSecundaryAccountHolderAndAccountToAdd_IbanAndConnectionCode(customer, iban, connectionCode);
+    public List<BankAccountHolderToken> getValidTokens(Customer customer, String iban){
+        return bankAccountHolderTokenDao.findAllByBecomingSecundaryAccountHolderAndAccountToAdd_Iban(customer, iban);
     }
 
     public void deleteTokens(List<BankAccountHolderToken> bankAccountHolderTokens){

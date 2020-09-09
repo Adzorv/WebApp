@@ -24,4 +24,8 @@ public class BankAccountService {
     public int getNumberOfBankAccountsOfCustomer(Customer customer){
         return bankAccountDao.findAllByAccountHolder(customer).size();
     }
+
+    public boolean isCustomerSecondAccountHolder(Customer customer, BankAccount bankAccount){
+        return bankAccountDao.findById(bankAccount.getId()).get().getSecondaryAccountHolders().contains(customer);
+    }
 }

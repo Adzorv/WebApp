@@ -13,4 +13,5 @@ public interface BankAccountHolderTokenDao extends CrudRepository<BankAccountHol
 
     List<BankAccountHolderToken> findAllByBecomingSecundaryAccountHolder(Customer customer);
     List<BankAccountHolderToken> findAllByBecomingSecundaryAccountHolderAndAccountToAdd_IbanAndConnectionCode(Customer customer, String iban, String connectionCode);
+    List<BankAccountHolderToken> findAllByBecomingSecundaryAccountHolderAndAccountToAdd_Iban(Customer customer, String iban);
 }
