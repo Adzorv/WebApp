@@ -17,7 +17,13 @@
                     <tr th:each="rekening : ${bankAccounts}">
                         <h3><span class="glyphicon glyphicon-credit-card"></span> PARTICULIERE REKENING</h3>
                         <p class="title" th:text="${rekening.accountName}"></p>
-                        <p class="title" th:text="${user.firstName + ' ' + user.prefix + ' ' + user.lastName}"></p>
+                        <p class="title" th:text="${rekening.accountHolder.firstName + ' ' + rekening.accountHolder.prefix + ' ' + rekening.accountHolder.lastName}"></p>
+
+                        <div class="title" th:each="additionalAccountHolder : ${rekening.secondaryAccountHolders}">
+                             <p class="title" th:text="${additionalAccountHolder.firstName + ' ' + additionalAccountHolder.prefix + ' ' + additionalAccountHolder.lastName + ' |'}" ></p></div>
+
+
+
                         <p th:text="${rekening.iban +  '&emsp;' + '&emsp;' +'&#8364;' + '  ' + rekening.balance}"></p>
                         <a th:href="@{/accountView(id=${rekening.id})}">
                             <button>Toon alle transacties</button>
@@ -29,6 +35,8 @@
                             <p><a th:href="@{openPrivateBankAccount}">Privérekening openen</a></p>
                             <hr>
                             <p><a th:href="@{openBusinessBankAccount}">Zakelijke rekening openen</a></p>
+                            <hr>
+                            <p><a th:href="@{connectBankAccount}">Koppel nieuwe rekening äctiveren</a></p>
                         </td>
                     </tr>
                 </table>

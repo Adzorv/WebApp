@@ -2,6 +2,7 @@ package nl.dagobank.webapp.domain;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 //@Table(schema = "dagobank") //assign datasource
@@ -73,7 +74,18 @@ public abstract class User {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return userName.equals(user.userName);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(userName);
+    }
 
     public int getId() {
         return id;
