@@ -14,6 +14,7 @@ public interface BankAccountDao extends CrudRepository<BankAccount, Integer> {
     boolean existsByIban(Iban iban);
     List<BankAccount> findAllByAccountHolder(User accountHolder);
     List<BankAccount> findAllByAccountHolderOrSecondaryAccountHoldersContains(Customer customer, Customer customer2);
+    List<BankAccount> findAllBySecondaryAccountHoldersContaining(Customer customer);
 
 }
 

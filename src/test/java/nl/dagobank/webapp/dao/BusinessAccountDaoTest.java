@@ -23,18 +23,19 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.*;
 
-@DataJpaTest
-@RunWith( SpringRunner.class )
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+//@DataJpaTest
+//@RunWith( SpringRunner.class )
+//@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@SpringBootTest
 class BusinessAccountDaoTest {
 
     @Autowired
     BusinessAccountDao businessAccountDao;
 
-    @Autowired
-    private TestEntityManager testEntityManager;
+//    @Autowired
+//    private TestEntityManager testEntityManager;
 
-    @MockBean
+    @Autowired
     private CustomerDao customerDao;
 
 
@@ -47,39 +48,57 @@ class BusinessAccountDaoTest {
     void findAllByAccountHolder() {
     }
 
+
     @Test
     void findAllBySecondaryAccountHoldersContaining() {
-        Customer customer = new Customer();
-        customer.setBsn(602081269);
-        String password = "test";
-        customer.setPassword(password);
-        String userName = "businessaccountdao";
-        customer.setUserName(userName);
+//        Customer customer = new Customer();
+//        customer.setBsn(602081269);
+//        String password = "test";
+//        customer.setPassword(password);
+//        String userName = "businessaccountdao";
+//        customer.setUserName(userName);
+//
+//        Customer customer2 = new Customer();
+//        customer2.setBsn(277131741);
+//        password = "test";
+//        customer2.setPassword(password);
+//        userName = "businessaccountdao2";
+//        customer2.setUserName(userName);
+//
+//        Customer customer3 = new Customer();
+//        customer3.setBsn(277131741);
+//        password = "test";
+//        customer3.setPassword(password);
+//        userName = "businessaccountdao3";
+//        customer3.setUserName(userName);
+//
+//        testEntityManager.persist( customer );
+////        testEntityManager.persist( customer2 );
+////        testEntityManager.persist( customer3 );
+//        testEntityManager.flush();
+//
+//        Customer found = customerDao.findByBsn( 602081269 );
+//        System.out.println(customer.getBsn());
+//        System.out.println(found);
+//
+//        assertThat(found.getBsn()).isEqualTo( customer.getBsn() );
 
-        Customer customer2 = new Customer();
-        customer2.setBsn(277131741);
-        password = "test";
-        customer2.setPassword(password);
-        userName = "businessaccountdao2";
-        customer2.setUserName(userName);
 
-        Customer customer3 = new Customer();
-        customer3.setBsn(277131741);
-        password = "test";
-        customer3.setPassword(password);
-        userName = "businessaccountdao3";
-        customer3.setUserName(userName);
+        Optional<BusinessAccount> bankAccountOptional = businessAccountDao.findById( 31 );
+        BusinessAccount ba;
+        if ( bankAccountOptional.isPresent() ) {
+            ba = bankAccountOptional.get();
+            System.out.println( ba.getSecondaryAccountHolders() );
+            Customer customer = customerDao.findById( 1 ).get();
 
-        testEntityManager.persist( customer );
-//        testEntityManager.persist( customer2 );
-//        testEntityManager.persist( customer3 );
-        testEntityManager.flush();
+            List<BusinessAccount> accounts = businessAccountDao.findAllBySecondaryAccountHoldersContains( customer );
 
-        Customer found = customerDao.findByBsn( 602081269 );
-        System.out.println(customer.getBsn());
-        System.out.println(found);
+            System.out.println( accounts );
 
-        assertThat(found.getBsn()).isEqualTo( customer.getBsn() );
+            assertThat(accounts).contains( ba );
+        } else {
+            fail();
+        }
 
 
 

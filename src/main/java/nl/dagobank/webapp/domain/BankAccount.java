@@ -3,6 +3,7 @@ package nl.dagobank.webapp.domain;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 
 @Entity
@@ -98,11 +99,27 @@ public abstract class BankAccount {
 //    }
 
 
-    public List<Customer> getSecondaryAccountHolders() {
-        return secondaryAccountHolders;
-    }
 
     public void setSecondaryAccountHolders( List<Customer> secondaryAccountHolders ) {
         this.secondaryAccountHolders = secondaryAccountHolders;
     }
+
+    @Override
+    public boolean equals( Object o ) {
+        if ( this == o ) return true;
+        if ( o == null || getClass() != o.getClass() ) return false;
+        BankAccount that = (BankAccount) o;
+        return id == that.id
+                &&
+                Objects.equals( accountName, that.accountName )
+                && Objects.equals( accountHolder, that.accountHolder )
+//                && Objects.equals( secondaryAccountHolders, that.secondaryAccountHolders )
+                && Objects.equals( iban, that.iban )
+                && Objects.equals( balance, that.balance )
+                && Objects.equals( BANKACCOUNT_BEGINBALANCE_GIFT, that.BANKACCOUNT_BEGINBALANCE_GIFT )
+//                && Objects.equals( TESTIBAN, that.TESTIBAN )
+                ;
+    }
+
+
 }
