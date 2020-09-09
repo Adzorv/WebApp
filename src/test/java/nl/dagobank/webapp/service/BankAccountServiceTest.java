@@ -30,16 +30,16 @@ class BankAccountServiceTest {
     }
 
     @Test
-    void isCustomerSecondAccountHolderTest(){
-        Customer customer = customerDao.findByUserName("test").get();
+    void getAllAccountHoldersTest(){
+        Customer customer = customerDao.findByUserName("seb").get();
 
-        BankAccount bankAccount = bankAccountDao.findById(16).get();
+        //BankAccount bankAccount = bankAccountDao.findById(16).get();
 
-        System.out.println(bankAccount.getSecondaryAccountHolders());
-        boolean present = bankAccountService.isCustomerSecondAccountHolder(customer, bankAccount);
+        //System.out.println(bankAccount.getSecondaryAccountHolders());
+        //boolean present = bankAccountService.isCustomerSecondAccountHolder(customer, bankAccount);
 
-        Assertions.assertTrue(present);
+        //Assertions.assertTrue(present);
 
-
+        System.out.println(bankAccountService.getAllAccountsFromCustomer(customer));
     }
 }
