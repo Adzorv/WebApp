@@ -97,4 +97,12 @@ public abstract class BankAccount {
 //        this.transations = transations;
 //    }
 
+
+    public List<Customer> getSecondaryAccountHolders() {
+        return secondaryAccountHolders;
+    }
+
+    public void setSecondaryAccountHolders( List<Customer> secondaryAccountHolders ) {
+        this.secondaryAccountHolders = secondaryAccountHolders;
+    }
 }

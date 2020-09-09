@@ -1,7 +1,5 @@
 package nl.dagobank.webapp.controller;
 
-import nl.dagobank.webapp.dao.CustomerDao;
-import nl.dagobank.webapp.domain.BusinessAccount;
 import nl.dagobank.webapp.domain.Customer;
 import nl.dagobank.webapp.domain.Employee;
 import nl.dagobank.webapp.service.CustomerService;
@@ -30,7 +28,7 @@ public class HeadBusinessController {
             Employee employee = (Employee) model.getAttribute( "user" );
             if ( employee != null && employee.getRole().equals( "HoofdMKB" )) {
 
-                List<Map.Entry<Customer, BigDecimal>> top10Balance = customerService.getAllBusinessCustomers();
+                List<Map.Entry<Customer, BigDecimal>> top10Balance = customerService.getTop10BusinessCustomers();
 
                 model.addAttribute( "top10balance", top10Balance );
 
