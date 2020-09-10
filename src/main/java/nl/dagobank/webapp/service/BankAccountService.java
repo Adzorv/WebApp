@@ -52,5 +52,8 @@ public class BankAccountService {
         return bankAccountDao.findById(bankAccount.getId()).get().getSecondaryAccountHolders().contains(customer);
     }
 
+    public boolean isCustomerFirstOrSecundairyAccountHolder(Customer customer, BankAccount bankAccount){
+        //
+    }
 
 }

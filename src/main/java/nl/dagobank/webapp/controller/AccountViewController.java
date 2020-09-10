@@ -31,6 +31,9 @@ public class AccountViewController {
 
         ModelAndView modelAndView = new ModelAndView("transactionOverview");
         BankAccount selectedBankAccount = bankAccountService.getBankAccountById(id);
+
+
+
         modelAndView.addObject("selectedBankAccount", selectedBankAccount);
         List<Transaction> allTransactions = transactionDao.findAllByDebitAccount(selectedBankAccount);
         modelAndView.addObject("transactions", allTransactions);
