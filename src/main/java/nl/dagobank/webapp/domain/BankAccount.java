@@ -23,13 +23,12 @@ public abstract class BankAccount {
     private BigDecimal balance;
 
     private final BigDecimal BANKACCOUNT_BEGINBALANCE_GIFT = new BigDecimal("25");
-    private final String TESTIBAN = "NL58INGB0687603749";
+
 
     public BankAccount(int id, String accountName, Customer accountHolder, BigDecimal balance) {
         this.id = id;
         this.accountName = accountName;
         this.accountHolder = accountHolder;
-        this.iban = TESTIBAN;
         this.balance = BANKACCOUNT_BEGINBALANCE_GIFT;
     }
 
@@ -69,10 +68,6 @@ public abstract class BankAccount {
         return secondaryAccountHolders;
     }
 
-//    public void setSecondaryAccountHolders(List<Customer> secondaryAccountHolders) {
-//        this.secondaryAccountHolders = secondaryAccountHolders;
-//    }
-
     public String getIban() {
         return iban;
     }
@@ -88,13 +83,5 @@ public abstract class BankAccount {
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
-
-//    public List<Transaction> getTransations() {
-//        return transations;
-//    }
-
-//    public void setTransations(List<Transaction> transations) {
-//        this.transations = transations;
-//    }
 
 }
