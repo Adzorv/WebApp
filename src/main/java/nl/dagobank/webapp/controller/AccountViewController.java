@@ -30,6 +30,8 @@ public class AccountViewController {
     ModelAndView AccountViewHandler(@RequestParam("id") int id) {
 
         ModelAndView modelAndView = new ModelAndView("transactionOverview");
+
+
         BankAccount selectedBankAccount = bankAccountService.getBankAccountById(id);
 
 

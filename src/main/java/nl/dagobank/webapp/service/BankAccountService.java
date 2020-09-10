@@ -53,7 +53,7 @@ public class BankAccountService {
     }
 
     public boolean isCustomerFirstOrSecundairyAccountHolder(Customer customer, BankAccount bankAccount){
-        //
+        bankAccount
     }
 
 }
