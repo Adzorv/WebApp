@@ -40,16 +40,20 @@ public class OpenBusinessAccountController {
         return openBusinessAccountPage;
     }
 
-    /*@PostMapping("businessAccountOpened")
+    @PostMapping("openBusinessAccount")
     public ModelAndView openBusinessAccountSuccessfulHandler(@ModelAttribute OpenBusinessAccountForm openBusinessAccountForm, Model model, BusinessAccount businessAccount) {
-        ModelAndView businessAccountOpenened = new ModelAndView("openBusinessAccountSuccessful");
+        ModelAndView businessAccountOpenened = new ModelAndView("openBusinessAccountSuccesful");
         Customer customer = (Customer) model.getAttribute("user");//FIXME: check how this works
         businessAccount.setAccountHolder(customer);
+        businessAccount.setBusinessName(openBusinessAccountForm.getBusinessName());
+        businessAccount.setKvkNumber(openBusinessAccountForm.getKvkNumber());
+        businessAccount.setSbiCode(openBusinessAccountForm.getSbiCode());//fixme: how to get the right value form selectbox
+        businessAccount.setAccountName(openBusinessAccountForm.getBankAccountName());
         businessAccount.setBalance(new BigDecimal("25"));
         Iban iban = ibanGenerator.createIban();
         businessAccount.setIban(iban.toString());
         bankAccountDao.save(businessAccount);
+        businessAccountOpenened.addObject("bankaccount", businessAccount.toString());
         return businessAccountOpenened;
-    }*/
-
+    }
 }

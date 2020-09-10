@@ -59,7 +59,7 @@ public class CustomerService {
         return ( checkIfBSNIsCorrect( bsn ) && !checkIfBSNIsInDB( bsn ) );
     }
 
-    public List<Map.Entry<Customer, BigDecimal>> getAllBusinessCustomers() {
+    public List<Map.Entry<Customer, BigDecimal>> getTop10BusinessCustomers() {
         Iterator<Customer> all = getAllCustomersIterator();
         BigDecimal totalBalance = new BigDecimal( 0 );
         Map<Customer, BigDecimal> result = new HashMap<>();
@@ -73,10 +73,8 @@ public class CustomerService {
                 }
                 result.put( customer, totalBalance );
             }
-            System.out.println();
-            System.out.println( MapUtil.entriesSortedByValues( result ) );
         }
-        return MapUtil.entriesSortedByValues( result ); //TODO limit10
+        return MapUtil.entriesSortedByValues( result ).subList( 0, result.size() < 10 ? result.size() : 10 );
     }
 
     private Iterator<Customer> getAllCustomersIterator() {

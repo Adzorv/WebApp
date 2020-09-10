@@ -6,13 +6,16 @@
 </head>
 <body>
 <div th:insert="fragments/navigation :: navigation"></div>
-<p class="title" th:text="${selectedBankAccount.accountName}"></p>
-<p class="title" th:text="${selectedBankAccount.iban}"></p>
 
+<h1>Toevoegen mederekeninghouder </h1>
+<p>Ik wil voor de rekening <span th:text="${selectedBankAccount.accountName + ' met IBAN nummer ' + selectedBankAccount.iban}"></span>
+de volgende mederekeninghouder toevoegen:</p>
 
 <form method="post" th:action="@{addAccountHolder}" th:object="${AddAdditionalBankAccountHolderForm}">
-    <p>Gebruikers login naam van klant wie je als rekeninghouder wilt toevoegen: <input class="" type="text" name="loginNameAdditionalAccountHolder"></td></p>
-    <p>Veiligheidscode (5 cijvers) : <input class="" type="text" name="connectionCode" placeholder="00000" pattern="[0-9]{5}" required></td>
+
+    <p>Mederekeninghouder: <input style="width: 250px" type="text" name="loginNameAdditionalAccountHolder" placeholder="Inlognaam van Mederekeninghouder"></td></p>
+<p>Bedenk zelf een code van vijf cijfers en vul deze hier in.</p>
+    <p>Veiligheidscode: <input class="" type="text" name="connectionCode" placeholder="12345" pattern="[0-9]{5}" required></td>
    <input name="selectedBankAccountId" type="hidden" th:value="${selectedBankAccount.id}">
         </tr></td></p>
 
