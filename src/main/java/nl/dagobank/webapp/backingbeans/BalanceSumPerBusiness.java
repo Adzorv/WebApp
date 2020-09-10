@@ -2,12 +2,12 @@ package nl.dagobank.webapp.backingbeans;
 
 import java.math.BigDecimal;
 
-public class BalanceSumCount {
+public class BalanceSumPerBusiness {
 
     private BigDecimal balance;
     private String businessName;
 
-    public BalanceSumCount( String businessName, BigDecimal balance, ) {
+    public BalanceSumPerBusiness( String businessName, BigDecimal balance ) {
         this.balance = balance;
         this.businessName = businessName;
     }
@@ -30,7 +30,7 @@ public class BalanceSumCount {
 
     @Override
     public String toString() {
-        return "BalanceSumCount{" +
+        return "BalanceSumPerBusiness{" +
                 "balance=" + balance +
                 ", businessName='" + businessName + '\'' +
                 '}';

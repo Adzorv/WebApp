@@ -1,22 +1,15 @@
 package nl.dagobank.webapp.dao;
 
-import nl.dagobank.webapp.domain.BankAccount;
+import nl.dagobank.webapp.backingbeans.BalanceSumPerBusiness;
 import nl.dagobank.webapp.domain.BusinessAccount;
 import nl.dagobank.webapp.domain.Customer;
-import org.assertj.core.api.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.data.domain.PageRequest;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -114,5 +107,23 @@ class BusinessAccountDaoTest {
 //
 //        assertThat( accounts.size() ).isLessThan( accounts2.size() );
 
+    }
+
+    @Test
+    void getAverageBalance() {
+        BigDecimal average = businessAccountDao.getAverageBalance();
+        assertThat(average)
+                .isNotNull()
+                .isNotZero();
+    }
+
+    @Test
+    void getSumBalance() {
+        List<BalanceSumPerBusiness> sums = businessAccountDao.getSumBalance( PageRequest.of(0,10) );
+        assertThat(sums)
+                .isNotNull()
+                .isNotEmpty();
+
+        sums.forEach( System.out::println );
     }
 }
