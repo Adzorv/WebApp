@@ -15,7 +15,7 @@
             <div class="container">
                 <table>
                     <tr th:each="rekening : ${bankAccounts}">
-                        <h3><span class="glyphicon glyphicon-credit-card"></span> PARTICULIERE REKENING</h3>
+                        <h3><span class="glyphicon glyphicon-credit-card" ></span> REKENING</h3>
                         <p class="title" th:text="${rekening.accountName}"></p>
                         <p class="title" th:text="${rekening.accountHolder.firstName + ' ' + rekening.accountHolder.prefix + ' ' + rekening.accountHolder.lastName}"></p>
 
@@ -32,12 +32,12 @@
                     </tr>
                     <tr>
                         <td class="button ">
-                            <p><a th:href="@{openPrivateBankAccount}">Open particuliere</a></p>
+                            <p><a th:href="@{openPrivateBankAccount}">Open particuliere rekening</a></p>
                             <hr>
                             <p><a th:href="@{openBusinessAccount}">Open zakelijke rekening</a></p>
                             <hr>
-                            <p><a th:href="@{connectBankAccount}">Activeer koppeling</a></p>
-
+                            <p><a th:href="@{connectBankAccount}">Koppel rekening</a></p>
+                        <!-- met product owner bespreken of beter -->
                         </td>
                     </tr>
                 </table>

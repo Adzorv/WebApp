@@ -52,5 +52,9 @@ public class BankAccountService {
         return bankAccountDao.findById(bankAccount.getId()).get().getSecondaryAccountHolders().contains(customer);
     }
 
+    public PrivateAccount savePrivateAccount(PrivateAccount privateAccount){
+        bankAccountDao.save(privateAccount);
+        return privateAccount;
+    }
 
 }
