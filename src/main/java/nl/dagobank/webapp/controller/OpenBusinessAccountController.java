@@ -1,11 +1,9 @@
 package nl.dagobank.webapp.controller;
 
-import nl.dagobank.webapp.backingbeans.BankAccountNameForm;
 import nl.dagobank.webapp.backingbeans.OpenBusinessAccountForm;
 import nl.dagobank.webapp.dao.BankAccountDao;
 import nl.dagobank.webapp.domain.BusinessAccount;
 import nl.dagobank.webapp.domain.Customer;
-import nl.dagobank.webapp.domain.PrivateAccount;
 import nl.dagobank.webapp.service.IbanGenerator;
 import org.iban4j.Iban;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,8 +56,4 @@ public class OpenBusinessAccountController {
         businessAccountOpenened.addObject("bankaccount", businessAccount.toString());
         return businessAccountOpenened;
     }
-
-
-
-
 }

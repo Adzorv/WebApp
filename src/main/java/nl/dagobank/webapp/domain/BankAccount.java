@@ -17,21 +17,11 @@ public abstract class BankAccount {
     @OneToOne
     private Customer accountHolder;
 
-    @OneToMany(fetch=FetchType.EAGER)
+    @ManyToMany(fetch=FetchType.EAGER)
     private List<Customer> secondaryAccountHolders;
 
     private String iban;
     private BigDecimal balance;
-
-    private final BigDecimal BANKACCOUNT_BEGINBALANCE_GIFT = new BigDecimal("25");
-
-
-    public BankAccount(int id, String accountName, Customer accountHolder, BigDecimal balance) {
-        this.id = id;
-        this.accountName = accountName;
-        this.accountHolder = accountHolder;
-        this.balance = BANKACCOUNT_BEGINBALANCE_GIFT;
-    }
 
     public BankAccount(){
     }
@@ -91,7 +81,7 @@ public abstract class BankAccount {
 //        return transations;
 //    }
 
-//    public void setTransations(List<Transaction> transations) {
+    //    public void setTransations(List<Transaction> transations) {
 //        this.transations = transations;
 //    }
 
@@ -113,11 +103,9 @@ public abstract class BankAccount {
 //                && Objects.equals( secondaryAccountHolders, that.secondaryAccountHolders )
                 && Objects.equals( iban, that.iban )
                 && Objects.equals( balance, that.balance )
-                && Objects.equals( BANKACCOUNT_BEGINBALANCE_GIFT, that.BANKACCOUNT_BEGINBALANCE_GIFT )
+   //             && Objects.equals( BANKACCOUNT_BEGINBALANCE_GIFT, that.BANKACCOUNT_BEGINBALANCE_GIFT )
 //                && Objects.equals( TESTIBAN, that.TESTIBAN )
                 ;
     }
-
-
 
 }

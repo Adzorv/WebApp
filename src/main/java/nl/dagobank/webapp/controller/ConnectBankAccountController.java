@@ -39,7 +39,7 @@ public class ConnectBankAccountController {
         if (bankAccountHolderTokenService.existsValidToken(user, ibanFromForm, codeFromForm)){
             makeSureAdditionalAccountHolderAddedAndDeleteTokens(modelAndView, user, codeFromForm, ibanFromForm);
         } else {
-            String errorNietCorrect = "Niet gelukt, IBAN en/of code zijn niet correct of je bent niet geautoriseert door Rekeninghouder.";
+            String errorNietCorrect = "IBAN en/of code zijn niet correct of je bent niet gemachtigd door de rekeninghouder.";
             setErrorMessageAndPrepareForOutput(modelAndView, errorNietCorrect);
         }
         return modelAndView;
