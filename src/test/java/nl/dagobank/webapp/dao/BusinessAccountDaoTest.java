@@ -91,7 +91,7 @@ class BusinessAccountDaoTest {
             System.out.println( ba.getSecondaryAccountHolders() );
             Customer customer = customerDao.findById( 1 ).get();
 
-            List<BusinessAccount> accounts = businessAccountDao.findAllBySecondaryAccountHoldersContains( customer );
+            List<BusinessAccount> accounts = businessAccountDao.findAllByAccountHolderOrSecondaryAccountHoldersContains( customer, customer );
 
             System.out.println( accounts );
 

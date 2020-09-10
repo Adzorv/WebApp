@@ -1,5 +1,6 @@
 package nl.dagobank.webapp.dao;
 
+import nl.dagobank.webapp.domain.BankAccount;
 import nl.dagobank.webapp.domain.BusinessAccount;
 import nl.dagobank.webapp.domain.Customer;
 import org.springframework.data.repository.CrudRepository;
@@ -13,7 +14,7 @@ public interface BusinessAccountDao extends CrudRepository<BusinessAccount, Inte
     List<BusinessAccount> findAllByAccountHolder(Customer customer);
     List<BusinessAccount> findAllBySecondaryAccountHoldersContaining(Customer customer);
     List<BusinessAccount> findAllBySecondaryAccountHoldersContains(Customer customer);
-    List<BusinessAccount> findAllBySecondaryAccountHoldersContainsOrAccountHolderIs(Customer customer, Customer customer2);
+    List<BusinessAccount> findAllByAccountHolderOrSecondaryAccountHoldersContains( Customer customer, Customer customer2);
 
     List<BusinessAccount> findAllBySecondaryAccountHolders(Customer customer);
 
