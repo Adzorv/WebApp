@@ -1,7 +1,10 @@
 package nl.dagobank.webapp.controller;
 
+import nl.dagobank.webapp.backingbeans.BalanceSumPerBusiness;
+import nl.dagobank.webapp.dao.BusinessAccountDao;
 import nl.dagobank.webapp.domain.Customer;
 import nl.dagobank.webapp.domain.Employee;
+import nl.dagobank.webapp.service.BankAccountService;
 import nl.dagobank.webapp.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +23,7 @@ public class HeadBusinessController {
 
 
     @Autowired
-    CustomerService customerService;
+    BankAccountService bankAccountService;
 
     @GetMapping( "overzichtmkb" )
     public String overview( Model model ) {
@@ -28,7 +31,7 @@ public class HeadBusinessController {
             Employee employee = (Employee) model.getAttribute( "user" );
             if ( employee != null && employee.getRole().equals( "HoofdMKB" )) {
 
-                List<Map.Entry<Customer, BigDecimal>> top10Balance = customerService.getTop10BusinessCustomers();
+                List<BalanceSumPerBusiness> top10Balance = bankAccountService.getTop10Businesses();
 
                 model.addAttribute( "top10balance", top10Balance );
 
