@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -32,9 +35,27 @@ public class AccountViewController {
         ModelAndView modelAndView = new ModelAndView("transactionOverview");
         BankAccount selectedBankAccount = bankAccountService.getBankAccountById(id);
         modelAndView.addObject("selectedBankAccount", selectedBankAccount);
-        List<Transaction> allTransactions = transactionDao.findAllByDebitAccount(selectedBankAccount);
+//        List<Transaction> allTransactions = transactionDao.findAllByDebitAccount(selectedBankAccount);
+        List<Transaction> allTransactions = transactionDao.findAllByDebitAccountOrCreditAccountOrderByDate(selectedBankAccount, selectedBankAccount);
         modelAndView.addObject("transactions", allTransactions);
-         //Fixme: show all transactions werkt nog niet goed.
+
+
+        List<BigDecimal> amount = new ArrayList<>();
+        List<BankAccount> bankAccounts = new ArrayList<>();
+
+        for (Transaction transaction : allTransactions) {
+            if (transaction.getDebitAccount() == selectedBankAccount) {
+                bankAccounts.add(transaction.getCreditAccount());
+                amount.add(transaction.getAmount().negate());
+            } else {
+                bankAccounts.add(transaction.getDebitAccount());
+                amount.add(transaction.getAmount());
+            }
+        }
+
+        modelAndView.addObject("BankAccounts", bankAccounts);
+        modelAndView.addObject("amounts", amount);
+
 
         return modelAndView;
 
