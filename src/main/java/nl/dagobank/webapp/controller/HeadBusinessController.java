@@ -25,7 +25,9 @@ public class HeadBusinessController {
 
     private BankAccountService bankAccountService;
     private ModelAndView modelAndView;
+    private Employee employee;
     public static final String NO_ACCESS = "geenToegang", OVERVIEW = "overviewHeadBusiness";
+
 
     @Autowired
     public HeadBusinessController( BankAccountService bankAccountService ) {
@@ -35,10 +37,9 @@ public class HeadBusinessController {
 
     @GetMapping( "overzichtmkb" )
     public ModelAndView overview( Model model ) {
-        if ( model.containsAttribute( "user" ) ) {
-            Employee employee = (Employee) model.getAttribute( "user" );
-            if ( employee != null && employee.getRole().equals( "HoofdMKB" ) ) {
-                addOverviewsToModel( model );
+        if ( employeeIsValidated( model ) ) {
+            if ( employeeIsHeadMKB() ) {
+                addOverviewsToModel();
                 modelAndView.setViewName( OVERVIEW );
             } else {
                 modelAndView.setViewName( NO_ACCESS );
@@ -49,8 +50,20 @@ public class HeadBusinessController {
         return modelAndView;
     }
 
-    private void addOverviewsToModel( Model model ) {
-        model.addAttribute( "top10balance", bankAccountService.getTop10Businesses() );
-        model.addAttribute( "averagePerSector", bankAccountService.getAverageBalancePerSector() );
+    private void addOverviewsToModel() {
+        modelAndView.addObject( "top10balance", bankAccountService.getTop10Businesses() );
+        modelAndView.addObject( "averagePerSector", bankAccountService.getAverageBalancePerSector() );
+    }
+
+    private boolean employeeIsHeadMKB() {
+        return employee != null && employee.getRole().equals( "HoofdMKB" );
+    }
+
+    private boolean employeeIsValidated( Model model ) {
+        if ( model.containsAttribute( "user" ) ) {
+            employee = (Employee) model.getAttribute( "user" );
+            return true;
+        }
+        return false;
     }
 }
