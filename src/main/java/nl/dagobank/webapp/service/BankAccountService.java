@@ -61,5 +61,9 @@ public class BankAccountService {
         return businessAccountDao.getSumBalance( PageRequest.of( 0, 10 ) );
     }
 
+    public PrivateAccount savePrivateAccount(PrivateAccount privateAccount){
+        bankAccountDao.save(privateAccount);
+        return privateAccount;
+    }
 
 }
