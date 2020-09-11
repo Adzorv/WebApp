@@ -21,7 +21,7 @@
         </tr>
         <tr>
             <td>SBI-code :</td>
-            <td><select th:field="*{sbiCodes}">
+            <td><select th:field="*{sbiCode}" id="sbiCode" name="sbiCode">
                 <option th:each="sbiCode : ${sbiCodes}" th:value="${sbiCode}" th:text="${sbiCode}"></option> <!--fixme: niet opgeslagen in db-->
                 <option value="Maak een keuze..." selected disabled>Maak een keuze...</option>
             </select></td>
