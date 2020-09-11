@@ -63,27 +63,21 @@ public class LoginValidatorCustomer {
         getOrCreateLoginAttemptObject();
         unBlockUserIfNoLongerBlocked();
 
-
         if ( loginAttempt.isBlocked() ) {
-            loginForm.setLoginAttemptsError( String.format( "3x fout ingelogd! Je mag pas weer inloggen om %s", loginAttempt.getBlockedUntil().toLocalTime().format( DateTimeFormatter.ofPattern( "HH:mm:ss" ) ) ) );
+            handleBlockedUser();
             return false;
         }
-
-//        boolean passwordCorrect = passwordCheck();
-//
-//        if ( !passwordCorrect ) {
-//            loginForm.setPasswordError( LOGINERROR_PASSWORD );
-//            loginForm.setLoginAttemptsError( String.format( "Nog %d inlogpogingen over..", MAXIMUM_TRIES - loginAttempt.getFailedAttempts() ) );
-//            loginAttempt.incrementFailedAttempts();
-//            loginAttemptDao.save( loginAttempt );
-//            if ( !loginAttempt.isBlocked() && userHasExceededTries() ) {
-//                blockCustomer();
-//                return false;
-//            }
-//            return false;
-//        }
-//        return true;
-        return doPasswordCheck();
+        if ( customer.getPassword().equals( loginForm.getPassword() ) ) {
+            handleCorrectPasword();
+            return true;
+        } else {
+            handleWrongPassword();
+            if ( userIsNotBlockedButHasExceededTries() ) {
+                blockCustomer();
+                return false;
+            }
+            return false;
+        }
     }
 
     private void unBlockUserIfNoLongerBlocked() {
@@ -93,31 +87,30 @@ public class LoginValidatorCustomer {
         }
     }
 
-    private boolean doPasswordCheck() {
-        if ( customer.getPassword().equals( loginForm.getPassword() ) ) {
-            setLogMessage( SUCCESS + " | " + customer );
-            loginAttemptDao.delete( loginAttempt );
-            return true;
-        } else {
-            setLogMessage( WRONGPASSWORD + " | " + loginForm.getPassword() );
-            loginForm.setPasswordError( LOGINERROR_PASSWORD );
-            loginForm.setLoginAttemptsError( String.format( "Nog %d inlogpogingen over..", MAXIMUM_TRIES - loginAttempt.getFailedAttempts() ) );
-            loginAttempt.incrementFailedAttempts();
-            loginAttemptDao.save( loginAttempt );
-            if ( !loginAttempt.isBlocked() && userHasExceededTries() ) {
-                blockCustomer();
-                return false;
-            }
-            return false;
-        }
+    private void handleBlockedUser() {
+        loginForm.setLoginAttemptsError( String.format( "3x fout ingelogd! Je mag pas weer inloggen om %s", loginAttempt.getBlockedUntil().toLocalTime().format( DateTimeFormatter.ofPattern( "HH:mm:ss" ) ) ) );
+    }
+
+    private void handleCorrectPasword() {
+        setLogMessage( SUCCESS + " | " + customer );
+        loginAttemptDao.delete( loginAttempt );
+    }
+
+
+    private void handleWrongPassword() {
+        setLogMessage( WRONGPASSWORD + " | " + loginForm.getPassword() );
+        loginForm.setPasswordError( LOGINERROR_PASSWORD );
+        loginForm.setLoginAttemptsError( String.format( "Nog %d inlogpogingen over..", MAXIMUM_TRIES - loginAttempt.getFailedAttempts() ) );
+        loginAttempt.incrementFailedAttempts();
+        loginAttemptDao.save( loginAttempt );
     }
 
     private boolean userIsNoLongerBlocked() {
         return loginAttempt.getBlockedUntil() != null && loginAttempt.getBlockedUntil().isBefore( LocalDateTime.now() );
     }
 
-    private boolean userHasExceededTries() {
-        return loginAttempt.getFailedAttempts() > MAXIMUM_TRIES;
+    private boolean userIsNotBlockedButHasExceededTries() {
+        return !loginAttempt.isBlocked() && loginAttempt.getFailedAttempts() > MAXIMUM_TRIES;
     }
 
     private void blockCustomer() {
