@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class BankAccountService {
@@ -26,7 +28,7 @@ public class BankAccountService {
         this.businessAccountDao = businessAccountDao;
     }
 
-    public BankAccount getBankAccountById( int id ) {
+    public BankAccount getBankAccountById( int id ) throws NoSuchElementException {
         return bankAccountDao.findById( id ).get();
     }
 
@@ -50,12 +52,19 @@ public class BankAccountService {
         return sortedBankAccounts;
     }
 
+
+
     public int getNumberOfBankAccountsOfCustomer( Customer customer ) {
         return bankAccountDao.findAllByAccountHolder( customer ).size();
     }
 
     public boolean isCustomerSecondAccountHolder( Customer customer, BankAccount bankAccount ) {
         return bankAccountDao.findById( bankAccount.getId() ).get().getSecondaryAccountHolders().contains( customer );
+    }
+
+
+    public boolean isCustomerFirstOrSecundairyAccountHolder(Customer customer, BankAccount bankAccount){
+       return ( bankAccount.getAccountHolder().equals(customer) || bankAccount.getSecondaryAccountHolders().contains(customer) );
     }
 
     public List<BalanceSumPerBusiness> getTop10Businesses() {
@@ -70,5 +79,4 @@ public class BankAccountService {
         bankAccountDao.save(privateAccount);
         return privateAccount;
     }
-
 }
