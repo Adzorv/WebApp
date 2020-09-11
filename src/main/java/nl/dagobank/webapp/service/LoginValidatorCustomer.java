@@ -70,14 +70,12 @@ public class LoginValidatorCustomer {
         if ( customer.getPassword().equals( loginForm.getPassword() ) ) {
             handleCorrectPasword();
             return true;
-        } else {
-            handleWrongPassword();
-            if ( userIsNotBlockedButHasExceededTries() ) {
-                blockCustomer();
-                return false;
-            }
-            return false;
         }
+
+        handleWrongPassword();
+
+        return false;
+
     }
 
     private void unBlockUserIfNoLongerBlocked() {
@@ -96,21 +94,24 @@ public class LoginValidatorCustomer {
         loginAttemptDao.delete( loginAttempt );
     }
 
-
     private void handleWrongPassword() {
         setLogMessage( WRONGPASSWORD + " | " + loginForm.getPassword() );
         loginForm.setPasswordError( LOGINERROR_PASSWORD );
         loginForm.setLoginAttemptsError( String.format( "Nog %d inlogpogingen over..", MAXIMUM_TRIES - loginAttempt.getFailedAttempts() ) );
         loginAttempt.incrementFailedAttempts();
         loginAttemptDao.save( loginAttempt );
+
+        if ( userHasExceededTries() ) {
+            blockCustomer();
+        }
     }
 
     private boolean userIsNoLongerBlocked() {
         return loginAttempt.getBlockedUntil() != null && loginAttempt.getBlockedUntil().isBefore( LocalDateTime.now() );
     }
 
-    private boolean userIsNotBlockedButHasExceededTries() {
-        return !loginAttempt.isBlocked() && loginAttempt.getFailedAttempts() > MAXIMUM_TRIES;
+    private boolean userHasExceededTries() {
+        return loginAttempt.getFailedAttempts() > MAXIMUM_TRIES;
     }
 
     private void blockCustomer() {
