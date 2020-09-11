@@ -39,6 +39,10 @@ public class LoginAttempt {
         super();
     }
 
+    public boolean isBlocked() {
+        return blockedUntil != null && blockedUntil.isAfter( LocalDateTime.now() );
+    }
+
     public int getId() {
         return id;
     }
