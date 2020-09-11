@@ -3,6 +3,7 @@ package nl.dagobank.webapp.service;
 import nl.dagobank.webapp.backingbeans.BalanceSumPerBusiness;
 import nl.dagobank.webapp.dao.BankAccountDao;
 import nl.dagobank.webapp.dao.BusinessAccountDao;
+import nl.dagobank.webapp.dao.SbiAverage;
 import nl.dagobank.webapp.domain.BankAccount;
 import nl.dagobank.webapp.domain.Customer;
 import nl.dagobank.webapp.domain.PrivateAccount;
@@ -59,6 +60,10 @@ public class BankAccountService {
 
     public List<BalanceSumPerBusiness> getTop10Businesses() {
         return businessAccountDao.getSumBalance( PageRequest.of( 0, 10 ) );
+    }
+
+    public List<SbiAverage> getAverageBalancePerSector() {
+        return businessAccountDao.getAverageBalancePerSector();
     }
 
     public PrivateAccount savePrivateAccount(PrivateAccount privateAccount){

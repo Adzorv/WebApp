@@ -9,11 +9,28 @@
 <!--    <p th:case="${true}">Hallo, jij bent hoofd MKB</p>-->
 <!--    <p th:case="${false}">Hallo, jij mag hier niet komen</p>-->
 <!--</div>-->
-<h1>Hier komt het MKB overzicht</h1>
+<h1>MKB overzicht</h1>
+
 <table>
-    <tr th:each="instance : ${top10balance}">
+    <tr>
+        <th colspan="3">Top 10 Saldo per bedrijf</th>
+    </tr>
+
+    <tr th:each="instance, iter : ${top10balance}">
+        <td th:text="${iter.index + 1}"></td>
         <td th:text="${instance.businessName}"></td>
         <td><span th:text="${instance.balance}"></span></td>
+    </tr>
+</table>
+<br>
+<table>
+    <tr>
+        <th colspan="3">Gemiddelde per sector</th>
+    </tr>
+    <tr th:each="instance, iter : ${averagePerSector}">
+        <td th:text="${iter.index + 1}"></td>
+        <td th:text="${instance.sbiCode}"></td>
+        <td><span th:text="${instance.balanceAverage}"></span></td>
     </tr>
 </table>
 </body>

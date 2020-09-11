@@ -126,4 +126,12 @@ class BusinessAccountDaoTest {
 
         sums.forEach( System.out::println );
     }
+
+    @Test
+    void getAverageBalanceBySbiCode() {
+        List<SbiAverage> result = businessAccountDao.getAverageBalancePerSector();
+        assertThat(result)
+                .isNotNull()
+                .isNotEmpty();
+    }
 }
