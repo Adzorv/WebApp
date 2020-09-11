@@ -39,17 +39,15 @@
                     </thead>
                 </table>
 
-                <table class="table" th:each="bankAccount, iterStat : ${BankAccounts}">
+                <table class="table" th:each="transaction : ${transactions}">
                     <tbody>
                     <tr>
-                        <th scope="row" th:text="${bankAccount.iban}"></th>
-                        <td th:text="${amounts[iterStat.index]}"></td>
-<!--                        <th scope="row" th:text="${transactie.id}"></th>-->
-<!--                        <td th:text="${transactie.creditAccount.accountHolder.firstName + ' ' + transactie.creditAccount.accountHolder.prefix + ' ' + transactie.creditAccount.accountHolder.lastName}"></td>-->
-<!--                        <td th:text="${transactie.creditAccount.iban}"></td>-->
-<!--                        <td th:text="${transactie.amount}"></td>-->
-<!--                        <td th:text="${transactie.date}"></td>-->
-<!--                        <td th:text="${transactie.description}"></td>-->
+                        <th scope="row" th:text="${transaction.transactionId}"></th>
+                        <td th:text="${transaction.name}"></td>
+                        <td th:text="${transaction.iban}"></td>
+                        <td th:text="${transaction.amount}"></td>
+                        <td th:text="${transaction.date}"></td>
+                        <td th:text="${transaction.description}"></td>
                     </tr>
                     </tbody>
                 </table>

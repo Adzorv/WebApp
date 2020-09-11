@@ -5,9 +5,23 @@
     <title>Overzicht</title>
 </head>
 <body>
+
+<table class="table" th:each="item : ${sumBalanceList}">
+    <tbody>
+    <tr>
+        <th scope="row" th:text="${item.sumBalance}"></th>
+        <td th:text="${item.accountHolder}"></td>
+    </tr>
+    </tbody>
+</table>
+
+
 <div th:switch="${session.user?.role == 'HoofdParticulier'}">
+
     <p th:case="${true}">Hallo, jij bent hoofd Particulier</p>
     <p th:case="${false}">Hallo, jij mag hier niet komen</p>
+
+
 
 </div>
 </body>
