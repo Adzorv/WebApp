@@ -7,6 +7,7 @@ import java.util.Objects;
 
 
 @Entity
+
 public abstract class BankAccount {
 
     @Id
@@ -28,7 +29,7 @@ public abstract class BankAccount {
 
     @Override
     public String toString() {
-        return String.format("%s, %s rekeninghouder:[%s] Saldo:  %.2f €", accountName, iban, accountHolder.getFirstName(),balance );
+        return String.format("%s, %s rekeninghouder:[%s] Saldo:  %.2f €", accountName, iban, accountHolder.getUserFullName(),balance );
     }
 
     public int getId() {

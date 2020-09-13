@@ -21,7 +21,7 @@ class EmployeeDaoTest {
     private Employee employee;
 
 
-    @BeforeEach
+    /*@BeforeEach
     void setUp() {
         employee = new Employee();
         employee.setFirstName( "Jan" );
@@ -41,7 +41,7 @@ class EmployeeDaoTest {
         employee.setRole( "HoofdMKB" );
         employeeDao.save( employee );
 
-    }
+    }*/
 
     @AfterEach
     void tearDown() {

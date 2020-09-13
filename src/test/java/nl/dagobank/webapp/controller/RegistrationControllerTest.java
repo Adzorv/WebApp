@@ -36,7 +36,7 @@ class RegistrationControllerTest {
     public RegistrationControllerTest() {
     }
 
-    @BeforeEach
+    /*@BeforeEach
     void setUp() {
         customer = new Customer();
         customer.setFirstName("Jan");
@@ -57,8 +57,8 @@ class RegistrationControllerTest {
         String userName = usernameGenerator.createUsername(customer.getFirstName(), customer.getLastName());
         customer.setUserName(userName);
 
-
-        customer2 = new Customer();
+*/
+       /* customer2 = new Customer();
         customer2.setFirstName("Joop");
         customer2.setPrefix("van de");
         customer2.setLastName("Veer");
@@ -70,13 +70,13 @@ class RegistrationControllerTest {
         customer2.setPhoneNumber("0624345678");
         customer.setBirthDate(LocalDate.of(2000,11,1));
         customer2.setEmail("joop@gmail.com");
-        customer2.setBsn(135076569);//je kunt niet 2x registreren met hetzelfde bsn dus geeft het een foutmelding ??/**/
-        password = passwordGenerator.generate(10);
+        customer2.setBsn(135076569);*///je kunt niet 2x registreren met hetzelfde bsn dus geeft het een foutmelding ??/**/
+       /* password = passwordGenerator.generate(10);
         customer.setPassword(password);
         userName = usernameGenerator.createUsername(customer.getFirstName(), customer.getLastName());
         customer.setUserName(userName);
 
-    }
+    }*/
 
     @AfterEach
     void tearDown() {

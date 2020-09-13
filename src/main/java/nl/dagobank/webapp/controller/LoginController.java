@@ -57,7 +57,7 @@ public class LoginController {
         return view;
     }
 
-    @GetMapping( "vuldatabase" )
+   /* @GetMapping( "vuldatabase" )
     public RedirectView fillDB() {
         Customer customer = new Customer();
         customer.setFirstName( "Jan" );
@@ -83,5 +83,5 @@ public class LoginController {
 
         LOG.info( "Database gevuld met test test gebruiker" );
         return new RedirectView( "login" );
-    }
+    }*/
 }

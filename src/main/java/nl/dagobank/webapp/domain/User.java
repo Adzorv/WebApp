@@ -11,9 +11,11 @@ public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private String firstName;
+    /*private String firstName;
     private String prefix;
-    private String lastName;
+    private String lastName;*/
+    @Embedded
+    private UserFullName userFullName;
     private String phoneNumber;
     private String streetName;
     private int houseNumber;
@@ -30,9 +32,7 @@ public abstract class User {
     public User(){}
 
     public User(UserFullName userFullName, UserAddress userAddress, UserContactDetails userContactDetails, UserInlogCredentials userInlogCredentials, UserPersonalDetails userPersonalDetails){
-        this.firstName = userFullName.getFirstName();
-        this.prefix = userFullName.getPrefix();
-        this.lastName = userFullName.getLastName();
+        this.userFullName = userFullName;
         this.streetName = userAddress.getStreetName();
         this.houseNumber = userAddress.getHouseNumber();
         this.houseNumberAnnex = userAddress.getHouseNumberAnnex();
@@ -65,14 +65,7 @@ public abstract class User {
     }*/
 
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "firstName='" + firstName + '\'' +
-                ", prefix='" + prefix + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
-    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -95,28 +88,12 @@ public abstract class User {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public UserFullName getUserFullName() {
+        return userFullName;
     }
 
-    public void setFirstName( String firstName ) {
-        this.firstName = firstName;
-    }
-
-    public String getPrefix() {
-        return prefix;
-    }
-
-    public void setPrefix( String prefix ) {
-        this.prefix = prefix;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName( String lastName ) {
-        this.lastName = lastName;
+    public void setUserFullName(UserFullName userFullName) {
+        this.userFullName = userFullName;
     }
 
     public String getPhoneNumber() {

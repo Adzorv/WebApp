@@ -46,7 +46,7 @@ public class OpenBusinessAccountForm {
 
     public void setSbiCodes(List<String> sbiCodes) {
      this.sbiCodes = sbiCodes;
-    }//fixme: how to get the right value into db
+    }
 
     public String getBankAccountName() {
         return bankAccountName;

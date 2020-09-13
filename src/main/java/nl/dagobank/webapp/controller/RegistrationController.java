@@ -49,7 +49,7 @@ public class RegistrationController {
         userName, String password, Model model){
             ModelAndView registrationSuccess = new ModelAndView("registration_success");
             customerFactory = new CustomerFactory(registrationForm, userName, password);
-            Customer customer = customerFactory.createCustomer();
+            Customer customer = customerFactory.create();
             customerService.saveCustomer(customer);
             model.addAttribute("user", customer);
             return registrationSuccess;

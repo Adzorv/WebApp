@@ -36,7 +36,7 @@ public class OpenPrivateBankAccountController {
     private void generateBankAccountNameAndPutInModel(Model model, ModelAndView modelAndView) {
         Customer user = (Customer) model.getAttribute("user");
         int aantalRekeningenVanUser = bankAccountService.getNumberOfBankAccountsOfCustomer(user);
-        String bankAccountName = user.getFirstName() + "'s rekening " + (aantalRekeningenVanUser+1);
+        String bankAccountName = user.getUserFullName() + "'s rekening " + (aantalRekeningenVanUser+1);
         modelAndView.addObject("bankAccountName", bankAccountName);
     }
 

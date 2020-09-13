@@ -1,9 +1,14 @@
 package nl.dagobank.webapp.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"businessName", "kvkNumber", "sbiCode"})})
 public class BusinessAccount extends BankAccount {
+    /*@Column(name = "businessName")*/
     private String businessName;
     private int kvkNumber;
     private String sbiCode;
@@ -39,7 +44,7 @@ public class BusinessAccount extends BankAccount {
 
     @Override
     public String toString() {
-        return "Zakelijke rekening: "  + businessName + " " + kvkNumber + " " + sbiCode + " " + super.toString();
+        return "Zakelijke rekening: " + businessName + " " + kvkNumber + " " + sbiCode + " " + super.toString();
     }
 
 }

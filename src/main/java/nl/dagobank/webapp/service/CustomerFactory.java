@@ -21,9 +21,9 @@ public class CustomerFactory {
         this.userInlogCredentials = new UserInlogCredentials(userName, password);
         this.userPersonalDetails = new UserPersonalDetails(registrationForm.getBirthDate(), registrationForm.getBsn());
     }
-
-    public Customer createCustomer() {
+//todo: make static en geef alle attributen mee
+    public Customer create() {
         return new Customer(userFullName, userAddress, userContactDetails, userInlogCredentials, userPersonalDetails);
     }
-}
 
+}
