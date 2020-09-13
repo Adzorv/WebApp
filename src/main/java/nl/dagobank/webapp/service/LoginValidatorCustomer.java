@@ -78,7 +78,7 @@ public class LoginValidatorCustomer {
 
     private boolean passwordCheck() {
         if ( customer != null ) {
-            if ( customer.getPassword().equals( loginForm.getPassword() ) ) {
+            if ( customer.getUserInlogCredentials().getPassword().equals( loginForm.getPassword() ) ) {
                 logMessage = SUCCESS + " | " + customer;
                 loginAttemptDao.delete( loginAttempt );
                 return true;

@@ -91,7 +91,7 @@ class RegistrationControllerTest {
     void testRegistrationHandler() {
         customerDao.save(customer);
         assertNotNull(customerDao.findById(customer.getId()));
-        assertTrue(customerDao.findByBsn(135076569).getPostCode().equals("1014AA"));
+        assertTrue(customerDao.findByBsn(135076569).getUserAddress().getPostCode().equals("1014AA"));
         assertTrue(customerDao.existsByUserName("JanJan001"));
         List<Customer> customerList = Arrays.asList(customerDao.findAllByCity("Amsterdam"));
         assertTrue(customerList.size() == 1);

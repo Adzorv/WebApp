@@ -53,7 +53,7 @@ class EmployeeDaoTest {
     void findByUserName() {
         Optional<Employee> optionalEmployee = employeeDao.findByUserName( "test2" );
         assertTrue( optionalEmployee.isPresent() );
-        assertEquals( 111222333, optionalEmployee.get().getBsn() );
+        assertEquals( 111222333, optionalEmployee.get().getUserPersonalDetails().getBsn() );
 
     }
 
@@ -61,7 +61,7 @@ class EmployeeDaoTest {
     void findByRole() {
         Optional<Employee> optionalEmployee = employeeDao.findByRole( "HoofdMKB" );
         assertTrue( optionalEmployee.isPresent() );
-        assertEquals( 111222333, optionalEmployee.get().getBsn() );
+        assertEquals( 111222333, optionalEmployee.get().getUserPersonalDetails().getBsn() );
 
         Optional<Employee> optionalEmployee1 = employeeDao.findByRole( "hoofdmkb" );
         assertTrue( optionalEmployee1.isPresent() );

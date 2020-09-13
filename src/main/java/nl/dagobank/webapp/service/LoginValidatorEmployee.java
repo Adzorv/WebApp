@@ -24,7 +24,7 @@ public class LoginValidatorEmployee {
         Optional<Employee> optional = employeeDao.findByUserName( loginForm.getUsername() );
         if ( optional.isPresent() ) {
             employee = optional.get();
-            if ( employee.getPassword().equals( loginForm.getPassword() )) {
+            if ( employee.getUserInlogCredentials().getPassword().equals( loginForm.getPassword() )) {
                 loginValidated = true;
                 logMessage = "Gebruikersnaam en wachtwoord correct";
                 return;

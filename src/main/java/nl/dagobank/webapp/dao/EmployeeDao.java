@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface EmployeeDao extends CrudRepository<Employee, Integer> {
     Optional<Employee> findByUserName( String userName);
     Optional<Employee> findByRole( String role );
+
 }
