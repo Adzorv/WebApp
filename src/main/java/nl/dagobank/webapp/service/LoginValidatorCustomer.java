@@ -111,7 +111,7 @@ public class LoginValidatorCustomer {
     }
 
     private LoginAttempt getOrCreateLoginAttempt() {
-        return loginAttemptDao.findByCustomer( customer ).orElseGet( () -> new LoginAttempt( customer ) );
+        return loginAttemptDao.findByCustomer(customer).orElseGet( () -> new LoginAttempt(customer) );
     }
 
 }

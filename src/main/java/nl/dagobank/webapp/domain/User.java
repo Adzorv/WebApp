@@ -1,5 +1,6 @@
 package nl.dagobank.webapp.domain;
 import javax.persistence.*;
+import java.util.Objects;
 
 
 @Entity
@@ -30,7 +31,7 @@ public abstract class User {
         this.userInlogCredentials = userInlogCredentials;
     }
 
-    /*@Override
+   /* @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

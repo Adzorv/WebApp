@@ -4,7 +4,6 @@ import nl.dagobank.webapp.backingbeans.AddAdditionalBankAccountHolderForm;
 import nl.dagobank.webapp.domain.BankAccount;
 import nl.dagobank.webapp.domain.BankAccountHolderToken;
 import nl.dagobank.webapp.domain.Customer;
-import nl.dagobank.webapp.domain.PrivateAccount;
 import nl.dagobank.webapp.service.BankAccountHolderTokenService;
 import nl.dagobank.webapp.service.BankAccountService;
 import nl.dagobank.webapp.service.CustomerService;
@@ -13,8 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpSession;
 
 @Controller
 @SessionAttributes( "user" )

@@ -1,7 +1,5 @@
 package nl.dagobank.webapp.service;
 
-import nl.dagobank.webapp.dao.CustomerDao;
-import nl.dagobank.webapp.domain.Customer;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

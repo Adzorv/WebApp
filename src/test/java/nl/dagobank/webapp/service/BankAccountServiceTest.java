@@ -2,15 +2,11 @@ package nl.dagobank.webapp.service;
 
 import nl.dagobank.webapp.dao.BankAccountDao;
 import nl.dagobank.webapp.dao.CustomerDao;
-import nl.dagobank.webapp.domain.BankAccount;
 import nl.dagobank.webapp.domain.Customer;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.Optional;
 
 @SpringBootTest
 class BankAccountServiceTest {

@@ -10,6 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface LoginAttemptDao extends CrudRepository<LoginAttempt, Integer> {
-    Optional<LoginAttempt> findByCustomer( Customer customer );
+    Optional<LoginAttempt> findByCustomer( Customer customer);
 }
 

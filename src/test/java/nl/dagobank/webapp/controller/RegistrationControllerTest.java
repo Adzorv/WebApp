@@ -2,11 +2,9 @@ package nl.dagobank.webapp.controller;
 
 import nl.dagobank.webapp.dao.CustomerDao;
 import nl.dagobank.webapp.domain.Customer;
-import nl.dagobank.webapp.service.CustomerFactory;
 import nl.dagobank.webapp.service.PasswordGenerator;
 import nl.dagobank.webapp.service.UsernameGenerator;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

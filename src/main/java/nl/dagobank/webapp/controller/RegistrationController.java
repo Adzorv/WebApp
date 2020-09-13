@@ -2,7 +2,6 @@ package nl.dagobank.webapp.controller;
 
 import nl.dagobank.webapp.backingbeans.RegistrationForm;
 import nl.dagobank.webapp.domain.Customer;
-import nl.dagobank.webapp.service.CustomerFactory;
 import nl.dagobank.webapp.service.CustomerService;
 import nl.dagobank.webapp.service.PasswordGenerator;
 import nl.dagobank.webapp.service.UsernameGenerator;
@@ -24,7 +23,7 @@ public class RegistrationController {
     @Autowired
     PasswordGenerator passwordGenerator;
 
-    CustomerFactory customerFactory;
+    nl.dagobank.webapp.service.CustomerFactory customer;
 
 
     @GetMapping("registration")
@@ -48,8 +47,8 @@ public class RegistrationController {
     private ModelAndView showRegistrationSuccessPage (@ModelAttribute RegistrationForm registrationForm, String
         userName, String password, Model model){
             ModelAndView registrationSuccess = new ModelAndView("registration_success");
-            customerFactory = new CustomerFactory(registrationForm, userName, password);
-            Customer customer = customerFactory.create();
+            this.customer = new nl.dagobank.webapp.service.CustomerFactory(registrationForm, userName, password);
+            Customer customer = this.customer.create();
             customerService.saveCustomer(customer);
             model.addAttribute("user", customer);
             return registrationSuccess;

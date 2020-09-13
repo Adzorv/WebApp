@@ -26,7 +26,7 @@ public class CustomerService {
         return customerDao.existsByUserName( userName );
     }
 
-    public Customer getCustomerByUserName( String userName ) {
+    public Customer getCustomerByUserName(String userName ) {
         return customerDao.findByUserName( userName ).get();
     }
 
@@ -46,8 +46,8 @@ public class CustomerService {
         return bsnToCheck != 0 && bsnToCheck % 11 == 0;
     }
 
-    public void saveCustomer( Customer customer ) {
-        customerDao.save( customer );
+    public void saveCustomer( Customer customer) {
+        customerDao.save(customer);
     }
 
     public LoginValidatorCustomer validateCredentials( LoginForm loginForm ) {
@@ -66,12 +66,12 @@ public class CustomerService {
 
         while ( all.hasNext() ) {
             Customer customer = all.next();
-            List<BusinessAccount> businessAccounts = businessAccountDao.findAllByAccountHolder( customer );
+            List<BusinessAccount> businessAccounts = businessAccountDao.findAllByAccountHolder(customer);
             if ( !businessAccounts.isEmpty() ) {
                 for ( BusinessAccount ba : businessAccounts ) {
                     totalBalance = totalBalance.add( ba.getBalance() );
                 }
-                result.put( customer, totalBalance );
+                result.put(customer, totalBalance );
             }
         }
         return MapUtil.entriesSortedByValues( result ).subList( 0, result.size() < 10 ? result.size() : 10 );

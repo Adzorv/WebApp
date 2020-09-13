@@ -1,9 +1,6 @@
 package nl.dagobank.webapp.service;
 
-import lombok.RequiredArgsConstructor;
-import nl.dagobank.webapp.dao.BankAccountDao;
 import nl.dagobank.webapp.dao.BankAccountHolderTokenDao;
-import nl.dagobank.webapp.dao.CustomerDao;
 import nl.dagobank.webapp.domain.BankAccountHolderToken;
 import nl.dagobank.webapp.domain.Customer;
 import org.springframework.stereotype.Service;
