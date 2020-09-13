@@ -1,5 +1,8 @@
 package nl.dagobank.webapp.dao;
 
-public interface SumTransactionsPerBusiness {
+import java.math.BigDecimal;
 
+public interface SumTransactionsPerBusiness {
+    BigDecimal getSumTransactions();
+    String getBusinessName();
 }
