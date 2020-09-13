@@ -4,6 +4,7 @@ import nl.dagobank.webapp.dao.BankAccountDao;
 import nl.dagobank.webapp.domain.BankAccount;
 import nl.dagobank.webapp.domain.Customer;
 import nl.dagobank.webapp.domain.PrivateAccount;
+import org.iban4j.Iban;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,10 @@ public class BankAccountService {
 
     public BankAccount getBankAccountById(int id){
         return bankAccountDao.findById(id).get();
+    }
+
+    public BankAccount findBankAccountByIban(Iban iban){
+        return bankAccountDao.findByIban(iban);
     }
 
     public List<BankAccount> findAllByAccountHolder(Customer customer){

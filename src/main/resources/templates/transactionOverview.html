@@ -15,13 +15,6 @@
                 <h2>Transactie Overzicht</h2>
             </div>
             <div class="card-body">
-
-                <div>
-                    <a th:href="@{addAccountHolder(id=${selectedBankAccount.id})}">
-                        <button class="button">Rekeninghouder toevoegen</button>
-                    </a>
-                </div>
-
                 <h4>Type Rekening: <span th:text="${selectedBankAccount.accountName}"/></h4>
                 <h4>Rekening nummer: <span th:text="${selectedBankAccount.iban}"/></h4>
                 <h4>Saldo: <span th:text="${selectedBankAccount.balance}"/></h4>
@@ -55,6 +48,15 @@
 
             </div>
         </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="btn-group">
+        <a th:href="@{addAccountHolder(id=${selectedBankAccount.id})}" class="color1">Rekeninghouder toevoegen
+        </a>
+        <a th:href="@{transfer(id=${selectedBankAccount.id})}" class="color1">Overboeken
+        </a>
     </div>
 </div>
 

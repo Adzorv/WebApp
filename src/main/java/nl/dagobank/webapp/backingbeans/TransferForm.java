@@ -2,8 +2,10 @@ package nl.dagobank.webapp.backingbeans;
 
 import nl.dagobank.webapp.domain.UserFullName;
 
+import java.math.BigDecimal;
+
 public class TransferForm {
-    private double amount;
+    private BigDecimal amount;
     private UserFullName userFullName;
     private String IBAN;
     private String paymentCode;
@@ -12,11 +14,11 @@ public class TransferForm {
     public TransferForm() {super(); }
 
 
-    public double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
