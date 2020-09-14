@@ -45,8 +45,8 @@ public class TransferController {
         BigDecimal amount = transferForm.getAmount();
         transferService.getFundsFromSendingAccount(amount, selectedBankAccount);
         Iban iban = Iban.valueOf(transferForm.getIBAN());
-        BankAccount recievingBankAccount = bankAccountService.findBankAccountByIban(iban);
-        transferService.putFundsInReceivingAccount(recievingBankAccount, amount);
+        BankAccount receivingBankAccount = bankAccountService.findBankAccountByIban(iban);
+        transferService.putFundsInReceivingAccount(receivingBankAccount, amount);
         return "executeTransfer";
     }
 
