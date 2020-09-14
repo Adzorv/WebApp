@@ -21,7 +21,7 @@ public class HeadPrivateController {
     @GetMapping( "overzichtparticulier" )
     public ModelAndView privateOverview(Model model) {
         ModelAndView modelAndView = new ModelAndView("overviewHeadPrivate");
-        model.addAttribute("sumBalanceList", privateAccountDao.getSumBalancePerPrivateAccount(PageRequest.of(1,10)));
+        model.addAttribute("sumBalanceList", privateAccountDao.getSumBalancePerPrivateAccount(PageRequest.of(0,10)));
         return modelAndView;
     }
 }
