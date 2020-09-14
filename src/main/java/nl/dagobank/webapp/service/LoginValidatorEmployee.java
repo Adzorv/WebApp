@@ -21,7 +21,7 @@ public class LoginValidatorEmployee {
     private String logMessage;
 
     public void validateCredentials( LoginForm loginForm ) {
-        Optional<Employee> optional = employeeDao.findByUserInlogCredentialsUserName( loginForm.getUsername() );
+        Optional<Employee> optional = employeeDao.findByInlogCredentialsUserName( loginForm.getUsername() );
         if ( optional.isPresent() ) {
             employee = optional.get();
             if ( employee.getUserInlogCredentials().getPassword().equals( loginForm.getPassword() )) {

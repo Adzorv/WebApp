@@ -23,18 +23,18 @@ public class CustomerService {
     private LoginValidatorCustomer loginValidator;
 
     public boolean isRegisteredUserName( String userName ) {
-        return customerDao.existsByUserInlogCredentialsUserName( userName );
+        return customerDao.existsByInlogCredentialsUserName( userName );
     }
 
     public Customer getCustomerByUserName(String userName ) {
-        return customerDao.findByUserInlogCredentialsUserName( userName ).get();
+        return customerDao.findByInlogCredentialsUserName( userName ).get();
     }
     public boolean isBSNValid( int bsn ) {
         return ( checkIfBSNIsCorrect( bsn ) && !checkIfBSNIsInDB( bsn ) );
     }
 
     public boolean checkIfBSNIsInDB( int bsn ) {
-        return customerDao.findByUserPersonalDetailsBsn( bsn ) != null;
+        return customerDao.findByPersonalDetailsBsn( bsn ) != null;
     }
 
     public boolean checkIfBSNIsCorrect( int inputBSN ) {

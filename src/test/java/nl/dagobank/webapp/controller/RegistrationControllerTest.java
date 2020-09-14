@@ -89,9 +89,9 @@ class RegistrationControllerTest {
     void testRegistrationHandler() {
         customerDao.save(customer);
         assertNotNull(customerDao.findById(customer.getId()));
-        assertTrue(customerDao.findByUserPersonalDetailsBsn(135076569).getUserAddress().getPostCode().equals("1014AA"));
-        assertTrue(customerDao.existsByUserInlogCredentialsUserName("JanJan001"));
-        List<Customer> customerList = Arrays.asList(customerDao.findAllByUserAddressCity("Amsterdam"));
+        assertTrue(customerDao.findByPersonalDetailsBsn(135076569).getUserAddress().getPostCode().equals("1014AA"));
+        assertTrue(customerDao.existsByInlogCredentialsUserName("JanJan001"));
+        List<Customer> customerList = Arrays.asList(customerDao.findAllByAddressCity("Amsterdam"));
         assertTrue(customerList.size() == 1);
 
         //customerDao.save(customer2); //FIXme: how te testen voor foutmelding?
