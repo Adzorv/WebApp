@@ -1,7 +1,9 @@
 package nl.dagobank.webapp.controller;
 
+import nl.dagobank.webapp.dao.SumTransactionsPerBusiness;
 import nl.dagobank.webapp.domain.Employee;
 import nl.dagobank.webapp.service.BankAccountService;
+import nl.dagobank.webapp.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,20 +11,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 
 @Controller
 @SessionAttributes( "user" )
 public class HeadBusinessController {
 
     private BankAccountService bankAccountService;
+    private TransactionService transactionService;
     private ModelAndView modelAndView;
     private Employee employee;
     public static final String NO_ACCESS = "geenToegang", OVERVIEW = "overviewHeadBusiness";
 
 
     @Autowired
-    public HeadBusinessController( BankAccountService bankAccountService ) {
+    public HeadBusinessController( BankAccountService bankAccountService, TransactionService transactionService ) {
         this.bankAccountService = bankAccountService;
+        this.transactionService = transactionService;
         modelAndView = new ModelAndView();
     }
 
@@ -44,6 +50,13 @@ public class HeadBusinessController {
     private void addOverviewsToModel() {
         modelAndView.addObject( "top10balance", bankAccountService.getTop10Businesses() );
         modelAndView.addObject( "averagePerSector", bankAccountService.getAverageBalancePerSector() );
+        List<SumTransactionsPerBusiness> result = transactionService.getTop10SumTransactions();
+        System.out.println(result.size());
+        for ( SumTransactionsPerBusiness sumTransactionsPerBusiness : result ) {
+            System.out.println(sumTransactionsPerBusiness.getSumTransactions());
+            System.out.println(sumTransactionsPerBusiness.getBusinessName());
+        }
+        modelAndView.addObject( "top10transactions", transactionService.getTop10SumTransactions() );
     }
 
     private boolean employeeIsHeadMKB() {

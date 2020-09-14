@@ -25,7 +25,23 @@
 <br>
 <table>
     <tr>
-        <th colspan="3">Gemiddelde per sector</th>
+        <th colspan="5">Top 10 transacties per bedrijf</th>
+    </tr>
+    <tr>
+        <th colspan="2">Bedrijf</th><th>Bij</th><th>Af</th><th>Totaal</th>
+    </tr>
+    <tr th:each="instance, iter : ${top10transactions}">
+        <td th:text="${iter.index + 1}"></td>
+        <td th:text="${instance.businessName}"></td>
+        <td th:text="${instance.debitCount}"></td>
+        <td th:text="${instance.creditCount}"></td>
+        <td><span th:text="${instance.sumTransactions}"></span></td>
+    </tr>
+</table>
+<br>
+<table>
+    <tr>
+        <th colspan="3">Gemiddelde saldo per sector</th>
     </tr>
     <tr th:each="instance, iter : ${averagePerSector}">
         <td th:text="${iter.index + 1}"></td>
