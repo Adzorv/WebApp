@@ -24,22 +24,25 @@ class LoginValidatorEmployeeTest {
         EmployeeDao mockEmployeeDao = mock( EmployeeDao.class );
         when( mockEmployeeDao.findByInlogCredentialsUserName( "test" ) ).thenReturn( Optional.of( employee ) );
 
+        // Correct credentials test
         LoginForm loginForm = new LoginForm( "test", "test" );
-
         LoginValidatorEmployee loginValidatorEmployee = new LoginValidatorEmployee( mockEmployeeDao );
         loginValidatorEmployee.validateCredentials( loginForm );
-
         assertThat( loginValidatorEmployee.isLoginValidated() ).isTrue();
 
-        loginValidatorEmployee.validateCredentials( new LoginForm( "test", "wrongPassword" ) );
-
+        // Wrong password + correct username test
+        loginForm.setPassword( "wrongPassword" );
+        loginValidatorEmployee.validateCredentials( loginForm );
         assertThat( loginValidatorEmployee.isLoginValidated() ).isFalse();
-        assertThat( loginValidatorEmployee.getLogMessage() ).isNotEqualTo( "" );
+        assertThat( loginValidatorEmployee.getLogMessage() ).isNotNull().isNotEqualTo( "" ).isEqualTo( LoginValidatorEmployee.WRONG_CREDENTIALS_LOG_MESSAGE );
+        assertThat( loginForm.getGeneralError() ).isNotNull().isNotEqualTo( "" ).isEqualTo( LoginValidatorEmployee.WRONG_CREDENTIALS_FORM_MESSAGE );
 
+        // Wrong username + correct password test
+        loginForm.setUsername( "wrongUsername" );
+        loginForm.setPassword( "test" );
         loginValidatorEmployee.validateCredentials( new LoginForm( "wrongUserName", "correctPassword" ) );
-
         assertThat( loginValidatorEmployee.isLoginValidated() ).isFalse();
-        assertThat( loginValidatorEmployee.getLogMessage() ).isNotEqualTo( "" );
+        assertThat( loginValidatorEmployee.getLogMessage() ).isNotNull().isNotEqualTo( "" );
 
     }
 }
