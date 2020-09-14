@@ -4,7 +4,6 @@ import nl.dagobank.webapp.backingbeans.OpenBusinessAccountForm;
 import nl.dagobank.webapp.dao.BankAccountDao;
 import nl.dagobank.webapp.domain.BusinessAccount;
 import nl.dagobank.webapp.domain.Customer;
-import nl.dagobank.webapp.domain.PrivateAccount;
 import nl.dagobank.webapp.service.IbanGenerator;
 import org.iban4j.Iban;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,7 @@ public class OpenBusinessAccountController {
     public ModelAndView openBusinessAccountHandler(Model model) {
         ModelAndView openBusinessAccountPage = new ModelAndView("openBusinessAccount");
         Customer customer = (Customer) model.getAttribute("user");
-        openBusinessAccountPage.addObject("customerName", customer.getUserFullName());
+        openBusinessAccountPage.addObject("customerName", customer.getFullName());
         model.addAttribute("sbiCodes", sbiCodes);
         openBusinessAccountPage.addObject("openBusinessAccountForm", new OpenBusinessAccountForm());
         return openBusinessAccountPage;

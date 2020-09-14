@@ -52,7 +52,7 @@ class UsernameGeneratorTest {
         assertEquals(expected, actual);
 
         Customer customer = new Customer();
-        customer.getUserInlogCredentials().setUserName("TeiMar001");
+        customer.getInlogCredentials().setUserName("TeiMar001");
         customerService.saveCustomer(customer);
 
         expected = "TeiMar002";

@@ -51,7 +51,7 @@ public class LoginEmployeeController {
                 mav.setViewName( "redirect:/overzichtparticulier" );
             }
 
-
+;
         } else {
             mav.setViewName( "loginEmployee" );
         }

@@ -67,7 +67,7 @@ public class LoginValidatorCustomer {
             handleBlockedUser();
             return false;
         }
-        if ( customer.getUserInlogCredentials().getPassword().equals( loginForm.getPassword() ) ) {
+        if ( customer.getInlogCredentials().getPassword().equals( loginForm.getPassword() ) ) {
             handleCorrectPasword();
             return true;
         }
@@ -122,7 +122,7 @@ public class LoginValidatorCustomer {
     }
 
     private boolean passwordCheck() {
-        if ( customer.getUserInlogCredentials().getPassword().equals( loginForm.getPassword() ) ) {
+        if ( customer.getInlogCredentials().getPassword().equals( loginForm.getPassword() ) ) {
             setLogMessage( SUCCESS + " | " + customer );
             loginAttemptDao.delete( loginAttempt );
             return true;

@@ -45,7 +45,7 @@ public class AddAccountHolderController {
         String codeFromForm = addAdditionalBankAccountHolderForm.getConnectionCode();
         String userNameFromForm = addAdditionalBankAccountHolderForm.getLoginNameAdditionalAccountHolder();
 
-        if (customerService.isRegisteredUserName(userNameFromForm) && !userNameFromForm.equals(user.getUserInlogCredentials().getUserName())){
+        if (customerService.isRegisteredUserName(userNameFromForm) && !userNameFromForm.equals(user.getInlogCredentials().getUserName())){
             Customer accountHolderToAdd = customerService.getCustomerByUserName(userNameFromForm);
             BankAccountHolderToken bankAccountHolderToken = new BankAccountHolderToken(accountHolderToAdd, codeFromForm, selectedAccount);
             bankAccountHolderTokenService.saveBankAccountHolderToken(bankAccountHolderToken);

@@ -52,11 +52,11 @@ public abstract class User {
         this.id = id;
     }
 
-    public FullName getUserFullName() {
+    public FullName getFullName() {
         return fullName;
     }
 
-    public void setUserFullName(FullName fullName) {
+    public void setFullName( FullName fullName) {
         this.fullName = fullName;
     }
 
@@ -64,31 +64,31 @@ public abstract class User {
         return address;
     }
 
-    public void setUserAddress(Address address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 
-    public ContactDetails getUserContactDetails() {
+    public ContactDetails getContactDetails() {
         return contactDetails;
     }
 
-    public void setUserContactDetails(ContactDetails contactDetails) {
+    public void setContactDetails(ContactDetails contactDetails) {
         this.contactDetails = contactDetails;
     }
 
-    public PersonalDetails getUserPersonalDetails() {
+    public PersonalDetails getPersonalDetails() {
         return personalDetails;
     }
 
-    public void setUserPersonalDetails(PersonalDetails personalDetails) {
+    public void setPersonalDetails(PersonalDetails personalDetails) {
         this.personalDetails = personalDetails;
     }
 
-    public InlogCredentials getUserInlogCredentials() {
+    public InlogCredentials getInlogCredentials() {
         return inlogCredentials;
     }
 
-    public void setUserInlogCredentials(InlogCredentials inlogCredentials) {
+    public void setInlogCredentials(InlogCredentials inlogCredentials) {
         this.inlogCredentials = inlogCredentials;
     }
 }

@@ -8,6 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface CustomerDao extends CrudRepository<Customer, Integer> {
+
     Customer findByPersonalDetailsBsn(int bsn);
 
     Customer findAllByAddressCity(String city);
@@ -15,6 +16,7 @@ public interface CustomerDao extends CrudRepository<Customer, Integer> {
     boolean existsByInlogCredentialsUserName(String userName);
 
     Optional<Customer> findByInlogCredentialsUserName(String userName);
+
 
 }
 
