@@ -48,7 +48,7 @@ class EmployeeDaoTest {
 
     @Test
     void findByUserName() {
-        Optional<Employee> optionalEmployee = employeeDao.findByUserName( "test2" );
+        Optional<Employee> optionalEmployee = employeeDao.findByUserInlogCredentialsUserName( "test2" );
         assertTrue( optionalEmployee.isPresent() );
         assertEquals( 111222333, optionalEmployee.get().getUserPersonalDetails().getBsn() );
 

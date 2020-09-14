@@ -8,13 +8,13 @@ import java.util.Optional;
 
 @Repository
 public interface CustomerDao extends CrudRepository<Customer, Integer> {
-    Customer findByBsn(int bsn);
+    Customer findByUserPersonalDetailsBsn(int bsn);
 
-    Customer findAllByCity(String city);
+    Customer findAllByUserAddressCity(String city);
 
-    boolean existsByUserName(String userName);
+    boolean existsByUserInlogCredentialsUserName(String userName);
 
-    Optional<Customer> findByUserName(String userName);
+    Optional<Customer> findByUserInlogCredentialsUserName(String userName);
 
 }
 

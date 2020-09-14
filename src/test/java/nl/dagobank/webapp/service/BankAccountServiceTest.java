@@ -27,7 +27,7 @@ class BankAccountServiceTest {
 
     @Test
     void getAllAccountHoldersTest(){
-        Customer customer = customerDao.findByUserName("seb").get();
+        Customer customer = customerDao.findByUserInlogCredentialsUserName("seb").get();
 
         //BankAccount bankAccount = bankAccountDao.findById(16).get();
 

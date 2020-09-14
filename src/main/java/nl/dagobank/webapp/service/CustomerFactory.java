@@ -43,6 +43,9 @@ public class CustomerFactory {
 
     }
 
+    public CustomerFactory() {
+    }
+
     public Customer create() {
         UserFullName userFullName = new UserFullName(firstName, prefix, lastName);
         UserAddress userAddress = new UserAddress(streetName, houseNumber, houseNumberAnnex, postCode, city);

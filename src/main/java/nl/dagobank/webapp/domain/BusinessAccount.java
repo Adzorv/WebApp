@@ -18,16 +18,17 @@ public class BusinessAccount extends BankAccount {
     private int kvkNumber;
     private String sbiCode;
 
+    public BusinessAccount() {
+    }
 
     public BusinessAccount(OpenBusinessAccountForm openBusinessAccountForm) {
         super();
         this.businessName = openBusinessAccountForm.getBusinessName();
         this.kvkNumber = openBusinessAccountForm.getKvkNumber();
         this.sbiCode = openBusinessAccountForm.getSbiCode();
-        setAccountName(openBusinessAccountForm.getBankAccountName());
-        setBalance(new BigDecimal("25"));
-        Iban iban= new IbanGenerator().createIban();
-        setIban(iban.toString());
+
+
+
     }
 
     public String getBusinessName() {
@@ -56,7 +57,7 @@ public class BusinessAccount extends BankAccount {
 
     @Override
     public String toString() {
-        return "Zakelijke rekening: " + businessName + " " + kvkNumber + " " + sbiCode + " " + super.toString();
+        return "Zakelijke rekening met Bedrijfsnaam : " + businessName + " KvKnummer : " + kvkNumber + " SBI-code :  " + sbiCode + " " + super.toString();
     }
 
 }

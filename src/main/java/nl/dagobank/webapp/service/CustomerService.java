@@ -23,15 +23,15 @@ public class CustomerService {
     private LoginValidatorCustomer loginValidator;
 
     public boolean isRegisteredUserName( String userName ) {
-        return customerDao.existsByUserName( userName );
+        return customerDao.existsByUserInlogCredentialsUserName( userName );
     }
 
     public Customer getCustomerByUserName(String userName ) {
-        return customerDao.findByUserName( userName ).get();
+        return customerDao.findByUserInlogCredentialsUserName( userName ).get();
     }
 
     public boolean checkIfBSNIsInDB( int bsn ) {
-        return customerDao.findByBsn( bsn ) != null;
+        return customerDao.findByUserPersonalDetailsBsn( bsn ) != null;
     }
 
     public boolean checkIfBSNIsCorrect( int inputBSN ) {

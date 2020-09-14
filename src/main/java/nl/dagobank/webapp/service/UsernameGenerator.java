@@ -27,7 +27,7 @@ public class UsernameGenerator {
         } else {
             userName = String.format("%s%s%03d", lastName.substring(0, 3), firstName.substring(0, 3), 1);
         }
-        while (customerDao.existsByUserName(userName)) {
+        while (customerDao.existsByUserInlogCredentialsUserName(userName)) {
             userName = String.format("%s%03d", userName.substring(0, 6), (Integer.parseInt(userName.substring(6)) + 1));
         }
         return userName;

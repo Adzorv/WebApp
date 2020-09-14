@@ -40,7 +40,7 @@ public class LoginValidatorCustomer {
     }
 
     private boolean validateUserName() {
-        Optional customerOptional = customerDao.findByUserName( loginForm.getUsername() );
+        Optional customerOptional = customerDao.findByUserInlogCredentialsUserName( loginForm.getUsername() );
         if ( customerOptional.isPresent() ) {
             customer = (Customer) customerOptional.get();
             return true;
