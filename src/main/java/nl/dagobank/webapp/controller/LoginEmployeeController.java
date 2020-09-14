@@ -50,8 +50,6 @@ public class LoginEmployeeController {
             } else if ( employee.getRole().equals( "HoofdParticulier" )) {
                 mav.setViewName( "redirect:/overzichtparticulier" );
             }
-
-;
         } else {
             mav.setViewName( "loginEmployee" );
         }

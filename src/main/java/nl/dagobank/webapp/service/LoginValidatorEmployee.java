@@ -12,25 +12,28 @@ import java.util.Optional;
 @Service
 public class LoginValidatorEmployee {
 
-    @Autowired
     private EmployeeDao employeeDao;
-
     private Employee employee;
-
-    private boolean loginValidated = false;
+    private boolean loginValidated;
     private String logMessage;
+
+    @Autowired
+    public LoginValidatorEmployee( EmployeeDao employeeDao ) {
+        this.employeeDao = employeeDao;
+        loginValidated = false;
+        logMessage = "Foute gebruikersnaam en/of wachtwoord";
+        employee = null;
+    }
 
     public void validateCredentials( LoginForm loginForm ) {
         reset();
         Optional<Employee> optional = employeeDao.findByInlogCredentialsUserName( loginForm.getUsername() );
-        logMessage = "Foute gebruikersnaam en/of wachtwoord";
         loginForm.setGeneralError( "Foute gebruikersnaam en/of wachtwoord" );
         if ( optional.isPresent() ) {
             employee = optional.get();
-            if ( employee.getInlogCredentials().getPassword().equals( loginForm.getPassword() )) {
+            if ( employee.getInlogCredentials().getPassword().equals( loginForm.getPassword() ) ) {
                 loginValidated = true;
                 logMessage = "Gebruikersnaam en wachtwoord correct";
-                return;
             }
         }
     }
@@ -48,6 +51,7 @@ public class LoginValidatorEmployee {
     }
 
     public void reset() {
+        logMessage = "Foute gebruikersnaam en/of wachtwoord";
         employee = null;
         loginValidated = false;
     }
