@@ -28,7 +28,6 @@ public class LoginValidatorEmployee {
     public void validateCredentials( LoginForm loginForm ) {
         reset();
         Optional<Employee> optional = employeeDao.findByInlogCredentialsUserName( loginForm.getUsername() );
-        loginForm.setGeneralError( "Foute gebruikersnaam en/of wachtwoord" );
         if ( optional.isPresent() ) {
             employee = optional.get();
             if ( employee.getInlogCredentials().getPassword().equals( loginForm.getPassword() ) ) {
