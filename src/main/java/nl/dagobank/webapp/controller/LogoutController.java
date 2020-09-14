@@ -1,8 +1,10 @@
 package nl.dagobank.webapp.controller;
 
+import nl.dagobank.webapp.domain.Employee;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,8 +13,14 @@ import javax.servlet.http.HttpSession;
 public class LogoutController {
 
     @GetMapping
-    public String logout( HttpSession session) {
+    public ModelAndView logout( HttpSession session) {
+        ModelAndView mav = new ModelAndView();
+        if (session.getAttribute( "user" ) instanceof Employee ) {
+            mav.setViewName( "redirect:/werknemer" );
+        } else {
+            mav.setViewName( "redirect:/login" );
+        }
         session.invalidate();
-        return "redirect:/login";
+        return mav;
     }
 }

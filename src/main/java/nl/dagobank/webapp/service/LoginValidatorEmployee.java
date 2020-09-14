@@ -21,7 +21,10 @@ public class LoginValidatorEmployee {
     private String logMessage;
 
     public void validateCredentials( LoginForm loginForm ) {
+        reset();
         Optional<Employee> optional = employeeDao.findByUserName( loginForm.getUsername() );
+        logMessage = "Foute gebruikersnaam en/of wachtwoord";
+        loginForm.setGeneralError( "Foute gebruikersnaam en/of wachtwoord" );
         if ( optional.isPresent() ) {
             employee = optional.get();
             if ( employee.getPassword().equals( loginForm.getPassword() )) {
@@ -30,8 +33,6 @@ public class LoginValidatorEmployee {
                 return;
             }
         }
-        logMessage = "Foute gebruikersnaam en/of wachtwoord";
-        loginForm.setGeneralError( "Foute gebruikersnaam en/of wachtwoord" );
     }
 
     public boolean isLoginValidated() {
@@ -44,5 +45,10 @@ public class LoginValidatorEmployee {
 
     public String getLogMessage() {
         return logMessage;
+    }
+
+    public void reset() {
+        employee = null;
+        loginValidated = false;
     }
 }
