@@ -11,6 +11,9 @@ public class UserPersonalDetails {
         this.bsn = bsn;
     }
 
+    public UserPersonalDetails() {
+    }
+
     public LocalDate getBirthDate() {
         return birthDate;
     }

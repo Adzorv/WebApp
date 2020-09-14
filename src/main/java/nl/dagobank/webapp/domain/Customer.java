@@ -1,5 +1,7 @@
 package nl.dagobank.webapp.domain;
 
+import nl.dagobank.webapp.backingbeans.RegistrationForm;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -7,8 +9,9 @@ import java.time.LocalDate;
 public class
 Customer extends User {
 
+
     public Customer(UserFullName userFullName, UserAddress userAddress, UserContactDetails userContactDetails, UserInlogCredentials userInlogCredentials, UserPersonalDetails userPersonalDetails) {
-        super(userFullName, userAddress, userContactDetails, userInlogCredentials, userPersonalDetails);
+        super(userFullName, userAddress, userContactDetails, userPersonalDetails, userInlogCredentials);
     }
 
     public Customer() {
@@ -16,3 +19,6 @@ Customer extends User {
 
 
 }
+
+
+

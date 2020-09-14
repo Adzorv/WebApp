@@ -19,6 +19,9 @@ public class UserAddress {
         this.city = city;
     }
 
+    public UserAddress() {
+    }
+
     public String getStreetName() {
         return streetName;
     }

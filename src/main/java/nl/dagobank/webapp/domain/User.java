@@ -1,77 +1,34 @@
 package nl.dagobank.webapp.domain;
-
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Objects;
 
+
 @Entity
-//@Table(schema = "dagobank") //assign datasource
 public abstract class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private String firstName;
-    private String prefix;
-    private String lastName;
-    private String phoneNumber;
-    private String streetName;
-    private int houseNumber;
-    private String houseNumberAnnex;
-    private String postCode;
-    private String city;
-    private String email;
-    private LocalDate birthDate;
-    @Column(unique = true, nullable = false)
-    private int bsn;
-    private String userName;
-    private String password;
+    @Embedded
+    private UserFullName userFullName;
+    @Embedded
+    private UserAddress userAddress;
+    @Embedded
+    private UserContactDetails userContactDetails;
+    @Embedded
+/*    @Column(unique = true, nullable = false)*/
+    private UserPersonalDetails userPersonalDetails;
+    @Embedded
+    private UserInlogCredentials userInlogCredentials;
 
     public User(){}
 
-    public User(UserFullName userFullName, UserAddress userAddress, UserContactDetails userContactDetails, UserInlogCredentials userInlogCredentials, UserPersonalDetails userPersonalDetails){
-        this.firstName = userFullName.getFirstName();
-        this.prefix = userFullName.getPrefix();
-        this.lastName = userFullName.getLastName();
-        this.streetName = userAddress.getStreetName();
-        this.houseNumber = userAddress.getHouseNumber();
-        this.houseNumberAnnex = userAddress.getHouseNumberAnnex();
-        this.postCode = userAddress.getPostCode();
-        this.city = userAddress.getCity();
-        this.phoneNumber = userContactDetails.getPhoneNumber();
-        this.email = userContactDetails.getEmail();
-        this.userName = userInlogCredentials.getUserName();
-        this.password = userInlogCredentials.getPassword();
-        this.birthDate = userPersonalDetails.getBirthDate();
-        this.bsn = userPersonalDetails.getBsn();
-    }
-
-   /* public User(String firstName, String prefix, String lastName, String phoneNumber, String streetName, int houseNumber,
-                String houseNumberAnnex, String postCode, String city, String email, LocalDate birthDate, int bsn, String userName, String password) {
-        this.firstName = firstName;
-        this.prefix = prefix;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.streetName = streetName;
-        this.houseNumber = houseNumber;
-        this.houseNumberAnnex = houseNumberAnnex;
-        this.postCode = postCode;
-        this.city = city;
-        this.email = email;
-        this.birthDate = birthDate;
-        this.bsn = bsn;
-        this.userName = userName;
-        this.password = password;
-    }*/
-
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "firstName='" + firstName + '\'' +
-                ", prefix='" + prefix + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
+    public User(UserFullName userFullName, UserAddress userAddress, UserContactDetails userContactDetails, UserPersonalDetails userPersonalDetails, UserInlogCredentials userInlogCredentials) {
+        this.userFullName = userFullName;
+        this.userAddress = userAddress;
+        this.userContactDetails = userContactDetails;
+        this.userPersonalDetails = userPersonalDetails;
+        this.userInlogCredentials = userInlogCredentials;
     }
 
     @Override
@@ -79,132 +36,59 @@ public abstract class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return userName.equals(user.userName);
+        return userInlogCredentials.getUserName().equals(user.userInlogCredentials.getUserName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userName);
+        return Objects.hash(userInlogCredentials.getUserName());
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId( int id ) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public UserFullName getUserFullName() {
+        return userFullName;
     }
 
-    public void setFirstName( String firstName ) {
-        this.firstName = firstName;
+    public void setUserFullName(UserFullName userFullName) {
+        this.userFullName = userFullName;
     }
 
-    public String getPrefix() {
-        return prefix;
+    public UserAddress getUserAddress() {
+        return userAddress;
     }
 
-    public void setPrefix( String prefix ) {
-        this.prefix = prefix;
+    public void setUserAddress(UserAddress userAddress) {
+        this.userAddress = userAddress;
     }
 
-    public String getLastName() {
-        return lastName;
+    public UserContactDetails getUserContactDetails() {
+        return userContactDetails;
     }
 
-    public void setLastName( String lastName ) {
-        this.lastName = lastName;
+    public void setUserContactDetails(UserContactDetails userContactDetails) {
+        this.userContactDetails = userContactDetails;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public UserPersonalDetails getUserPersonalDetails() {
+        return userPersonalDetails;
     }
 
-    public void setPhoneNumber(String phoneNumber ) {
-        this.phoneNumber = phoneNumber;
+    public void setUserPersonalDetails(UserPersonalDetails userPersonalDetails) {
+        this.userPersonalDetails = userPersonalDetails;
     }
 
-    public String getStreetName() {
-        return streetName;
+    public UserInlogCredentials getUserInlogCredentials() {
+        return userInlogCredentials;
     }
 
-    public void setStreetName( String streetName ) {
-        this.streetName = streetName;
+    public void setUserInlogCredentials(UserInlogCredentials userInlogCredentials) {
+        this.userInlogCredentials = userInlogCredentials;
     }
-
-    public int getHouseNumber() {
-        return houseNumber;
-    }
-
-    public void setHouseNumber( int houseNumber ) {
-        this.houseNumber = houseNumber;
-    }
-
-    public String getHouseNumberAnnex() {
-        return houseNumberAnnex;
-    }
-
-    public void setHouseNumberAnnex( String houseNumberAnnex ) {
-        this.houseNumberAnnex = houseNumberAnnex;
-    }
-
-    public String getPostCode() {
-        return postCode;
-    }
-
-    public void setPostCode( String postCode ) {
-        this.postCode = postCode;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity( String city ) {
-        this.city = city;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail( String email ) {
-        this.email = email;
-    }
-
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(LocalDate birthDate ) {
-        this.birthDate = birthDate;
-    }
-
-    public int getBsn() {
-        return bsn;
-    }
-
-    public void setBsn( int bsn ) {
-        this.bsn = bsn;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName( String userName ) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword( String password ) {
-        this.password = password;
-    }
-
 }

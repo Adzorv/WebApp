@@ -9,6 +9,9 @@ public class UserInlogCredentials {
         this.password = password;
     }
 
+    public UserInlogCredentials() {
+    }
+
     public String getUserName() {
         return userName;
     }

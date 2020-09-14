@@ -15,4 +15,5 @@ public interface BankAccountDao extends CrudRepository<BankAccount, Integer> {
     List<BankAccount> findAllByAccountHolderOrSecondaryAccountHoldersContains(Customer customer, Customer customer2);
 
 }
+//fixme: duplicate code
 

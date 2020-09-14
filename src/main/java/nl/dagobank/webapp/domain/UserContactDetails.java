@@ -9,6 +9,9 @@ public class UserContactDetails {
         this.email = email;
     }
 
+    public UserContactDetails() {
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }

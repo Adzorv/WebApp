@@ -14,15 +14,15 @@ import java.util.List;
 @Repository
 public interface BusinessAccountDao extends CrudRepository<BusinessAccount, Integer> {
 
-    List<BusinessAccount> findAllByAccountHolder( Customer customer );
+    List<BusinessAccount> findAllByAccountHolder( Customer customer);
 
-    List<BusinessAccount> findAllBySecondaryAccountHoldersContaining( Customer customer );
+    List<BusinessAccount> findAllBySecondaryAccountHoldersContaining( Customer customer);
 
-    List<BusinessAccount> findAllBySecondaryAccountHoldersContains( Customer customer );
+    List<BusinessAccount> findAllBySecondaryAccountHoldersContains( Customer customer);
 
-    List<BusinessAccount> findAllByAccountHolderOrSecondaryAccountHoldersContains( Customer customer, Customer customer2 );
+    List<BusinessAccount> findAllByAccountHolderOrSecondaryAccountHoldersContains(Customer customer, Customer customer2);
 
-    List<BusinessAccount> findAllBySecondaryAccountHolders( Customer customer );
+    List<BusinessAccount> findAllBySecondaryAccountHolders( Customer customer);
 
     @Query( "SELECT AVG(b.balance) from BankAccount b" )
     BigDecimal getAverageBalance();

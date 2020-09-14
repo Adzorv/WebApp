@@ -21,10 +21,10 @@ public class LoginValidatorEmployee {
     private String logMessage;
 
     public void validateCredentials( LoginForm loginForm ) {
-        Optional<Employee> optional = employeeDao.findByUserName( loginForm.getUsername() );
+        Optional<Employee> optional = employeeDao.findByUserInlogCredentialsUserName( loginForm.getUsername() );
         if ( optional.isPresent() ) {
             employee = optional.get();
-            if ( employee.getPassword().equals( loginForm.getPassword() )) {
+            if ( employee.getUserInlogCredentials().getPassword().equals( loginForm.getPassword() )) {
                 loginValidated = true;
                 logMessage = "Gebruikersnaam en wachtwoord correct";
                 return;

@@ -1,7 +1,6 @@
 package nl.dagobank.webapp.dao;
 
 import nl.dagobank.webapp.domain.BankAccountHolderToken;
-import nl.dagobank.webapp.domain.BusinessAccount;
 import nl.dagobank.webapp.domain.Customer;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

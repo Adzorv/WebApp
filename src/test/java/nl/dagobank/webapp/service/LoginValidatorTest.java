@@ -26,9 +26,9 @@ class LoginValidatorTest {
 
 
     @BeforeEach
-    void setUp() {
+   /* void setUp() {
         loginController.fillDB();
-    }
+    }*/
 
     @AfterEach
     void tearDown() {

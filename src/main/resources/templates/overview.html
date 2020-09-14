@@ -17,10 +17,10 @@
                     <tr th:each="rekening : ${bankAccounts}">
                         <h3><span class="glyphicon glyphicon-credit-card" ></span> REKENING</h3>
                         <p class="title" th:text="${rekening.accountName}"></p>
-                        <p class="title" th:text="${rekening.accountHolder.firstName + ' ' + rekening.accountHolder.prefix + ' ' + rekening.accountHolder.lastName}"></p>
+                        <p class="title" th:text="${rekening.accountHolder.userFullName}"></p>
 
                         <div class="title" th:each="additionalAccountHolder : ${rekening.secondaryAccountHolders}">
-                             <p class="title" th:text="${additionalAccountHolder.firstName + ' ' + additionalAccountHolder.prefix + ' ' + additionalAccountHolder.lastName + ' |'}" ></p></div>
+                             <p class="title" th:text="${additionalAccountHolder.userFullName ' |'}" ></p></div>
 
 
 

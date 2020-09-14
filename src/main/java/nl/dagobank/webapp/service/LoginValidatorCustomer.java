@@ -49,7 +49,7 @@ public class LoginValidatorCustomer {
     }
 
     private boolean validateUserName() {
-        Optional customerOptional = customerDao.findByUserName( loginForm.getUsername() );
+        Optional customerOptional = customerDao.findByUserInlogCredentialsUserName( loginForm.getUsername() );
         if ( customerOptional.isPresent() ) {
             customer = (Customer) customerOptional.get();
             return true;
@@ -67,7 +67,7 @@ public class LoginValidatorCustomer {
             handleBlockedUser();
             return false;
         }
-        if ( customer.getPassword().equals( loginForm.getPassword() ) ) {
+        if ( customer.getUserInlogCredentials().getPassword().equals( loginForm.getPassword() ) ) {
             handleCorrectPasword();
             return true;
         }
@@ -122,13 +122,14 @@ public class LoginValidatorCustomer {
     }
 
     private boolean passwordCheck() {
-        if ( customer.getPassword().equals( loginForm.getPassword() ) ) {
+        if ( customer.getUserInlogCredentials().getPassword().equals( loginForm.getPassword() ) ) {
             setLogMessage( SUCCESS + " | " + customer );
             loginAttemptDao.delete( loginAttempt );
             return true;
         } else {
             setLogMessage( WRONGPASSWORD + " | " + loginForm.getPassword() );
             return false;
+
         }
     }
 
@@ -154,6 +155,7 @@ public class LoginValidatorCustomer {
 
     private void getOrCreateLoginAttemptObject() {
         loginAttempt = loginAttemptDao.findByCustomer( customer ).orElseGet( () -> new LoginAttempt( customer ) );
+
     }
 
 }
