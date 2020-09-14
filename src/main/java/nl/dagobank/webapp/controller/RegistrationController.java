@@ -49,6 +49,7 @@ public class RegistrationController {
             ModelAndView registrationSuccess = new ModelAndView("registration_success");
             this.customer = new nl.dagobank.webapp.service.CustomerFactory(registrationForm, userName, password);
             Customer customer = this.customer.create();
+            //FIXME: vervang customerService door direct naar CustomerDao te gaan
             customerService.saveCustomer(customer);
             model.addAttribute("user", customer);
             return registrationSuccess;

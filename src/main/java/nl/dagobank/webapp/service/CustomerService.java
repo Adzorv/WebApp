@@ -29,6 +29,9 @@ public class CustomerService {
     public Customer getCustomerByUserName(String userName ) {
         return customerDao.findByUserInlogCredentialsUserName( userName ).get();
     }
+    public boolean isBSNValid( int bsn ) {
+        return ( checkIfBSNIsCorrect( bsn ) && !checkIfBSNIsInDB( bsn ) );
+    }
 
     public boolean checkIfBSNIsInDB( int bsn ) {
         return customerDao.findByUserPersonalDetailsBsn( bsn ) != null;
@@ -55,9 +58,6 @@ public class CustomerService {
         return loginValidator;
     }
 
-    public boolean isBSNValid( int bsn ) {
-        return ( checkIfBSNIsCorrect( bsn ) && !checkIfBSNIsInDB( bsn ) );
-    }
 
     public List<Map.Entry<Customer, BigDecimal>> getTop10BusinessCustomers() {
         Iterator<Customer> all = getAllCustomersIterator();

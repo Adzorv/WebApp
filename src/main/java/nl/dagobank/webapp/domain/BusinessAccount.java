@@ -27,8 +27,6 @@ public class BusinessAccount extends BankAccount {
         this.kvkNumber = openBusinessAccountForm.getKvkNumber();
         this.sbiCode = openBusinessAccountForm.getSbiCode();
 
-
-
     }
 
     public String getBusinessName() {

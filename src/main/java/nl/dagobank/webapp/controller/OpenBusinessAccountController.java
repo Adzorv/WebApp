@@ -25,20 +25,9 @@ public class OpenBusinessAccountController {
     @Autowired
     IbanGenerator ibanGenerator;
 
-
-
     public OpenBusinessAccountController() {
     }
 
-   /* @GetMapping("openBusinessAccount")
-    public ModelAndView openBusinessAccountHandler(Model model) {
-        ModelAndView openBusinessAccountPage = new ModelAndView("openBusinessAccount");
-        Customer customer = (Customer) model.getAttribute("user");
-        openBusinessAccountPage.addObject("customerName", customer.getFirstName() + " " + customer.getPrefix()  + " " +customer.getLastName());
-        model.addAttribute("sbiCodes", sbiCodes);
-        openBusinessAccountPage.addObject("openBusinessAccountForm", new OpenBusinessAccountForm());
-        return openBusinessAccountPage;
-    }*/
     @GetMapping("openBusinessAccount")
     public ModelAndView openBusinessAccountHandler(Model model) {
         ModelAndView openBusinessAccountPage = new ModelAndView("openBusinessAccount");
@@ -53,19 +42,6 @@ public class OpenBusinessAccountController {
     public ModelAndView openBusinessAccountSuccessfulHandler(@ModelAttribute OpenBusinessAccountForm openBusinessAccountForm, Model model, BusinessAccount businessAccount) {
         ModelAndView businessAccountOpenened = new ModelAndView("openBusinessAccountSuccesful");
         createAndSaveBusinessAccount(openBusinessAccountForm, model, businessAccount);
-      /*  Customer customer = (Customer) model.getAttribute("user");//FIXME: check how this works
-        businessAccount.setAccountHolder(customer);
-        //Todo: logica in businessaccount constructor
-        //Fixme: nullpointer exception fout in logica
-       // businessAccount = new BusinessAccount(openBusinessAccountForm);
-        businessAccount.setBusinessName(openBusinessAccountForm.getBusinessName());
-        businessAccount.setKvkNumber(openBusinessAccountForm.getKvkNumber());
-        businessAccount.setSbiCode(openBusinessAccountForm.getSbiCode());
-        businessAccount.setAccountName(openBusinessAccountForm.getBankAccountName());
-        businessAccount.setBalance(new BigDecimal("25"));
-        Iban iban = ibanGenerator.createIban();
-        businessAccount.setIban(iban.toString());
-        bankAccountDao.save(businessAccount);*/
         businessAccountOpenened.addObject("bankaccount", businessAccount);
         return businessAccountOpenened;
     }
@@ -74,7 +50,6 @@ public class OpenBusinessAccountController {
         Customer customer = (Customer) model.getAttribute("user");//FIXME: check how this works
         businessAccount.setAccountHolder(customer);
         //Todo: logica in businessaccount constructor
-        //Fixme: nullpointer exception fout in logica
        // businessAccount = new BusinessAccount(openBusinessAccountForm);
         businessAccount.setBusinessName(openBusinessAccountForm.getBusinessName());
         businessAccount.setKvkNumber(openBusinessAccountForm.getKvkNumber());
