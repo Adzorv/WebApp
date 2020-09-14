@@ -22,12 +22,12 @@ public class LoginValidatorEmployee {
 
     public void validateCredentials( LoginForm loginForm ) {
         reset();
-        Optional<Employee> optional = employeeDao.findByUserInlogCredentialsUserName( loginForm.getUsername() );
+        Optional<Employee> optional = employeeDao.findByInlogCredentialsUserName( loginForm.getUsername() );
         logMessage = "Foute gebruikersnaam en/of wachtwoord";
         loginForm.setGeneralError( "Foute gebruikersnaam en/of wachtwoord" );
         if ( optional.isPresent() ) {
             employee = optional.get();
-            if ( employee.getUserInlogCredentials().getPassword().equals( loginForm.getPassword() )) {
+            if ( employee.getInlogCredentials().getPassword().equals( loginForm.getPassword() )) {
                 loginValidated = true;
                 logMessage = "Gebruikersnaam en wachtwoord correct";
                 return;

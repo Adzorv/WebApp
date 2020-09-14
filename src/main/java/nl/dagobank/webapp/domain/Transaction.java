@@ -3,7 +3,6 @@ package nl.dagobank.webapp.domain;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 public class Transaction {
@@ -77,7 +76,7 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return String.format("%s %s", creditAccount.getAccountHolder().getUserFullName(), creditAccount.getIban());
+        return String.format("%s %s", creditAccount.getAccountHolder().getFullName(), creditAccount.getIban());
     }
 
 

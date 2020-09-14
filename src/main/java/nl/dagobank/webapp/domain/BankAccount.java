@@ -29,7 +29,7 @@ public abstract class BankAccount {
 
     @Override
     public String toString() {
-        return String.format("%s, %s rekeninghouder:[%s] Saldo:  %.2f €", accountName, iban, accountHolder.getUserFullName(), balance );
+        return String.format("%s, %s rekeninghouder:[%s] Saldo:  %.2f €", accountName, iban, accountHolder.getFullName(), balance );
     }
 
     public int getId() {
