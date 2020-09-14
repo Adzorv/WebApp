@@ -1,15 +1,15 @@
 package nl.dagobank.webapp.domain;
 
-public class UserInlogCredentials {
+public class InlogCredentials {
     private String userName;
     private String password;
 
-    public UserInlogCredentials(String userName, String password) {
+    public InlogCredentials(String userName, String password) {
         this.userName = userName;
         this.password = password;
     }
 
-    public UserInlogCredentials() {
+    public InlogCredentials() {
     }
 
     public String getUserName() {

@@ -1,10 +1,10 @@
 package nl.dagobank.webapp.backingbeans;
 
-import nl.dagobank.webapp.domain.UserFullName;
+import nl.dagobank.webapp.domain.FullName;
 
 public class TransferForm {
     private double amount;
-    private UserFullName userFullName;
+    private FullName fullName;
     private String IBAN;
     private String paymentCode;
     private String description;
@@ -20,12 +20,12 @@ public class TransferForm {
         this.amount = amount;
     }
 
-    public UserFullName getUserFullName() {
-        return userFullName;
+    public FullName getUserFullName() {
+        return fullName;
     }
 
-    public void setUserFullName(UserFullName userFullName) {
-        this.userFullName = userFullName;
+    public void setUserFullName(FullName fullName) {
+        this.fullName = fullName;
     }
 
     public String getIBAN() {

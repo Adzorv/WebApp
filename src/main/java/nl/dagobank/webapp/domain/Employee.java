@@ -11,8 +11,8 @@ public class Employee extends User {
         super();
     }
 
-    public Employee(UserFullName userFullName, UserAddress userAddress, UserContactDetails userContactDetails, UserInlogCredentials userInlogCredentials, UserPersonalDetails userPersonalDetails, String role) {
-        super(userFullName, userAddress, userContactDetails, userPersonalDetails, userInlogCredentials);
+    public Employee(FullName fullName, Address address, ContactDetails contactDetails, InlogCredentials inlogCredentials, PersonalDetails personalDetails, String role) {
+        super(fullName, address, contactDetails, personalDetails, inlogCredentials);
 
 
     }

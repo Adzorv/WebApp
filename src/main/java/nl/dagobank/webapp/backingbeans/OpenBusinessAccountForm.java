@@ -8,7 +8,7 @@ public class OpenBusinessAccountForm {
     private int kvkNumber;
     private String sbiCode;
     public static List<String> sbiCodes = Arrays.asList("Maak een keuze...", "A: Landbouw, bosbouw en Visserij", "B: Winning van Delftstoffen ",
-            "C: Industrie", "D: Productie en Distributie van en handel in electriciteit, aardgas, stoom en gekoelde lucht ",
+            "C: Industrie", "D: Productie en Distributie van en handel in energie ",
             "E: Winning en distributie van water", "F: Bouwnijverheid", "G: Groot- en detailhandel", "H: Vervoer en opslag");
     private String bankAccountName;
 

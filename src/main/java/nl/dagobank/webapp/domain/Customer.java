@@ -1,17 +1,14 @@
 package nl.dagobank.webapp.domain;
 
-import nl.dagobank.webapp.backingbeans.RegistrationForm;
-
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
 public class
 Customer extends User {
 
 
-    public Customer(UserFullName userFullName, UserAddress userAddress, UserContactDetails userContactDetails, UserInlogCredentials userInlogCredentials, UserPersonalDetails userPersonalDetails) {
-        super(userFullName, userAddress, userContactDetails, userPersonalDetails, userInlogCredentials);
+    public Customer(FullName fullName, Address address, ContactDetails contactDetails, InlogCredentials inlogCredentials, PersonalDetails personalDetails) {
+        super(fullName, address, contactDetails, personalDetails, inlogCredentials);
     }
 
     public Customer() {

@@ -10,25 +10,25 @@ public abstract class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Embedded
-    private UserFullName userFullName;
+    private FullName fullName;
     @Embedded
-    private UserAddress userAddress;
+    private Address address;
     @Embedded
-    private UserContactDetails userContactDetails;
+    private ContactDetails contactDetails;
     @Embedded
 /*    @Column(unique = true, nullable = false)*/
-    private UserPersonalDetails userPersonalDetails;
+    private PersonalDetails personalDetails;
     @Embedded
-    private UserInlogCredentials userInlogCredentials;
+    private InlogCredentials inlogCredentials;
 
     public User(){}
 
-    public User(UserFullName userFullName, UserAddress userAddress, UserContactDetails userContactDetails, UserPersonalDetails userPersonalDetails, UserInlogCredentials userInlogCredentials) {
-        this.userFullName = userFullName;
-        this.userAddress = userAddress;
-        this.userContactDetails = userContactDetails;
-        this.userPersonalDetails = userPersonalDetails;
-        this.userInlogCredentials = userInlogCredentials;
+    public User(FullName fullName, Address address, ContactDetails contactDetails, PersonalDetails personalDetails, InlogCredentials inlogCredentials) {
+        this.fullName = fullName;
+        this.address = address;
+        this.contactDetails = contactDetails;
+        this.personalDetails = personalDetails;
+        this.inlogCredentials = inlogCredentials;
     }
 
     @Override
@@ -36,12 +36,12 @@ public abstract class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return userInlogCredentials.getUserName().equals(user.userInlogCredentials.getUserName());
+        return inlogCredentials.getUserName().equals(user.inlogCredentials.getUserName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userInlogCredentials.getUserName());
+        return Objects.hash(inlogCredentials.getUserName());
     }
 
     public int getId() {
@@ -52,43 +52,43 @@ public abstract class User {
         this.id = id;
     }
 
-    public UserFullName getUserFullName() {
-        return userFullName;
+    public FullName getUserFullName() {
+        return fullName;
     }
 
-    public void setUserFullName(UserFullName userFullName) {
-        this.userFullName = userFullName;
+    public void setUserFullName(FullName fullName) {
+        this.fullName = fullName;
     }
 
-    public UserAddress getUserAddress() {
-        return userAddress;
+    public Address getUserAddress() {
+        return address;
     }
 
-    public void setUserAddress(UserAddress userAddress) {
-        this.userAddress = userAddress;
+    public void setUserAddress(Address address) {
+        this.address = address;
     }
 
-    public UserContactDetails getUserContactDetails() {
-        return userContactDetails;
+    public ContactDetails getUserContactDetails() {
+        return contactDetails;
     }
 
-    public void setUserContactDetails(UserContactDetails userContactDetails) {
-        this.userContactDetails = userContactDetails;
+    public void setUserContactDetails(ContactDetails contactDetails) {
+        this.contactDetails = contactDetails;
     }
 
-    public UserPersonalDetails getUserPersonalDetails() {
-        return userPersonalDetails;
+    public PersonalDetails getUserPersonalDetails() {
+        return personalDetails;
     }
 
-    public void setUserPersonalDetails(UserPersonalDetails userPersonalDetails) {
-        this.userPersonalDetails = userPersonalDetails;
+    public void setUserPersonalDetails(PersonalDetails personalDetails) {
+        this.personalDetails = personalDetails;
     }
 
-    public UserInlogCredentials getUserInlogCredentials() {
-        return userInlogCredentials;
+    public InlogCredentials getUserInlogCredentials() {
+        return inlogCredentials;
     }
 
-    public void setUserInlogCredentials(UserInlogCredentials userInlogCredentials) {
-        this.userInlogCredentials = userInlogCredentials;
+    public void setUserInlogCredentials(InlogCredentials inlogCredentials) {
+        this.inlogCredentials = inlogCredentials;
     }
 }
