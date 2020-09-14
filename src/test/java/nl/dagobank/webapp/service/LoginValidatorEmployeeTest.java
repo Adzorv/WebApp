@@ -4,6 +4,7 @@ import nl.dagobank.webapp.backingbeans.LoginForm;
 import nl.dagobank.webapp.dao.EmployeeDao;
 import nl.dagobank.webapp.domain.Employee;
 import nl.dagobank.webapp.domain.InlogCredentials;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
@@ -15,18 +16,23 @@ import static org.mockito.Mockito.when;
 
 class LoginValidatorEmployeeTest {
 
+    private LoginForm loginForm;
+    private LoginValidatorEmployee loginValidatorEmployee;
+
+
+    @BeforeEach
+    public void setUp() {
+        Employee employee = new Employee();
+        employee.setInlogCredentials( new InlogCredentials( "test", "test" ) );
+        EmployeeDao mockEmployeeDao = mock( EmployeeDao.class );
+        when( mockEmployeeDao.findByInlogCredentialsUserName( "test" ) ).thenReturn( Optional.of( employee ) );
+        loginValidatorEmployee = new LoginValidatorEmployee( mockEmployeeDao );
+        loginForm = new LoginForm( "test", "test" );
+    }
 
     @Test
     void validateCredentials() {
-        Employee employee = new Employee();
-        employee.setInlogCredentials( new InlogCredentials( "test", "test" ) );
-
-        EmployeeDao mockEmployeeDao = mock( EmployeeDao.class );
-        when( mockEmployeeDao.findByInlogCredentialsUserName( "test" ) ).thenReturn( Optional.of( employee ) );
-
         // Correct credentials test
-        LoginForm loginForm = new LoginForm( "test", "test" );
-        LoginValidatorEmployee loginValidatorEmployee = new LoginValidatorEmployee( mockEmployeeDao );
         loginValidatorEmployee.validateCredentials( loginForm );
         assertThat( loginValidatorEmployee.isLoginValidated() ).isTrue();
 
@@ -44,5 +50,10 @@ class LoginValidatorEmployeeTest {
         assertThat( loginValidatorEmployee.isLoginValidated() ).isFalse();
         assertThat( loginValidatorEmployee.getLogMessage() ).isNotNull().isNotEqualTo( "" );
 
+        // Correct credentials after wrong credentials test
+        loginForm.setUsername( "test" );
+        loginForm.setPassword( "test" );
+        loginValidatorEmployee.validateCredentials( loginForm );
+        assertThat( loginValidatorEmployee.isLoginValidated() ).isTrue();
     }
 }
