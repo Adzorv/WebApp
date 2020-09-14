@@ -16,9 +16,8 @@
             </tr>
             <tr>
                 <td>KvK nummer :</td>
-                <td><input class="text-primary" type="t" name="input_kvkNumber" th:field="*{kvkNumber}"
-                            pattern="[0-9]{8}" required placeholder="12345678"/></td>
-                <!--fixme: pattern is not validated-->
+                <td><input  type="text" name="input_kvkNumber" th:field="*{kvkNumber}"
+                            pattern="^((?!(0))[0-9]{8})$" required placeholder="12345678"/></td>
             </tr>
             <tr>
                 <td>SBI-code :</td>
