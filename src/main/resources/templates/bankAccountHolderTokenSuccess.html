@@ -9,10 +9,10 @@
 <div th:insert="fragments/navigation :: navigation"></div>
 <main>
 <h1> Vervolgstap...</h1>
-<p> Stuur de volgende gegevens naar de mederekeninghouder met gebruikersnaam <span th:text="${bankAccountHolderToken.becomingSecundaryAccountHolder.userName}"></span>.</p>
+<p> Stuur de volgende gegevens naar de mederekeninghouder met gebruikersnaam <span th:text="${bankAccountHolderToken.becomingSecundaryAccountHolder.inlogCredentials.userName}"></span>.</p>
 <hr>
 <br>
-<p>Beste <span th:text="${bankAccountHolderToken.becomingSecundaryAccountHolder.firstName} +', '"></span></p>
+<p>Beste <span th:text="${bankAccountHolderToken.becomingSecundaryAccountHolder.fullName.firstName} +', '"></span></p>
 
 <p>   Ik maak je mederekeninghouder van de rekening <span th:text="${selectedBankAccount.accountName + ' met IBAN nummer ' + selectedBankAccount.iban}"></span>.</p>
 <p>Ga naar de Dagobank website, log in en klik op "Koppel rekening".  Vul daar de volgende IBAN en koppelingscode in.</p>
@@ -21,7 +21,7 @@
 <p> Koppelingscode: <span th:text="${bankAccountHolderToken.connectionCode}"></span></p>
 
 <br>
-<p>Hartelijke groet,<br> <span th:text="${selectedBankAccount.accountHolder.firstName}"></span></p>
+<p>Hartelijke groet,<br> <span th:text="${selectedBankAccount.accountHolder.fullName.firstName}"></span></p>
 </main>
 <div th:insert="fragments/footer :: footer"></div>
 </body>
