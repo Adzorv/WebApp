@@ -1,18 +1,19 @@
 package nl.dagobank.webapp.controller;
 
 import nl.dagobank.webapp.backingbeans.LoginForm;
+import nl.dagobank.webapp.backingbeans.Username;
+import nl.dagobank.webapp.backingbeans.UsernameResponse;
 import nl.dagobank.webapp.dao.CustomerDao;
+import nl.dagobank.webapp.domain.Customer;
 import nl.dagobank.webapp.service.CustomerService;
 import nl.dagobank.webapp.service.LoginValidatorCustomer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -53,31 +54,16 @@ public class LoginController {
         return view;
     }
 
-   /* @GetMapping( "vuldatabase" )
-    public RedirectView fillDB() {
-        Customer customer = new Customer();
-        customer.setFirstName( "Jan" );
-        customer.setPrefix( "van de" );
-        customer.setLastName( "Jansen" );
-        customer.setStreetName( "Overtoom" );
-        customer.setHouseNumber( 23 );
-        customer.setHouseNumberAnnex( "2 hoog" );
-        customer.setPostCode( "1014AA" );
-        customer.setCity( "Amsterdam" );
-        customer.setPhoneNumber( "0612345678" );
-        //customer.setBirthDate('2010/02/11');
-        customer.setEmail( "janj@gmail.com" );
-        customer.setBsn( 135076569 );
-        customer.setPassword( "test" );
-        customer.setUserName( "test" );
-        try {
-            customerDao.save( customer );
-        } catch ( DataIntegrityViolationException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
 
-        LOG.info( "Database gevuld met test test gebruiker" );
-        return new RedirectView( "login" );
-    }*/
+    @PostMapping( "/usernameCheck" )
+    public @ResponseBody
+    UsernameResponse checkUsername( @RequestBody Username username ) {
+        String name = username.getUsername();
+        UsernameResponse usernameResponse = new UsernameResponse( username.getUsername() );
+        boolean customer = customerService.isRegisteredUserName( name );
+        if ( !customer ) {
+            usernameResponse.setError( "Gebruikersnaam bestaat niet" );
+        }
+        return usernameResponse;
+    }
 }
