@@ -25,6 +25,13 @@ public class BusinessAccount extends BankAccount {
         this.sbiCode = openBusinessAccountForm.getSbiCode();
 
     }
+    /* businessAccount.setBusinessName(openBusinessAccountForm.getBusinessName());
+        businessAccount.setKvkNumber(openBusinessAccountForm.getKvkNumber());
+        businessAccount.setSbiCode(openBusinessAccountForm.getSbiCode());
+        businessAccount.setAccountName(openBusinessAccountForm.getBankAccountName());
+        businessAccount.setBalance(new BigDecimal("25"));
+        Iban iban = ibanGenerator.createIban();
+        businessAccount.setIban(iban.toString());*/
 
     public String getBusinessName() {
         return businessName;
