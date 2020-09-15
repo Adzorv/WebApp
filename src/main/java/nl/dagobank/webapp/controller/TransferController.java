@@ -7,10 +7,7 @@ import nl.dagobank.webapp.service.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
@@ -42,13 +39,25 @@ public class TransferController {
     @PostMapping("/executeTransfer{id}")
     public String executeTransferHandler(@RequestParam("id") int id,
                                          @ModelAttribute TransferForm transferForm) {
+
         BankAccount selectedBankAccount = bankAccountService.getBankAccountById(id);
         BigDecimal amount = transferForm.getAmount();
-        transferService.getFundsFromSendingAccount(amount, selectedBankAccount);
-        //  Iban iban = Iban.valueOf(transferForm.getIBAN());
-        BankAccount recievingBankAccount = bankAccountService.findBankAccountByIban(transferForm.getIBAN());
-        transferService.createAndSaveTransaction(selectedBankAccount, recievingBankAccount, amount, transferForm.getDescription(), LocalDate.now());
-        transferService.putFundsInReceivingAccount(recievingBankAccount, amount);
-        return "/executeTransfer";
+        if (!transferService.checkBalanceBeforeTransfer(amount, selectedBankAccount)) {
+            return "redirect:/transferError?id=" + id;
+        } else {
+            transferService.getFundsFromSendingAccount(amount, selectedBankAccount);
+            BankAccount recievingBankAccount = bankAccountService.findBankAccountByIban(transferForm.getIBAN());
+            transferService.createAndSaveTransaction(selectedBankAccount, recievingBankAccount, amount, transferForm.getDescription(), LocalDate.now());
+            transferService.putFundsInReceivingAccount(recievingBankAccount, amount);
+            return "redirect:/accountView?id=" + id;
+        }
     }
+
+    @RequestMapping("/transferError{id}")
+    public String getTransferErrorPage(Model model) {
+        model.addAttribute("errorMessage", "ERROR: Insufficient fund to perform this operation!");
+        return "transferError";
+
+    }
+
 }
