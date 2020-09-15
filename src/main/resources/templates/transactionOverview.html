@@ -12,19 +12,13 @@
     <div class="jumbotron">
         <div class="card">
             <div class="card-header">
-                <h2>Transactie Overzicht</h2>
+                <h2 class="txtext">Transactie Overzicht</h2>
             </div>
             <div class="card-body">
 
-                <div>
-                    <a th:href="@{addAccountHolder(id=${selectedBankAccount.id})}">
-                        <button class="button">Rekeninghouder toevoegen</button>
-                    </a>
-                </div>
-
-                <h4>Type Rekening: <span th:text="${selectedBankAccount.accountName}"/></h4>
-                <h4>Rekening nummer: <span th:text="${selectedBankAccount.iban}"/></h4>
-                <h4>Saldo: <span th:text="${selectedBankAccount.balance}"/></h4>
+                <h4 class="txtext">Type Rekening: <span th:text="${selectedBankAccount.accountName}"/></h4>
+                <h4 class="txtext">Rekening nummer: <span th:text="${selectedBankAccount.iban}"/></h4>
+                <h4 class="txtext">Saldo: <span th:text="${selectedBankAccount.balance}"/></h4>
 
                 <table class="table">
                     <thead>
@@ -51,12 +45,17 @@
                     </tr>
                     </tbody>
                 </table>
-
-
             </div>
         </div>
     </div>
 </div>
+
+<div class="containertx">
+    <a th:href="@{addAccountHolder(id=${selectedBankAccount.id})}">
+        <button class="buttontx">Rekeninghouder toevoegen</button>
+    </a>
+</div>
+
 
 <div th:insert="fragments/footer :: footer"></div>
 

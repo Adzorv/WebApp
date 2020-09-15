@@ -327,6 +327,50 @@ p.loginError span {
     background-blend-mode: overlay;
 }
 
+.table {
+    color: #000000;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 19px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.04em;
+}
+
+h2.txtext, h4.txtext {
+    color: #000000;
+    font-family: Roboto;
+    line-height: 19px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.containertx {
+    width: 200px;
+    height: 100px;
+    display: grid;
+    margin: auto;
+    padding: 10px;
+}
+
+.buttontx {
+    margin: auto;
+    background-color: #ffc107;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+
+
 
 
 
