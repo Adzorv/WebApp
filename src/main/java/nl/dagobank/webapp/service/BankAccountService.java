@@ -25,7 +25,7 @@ public class BankAccountService {
         return bankAccountDao.findById(id).get();
     }
 
-    public BankAccount findBankAccountByIban(Iban iban){
+    public BankAccount findBankAccountByIban(String iban){
         return bankAccountDao.findByIban(iban);
     }
 

@@ -4,7 +4,6 @@ import nl.dagobank.webapp.backingbeans.TransferForm;
 import nl.dagobank.webapp.domain.BankAccount;
 import nl.dagobank.webapp.service.BankAccountService;
 import nl.dagobank.webapp.service.TransferService;
-import org.iban4j.Iban;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Controller
 public class TransferController {
@@ -28,6 +28,7 @@ public class TransferController {
 
     @Autowired
     TransferService transferService;
+
 
     @GetMapping("/transfer{id}")
     public ModelAndView transactionHandler(@RequestParam("id") int id, Model model) {
@@ -44,10 +45,10 @@ public class TransferController {
         BankAccount selectedBankAccount = bankAccountService.getBankAccountById(id);
         BigDecimal amount = transferForm.getAmount();
         transferService.getFundsFromSendingAccount(amount, selectedBankAccount);
-        Iban iban = Iban.valueOf(transferForm.getIBAN());
-        BankAccount receivingBankAccount = bankAccountService.findBankAccountByIban(iban);
-        transferService.putFundsInReceivingAccount(receivingBankAccount, amount);
-        return "executeTransfer";
+        //  Iban iban = Iban.valueOf(transferForm.getIBAN());
+        BankAccount recievingBankAccount = bankAccountService.findBankAccountByIban(transferForm.getIBAN());
+        transferService.createAndSaveTransaction(selectedBankAccount, recievingBankAccount, amount, transferForm.getDescription(), LocalDate.now());
+        transferService.putFundsInReceivingAccount(recievingBankAccount, amount);
+        return "/executeTransfer";
     }
-
 }

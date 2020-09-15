@@ -3,7 +3,6 @@ package nl.dagobank.webapp.domain;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 public class Transaction {
@@ -12,13 +11,21 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @OneToOne
+    @OneToOne//sending
     private BankAccount debitAccount;
-    @OneToOne
+    @OneToOne//receiving
     private BankAccount creditAccount;
     private BigDecimal amount;
     private String description;
     private LocalDate date;
+
+    public Transaction(BankAccount sender, BankAccount receiver, BigDecimal amount, String description, LocalDate date) {
+        this.date = date;
+        this.debitAccount = sender;
+        this.creditAccount = receiver;
+        this.amount = amount;
+        this.description = description;
+    }
 
     public Transaction() {
         super();
@@ -27,7 +34,6 @@ public class Transaction {
     public BankAccount getDebitAccount() {
         return debitAccount;
     }
-
 
     public BankAccount getCreditAccount() {
         return creditAccount;
@@ -45,7 +51,7 @@ public class Transaction {
         return amount;
     }
 
-    public void setAmount( BigDecimal amount ) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
@@ -53,7 +59,7 @@ public class Transaction {
         return description;
     }
 
-    public void setDescription( String description ) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -74,11 +80,8 @@ public class Transaction {
     }
 
 
-
     @Override
     public String toString() {
         return String.format("%s %s", creditAccount.getAccountHolder().getFirstName(), creditAccount.getIban());
     }
-
-
 }
