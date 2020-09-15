@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <title>Overboeken</title>
 </head>
+<div th:insert="fragments/navigation :: navigation"></div>
 <body>
-<form th:action="@{/ExecuteTransfer}" method="post" th:object="${TransferForm}">
+<h4>Type Rekening: <span th:text="${selectedBankAccount.accountName}"/></h4>
+<h4>Rekening nummer: <span th:text="${selectedBankAccount.iban}"/></h4>
+<h4>Saldo: <span th:text="${selectedBankAccount.balance}"/></h4>
+<form th:action="@{/executeTransfer(id=${selectedBankAccount.id})}" method="post" th:object="${TransferForm}">
     <table>
         <tr>
             <td>Bedrag:</td><td><input type="number" name="input_amount" th:field="*{amount}" placeholder="amount" required></td>
@@ -14,7 +18,7 @@
             <td>Naam:</td><td><input type="text" name="input_name" th:field="*{UserFullName}" placeholder="volle naam" pattern="[A-Za-z ]{1,}" required></td>
         </tr>
         <tr>
-            <td>IBAN:</td><td><input type="text" name="input_Iban" th:field="*{IBAN}" placeholder="IBAN" required></td>
+            <td>IBAN:</td><td><input type="text" name="input_IBAN" th:field="*{IBAN}" placeholder="IBAN" required></td>
         </tr>
         <tr>
             <td>Referentiecode:</td><td><input type="text" name="input_paymentCode" th:field="*{paymentCode}" placeholder="Referentiecode"></td>

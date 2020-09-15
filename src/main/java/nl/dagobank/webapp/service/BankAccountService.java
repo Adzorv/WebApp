@@ -8,6 +8,7 @@ import nl.dagobank.webapp.dao.SbiAverage;
 import nl.dagobank.webapp.domain.BankAccount;
 import nl.dagobank.webapp.domain.Customer;
 import nl.dagobank.webapp.domain.PrivateAccount;
+import org.iban4j.Iban;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,11 @@ public class BankAccountService {
         return bankAccountDao.findById( id ).get();
     }
 
-    public List<BankAccount> findAllByAccountHolder( Customer customer) {
+    public BankAccount findBankAccountByIban(String iban){
+        return bankAccountDao.findByIban(iban);
+    }
+
+    public List<BankAccount> findAllByAccountHolder(Customer customer){
         return bankAccountDao.findAllByAccountHolder(customer);
     }
 

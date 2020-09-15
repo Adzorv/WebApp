@@ -45,15 +45,20 @@
                     </tr>
                     </tbody>
                 </table>
+
+
             </div>
         </div>
     </div>
 </div>
 
-<div class="containertx">
-    <a th:href="@{addAccountHolder(id=${selectedBankAccount.id})}">
-        <button class="buttontx">Rekeninghouder toevoegen</button>
-    </a>
+<div class="content">
+    <div class="btn-group">
+        <a th:href="@{addAccountHolder(id=${selectedBankAccount.id})}" class="color1">Rekeninghouder toevoegen
+        </a>
+        <a th:href="@{transfer(id=${selectedBankAccount.id})}" class="color1">Overboeken
+        </a>
+    </div>
 </div>
 
 
