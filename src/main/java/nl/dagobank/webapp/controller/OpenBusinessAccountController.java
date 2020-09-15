@@ -18,7 +18,7 @@ import java.math.BigDecimal;
 import static nl.dagobank.webapp.backingbeans.OpenBusinessAccountForm.sbiCodes;
 
 @Controller
-@SessionAttributes( "user" )
+@SessionAttributes("user")
 public class OpenBusinessAccountController {
     @Autowired
     BankAccountDao bankAccountDao;
@@ -44,7 +44,7 @@ public class OpenBusinessAccountController {
 
     @PostMapping("openBusinessAccount")
     public ModelAndView openBusinessAccountSuccessfulHandler(@ModelAttribute OpenBusinessAccountForm openBusinessAccountForm, Model model, BusinessAccount businessAccount) {
-        if(!bankAccountService.isCompanyValid(openBusinessAccountForm.getKvkNumber())) {
+        if (!bankAccountService.isCompanyValid(openBusinessAccountForm.getKvkNumber())) {
             return showBusinessAccountOpenedSuccess(openBusinessAccountForm, model, businessAccount);
         } else {
             return showOpenAnotherAccount(openBusinessAccountForm, model);
@@ -52,9 +52,8 @@ public class OpenBusinessAccountController {
     }
 
 
-
-    private  ModelAndView showBusinessAccountOpenedSuccess(@ModelAttribute OpenBusinessAccountForm openBusinessAccountForm, Model model, BusinessAccount businessAccount){
-        ModelAndView businessAccountOpenened = new ModelAndView("openBusinessAccountSuccesful");
+    private ModelAndView showBusinessAccountOpenedSuccess(@ModelAttribute OpenBusinessAccountForm openBusinessAccountForm, Model model, BusinessAccount businessAccount) {
+        ModelAndView businessAccountOpenened = new ModelAndView("openBusinessAccountSuccessful");
         Customer customer = (Customer) model.getAttribute("user");//FIXME: check how this works
         businessAccount.setAccountHolder(customer);
         businessAccount.setBusinessName(openBusinessAccountForm.getBusinessName());
@@ -65,19 +64,35 @@ public class OpenBusinessAccountController {
         Iban iban = ibanGenerator.createIban();
         businessAccount.setIban(iban.toString());
         bankAccountDao.save(businessAccount);
+        businessAccountOpenened.addObject("bankaccount", businessAccount);
         return businessAccountOpenened;
     }
 
     private ModelAndView showOpenAnotherAccount(OpenBusinessAccountForm openBusinessAccountForm, Model model) {
-    ModelAndView openAnotherBusinessAccount = new ModelAndView("openAnotherBusinessAccount");
-    return openAnotherBusinessAccount;
+        ModelAndView openAnotherBusinessAccount = new ModelAndView("openAnotherBusinessAccount");
+        return openAnotherBusinessAccount;
     }
 
+    @PostMapping("openAnotherBusinessAccount")
+    public ModelAndView openAnotherBusinessAccount(@RequestParam("bankAccountName") String bankAccountName, Model model, BusinessAccount businessAccount) {
+        ModelAndView openBusinessAccountSuccessful = new ModelAndView("openBusinessAccountSuccessful");
+        createAndSaveAnotherBusinessAccount(bankAccountName, model, businessAccount);
+        openBusinessAccountSuccessful.addObject("bankaccount", businessAccount);
+        return openBusinessAccountSuccessful;
+    }
 
-
-
-
-
+    private void createAndSaveAnotherBusinessAccount(String bankAccountName, Model model, BusinessAccount businessAccount) {
+        Customer customer = (Customer) model.getAttribute("user");
+        businessAccount.setAccountHolder(customer);
+        businessAccount.setAccountName(bankAccountName);
+        businessAccount.setBalance(new BigDecimal("25"));
+        Iban iban = ibanGenerator.createIban();
+        businessAccount.setIban(iban.toString());
+        businessAccount.setBusinessName(businessAccount.getBusinessName());//fixme: how to retrieve the information of the company
+        businessAccount.setKvkNumber(businessAccount.getKvkNumber());
+        businessAccount.setSbiCode(businessAccount.getSbiCode());
+        bankAccountDao.save(businessAccount);
+    }
 
 
 }

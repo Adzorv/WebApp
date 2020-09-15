@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/head" :: head>
+    <title>Open nog een zakelijke rekening</title>
 </head>
 <body>
+<div th:insert="fragments/navigation :: navigation"></div>
+<h1>Hoi <span th:text="${user.fullName}"/> je heb al een zakelijke rekening voor dit bedrijf.</h1>
+<h2>Wil je nog een zakelijke rekening openen voor dit bedrijf?</h2>
+<!--knop met nee en dan terug naar overzicht-->
+<a th:href="overview"><button  class="button" >Nee, Bedankt </button></a>
 
+<p> Zo ja, vul dan een naam in voor je nieuwe zakelijke rekening: </p>
+
+<form method="post" th:action="@{openAnotherBusinessAccount}">
+    <p><input type="text" name="bankAccountName" th:value="${bankAccountName}"></p>
+    <td><input class="button_bottom" type="submit" name="openAnotherBusinessAccount"
+               value="Open rekening"/></td>
+</form>
+
+<div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>
