@@ -15,7 +15,9 @@
             <div class="container">
                 <table>
                     <tr th:each="rekening : ${bankAccounts}">
-                        <h3><span class="glyphicon glyphicon-credit-card" ></span> REKENING</h3>
+                        <h3><span class="glyphicon glyphicon-credit-card" ></span>
+                            <span th:if="${rekening instanceof T(nl.dagobank.webapp.domain.PrivateAccount)}">Particuliere rekening</span>
+                            <span th:if="${rekening instanceof T(nl.dagobank.webapp.domain.BusinessAccount)}">Zakelijke rekening</span></h3>
                         <p class="title" th:text="${rekening.accountName}"></p>
                         <p class="title" th:text="${rekening.accountHolder.fullName}"></p>
 
