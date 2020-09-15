@@ -27,7 +27,8 @@ public class CustomerService {
     }
 
     public Customer getCustomerByUserName(String userName ) {
-        return customerDao.findByInlogCredentialsUserName( userName ).get();
+        Optional<Customer> optionalCustomer = customerDao.findByInlogCredentialsUserName( userName );
+        return optionalCustomer.orElse( null );
     }
     public boolean isBSNValid( int bsn ) {
         return ( checkIfBSNIsCorrect( bsn ) && !checkIfBSNIsInDB( bsn ) );

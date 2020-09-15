@@ -16,9 +16,9 @@
             </div>
             <div class="card-body">
 
-                <h4 class="txtext">Type Rekening: <span th:text="${selectedBankAccount.accountName}"/></h4>
+                <h4 class="txtext">Naam Rekening: <span th:text="${selectedBankAccount.accountName}"/></h4>
                 <h4 class="txtext">Rekening nummer: <span th:text="${selectedBankAccount.iban}"/></h4>
-                <h4 class="txtext">Saldo: <span th:text="${selectedBankAccount.balance}"/></h4>
+                <h4 class="txtext">Saldo: <span th:text="${'&#8364;' + selectedBankAccount.balance}"/></h4>
 
                 <table class="table">
                     <thead>
