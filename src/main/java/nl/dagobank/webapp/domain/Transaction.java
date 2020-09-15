@@ -82,6 +82,6 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return String.format("%s %s", creditAccount.getAccountHolder().getFirstName(), creditAccount.getIban());
+        return String.format("%s %s", creditAccount.getAccountHolder().getFullName(), creditAccount.getIban());
     }
 }

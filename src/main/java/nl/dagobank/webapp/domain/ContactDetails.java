@@ -1,12 +1,15 @@
 package nl.dagobank.webapp.domain;
 
-public class UserContactDetails {
+public class ContactDetails {
     private String phoneNumber;
     private String email;
 
-    public UserContactDetails(String phoneNumber, String email) {
+    public ContactDetails(String phoneNumber, String email) {
         this.phoneNumber = phoneNumber;
         this.email = email;
+    }
+
+    public ContactDetails() {
     }
 
     public String getPhoneNumber() {

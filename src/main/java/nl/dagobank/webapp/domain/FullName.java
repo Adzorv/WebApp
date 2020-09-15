@@ -1,14 +1,21 @@
 package nl.dagobank.webapp.domain;
 
-public class UserFullName {
+import javax.persistence.Embeddable;
+
+@Embeddable
+public class FullName {
     private String firstName;
     private String prefix;
     private String lastName;
 
-    public UserFullName(String firstName, String prefix, String lastName) {
+    public FullName(String firstName, String prefix, String lastName) {
         this.firstName = firstName;
         this.prefix = prefix;
         this.lastName = lastName;
+    }
+
+    public FullName() {
+
     }
 
     public String getFirstName() {

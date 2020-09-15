@@ -4,19 +4,22 @@ import nl.dagobank.webapp.backingbeans.RegistrationForm;
 
 import javax.persistence.Entity;
 
-public class UserAddress {
+public class Address {
     private String streetName;
     private int houseNumber;
     private String houseNumberAnnex;
     private String postCode;
     private String city;
 
-    public UserAddress(String streetName, int houseNumber, String houseNumberAnnex, String postCode, String city) {
+    public Address(String streetName, int houseNumber, String houseNumberAnnex, String postCode, String city) {
         this.streetName = streetName;
         this.houseNumber = houseNumber;
         this.houseNumberAnnex = houseNumberAnnex;
         this.postCode = postCode;
         this.city = city;
+    }
+
+    public Address() {
     }
 
     public String getStreetName() {

@@ -8,10 +8,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmployeeService {
 
-    @Autowired
     EmployeeDao employeeDao;
-    @Autowired
     LoginValidatorEmployee loginValidator;
+
+    @Autowired
+    public EmployeeService(EmployeeDao employeeDao, LoginValidatorEmployee loginValidator) {
+        this.employeeDao = employeeDao;
+        this.loginValidator = loginValidator;
+    }
 
     public LoginValidatorEmployee validateCredentials( LoginForm loginForm ) {
         loginValidator.validateCredentials( loginForm );

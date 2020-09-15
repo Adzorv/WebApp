@@ -31,7 +31,7 @@
         </div>
     </div>
     <div th:case="${false}">
-        <p>Hoi <span th:text="${user.firstName}"/>, je bent al ingelogd!</p>
+        <p>Hoi <span th:text="${user.fullName.firstName}"/>, je bent al ingelogd!</p>
         <a href="/logout">Uitloggen</a>
     </div>
 </div>

@@ -1,33 +1,33 @@
 package nl.dagobank.webapp.dao;
 
 import nl.dagobank.webapp.domain.*;
-import org.iban4j.Iban;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface TransactionDao extends CrudRepository<Transaction, Integer> {
 
-    // Alle bij en afschrijvingen per iban
-//    List<Transaction> findAllByIban(Iban iban);
+    List<Transaction> findAllByDebitAccount( BankAccount debitAccount );
 
-//    List<Transaction> findAllByAccountName(String accountName);
+    List<Transaction> findAllByCreditAccount( BankAccount creditAccount );
 
+    List<Transaction> findAllByDebitAccountOrCreditAccountOrderByDate( BankAccount debitAccount, BankAccount creditAccount );
 
-    List<Transaction> findAllByDebitAccount(BankAccount debitAccount );
-    List<Transaction> findAllByCreditAccount(BankAccount creditAccount );
+    @Query( value = "SELECT COUNT(*) AS sumTransactions, BA.business_name AS businessName, " +
+            "sum(CASE WHEN BA.id = T.credit_account_id THEN 1 ELSE 0 END) AS creditCount, " +
+            "sum(CASE WHEN BA.id = T.debit_account_id THEN 1 ELSE 0 END) AS debitCount " +
+            "FROM bank_account BA JOIN transaction T ON BA.id = T.credit_account_id OR BA.id = T.debit_account_id " +
+            "WHERE dtype = 'BusinessAccount'" +
+            "GROUP BY BA.business_name", nativeQuery = true )
+    List<SumTransactionsPerBusiness> findSumOfTransactsionsPerBusinessAccount( Pageable pageable );
 
-
-//    List<Email> findBy.....(List<String> emails, List<String> pinCodes);
-
-//    List<Email> findByEmailIdInAndPincodeIn(List<String> emails, List<String> pinCodes);
-
-
-
-
+//    @Query(value = "SELECT c.year AS yearComment, COUNT(c.*) AS totalComment "
+//            + "FROM comment AS c GROUP BY c.year ORDER BY c.year DESC", nativeQuery = true)
+//    List<ICommentCount> countTotalCommentsByYearNative();
 
 }
 

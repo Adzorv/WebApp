@@ -1,14 +1,11 @@
 package nl.dagobank.webapp.dao;
 
-import nl.dagobank.webapp.domain.Customer;
 import nl.dagobank.webapp.domain.Employee;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,7 +18,7 @@ class EmployeeDaoTest {
     private Employee employee;
 
 
-    @BeforeEach
+    /*@BeforeEach
     void setUp() {
         employee = new Employee();
         employee.setFirstName( "Jan" );
@@ -41,7 +38,7 @@ class EmployeeDaoTest {
         employee.setRole( "HoofdMKB" );
         employeeDao.save( employee );
 
-    }
+    }*/
 
     @AfterEach
     void tearDown() {
@@ -51,9 +48,9 @@ class EmployeeDaoTest {
 
     @Test
     void findByUserName() {
-        Optional<Employee> optionalEmployee = employeeDao.findByUserName( "test2" );
+        Optional<Employee> optionalEmployee = employeeDao.findByInlogCredentialsUserName( "test2" );
         assertTrue( optionalEmployee.isPresent() );
-        assertEquals( 111222333, optionalEmployee.get().getBsn() );
+        assertEquals( 111222333, optionalEmployee.get().getPersonalDetails().getBsn() );
 
     }
 
@@ -61,7 +58,7 @@ class EmployeeDaoTest {
     void findByRole() {
         Optional<Employee> optionalEmployee = employeeDao.findByRole( "HoofdMKB" );
         assertTrue( optionalEmployee.isPresent() );
-        assertEquals( 111222333, optionalEmployee.get().getBsn() );
+        assertEquals( 111222333, optionalEmployee.get().getPersonalDetails().getBsn() );
 
         Optional<Employee> optionalEmployee1 = employeeDao.findByRole( "hoofdmkb" );
         assertTrue( optionalEmployee1.isPresent() );

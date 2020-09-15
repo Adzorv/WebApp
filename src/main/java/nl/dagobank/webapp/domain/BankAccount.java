@@ -3,9 +3,11 @@ package nl.dagobank.webapp.domain;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 
 @Entity
+
 public abstract class BankAccount {
 
     @Id
@@ -16,29 +18,18 @@ public abstract class BankAccount {
     @OneToOne
     private Customer accountHolder;
 
-    @OneToMany(fetch=FetchType.EAGER)
+    @ManyToMany(fetch=FetchType.EAGER)
     private List<Customer> secondaryAccountHolders;
 
     private String iban;
     private BigDecimal balance;
-
-    private final BigDecimal BANKACCOUNT_BEGINBALANCE_GIFT = new BigDecimal("25");
-    private final String TESTIBAN = "NL58INGB0687603749";
-
-    public BankAccount(int id, String accountName, Customer accountHolder, BigDecimal balance) {
-        this.id = id;
-        this.accountName = accountName;
-        this.accountHolder = accountHolder;
-        this.iban = TESTIBAN;
-        this.balance = BANKACCOUNT_BEGINBALANCE_GIFT;
-    }
 
     public BankAccount(){
     }
 
     @Override
     public String toString() {
-        return String.format("%s, %s rekeninghouder:[%s] Saldo:  %.2f €", accountName, iban, accountHolder.getFirstName(),balance );
+        return String.format("%s, %s rekeninghouder:[%s] Saldo:  %.2f €", accountName, iban, accountHolder.getFullName(), balance );
     }
 
     public int getId() {
@@ -69,10 +60,6 @@ public abstract class BankAccount {
         return secondaryAccountHolders;
     }
 
-//    public void setSecondaryAccountHolders(List<Customer> secondaryAccountHolders) {
-//        this.secondaryAccountHolders = secondaryAccountHolders;
-//    }
-
     public String getIban() {
         return iban;
     }
@@ -89,12 +76,37 @@ public abstract class BankAccount {
         this.balance = balance;
     }
 
+
+
 //    public List<Transaction> getTransations() {
 //        return transations;
 //    }
 
-//    public void setTransations(List<Transaction> transations) {
+    //    public void setTransations(List<Transaction> transations) {
 //        this.transations = transations;
 //    }
+
+
+
+    public void setSecondaryAccountHolders( List<Customer> secondaryAccountHolders ) {
+        this.secondaryAccountHolders = secondaryAccountHolders;
+    }
+
+    @Override
+    public boolean equals( Object o ) {
+        if ( this == o ) return true;
+        if ( o == null || getClass() != o.getClass() ) return false;
+        BankAccount that = (BankAccount) o;
+        return id == that.id
+                &&
+                Objects.equals( accountName, that.accountName )
+                && Objects.equals( accountHolder, that.accountHolder )
+//                && Objects.equals( secondaryAccountHolders, that.secondaryAccountHolders )
+                && Objects.equals( iban, that.iban )
+                && Objects.equals( balance, that.balance )
+   //             && Objects.equals( BANKACCOUNT_BEGINBALANCE_GIFT, that.BANKACCOUNT_BEGINBALANCE_GIFT )
+//                && Objects.equals( TESTIBAN, that.TESTIBAN )
+                ;
+    }
 
 }

@@ -23,15 +23,18 @@ public class CustomerService {
     private LoginValidatorCustomer loginValidator;
 
     public boolean isRegisteredUserName( String userName ) {
-        return customerDao.existsByUserName( userName );
+        return customerDao.existsByInlogCredentialsUserName( userName );
     }
 
-    public Customer getCustomerByUserName( String userName ) {
-        return customerDao.findByUserName( userName ).get();
+    public Customer getCustomerByUserName(String userName ) {
+        return customerDao.findByInlogCredentialsUserName( userName ).get();
+    }
+    public boolean isBSNValid( int bsn ) {
+        return ( checkIfBSNIsCorrect( bsn ) && !checkIfBSNIsInDB( bsn ) );
     }
 
     public boolean checkIfBSNIsInDB( int bsn ) {
-        return customerDao.findByBsn( bsn ) != null;
+        return customerDao.findByPersonalDetailsBsn( bsn ) != null;
     }
 
     public boolean checkIfBSNIsCorrect( int inputBSN ) {
@@ -46,8 +49,8 @@ public class CustomerService {
         return bsnToCheck != 0 && bsnToCheck % 11 == 0;
     }
 
-    public void saveCustomer( Customer customer ) {
-        customerDao.save( customer );
+    public void saveCustomer( Customer customer) {
+        customerDao.save(customer);
     }
 
     public LoginValidatorCustomer validateCredentials( LoginForm loginForm ) {
@@ -55,28 +58,23 @@ public class CustomerService {
         return loginValidator;
     }
 
-    public boolean isBSNValid( int bsn ) {
-        return ( checkIfBSNIsCorrect( bsn ) && !checkIfBSNIsInDB( bsn ) );
-    }
 
-    public List<Map.Entry<Customer, BigDecimal>> getAllBusinessCustomers() {
+    public List<Map.Entry<Customer, BigDecimal>> getTop10BusinessCustomers() {
         Iterator<Customer> all = getAllCustomersIterator();
         BigDecimal totalBalance = new BigDecimal( 0 );
         Map<Customer, BigDecimal> result = new HashMap<>();
 
         while ( all.hasNext() ) {
             Customer customer = all.next();
-            List<BusinessAccount> businessAccounts = businessAccountDao.findAllByAccountHolder( customer );
+            List<BusinessAccount> businessAccounts = businessAccountDao.findAllByAccountHolder(customer);
             if ( !businessAccounts.isEmpty() ) {
                 for ( BusinessAccount ba : businessAccounts ) {
                     totalBalance = totalBalance.add( ba.getBalance() );
                 }
-                result.put( customer, totalBalance );
+                result.put(customer, totalBalance );
             }
-            System.out.println();
-            System.out.println( MapUtil.entriesSortedByValues( result ) );
         }
-        return MapUtil.entriesSortedByValues( result ); //TODO limit10
+        return MapUtil.entriesSortedByValues( result ).subList( 0, result.size() < 10 ? result.size() : 10 );
     }
 
     private Iterator<Customer> getAllCustomersIterator() {

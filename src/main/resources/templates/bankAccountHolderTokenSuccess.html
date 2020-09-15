@@ -5,14 +5,24 @@
     <title>bankAccountHolderTokenSuccess</title>
 </head>
 <body>
+
 <div th:insert="fragments/navigation :: navigation"></div>
-<h2> Rekening token succesful aangemaakt!</h2>
+<main>
+<h1> Vervolgstap...</h1>
+<p> Stuur de volgende gegevens naar de mederekeninghouder met gebruikersnaam <span th:text="${bankAccountHolderToken.becomingSecundaryAccountHolder.userName}"></span>.</p>
+<hr>
+<br>
+<p>Beste <span th:text="${bankAccountHolderToken.becomingSecundaryAccountHolder.firstName} +', '"></span></p>
 
-<p></p>
-<h2> Gebruikers login naam: <a th:text="${bankAccountHolderToken.becomingSecundaryAccountHolder.userName}"></a></h2>
-<h2> Verbindings code: <a th:text="${bankAccountHolderToken.connectionCode}"></a></h2>
-<h2> IBAN: <a th:text="${bankAccountHolderToken.accountToAdd.iban}"></a></h2>
+<p>   Ik maak je mederekeninghouder van de rekening <span th:text="${selectedBankAccount.accountName + ' met IBAN nummer ' + selectedBankAccount.iban}"></span>.</p>
+<p>Ga naar de Dagobank website, log in en klik op "Koppel rekening".  Vul daar de volgende IBAN en koppelingscode in.</p>
 
+<p> IBAN: <span th:text="${bankAccountHolderToken.accountToAdd.iban}"></span></p>
+<p> Koppelingscode: <span th:text="${bankAccountHolderToken.connectionCode}"></span></p>
+
+<br>
+<p>Hartelijke groet,<br> <span th:text="${selectedBankAccount.accountHolder.firstName}"></span></p>
+</main>
 <div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>

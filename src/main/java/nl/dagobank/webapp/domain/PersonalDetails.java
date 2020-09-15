@@ -2,13 +2,16 @@ package nl.dagobank.webapp.domain;
 
 import java.time.LocalDate;
 
-public class UserPersonalDetails {
+public class PersonalDetails {
     LocalDate birthDate;
     int bsn;
 
-    public UserPersonalDetails(LocalDate birthDate, int bsn) {
+    public PersonalDetails(LocalDate birthDate, int bsn) {
         this.birthDate = birthDate;
         this.bsn = bsn;
+    }
+
+    public PersonalDetails() {
     }
 
     public LocalDate getBirthDate() {

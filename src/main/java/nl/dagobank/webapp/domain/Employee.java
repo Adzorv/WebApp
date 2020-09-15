@@ -11,6 +11,12 @@ public class Employee extends User {
         super();
     }
 
+    public Employee(FullName fullName, Address address, ContactDetails contactDetails, InlogCredentials inlogCredentials, PersonalDetails personalDetails, String role) {
+        super(fullName, address, contactDetails, personalDetails, inlogCredentials);
+
+
+    }
+
     public String getRole() {
         return role;
     }

@@ -28,7 +28,7 @@ public class LoginAttempt {
     @Column
     private LocalDateTime blockedUntil;
 
-    public LoginAttempt( Customer customer ) {
+    public LoginAttempt( Customer customer) {
         super();
         this.customer = customer;
         this.failedAttempts = 1;
@@ -37,6 +37,10 @@ public class LoginAttempt {
 
     public LoginAttempt() {
         super();
+    }
+
+    public boolean isBlocked() {
+        return blockedUntil != null && blockedUntil.isAfter( LocalDateTime.now() );
     }
 
     public int getId() {
@@ -51,7 +55,7 @@ public class LoginAttempt {
         return customer;
     }
 
-    public void setCustomer( Customer customer ) {
+    public void setCustomer( Customer customer) {
         this.customer = customer;
     }
 

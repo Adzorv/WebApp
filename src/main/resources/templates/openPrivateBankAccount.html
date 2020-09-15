@@ -7,17 +7,14 @@
 </head>
 <body>
 <div th:insert="fragments/navigation :: navigation"></div>
-<h1 class="sh_title"> Hoi <span th:text="${customerName}"/> !</h1>
-<h2 class="sh_subTitle"><span th:text="${message}"/></h2>
-<p></p>
-<p></p>
-<h2 class="sh_subTitle"> Je kunt de naam van de bankrekening nog aanpassen...</h2>
-<p></p>
-<p></p>
-<h2 class="sh_subTitle"> Naam van te openen bankrekening</h2>
-<form method="post" th:action="@{openAndSaveBankAccount}" th:object="${bankAccountNameForm}">
-    <p><input class="sh_input" type="text" name="input_bankAccountName" th:field="*{bankAccountName}"></td></p>
-    <input class="sh_button" type="submit" name="aanmakenRekening" value="Maak rekening aan"/>
+<h1>Open particulier rekening</h1>
+<p> Hoi <span th:text="${user.fullName}"/>. Je kunt de naam van de bankrekening nog aanpassen. Geef hier de gewenste naam in.</p>
+
+<p> Naam van nieuwe bankrekening</p>
+
+<form method="post" th:action="@{openAndSaveBankAccount}">
+    <p><input type="text" name="bankAccountName" th:value="${bankAccountName}"></p>
+    <input type="submit" name="aanmakenRekening" value="Maak rekening aan"/>
 </form>
 
 <div th:insert="fragments/footer :: footer"></div>

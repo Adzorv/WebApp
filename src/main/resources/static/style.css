@@ -19,7 +19,6 @@
     from {
         transform: rotateY(0deg);
     }
-
     to {
         transform: rotateY(-360deg);
     }
@@ -34,6 +33,28 @@
     overflow: hidden;
     background-blend-mode: overlay;
 }
+
+body {
+    background-color: black;
+    font-family: "Nova Round";
+    color: white;
+    font-size: 1.5em;
+}
+main {
+    margin-left: 15%;
+}
+
+form {
+    padding:  5% 0;
+}
+
+input[type=text], input[type=number], input[type=date], textarea, select{
+    color: black;
+}
+
+
+
+
 
 
 .wave {
@@ -167,6 +188,20 @@ h1.intro {
     left: 50%;
 }
 
+.button_bottom {
+    background-color: #ffc107;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 25% auto;
+
+}
+
 .sh_title {
     text-align: center;
 
@@ -229,6 +264,7 @@ footer.sh_footer {
     width: 300px;
     height: 200px;
     margin-top: 50px;
+    color: black;
 }
 
 .loginbox.employee {
@@ -290,6 +326,50 @@ p.loginError span {
     overflow: hidden;
     background-blend-mode: overlay;
 }
+
+.table {
+    color: #000000;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 19px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.04em;
+}
+
+h2.txtext, h4.txtext {
+    color: #000000;
+    font-family: Roboto;
+    line-height: 19px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.containertx {
+    width: 200px;
+    height: 100px;
+    display: grid;
+    margin: auto;
+    padding: 10px;
+}
+
+.buttontx {
+    margin: auto;
+    background-color: #ffc107;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+
 
 
 
