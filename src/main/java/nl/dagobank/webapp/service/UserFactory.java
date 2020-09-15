@@ -12,7 +12,7 @@ public class UserFactory {
 
 
     public UserFactory(RegistrationForm registrationForm, String userName, String password) {
-        fullName = new FullName(registrationForm.getFirstName(), registrationForm.getPrefix(), registrationForm.getFirstName());
+        fullName = new FullName(registrationForm.getFirstName(), registrationForm.getPrefix(), registrationForm.getLastName());
         address = new Address(registrationForm.getStreetName(), registrationForm.getHouseNumber(), registrationForm.getHouseNumberAnnex(),
                 registrationForm.getPostCode(), registrationForm.getCity());
         contactDetails = new ContactDetails(registrationForm.getPhoneNumber(), registrationForm.getEmail());
