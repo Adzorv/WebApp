@@ -87,4 +87,8 @@ public class BankAccountService {
         bankAccountDao.save(privateAccount);
         return privateAccount;
     }
+
+    public boolean isCompanyValid(int kvkNumber) {
+        return businessAccountDao.existsByKvkNumber(kvkNumber);
+    }
 }

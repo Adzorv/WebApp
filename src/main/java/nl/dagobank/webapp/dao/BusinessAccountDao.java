@@ -14,6 +14,8 @@ import java.util.List;
 @Repository
 public interface BusinessAccountDao extends CrudRepository<BusinessAccount, Integer> {
 
+    Boolean existsByKvkNumber(int kvkNumber);
+
     List<BusinessAccount> findAllByAccountHolder( Customer customer);
 
     List<BusinessAccount> findAllBySecondaryAccountHoldersContaining( Customer customer);

@@ -4,6 +4,7 @@ import nl.dagobank.webapp.backingbeans.OpenBusinessAccountForm;
 import nl.dagobank.webapp.dao.BankAccountDao;
 import nl.dagobank.webapp.domain.BusinessAccount;
 import nl.dagobank.webapp.domain.Customer;
+import nl.dagobank.webapp.service.BankAccountService;
 import nl.dagobank.webapp.service.IbanGenerator;
 import org.iban4j.Iban;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,16 @@ import java.math.BigDecimal;
 import static nl.dagobank.webapp.backingbeans.OpenBusinessAccountForm.sbiCodes;
 
 @Controller
-@SessionAttributes( "user" )
+@SessionAttributes("user")
 public class OpenBusinessAccountController {
     @Autowired
     BankAccountDao bankAccountDao;
     @Autowired
     IbanGenerator ibanGenerator;
+    @Autowired
+    BankAccountService bankAccountService;
+
+    //BusinessAccount businessAccount;
 
     public OpenBusinessAccountController() {
     }
@@ -39,17 +44,18 @@ public class OpenBusinessAccountController {
 
     @PostMapping("openBusinessAccount")
     public ModelAndView openBusinessAccountSuccessfulHandler(@ModelAttribute OpenBusinessAccountForm openBusinessAccountForm, Model model, BusinessAccount businessAccount) {
-        ModelAndView businessAccountOpenened = new ModelAndView("openBusinessAccountSuccesful");
-        createAndSaveBusinessAccount(openBusinessAccountForm, model, businessAccount);
-        businessAccountOpenened.addObject("bankaccount", businessAccount);
-        return businessAccountOpenened;
+        if (!bankAccountService.isCompanyValid(openBusinessAccountForm.getKvkNumber())) {
+            return showBusinessAccountOpenedSuccess(openBusinessAccountForm, model, businessAccount);
+        } else {
+            return showOpenAnotherAccount(openBusinessAccountForm, model);
+        }
     }
 
-    private void createAndSaveBusinessAccount(OpenBusinessAccountForm openBusinessAccountForm, Model model, BusinessAccount businessAccount) {
+
+    private ModelAndView showBusinessAccountOpenedSuccess(@ModelAttribute OpenBusinessAccountForm openBusinessAccountForm, Model model, BusinessAccount businessAccount) {
+        ModelAndView businessAccountOpenened = new ModelAndView("openBusinessAccountSuccessful");
         Customer customer = (Customer) model.getAttribute("user");//FIXME: check how this works
         businessAccount.setAccountHolder(customer);
-        //Todo: logica in businessaccount constructor
-       // businessAccount = new BusinessAccount(openBusinessAccountForm);
         businessAccount.setBusinessName(openBusinessAccountForm.getBusinessName());
         businessAccount.setKvkNumber(openBusinessAccountForm.getKvkNumber());
         businessAccount.setSbiCode(openBusinessAccountForm.getSbiCode());
@@ -57,6 +63,34 @@ public class OpenBusinessAccountController {
         businessAccount.setBalance(new BigDecimal("25"));
         Iban iban = ibanGenerator.createIban();
         businessAccount.setIban(iban.toString());
+        bankAccountDao.save(businessAccount);
+        businessAccountOpenened.addObject("bankaccount", businessAccount);
+        return businessAccountOpenened;
+    }
+
+    private ModelAndView showOpenAnotherAccount(OpenBusinessAccountForm openBusinessAccountForm, Model model) {
+        ModelAndView openAnotherBusinessAccount = new ModelAndView("openAnotherBusinessAccount");
+        return openAnotherBusinessAccount;
+    }
+
+    @PostMapping("openAnotherBusinessAccount")
+    public ModelAndView openAnotherBusinessAccount(@RequestParam("bankAccountName") String bankAccountName, Model model, BusinessAccount businessAccount) {
+        ModelAndView openBusinessAccountSuccessful = new ModelAndView("openBusinessAccountSuccessful");
+        createAndSaveAnotherBusinessAccount(bankAccountName, model, businessAccount);
+        openBusinessAccountSuccessful.addObject("bankaccount", businessAccount);
+        return openBusinessAccountSuccessful;
+    }
+
+    private void createAndSaveAnotherBusinessAccount(String bankAccountName, Model model, BusinessAccount businessAccount) {
+        Customer customer = (Customer) model.getAttribute("user");
+        businessAccount.setAccountHolder(customer);
+        businessAccount.setAccountName(bankAccountName);
+        businessAccount.setBalance(new BigDecimal("25"));
+        Iban iban = ibanGenerator.createIban();
+        businessAccount.setIban(iban.toString());
+        businessAccount.setBusinessName(businessAccount.getBusinessName());//fixme: how to retrieve the information of the company
+        businessAccount.setKvkNumber(businessAccount.getKvkNumber());
+        businessAccount.setSbiCode(businessAccount.getSbiCode());
         bankAccountDao.save(businessAccount);
     }
 
