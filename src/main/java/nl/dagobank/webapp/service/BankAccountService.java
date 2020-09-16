@@ -3,17 +3,14 @@ package nl.dagobank.webapp.service;
 import nl.dagobank.webapp.backingbeans.BalanceSumPerBusiness;
 import nl.dagobank.webapp.dao.BankAccountDao;
 import nl.dagobank.webapp.dao.BusinessAccountDao;
-import nl.dagobank.webapp.dao.PrivateAccountDao;
-import nl.dagobank.webapp.dao.SbiAverage;
+import nl.dagobank.webapp.dao.dto.SbiAverage;
 import nl.dagobank.webapp.domain.BankAccount;
 import nl.dagobank.webapp.domain.Customer;
 import nl.dagobank.webapp.domain.PrivateAccount;
-import org.iban4j.Iban;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;

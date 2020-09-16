@@ -1,6 +1,6 @@
 package nl.dagobank.webapp.controller;
 
-import nl.dagobank.webapp.dao.SumTransactionsPerBusiness;
+import nl.dagobank.webapp.dao.dto.SumTransactionsPerBusiness;
 import nl.dagobank.webapp.domain.Employee;
 import nl.dagobank.webapp.service.BankAccountService;
 import nl.dagobank.webapp.service.TransactionService;

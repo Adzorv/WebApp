@@ -30,6 +30,7 @@ class LoginValidatorEmployeeTest {
         loginForm = new LoginForm( "test", "test" );
     }
 
+
     @Test
     void validateCredentials() {
         // Correct credentials test

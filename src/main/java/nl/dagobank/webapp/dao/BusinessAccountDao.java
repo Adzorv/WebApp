@@ -1,6 +1,7 @@
 package nl.dagobank.webapp.dao;
 
 import nl.dagobank.webapp.backingbeans.BalanceSumPerBusiness;
+import nl.dagobank.webapp.dao.dto.SbiAverage;
 import nl.dagobank.webapp.domain.BusinessAccount;
 import nl.dagobank.webapp.domain.Customer;
 import org.springframework.data.domain.Pageable;

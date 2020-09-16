@@ -1,4 +1,4 @@
-package nl.dagobank.webapp.dao;
+package nl.dagobank.webapp.dao.dto;
 
 import java.math.BigDecimal;
 

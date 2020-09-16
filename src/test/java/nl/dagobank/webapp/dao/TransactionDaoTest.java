@@ -1,5 +1,6 @@
 package nl.dagobank.webapp.dao;
 
+import nl.dagobank.webapp.dao.dto.SumTransactionsPerBusiness;
 import nl.dagobank.webapp.domain.BankAccount;
 import nl.dagobank.webapp.domain.Transaction;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,8 +13,6 @@ import static org.assertj.core.api.Assertions.*;
 
 
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class TransactionDaoTest {
