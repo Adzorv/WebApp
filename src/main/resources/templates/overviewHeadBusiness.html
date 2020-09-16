@@ -12,7 +12,7 @@
 </div>
 
 <div class="row">
-    <div class="column">
+    <div class="column mkb-card-wrap">
         <div class="card">
             <div class="container">
                 <table>
@@ -30,7 +30,10 @@
                 <table>
                     <tr><h3>Top 10 transacties per bedrijf</h3></tr>
                     <tr>
-                        <th colspan="2">Bedrijf</th><th>Bij</th><th>Af</th><th>Totaal</th>
+                        <th colspan="2">Bedrijf</th>
+                        <th>Bij</th>
+                        <th>Af</th>
+                        <th>Totaal</th>
                     </tr>
                     <tr th:each="instance, iter : ${top10transactions}">
                         <td th:text="${iter.index + 1}"></td>
@@ -46,7 +49,7 @@
             <div class="container">
                 <table>
                     <tr>
-                        <th colspan="3">Gemiddelde saldo per sector</th>
+                        <h3>Gemiddelde saldo per sector</h3>
                     </tr>
                     <tr th:each="instance, iter : ${averagePerSector}">
                         <td th:text="${iter.index + 1}"></td>
@@ -58,44 +61,6 @@
         </div>
     </div>
 </div>
-<table>
-    <tr>
-        <th colspan="3">Top 10 Saldo per bedrijf</th>
-    </tr>
-
-    <tr th:each="instance, iter : ${top10balance}">
-        <td th:text="${iter.index + 1}"></td>
-        <td th:text="${instance.businessName}"></td>
-        <td><span th:text="${instance.balance}"></span></td>
-    </tr>
-</table>
-<br>
-<table>
-    <tr>
-        <th colspan="5">Top 10 transacties per bedrijf</th>
-    </tr>
-    <tr>
-        <th colspan="2">Bedrijf</th><th>Bij</th><th>Af</th><th>Totaal</th>
-    </tr>
-    <tr th:each="instance, iter : ${top10transactions}">
-        <td th:text="${iter.index + 1}"></td>
-        <td th:text="${instance.businessName}"></td>
-        <td th:text="${instance.debitCount}"></td>
-        <td th:text="${instance.creditCount}"></td>
-        <td><span th:text="${instance.sumTransactions}"></span></td>
-    </tr>
-</table>
-<br>
-<table>
-    <tr>
-        <th colspan="3">Gemiddelde saldo per sector</th>
-    </tr>
-    <tr th:each="instance, iter : ${averagePerSector}">
-        <td th:text="${iter.index + 1}"></td>
-        <td th:text="${instance.sbiCode}"></td>
-        <td><span th:text="${instance.balanceAverage}"></span></td>
-    </tr>
-</table>
 <div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>

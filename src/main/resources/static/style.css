@@ -370,6 +370,17 @@ h2.txtext, h4.txtext {
 }
 
 
+.mkb-card-wrap table td,
+.mkb-card-warp table th {
+    padding-right: 10px;
+}
+
+.mkb-card-wrap {
+    margin-left: 50px;
+}
+
+
+
 
 
 
