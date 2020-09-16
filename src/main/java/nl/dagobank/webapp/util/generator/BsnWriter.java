@@ -1,5 +1,7 @@
 package nl.dagobank.webapp.util.generator;
 
+import nl.dagobank.webapp.service.CustomerService;
+import nl.dagobank.webapp.util.BsnUtil;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 
@@ -17,7 +19,7 @@ public class BsnWriter {
         super();
     }
 
-    public static void main(String[] args) {
+    public static void main( String[] args ) {
         try (
                 BufferedWriter bufferedWriter = Files.newBufferedWriter( Paths.get( BSN_CSV_FILE ) ) ;
                 CSVPrinter csvPrinter = new CSVPrinter( bufferedWriter, CSVFormat.DEFAULT )
@@ -25,10 +27,10 @@ public class BsnWriter {
             int baseNumber = 564234215;
             int roofNumber = baseNumber + 50000;
 
-            while (baseNumber <= roofNumber) {
-                if (isCorrectBsn( baseNumber )) {
+            while ( baseNumber <= roofNumber ) {
+                if ( isCorrectBsn( baseNumber ) ) {
                     csvPrinter.printRecord( baseNumber );
-                    System.out.println(baseNumber);
+                    System.out.println( baseNumber );
                 }
                 baseNumber++;
 
@@ -41,15 +43,8 @@ public class BsnWriter {
     }
 
     private static boolean isCorrectBsn( int inputBSN ) {
-        int bsnToCheck = -1 * inputBSN % 10;
-        for ( int multiplier = 2 ; inputBSN > 0 ; multiplier++ ) {
-            int val = ( inputBSN /= 10 ) % 10;
-            bsnToCheck += multiplier * val;
-        }
-        return bsnToCheck != 0 && bsnToCheck % 11 == 0;
+        return BsnUtil.isCorrect( inputBSN );
     }
-
-
 
 
 }
