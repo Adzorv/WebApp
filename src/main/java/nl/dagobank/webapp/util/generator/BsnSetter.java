@@ -15,7 +15,7 @@ public class BsnSetter {
         Path path = Paths.get(System.getProperty( "user.dir" )).resolve( "GeneratedData/bsnInsert.sql" );
         File file = new File( path.toString() );
         try ( PrintWriter printWriter = new PrintWriter( file ) ) {
-            for ( int i = 0 ; i < 100 ; i++ ) {
+            for ( int i = 1 ; i < 5010 ; i++ ) {
                 String update = createRecordString( BsnSelector.getBsnAtLine( i ), i  );
                 printWriter.write( update );
             }
