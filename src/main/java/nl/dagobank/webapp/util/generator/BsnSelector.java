@@ -15,10 +15,9 @@ public class BsnSelector {
 
     public static int getBsnAtLine( int line ) {
         try (
-                Reader reader = Files.newBufferedReader( getPathToBsnFile() );
-                CSVParser csvParser = new CSVParser( reader, CSVFormat.DEFAULT );
-                ) {
-
+            Reader reader = Files.newBufferedReader( getPathToBsnFile() );
+            CSVParser csvParser = new CSVParser( reader, CSVFormat.DEFAULT );
+            ) {
             return Integer.parseInt( csvParser.getRecords().get( line ).get( 0 ) ) ;
         } catch ( IOException e ) {
             e.printStackTrace();
@@ -27,13 +26,10 @@ public class BsnSelector {
     }
 
     public static void main( String[] args ) {
-        getPathToBsnFile();
         System.out.println(getBsnAtLine( 0 ));
     }
 
     private static Path getPathToBsnFile() {
-        Path rootPath = Paths.get(System.getProperty( "user.dir" ));
-        return rootPath.resolve(FILE);
+        return Paths.get(System.getProperty( "user.dir" )).resolve( FILE );
     }
-
 }
