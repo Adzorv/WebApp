@@ -8,8 +8,6 @@ import java.nio.file.Paths;
 
 public class BsnSetter {
 
-    private final static String RESULTFOLDER = "GeneratedData/sqlscripts/";
-
     public static void createUserScript() {
 
         Path path = Paths.get(System.getProperty( "user.dir" )).resolve( "GeneratedData/bsnInsert.sql" );

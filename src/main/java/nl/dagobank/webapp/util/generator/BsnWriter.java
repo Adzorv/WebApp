@@ -19,7 +19,7 @@ public class BsnWriter {
         super();
     }
 
-    public static void main( String[] args ) {
+    public static void writeBSNs( String[] args ) {
         try (
                 BufferedWriter bufferedWriter = Files.newBufferedWriter( BSN_CSV_FILE ) ;
                 CSVPrinter csvPrinter = new CSVPrinter( bufferedWriter, CSVFormat.DEFAULT )
