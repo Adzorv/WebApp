@@ -2,6 +2,7 @@ package nl.dagobank.webapp.controller;
 
 import nl.dagobank.webapp.backingbeans.OpenBusinessAccountForm;
 import nl.dagobank.webapp.dao.BankAccountDao;
+import nl.dagobank.webapp.dao.BusinessAccountDao;
 import nl.dagobank.webapp.domain.BusinessAccount;
 import nl.dagobank.webapp.domain.Customer;
 import nl.dagobank.webapp.service.BankAccountService;
@@ -18,7 +19,8 @@ import java.math.BigDecimal;
 import static nl.dagobank.webapp.backingbeans.OpenBusinessAccountForm.sbiCodes;
 
 @Controller
-@SessionAttributes("user")
+@SessionAttributes({"user", "businessAccount"})
+
 public class OpenBusinessAccountController {
     @Autowired
     BankAccountDao bankAccountDao;
@@ -26,8 +28,8 @@ public class OpenBusinessAccountController {
     IbanGenerator ibanGenerator;
     @Autowired
     BankAccountService bankAccountService;
-
-    //BusinessAccount businessAccount;
+    @Autowired
+    BusinessAccountDao businessAccountDao;
 
     public OpenBusinessAccountController() {
     }
@@ -63,7 +65,7 @@ public class OpenBusinessAccountController {
         businessAccount.setBalance(new BigDecimal("25"));
         Iban iban = ibanGenerator.createIban();
         businessAccount.setIban(iban.toString());
-        bankAccountDao.save(businessAccount);
+        businessAccountDao.save(businessAccount);
         businessAccountOpenened.addObject("bankaccount", businessAccount);
         return businessAccountOpenened;
     }
@@ -81,17 +83,25 @@ public class OpenBusinessAccountController {
         return openBusinessAccountSuccessful;
     }
 
-    private void createAndSaveAnotherBusinessAccount(String bankAccountName, Model model, BusinessAccount businessAccount) {
+    private BusinessAccount createAndSaveAnotherBusinessAccount(String bankAccountName, Model model, BusinessAccount businessAccount) {
         Customer customer = (Customer) model.getAttribute("user");
+        businessAccount = (BusinessAccount) model.getAttribute("businessAccount");
         businessAccount.setAccountHolder(customer);
         businessAccount.setAccountName(bankAccountName);
         businessAccount.setBalance(new BigDecimal("25"));
         Iban iban = ibanGenerator.createIban();
         businessAccount.setIban(iban.toString());
+        businessAccount.getBusinessName();
+        businessAccount.getKvkNumber();
+        businessAccount.getSbiCode();
+
+       /*
         businessAccount.setBusinessName(businessAccount.getBusinessName());//fixme: how to retrieve the information of the company
         businessAccount.setKvkNumber(businessAccount.getKvkNumber());
-        businessAccount.setSbiCode(businessAccount.getSbiCode());
-        bankAccountDao.save(businessAccount);
+        businessAccount.setSbiCode(businessAccount.getSbiCode());*/
+        businessAccountDao.save(businessAccount);
+        return businessAccount;
+
     }
 
 

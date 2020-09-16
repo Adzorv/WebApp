@@ -17,12 +17,15 @@ public class IbanGenerator {
 
     @Autowired
     public PrivateAccountDao privateAccountDao;
+    @Autowired
+    public BankAccountDao bankAccountDao;
 
     public IbanGenerator() {
     }
 
     public Iban createIban() {
-        while (!privateAccountDao.existsByIban(iban)) {
+      //  while (!privateAccountDao.existsByIban(iban)) {
+        while (!bankAccountDao.existsByIban(iban)) {
             try {
                 Iban iban = Iban.random(CountryCode.NL);
                 iban = Iban.random();
