@@ -55,10 +55,4 @@ public class CustomerService {
         loginValidator.validateCredentials( loginForm );
         return loginValidator;
     }
-
-    private Iterator<Customer> getAllCustomersIterator() {
-        return customerDao.findAll().iterator();
-    }
-
-
 }
