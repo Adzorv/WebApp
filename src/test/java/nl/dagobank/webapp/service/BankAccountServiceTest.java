@@ -16,8 +16,9 @@ public class BankAccountServiceTest {
 
     private BankAccountDao mockBankAccountDao = Mockito.mock(BankAccountDao.class);
     private BusinessAccountDao mockBusinessAccountDao = Mockito.mock(BusinessAccountDao.class);
+    private IbanGenerator mockIbanGenerator = Mockito.mock(IbanGenerator.class);
 
-    BankAccountService bankAccountService = new BankAccountService(mockBankAccountDao, mockBusinessAccountDao);
+    BankAccountService bankAccountService = new BankAccountService(mockBankAccountDao, mockBusinessAccountDao, mockIbanGenerator);
 
     Customer customer1 = new Customer();
     Customer customer2 = new Customer();
