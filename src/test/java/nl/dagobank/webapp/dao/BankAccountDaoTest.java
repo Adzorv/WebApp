@@ -30,7 +30,7 @@ import java.util.List;
 @DataJpaTest(properties = "spring.jpa.database-platform=org.hibernate.dialect.H2Dialect")
 public class BankAccountDaoTest {
 
-    public BankAccountDaoTest(){ super(); }
+    //public BankAccountDaoTest(){ super(); }
 
     Customer customer1 = new Customer();
     Customer customer2 = new Customer();
