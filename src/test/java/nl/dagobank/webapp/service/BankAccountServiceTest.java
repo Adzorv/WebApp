@@ -7,6 +7,8 @@ import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.ui.Model;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -53,33 +55,24 @@ public class BankAccountServiceTest {
         bankAccount1.setBalance(new BigDecimal(25));
         bankAccount1.setIban("IBAN1111111111");
         bankAccount1.setAccountHolder(customer2);
-        System.out.println("print bankaccount");
-        System.out.println(bankAccount1);
 
         bankAccount2.setAccountName("Private Account 2");
         bankAccount2.setId(2);
         bankAccount2.setBalance(new BigDecimal(25));
         bankAccount2.setIban("IBAN2222222222");
         bankAccount2.setAccountHolder(customer2);
-        System.out.println("print bankaccount");
-        System.out.println(bankAccount2);
 
         bankAccount3.setAccountName("Private Account 3");
         bankAccount3.setId(3);
         bankAccount3.setBalance(new BigDecimal(25));
         bankAccount3.setIban("IBAN3333333333");
         bankAccount3.setAccountHolder(customer1);
-        System.out.println("print bankaccount");
-        System.out.println(bankAccount3);
 
         bankAccount4.setAccountName("Private Account 4");
         bankAccount4.setId(3);
         bankAccount4.setBalance(new BigDecimal(25));
         bankAccount4.setIban("IBAN4444444444");
         bankAccount4.setAccountHolder(customer3);
-        System.out.println("print bankaccount");
-        System.out.println(bankAccount4);
-
 
         bankAccount1.setSecondaryAccountHolders(new ArrayList<>());
         bankAccount2.setSecondaryAccountHolders(new ArrayList<>());
@@ -133,5 +126,29 @@ public class BankAccountServiceTest {
     void isCustomerFirstOrSecundairyAccountHolderTest4(){
         boolean actual = bankAccountService.isCustomerFirstOrSecundairyAccountHolder(customer1, bankAccount4);
         Assert.assertFalse(actual);
+    }
+
+    @Test
+    void generateBankAccountNameAndPutInModelTest(){
+        Model mockModel = Mockito.mock(Model.class);
+        Mockito.when(mockModel.getAttribute("user")).thenReturn(customer1);
+
+        List<BankAccount> bankAccountsList = new ArrayList<>();
+        bankAccountsList.add(bankAccount1);
+
+        Mockito.when(mockBankAccountDao.findAllByAccountHolder(customer1)).thenReturn(bankAccountsList);
+
+        ModelAndView modelAndView = new ModelAndView("testmodelandView");
+
+        bankAccountService.generateBankAccountNameAndPutInModel(mockModel, modelAndView);
+
+        String found = modelAndView.getModel().get("bankAccountName").toString();
+        String expected = customer1.getFullName() + "'s rekening 2";
+        Assert.assertEquals(found,expected);
+
+
+
+
+
     }
 }

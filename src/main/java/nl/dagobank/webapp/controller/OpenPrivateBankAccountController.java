@@ -19,8 +19,6 @@ public class OpenPrivateBankAccountController {
     @Autowired
     BankAccountService bankAccountService;
 
-    private final BigDecimal BANKACCOUNT_BEGINBALANCE_GIFT = new BigDecimal("25");
-
     @GetMapping("openPrivateBankAccount")
     public ModelAndView openBankAccountHandler(Model model) {
         ModelAndView modelAndView = new ModelAndView("openPrivateBankAccount");

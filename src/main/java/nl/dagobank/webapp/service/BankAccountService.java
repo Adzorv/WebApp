@@ -100,8 +100,7 @@ public class BankAccountService {
 
     public void generateBankAccountNameAndPutInModel(Model model, ModelAndView modelAndView) {
         Customer user = (Customer) model.getAttribute("user");
-        int aantalRekeningenVanUser = getNumberOfBankAccountsOfCustomer(user);
-        String bankAccountName = user.getFullName() + "'s rekening " + (aantalRekeningenVanUser+1);
+        String bankAccountName = user.getFullName() + "'s rekening " + (getNumberOfBankAccountsOfCustomer(user)+1);
         modelAndView.addObject("bankAccountName", bankAccountName);
     }
 
