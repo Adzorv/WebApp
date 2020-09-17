@@ -35,16 +35,17 @@ public class LoginValidatorEmployee {
     }
 
     public void validateCredentials( LoginForm loginForm ) {
-        reset();
         loginForm.setGeneralError( WRONG_CREDENTIALS_FORM_MESSAGE );
         Optional<Employee> optional = employeeDao.findByInlogCredentialsUserName( loginForm.getUsername() );
         if ( optional.isPresent() ) {
             employee = optional.get();
             if ( employee.getInlogCredentials().getPassword().equals( loginForm.getPassword() ) ) {
                 loginValidated = true;
-                logMessage = "Gebruikersnaam en wachtwoord correct";
+                logMessage = LOGIN_SUCCESS_LOG_MESSAGE;
                 loginForm.setGeneralError( "" );
             }
+        } else {
+            setValidatorToFalse();
         }
     }
 
@@ -60,7 +61,7 @@ public class LoginValidatorEmployee {
         return logMessage;
     }
 
-    private void reset() {
+    private void setValidatorToFalse() {
         logMessage = WRONG_CREDENTIALS_LOG_MESSAGE;
         employee = null;
         loginValidated = false;
