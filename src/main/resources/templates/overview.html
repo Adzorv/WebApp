@@ -22,9 +22,8 @@
                         <p class="title" th:text="${rekening.accountHolder.fullName}"></p>
 
                         <div class="title" th:each="additionalAccountHolder : ${rekening.secondaryAccountHolders}">
-                             <p class="title" th:text="${additionalAccountHolder.fullName + ' |'}" ></p></div>
-
-
+                            <p class="title" th:text="${additionalAccountHolder.fullName + ' |'}" ></p>
+                        </div>
 
                         <p th:text="${rekening.iban +  '&emsp;' + '&emsp;' +'&#8364;' + '  ' + rekening.balance}"></p>
                         <a th:href="@{/accountView(id=${rekening.id})}">
