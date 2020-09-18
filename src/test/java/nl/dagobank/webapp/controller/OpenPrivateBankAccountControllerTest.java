@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import javax.swing.text.View;
 import java.time.LocalDate;
 
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -32,27 +33,20 @@ public class OpenPrivateBankAccountControllerTest {
 
     @Test
     public void openBankAccountHandlerTest() {
-
+        Customer mockCustomer = Mockito.mock(Customer.class);
         MockHttpSession session = new MockHttpSession();
-        Customer user = new Customer();
-        FullName fullNameCustomer = new FullName("Customer", "ter", "3");
-        Address address = new Address("teststraat", 5, "","8888AA", "Testcity");
-        PersonalDetails personalDetails = new PersonalDetails( LocalDate.of(1977,12,1),  111222333 );
-        InlogCredentials inlogCredentialsCustomer = new InlogCredentials("Cus3", "cus3");
 
-        user.setFullName(fullNameCustomer);
-        user.setAddress(address);
-        user.setPersonalDetails(personalDetails);
-        user.setInlogCredentials(inlogCredentialsCustomer);
-        session.setAttribute("user", user);
+        session.setAttribute("user", mockCustomer);
 
         try {
             MockHttpServletRequestBuilder getRequest =
                     MockMvcRequestBuilders.get("/openPrivateBankAccount").session(session);
             ResultActions resultActions = mockMvc.perform(getRequest);
-            resultActions.andExpect(status().isOk()).andExpect(view().name("openPrivateBankAccount"));
+            resultActions.andDo(print()).andExpect(status().isOk()).andExpect(view().name("openPrivateBankAccount"));
+
         } catch (Exception e) {
             e.printStackTrace();
+            fail();
         }
     }
 }
