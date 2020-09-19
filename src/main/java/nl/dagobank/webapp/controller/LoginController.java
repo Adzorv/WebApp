@@ -20,16 +20,14 @@ import org.springframework.web.bind.annotation.*;
 @SessionAttributes( "user" )
 public class LoginController {
 
-    private static final String POSTLOGIN_VIEW = "redirect:/overview", LOGIN_VIEW = "login";
-    private static final Logger LOG = LogManager.getLogger( LoginController.class );
+    public static final String POSTLOGIN_VIEW = "redirect:/overview", LOGIN_VIEW = "login";
+    public static final Logger LOG = LogManager.getLogger( LoginController.class );
 
     @ModelAttribute( "loginform" )
     public LoginForm getLoginForm() {
         return loginForm;
     }
 
-    @Autowired
-    private CustomerDao customerDao;
     private LoginForm loginForm = new LoginForm();
     @Autowired
     private CustomerService customerService;

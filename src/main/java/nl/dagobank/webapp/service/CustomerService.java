@@ -13,10 +13,14 @@ import java.util.*;
 @Service
 public class CustomerService {
 
-    @Autowired
     private CustomerDao customerDao;
-    @Autowired
     private LoginValidatorCustomer loginValidator;
+
+    @Autowired
+    public CustomerService( CustomerDao customerDao, LoginValidatorCustomer loginValidator ) {
+        this.customerDao = customerDao;
+        this.loginValidator = loginValidator;
+    }
 
     public boolean isRegisteredUserName( String userName ) {
         return customerDao.existsByInlogCredentialsUserName( userName );
