@@ -16,6 +16,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.ApplicationContext;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -41,22 +42,24 @@ class LoginControllerTest {
 
     @Autowired
     MockMvc mockMvc;
-    @MockBean
-    CustomerDao mockCustomerDao;
-    @MockBean
-    LoginAttemptDao mockLoginAttemptDao;
+    //    @MockBean
+//    CustomerDao mockCustomerDao;
+//    @MockBean
+//    LoginAttemptDao mockLoginAttemptDao;
     @MockBean
     CustomerService mockCustomerService;
-    @MockBean
-    LoginValidatorCustomer loginValidatorCustomer;
+//    @MockBean
+//    LoginValidatorCustomer loginValidatorCustomer;
+//    @MockBean
+//    LoginForm mockLoginForm;
+
+    @Autowired
+    ApplicationContext context;
 
     @BeforeEach
     public void setup() {
-        LoginForm mockLoginForm = new LoginForm( "test", "test" );
-        loginValidatorCustomer = new LoginValidatorCustomer( mockCustomerDao, mockLoginAttemptDao );
-        loginValidatorCustomer.setPasswordValidated( true );
-        Mockito.when( mockCustomerService.validateCredentials( mockLoginForm ) ).thenReturn( loginValidatorCustomer );
-        System.out.println( mockCustomerService.validateCredentials( mockLoginForm ).isPasswordValidated() );
+//        Mockito.when( mockCustomerService.validateCredentials( mockLoginForm )).thenReturn( loginValidatorCustomer );
+//        System.out.println( mockCustomerService.validateCredentials( mockLoginForm ) );
     }
 
     @Test
@@ -67,6 +70,15 @@ class LoginControllerTest {
 
     @Test
     void loginAttempt() {
+
+        Mockito.when(mockCustomerService.checkIfBSNIsCorrect( 111222333 )).thenReturn( false );
+
+        CustomerService customerServiceFromContext = context.getBean( CustomerService.class );
+
+        boolean result = customerServiceFromContext.checkIfBSNIsCorrect( 111222333 );
+
+        Assert.assertEquals(false, result);
+        Mockito.verify(mockCustomerService).checkIfBSNIsCorrect( 111222333 );
 
         try {
             MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/login");
