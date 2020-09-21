@@ -76,14 +76,14 @@ class RegistrationControllerTest {
 
     }*/
 
-    @AfterEach
-    void tearDown() {
-        //customerDao.deleteAll();
-    }
-
-    @Test
-    void registrationPageHandle() {
-    }
+//    @AfterEach
+//    void tearDown() {
+//        //customerDao.deleteAll();
+//    }
+//
+//    @Test
+//    void registrationPageHandle() {
+//    }
 
     @Test
     void testRegistrationHandler() {
@@ -100,11 +100,11 @@ class RegistrationControllerTest {
 
     }
 
-    @Test
-    void testRegistrationFailedHandler() {
-    }
-
-    @Test
-    void testSwitchBSNValue() {
-    }
+//    @Test
+//    void testRegistrationFailedHandler() {
+//    }
+//
+//    @Test
+//    void testSwitchBSNValue() {
+//    }
 }

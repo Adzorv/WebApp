@@ -17,9 +17,9 @@ class PrivateAccountDaoTest {
     @Autowired
     PrivateAccountDao privateAccountDao;
 
-    @Test
-    void existsByIban() {
-    }
+//    @Test
+//    void existsByIban() {
+//    }
 
     @Test
     void getSumBalancePerPrivateAccount() {
