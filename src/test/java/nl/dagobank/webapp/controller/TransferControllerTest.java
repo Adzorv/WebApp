@@ -58,15 +58,16 @@ public class TransferControllerTest {
     public void testTransferSuccessful(){
         transferService.performTransaction(bankAccount1, bankAccount2, new BigDecimal(50),
                 "test 1");
-
-        List<Transaction> transactionList = transferService.getAllTransactions();
-        System.out.println(transactionList);
-
         Assert.assertEquals(new BigDecimal(50), bankAccount1.getBalance());
         Assert.assertEquals(new BigDecimal(150), bankAccount2.getBalance());
     }
 
     @Test
-    public void testInsufficientFund(){ }
+    public void testInsufficientFund(){
+        boolean isSuccess = transferService.performTransaction(bankAccount1, bankAccount2, new BigDecimal(500),
+                "test 1");
+        Assert.assertFalse(isSuccess);
+
+    }
 }
 

@@ -12,13 +12,13 @@
 <form th:action="@{/executeTransfer(id=${selectedBankAccount.id})}" method="post" th:object="${TransferForm}">
     <table>
         <tr>
-            <td>Bedrag:</td><td><input type="number" step="any" name="input_amount" th:field="*{amount}" placeholder="amount" required></td>
+            <td>Bedrag*:</td><td><input type="number" step="any" name="input_amount" th:field="*{amount}" placeholder="amount" required></td>
         </tr>
         <tr>
-            <td>Naam:</td><td><input type="text" name="input_name" th:field="*{UserFullName}" placeholder="volle naam" pattern="[A-Za-z ]{1,}" required></td>
+            <td>Naam*:</td><td><input type="text" name="input_name" th:field="*{UserFullName}" placeholder="volle naam" pattern="[A-Za-z ]{1,}" required></td>
         </tr>
         <tr>
-            <td>IBAN:</td><td><input type="text" name="input_IBAN" th:field="*{IBAN}" placeholder="IBAN" required></td>
+            <td>IBAN*:</td><td><input type="text" name="input_IBAN" th:field="*{IBAN}" placeholder="IBAN" required></td>
         </tr>
         <tr>
             <td>Referentiecode:</td><td><input type="text" name="input_paymentCode" th:field="*{paymentCode}" placeholder="Referentiecode"></td>

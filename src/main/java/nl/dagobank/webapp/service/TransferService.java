@@ -65,9 +65,7 @@ public class TransferService {
             getFundsFromSendingAccount(amount, sender);
             putFundsInReceivingAccount(receiver, amount);
             createAndSaveTransaction(sender, receiver, amount, description, LocalDate.now());
-            putFundsInReceivingAccount(receiver, amount);
             return true;
         }
     }
-
 }
