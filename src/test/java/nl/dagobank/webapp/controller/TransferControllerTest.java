@@ -2,6 +2,7 @@ package nl.dagobank.webapp.controller;
 
 import nl.dagobank.webapp.domain.*;
 import nl.dagobank.webapp.service.BankAccountService;
+import nl.dagobank.webapp.service.TransferService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,6 +42,9 @@ public class TransferControllerTest {
     @MockBean
     private BankAccountService bankAccountService;
 
+    @MockBean
+    private TransferService transferService;
+
     Customer mockCustomer = Mockito.mock(Customer.class);
     MockHttpSession session = new MockHttpSession();
 
@@ -49,17 +53,21 @@ public class TransferControllerTest {
         session.setAttribute("user", mockCustomer);
     }
 
-    @Test
-    public void openBankAccountHandlerTest() {
+    /*@Test
+    public void performTransferTest() {
+        PrivateAccount privateAccount = Mockito.mock(PrivateAccount.class);
+        Mockito.when(bankAccountService.createAndSavePrivateAccount(any(), any())).thenReturn(privateAccount);
         try {
-            MockHttpServletRequestBuilder getRequest =
-                    MockMvcRequestBuilders.get("/openPrivateBankAccount").session(session);
-            ResultActions resultActions = mockMvc.perform(getRequest);
-            resultActions.andDo(print()).andExpect(status().isOk()).andExpect(view().name("openPrivateBankAccount"));
+            MockHttpServletRequestBuilder postRequest =
+                    MockMvcRequestBuilders.post("/executeTransfer{id}");
+            postRequest.param("id", session.getId());
+            postRequest.session(session);
+            ResultActions resultActions = mockMvc.perform(postRequest);
+            resultActions.andDo(print()).andExpect(status().isOk()).andExpect(view().name("transactionOverview"));
 
         } catch (Exception e) {
             e.printStackTrace();
             fail();
         }
-    }
+    }*/
 }
