@@ -1,5 +1,6 @@
 package nl.dagobank.webapp.controller;
 
+import nl.dagobank.webapp.domain.BankAccount;
 import nl.dagobank.webapp.domain.PrivateAccount;
 import nl.dagobank.webapp.service.BankAccountService;
 import nl.dagobank.webapp.service.IbanGenerator;
@@ -28,10 +29,13 @@ public class OpenPrivateBankAccountController {
 
 
     @PostMapping("/openAndSaveBankAccount")
-    public ModelAndView openBankAccountSuccessHandler(@RequestParam("bankAccountName") String bankAccountName, Model model, PrivateAccount privateAccount) {
+    public ModelAndView openBankAccountSuccessHandler(@RequestParam("bankAccountName") String bankAccountName, Model model) {
+        PrivateAccount privateAccount;
         ModelAndView modelAndView = new ModelAndView("openPrivateBankAccountSuccess");
-        bankAccountService.createAndSavePrivateAccount(bankAccountName, model, privateAccount);
-        modelAndView.addObject("bankaccount", privateAccount);
+        privateAccount = bankAccountService.createAndSavePrivateAccount(bankAccountName, model);
+        System.out.println("privateAccount");
+        System.out.println(privateAccount);
+        modelAndView.addObject("privateAccount", privateAccount);
         return modelAndView;
     }
 

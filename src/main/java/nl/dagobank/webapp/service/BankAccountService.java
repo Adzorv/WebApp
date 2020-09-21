@@ -104,13 +104,15 @@ public class BankAccountService {
         modelAndView.addObject("bankAccountName", bankAccountName);
     }
 
-    public void createAndSavePrivateAccount(String bankAccountName, Model model, PrivateAccount privateAccount) {
+    public PrivateAccount createAndSavePrivateAccount(String bankAccountName, Model model) {
         Customer user = (Customer) model.getAttribute("user");
+        PrivateAccount privateAccount = new PrivateAccount();
         privateAccount.setAccountHolder(user);
         privateAccount.setAccountName(bankAccountName);
         privateAccount.setBalance(BANKACCOUNT_BEGINBALANCE_GIFT);
         Iban iban = ibanGenerator.createIban();
         privateAccount.setIban(iban.toString());
         savePrivateAccount(privateAccount);
+        return  privateAccount;
     }
 }
