@@ -29,16 +29,11 @@ public class OpenPrivateBankAccountController {
 
 
     @PostMapping("/openAndSaveBankAccount")
-    public ModelAndView openBankAccountSuccessHandler(@RequestParam("bankAccountName") String bankAccountName, Model model) {
-        PrivateAccount privateAccount;
+    public ModelAndView openBankAccountSuccessHandler(@RequestParam("bankAccountName") String bankAccountName, Model model, PrivateAccount privateAccount) {
         ModelAndView modelAndView = new ModelAndView("openPrivateBankAccountSuccess");
         privateAccount = bankAccountService.createAndSavePrivateAccount(bankAccountName, model);
-        System.out.println("privateAccount");
-        System.out.println(privateAccount);
-        modelAndView.addObject("privateAccount", privateAccount);
         return modelAndView;
     }
-
 }
 
 
