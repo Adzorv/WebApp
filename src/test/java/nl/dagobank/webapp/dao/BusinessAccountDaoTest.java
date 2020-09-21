@@ -3,136 +3,101 @@ package nl.dagobank.webapp.dao;
 import nl.dagobank.webapp.backingbeans.BalanceSumPerBusiness;
 import nl.dagobank.webapp.dao.dto.SbiAverage;
 import nl.dagobank.webapp.domain.BusinessAccount;
-import nl.dagobank.webapp.domain.Customer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.data.domain.PageRequest;
 
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.*;
 
 //@DataJpaTest
 //@RunWith( SpringRunner.class )
 //@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@SpringBootTest
+@DataJpaTest( properties = "spring.jpa.database-platform=org.hibernate.dialect.H2Dialect" )
 class BusinessAccountDaoTest {
 
     @Autowired
     BusinessAccountDao businessAccountDao;
 
-//    @Autowired
-//    private TestEntityManager testEntityManager;
+    @Autowired
+    private TestEntityManager entityManager;
 
     @Autowired
-    private CustomerDao customerDao;
+    CustomerDao customerDao;
+
+    private BigDecimal sumCompany1, sumCompany2,
+            averageSectorA, averageSectorB;
+    private List<Integer> amounts1, amounts2;
 
 
-//    @BeforeEach
-//    public void setUp() {
-//
-//    }
-//
-//    @Test
-//    void findAllByAccountHolder() {
-//    }
+    @BeforeEach
+    public void setUp() {
+        BusinessAccount businessAccount1 = new BusinessAccount();
+        BusinessAccount businessAccount2 = new BusinessAccount();
+        BusinessAccount businessAccount3 = new BusinessAccount();
+        BusinessAccount businessAccount4 = new BusinessAccount();
 
+        //Sector A => Company1
+        businessAccount1.setSbiCode( "A" );
+        businessAccount2.setSbiCode( "A" );
+        businessAccount3.setSbiCode( "A" );
+        businessAccount1.setBusinessName( "Company1" );
+        businessAccount2.setBusinessName( "Company1" );
+        businessAccount3.setBusinessName( "Company1" );
 
-    @Test
-    void findAllBySecondaryAccountHoldersContaining() {
-//        Customer customer = new Customer();
-//        customer.setBsn(602081269);
-//        String password = "test";
-//        customer.setPassword(password);
-//        String userName = "businessaccountdao";
-//        customer.setUserName(userName);
-//
-//        Customer customer2 = new Customer();
-//        customer2.setBsn(277131741);
-//        password = "test";
-//        customer2.setPassword(password);
-//        userName = "businessaccountdao2";
-//        customer2.setUserName(userName);
-//
-//        Customer customer3 = new Customer();
-//        customer3.setBsn(277131741);
-//        password = "test";
-//        customer3.setPassword(password);
-//        userName = "businessaccountdao3";
-//        customer3.setUserName(userName);
-//
-//        testEntityManager.persist( customer );
-////        testEntityManager.persist( customer2 );
-////        testEntityManager.persist( customer3 );
-//        testEntityManager.flush();
-//
-//        Customer found = customerDao.findByBsn( 602081269 );
-//        System.out.println(customer.getBsn());
-//        System.out.println(found);
-//
-//        assertThat(found.getBsn()).isEqualTo( customer.getBsn() );
+        //Sector B => Company2
+        businessAccount4.setBusinessName( "Company2" );
+        businessAccount4.setSbiCode( "B" );
 
+        //Set Balance
+        amounts1 = new ArrayList<>( Arrays.asList( 100, 200, 300 ) );
+        amounts2 = new ArrayList<>( Arrays.asList( 400 ) );
 
-        Optional<BusinessAccount> bankAccountOptional = businessAccountDao.findById( 31 );
-        BusinessAccount ba;
-        if ( bankAccountOptional.isPresent() ) {
-            ba = bankAccountOptional.get();
-            System.out.println( ba.getSecondaryAccountHolders() );
-            Customer customer = customerDao.findById( 1 ).get();
+        businessAccount1.setBalance( new BigDecimal( amounts1.get( 0 ) ) );
+        businessAccount2.setBalance( new BigDecimal( amounts1.get( 1 ) ) );
+        businessAccount3.setBalance( new BigDecimal( amounts1.get( 2 ) ) );
+        businessAccount4.setBalance( new BigDecimal( amounts2.get( 0 ) ) );
 
-            List<BusinessAccount> accounts = businessAccountDao.findAllByAccountHolderOrSecondaryAccountHoldersContains(customer, customer);
-
-            System.out.println( accounts );
-
-            assertThat(accounts).contains( ba );
-        } else {
-            fail();
-        }
-
-
-
-
-//        Customer customer = customerDao.findById( 30 ).get();
-//        System.out.println( customer );
-//        List<BusinessAccount> accounts = businessAccountDao.findAllBySecondaryAccountHoldersContains( customer );
-//
-//        assertThat( accounts ).isNotEmpty();
-//
-//        List<BusinessAccount> accounts2 = businessAccountDao.findAllBySecondaryAccountHoldersContainsOrAccountHolderIs( customer, customer );
-//        assertThat( accounts2 ).isNotEmpty();
-//
-//        assertThat( accounts.size() ).isLessThan( accounts2.size() );
-
+        entityManager.persist( businessAccount1 );
+        entityManager.persist( businessAccount2 );
+        entityManager.persist( businessAccount3 );
+        entityManager.persist( businessAccount4 );
+        entityManager.flush();
     }
 
-    @Test
-    void getAverageBalance() {
-        BigDecimal average = businessAccountDao.getAverageBalance();
-        assertThat(average)
-                .isNotNull()
-                .isNotZero();
-    }
 
     @Test
     void getSumBalance() {
-        List<BalanceSumPerBusiness> sums = businessAccountDao.getSumBalance( PageRequest.of(0,10) );
-        assertThat(sums)
-                .isNotNull()
-                .isNotEmpty();
+        //Calculate sum
+        sumCompany1 = new BigDecimal( amounts1.stream().mapToDouble( i -> i ).sum() );
+        sumCompany2 = new BigDecimal( amounts2.stream().mapToDouble( i -> i ).sum() );
 
-        sums.forEach( System.out::println );
+        List<BalanceSumPerBusiness> sums = businessAccountDao.getSumBalance( PageRequest.of( 0, 10 ) );
+        assertThat( sums )
+                .isNotNull()
+                .isNotEmpty()
+                .hasSize( 2 );
+        assertThat( sums.get( 0 ).getBalance() )
+                .isGreaterThan( sums.get( 1 ).getBalance() );
+        assertThat( sumCompany1.equals( sums.get( 0 ).getBalance() ) );
     }
 
     @Test
     void getAverageBalanceBySbiCode() {
+        averageSectorA = new BigDecimal( amounts1.stream().mapToDouble( i -> i ).average().orElse( 0.0 ) );
+        averageSectorB = new BigDecimal( amounts2.stream().mapToDouble( i -> i ).average().orElse( 0.0 ) );
+
         List<SbiAverage> result = businessAccountDao.getAverageBalancePerSector();
-        assertThat(result)
+        assertThat( result )
                 .isNotNull()
-                .isNotEmpty();
+                .isNotEmpty()
+                .hasSize( 2 );
+        assertThat( averageSectorA.equals( result.get( 1 ).getBalanceAverage() ) );
+        assertThat( averageSectorB.equals( result.get( 0 ).getBalanceAverage() ) );
     }
 }

@@ -17,22 +17,12 @@ public interface BusinessAccountDao extends CrudRepository<BusinessAccount, Inte
 
     Boolean existsByKvkNumber(int kvkNumber);
 
-    List<BusinessAccount> findAllByAccountHolder( Customer customer);
-
-    List<BusinessAccount> findAllBySecondaryAccountHoldersContaining( Customer customer);
-
-    List<BusinessAccount> findAllBySecondaryAccountHoldersContains( Customer customer);
-
-    List<BusinessAccount> findAllByAccountHolderOrSecondaryAccountHoldersContains(Customer customer, Customer customer2);
-
-    List<BusinessAccount> findAllBySecondaryAccountHolders( Customer customer);
-
     @Query( "SELECT AVG(b.balance) from BankAccount b" )
     BigDecimal getAverageBalance();
 
 
-    @Query( "SELECT new nl.dagobank.webapp.backingbeans.BalanceSumPerBusiness( b.businessName, SUM(b.balance) ) " +
-                    "FROM BusinessAccount AS b GROUP BY b.businessName, b.balance ORDER BY b.balance DESC" )
+    @Query( "SELECT b.businessName as businessName, SUM(b.balance) as balance " +
+                    "FROM BusinessAccount AS b GROUP BY businessName ORDER BY balance DESC" )
     List<BalanceSumPerBusiness> getSumBalance( Pageable pageable );
 
     @Query( "SELECT ba.sbiCode as sbiCode, AVG(ba.balance) AS balanceAverage FROM BusinessAccount AS ba WHERE sbiCode IS NOT NULL GROUP BY sbiCode ORDER BY balanceAverage DESC")
