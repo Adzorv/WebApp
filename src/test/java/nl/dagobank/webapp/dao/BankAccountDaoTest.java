@@ -27,12 +27,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @DataJpaTest(properties = "spring.jpa.database-platform=org.hibernate.dialect.H2Dialect")
 public class BankAccountDaoTest {
 
-
-    public BankAccountDaoTest(){ super(); }
+    //public BankAccountDaoTest(){ super(); }
 
     Customer customer1 = new Customer();
     Customer customer2 = new Customer();
@@ -81,22 +79,18 @@ public class BankAccountDaoTest {
         customer3.setInlogCredentials(inlogCredentialsCustomer3);
 
         bankAccount1.setAccountName("Private Account 1");
-        // bankAccount1.setId(1);
         bankAccount1.setBalance(new BigDecimal(25));
         bankAccount1.setIban("IBAN1111111111");
 
         bankAccount2.setAccountName("Private Account 2");
-        //bankAccount2.setId(2);
         bankAccount2.setBalance(new BigDecimal(25));
         bankAccount2.setIban("IBAN2222222222");
 
         bankAccount3.setAccountName("Private Account 3");
-        // bankAccount3.setId(3);
         bankAccount3.setBalance(new BigDecimal(25));
         bankAccount3.setIban("IBAN3333333333");
 
         bankAccount4.setAccountName("Private Account 4");
-        //bankAccount4.setId(3);
         bankAccount4.setBalance(new BigDecimal(25));
         bankAccount4.setIban("IBAN4444444444");
 
@@ -114,11 +108,6 @@ public class BankAccountDaoTest {
         bankAccount1.getSecondaryAccountHolders().add(customer3);
         bankAccount2.getSecondaryAccountHolders().add(customer1);
 
-    }
-
-
-    @Test
-    public void findAllByAccountHolderTest(){
         entityManager.persist(customer1);
         entityManager.persist(customer2);
         entityManager.persist(customer3);
@@ -129,6 +118,12 @@ public class BankAccountDaoTest {
         entityManager.persist(bankAccount3);
         entityManager.persist(bankAccount4);
         entityManager.flush();
+    }
+
+
+    @Test
+    public void findAllByAccountHolderTest(){
+
         List<BankAccount> found = bankAccountDao.findAllByAccountHolder(customer1);
         assertThat(found).as("findAllByAccountHolderTest").hasSize(2);
 
@@ -140,6 +135,4 @@ public class BankAccountDaoTest {
         List<BankAccount> found = bankAccountDao.findAllByAccountHolderOrSecondaryAccountHoldersContains(customer1, customer1);
         assertThat(found).as("findAllByAccountHolderTest").hasSize(3);
     }
-
-
 }

@@ -39,6 +39,8 @@ public abstract class User {
         return inlogCredentials.getUserName().equals(user.inlogCredentials.getUserName());
     }
 
+
+
     @Override
     public int hashCode() {
         return Objects.hash(inlogCredentials.getUserName());

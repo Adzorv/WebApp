@@ -35,6 +35,7 @@ public class LoginValidatorEmployee {
     }
 
     public void validateCredentials( LoginForm loginForm ) {
+        setValidatorToFalse();
         loginForm.setGeneralError( WRONG_CREDENTIALS_FORM_MESSAGE );
         Optional<Employee> optional = employeeDao.findByInlogCredentialsUserName( loginForm.getUsername() );
         if ( optional.isPresent() ) {
@@ -44,8 +45,6 @@ public class LoginValidatorEmployee {
                 logMessage = LOGIN_SUCCESS_LOG_MESSAGE;
                 loginForm.setGeneralError( "" );
             }
-        } else {
-            setValidatorToFalse();
         }
     }
 
