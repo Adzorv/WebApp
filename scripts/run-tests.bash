@@ -8,7 +8,7 @@ set -e
 # thanks to it we can just enter `./scripts/run-tests.bash`
 cd "${0%/*}/.."
 
-mvn test
+mvn clean test
 
 # example of commands for different languages
 # eslint .         # JS code quality check
