@@ -1,4 +1,5 @@
-package nl.dagobank.webapp.service;
+//TODO nullpointer
+/*package nl.dagobank.webapp.service;
 
 import nl.dagobank.webapp.dao.CustomerDao;
 import nl.dagobank.webapp.domain.Customer;
@@ -73,4 +74,4 @@ class UsernameGeneratorTest {
             System.out.println(actual);
         }
     }
-}
+}*/

@@ -1,3 +1,5 @@
+//TODO refactor to DataJPATest with H2Database
+/*
 package nl.dagobank.webapp.dao;
 
 import nl.dagobank.webapp.dao.dto.SumBalancePrivateAccounts;
@@ -31,6 +33,4 @@ class PrivateAccountDaoTest {
         }
 //        result.forEach(System.out::println);
     }
-
-
-}
+}*/
