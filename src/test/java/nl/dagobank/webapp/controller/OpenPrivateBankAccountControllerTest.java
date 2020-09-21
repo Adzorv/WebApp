@@ -64,7 +64,7 @@ public class OpenPrivateBankAccountControllerTest {
     }
 
     @Test
-    public void openBankAccountSuccessHandlerTest(){
+    public void openBankAccountSuccessHandlerTestq(){
 
         PrivateAccount privateAccount = Mockito.mock(PrivateAccount.class);
 
