@@ -30,8 +30,6 @@ class BusinessAccountDaoTest {
     @Autowired
     CustomerDao customerDao;
 
-    private BigDecimal sumCompany1, sumCompany2,
-            averageSectorA, averageSectorB;
     private List<Integer> amounts1, amounts2;
 
 
@@ -74,8 +72,8 @@ class BusinessAccountDaoTest {
     @Test
     void getSumBalance() {
         //Calculate sum
-        sumCompany1 = new BigDecimal( amounts1.stream().mapToDouble( i -> i ).sum() );
-        sumCompany2 = new BigDecimal( amounts2.stream().mapToDouble( i -> i ).sum() );
+        BigDecimal sumCompany1 = new BigDecimal( amounts1.stream().mapToDouble( i -> i ).sum() );
+        BigDecimal sumCompany2 = new BigDecimal( amounts2.stream().mapToDouble( i -> i ).sum() );
 
         List<BalanceSumPerBusiness> sums = businessAccountDao.getSumBalance( PageRequest.of( 0, 10 ) );
         assertThat( sums )
@@ -85,12 +83,13 @@ class BusinessAccountDaoTest {
         assertThat( sums.get( 0 ).getBalance() )
                 .isGreaterThan( sums.get( 1 ).getBalance() );
         assertThat( sumCompany1.equals( sums.get( 0 ).getBalance() ) );
+        assertThat( sumCompany2.equals( sums.get( 1 ).getBalance() ) );
     }
 
     @Test
     void getAverageBalanceBySbiCode() {
-        averageSectorA = new BigDecimal( amounts1.stream().mapToDouble( i -> i ).average().orElse( 0.0 ) );
-        averageSectorB = new BigDecimal( amounts2.stream().mapToDouble( i -> i ).average().orElse( 0.0 ) );
+        BigDecimal averageSectorA = new BigDecimal( amounts1.stream().mapToDouble( i -> i ).average().orElse( 0.0 ) );
+        BigDecimal averageSectorB = new BigDecimal( amounts2.stream().mapToDouble( i -> i ).average().orElse( 0.0 ) );
 
         List<SbiAverage> result = businessAccountDao.getAverageBalancePerSector();
         assertThat( result )
