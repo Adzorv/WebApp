@@ -40,6 +40,7 @@ public class LoginController {
     }
 
     @PostMapping( "login" )
+    @CrossOrigin()
     public String loginAttempt( Model model, LoginForm loginForm ) {
         LoginValidatorCustomer lv = customerService.validateCredentials( loginForm );
         String view;
