@@ -97,7 +97,6 @@ class RegistrationControllerTest {
         //customerDao.save(customer2); //FIXme: how te testen voor foutmelding?
         assertTrue(customerDao.findById(customer2.getId()).equals(Optional.empty()));
 
-
     }
 
 //    @Test

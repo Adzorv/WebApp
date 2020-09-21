@@ -1,3 +1,4 @@
+
 package nl.dagobank.webapp.dao;
 
 import nl.dagobank.webapp.dao.dto.SumTransactionsPerBusiness;
