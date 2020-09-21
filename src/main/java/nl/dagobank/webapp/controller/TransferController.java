@@ -35,26 +35,6 @@ public class TransferController {
         modelAndView.addObject("TransferForm", new TransferForm());
         return modelAndView;
     }
-//
-// @PostMapping("/executeTransfer{id}")
-// public String executeTransferHandler(@RequestParam("id") int id,
-// @ModelAttribute TransferForm transferForm) {
-//
-// BankAccount selectedBankAccount = bankAccountService.getBankAccountById(id);
-// BigDecimal amount = transferForm.getAmount();
-//
-// if (!transferService.checkIfEnoughBalance(amount, selectedBankAccount)) {
-// return "redirect:/transferError?id=" + id;
-// } else {
-// transferService.getFundsFromSendingAccount(amount, selectedBankAccount);
-// // Iban iban = Iban.valueOf(transferForm.getIBAN());
-// BankAccount recievingBankAccount = bankAccountService.findBankAccountByIban(transferForm.getIBAN());
-// transferService.createAndSaveTransaction(selectedBankAccount, recievingBankAccount, amount, transferForm.getDescription(), LocalDate.now());
-// transferService.putFundsInReceivingAccount(recievingBankAccount, amount);
-// return "redirect:/accountView?id=" + id;
-// }
-// }
-
 
     @PostMapping("/executeTransfer{id}")
     public String executeTransferHandler(@RequestParam("id") int id,
