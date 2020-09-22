@@ -22,17 +22,22 @@
 <body>
 <i id="plane" class="glyphicon glyphicon-plane"></i>
 <i id="target" class="glyphicon glyphicon-star"></i>
-
+<h3>Score: <span id="score">0</span></h3>
 </body>
 <script>
     let plane = $('#plane');
     let target = $('#target');
+    let score = $('#score');
     console.log("hallo");
     console.log(plane);
     console.log(plane.position().left);
 
     function getRandomInt(max) {
         return Math.floor(Math.random() * Math.floor(max));
+    }
+
+    function incrementScore() {
+        score.html(function(i, val) { return +val+1 })
     }
 
     function setPositionOfTarget() {
@@ -80,6 +85,7 @@
             console.log(planeLeft - targetLeft)
             console.log("touch");
             setPositionOfTarget()
+            incrementScore()
         }
     }
 
