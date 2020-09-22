@@ -256,6 +256,16 @@ footer.sh_footer {
     alignment: center;
 }
 
+.transferbox{
+    background-color: #ffc107;
+    border-radius: 40px;
+    padding: 40px;
+    width: 350px;
+    height: 250px;
+    margin-top: 50px;
+    color: black;
+}
+
 
 .loginbox {
     background-color: #ffc107;

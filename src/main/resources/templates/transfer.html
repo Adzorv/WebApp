@@ -6,28 +6,46 @@
 </head>
 <div th:insert="fragments/navigation :: navigation"></div>
 <body>
-<h4>Type Rekening: <span th:text="${selectedBankAccount.accountName}"/></h4>
-<h4>Rekening nummer: <span th:text="${selectedBankAccount.iban}"/></h4>
-<h4>Saldo: <span th:text="${selectedBankAccount.balance}"/></h4>
-<form th:action="@{/executeTransfer(id=${selectedBankAccount.id})}" method="post" th:object="${TransferForm}">
-    <table>
-        <tr>
-            <td>Bedrag*:</td><td><input type="number" step="any" name="input_amount" th:field="*{amount}" placeholder="amount" required></td>
-        </tr>
-        <tr>
-            <td>Naam*:</td><td><input type="text" name="input_name" th:field="*{UserFullName}" placeholder="volle naam" pattern="[A-Za-z ]{1,}" required></td>
-        </tr>
-        <tr>
-            <td>IBAN*:</td><td><input type="text" name="input_IBAN" th:field="*{IBAN}" placeholder="IBAN" required></td>
-        </tr>
-        <tr>
-            <td>Referentiecode:</td><td><input type="text" name="input_paymentCode" th:field="*{paymentCode}" placeholder="Referentiecode"></td>
-        </tr>
-        <tr>
-            <td>Beschrijving:</td><td><input type="text" name="input_description" th:field="*{description}" placeholder="Beschrijving" ></td>
-        </tr>
-    </table>
-    <input type="submit" value="Submit">
-</form>
+<div class="container">
+    <div class="jumbotron">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="txtext">Overboeken</h2>
+            </div>
+            <div class="card-body">
+                <h4 class="txtext">Rekening naam: <span th:text="${selectedBankAccount.accountName}"/></h4>
+                <h4 class="txtext">Rekening nummer: <span th:text="${selectedBankAccount.iban}"/></h4>
+                <h4 class="txtext">Saldo: <span th:text="${selectedBankAccount.balance}"/></h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="login-container dagobertBackground">
+    <div class="loginboxwrap">
+        <div class="transferbox">
+            <form th:action="@{/executeTransfer(id=${selectedBankAccount.id})}" method="post" th:object="${TransferForm}">
+                <table>
+                    <tr>
+                        <td>Bedrag*:</td><td><input type="number" step="any" name="input_amount" th:field="*{amount}" placeholder="amount" required></td>
+                    </tr>
+                    <tr>
+                        <td>Naam*:</td><td><input type="text" name="input_name" th:field="*{UserFullName}" placeholder="volle naam" pattern="[A-Za-z ]{1,}" required></td>
+                    </tr>
+                    <tr>
+                        <td>IBAN*:</td><td><input type="text" name="input_IBAN" th:field="*{IBAN}" placeholder="IBAN" required></td>
+                    </tr>
+                    <tr>
+                        <td>Referentiecode:</td><td><input type="text" name="input_paymentCode" th:field="*{paymentCode}" placeholder="Referentiecode"></td>
+                    </tr>
+                    <tr>
+                        <td>Beschrijving:</td><td><input type="text" name="input_description" th:field="*{description}" placeholder="Beschrijving" ></td>
+                    </tr>
+                </table>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+</div>
+</main>
 </body>
 </html>

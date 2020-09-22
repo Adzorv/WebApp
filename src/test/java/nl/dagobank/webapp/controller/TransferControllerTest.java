@@ -64,7 +64,6 @@ public class TransferControllerTest {
             postRequest.session(session);
             ResultActions resultActions = mockMvc.perform(postRequest);
             resultActions.andDo(print()).andExpect(status().isOk()).andExpect(view().name("transactionOverview"));
-
         } catch (Exception e) {
             e.printStackTrace();
             fail();
