@@ -4,12 +4,13 @@
     <title>DagoBank Homepage</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
+
 <style>
     .glyphicon.glyphicon-plane {
         font-size: 75px;
-        position: relative;
-        left:30px;
-        top:100px;
+        position: absolute;
+        left:150px;
+        top:150px;
     }
 
     #target {
@@ -20,17 +21,17 @@
     }
 </style>
 <body>
+<div th:replace="fragments/navigation :: navigation"></div>
+
+
 <i id="plane" class="glyphicon glyphicon-plane"></i>
 <i id="target" class="glyphicon glyphicon-star"></i>
-<h3>Score: <span id="score">0</span></h3>
+<h2>Score: <span id="score">0</span></h2>
 </body>
 <script>
-    let plane = $('#plane');
-    let target = $('#target');
-    let score = $('#score');
-    console.log("hallo");
-    console.log(plane);
-    console.log(plane.position().left);
+    const plane = $('#plane');
+    const target = $('#target');
+    const score = $('#score');
 
     function getRandomInt(max) {
         return Math.floor(Math.random() * Math.floor(max));
@@ -43,33 +44,39 @@
     function setPositionOfTarget() {
         let newLeft = getRandomInt($(document).width() - 100)
         let newTop = getRandomInt($(document).height() -100)
-        console.log(newLeft + " " + newTop)
         target.css({left: newLeft, top: newTop})
     }
 
+    function getBankAccounts() {
+        $.ajax({
+            type: 'post',
+            contentType: "application/json",
+            url: "getBankAccounts",
+            success: function(data) {
+                console.log(data)
+                console.log("succes ajax request")
+            },
+            error: function() {
+                console.log("error ajax request")
+            }
+        })
+    }
+    getBankAccounts();
 
     right = function() {
-        const leftPosition = plane.position().left
-        let newLeftPosition = 10 + leftPosition
-        plane.css({left: newLeftPosition})
+        plane.css({left: plane.position().left + 10})
     }
 
     left = function() {
-        const leftPosition = plane.position().left
-        let newLeftPosition = leftPosition - 10
-        plane.css({left: newLeftPosition})
+        plane.css({left: plane.position().left - 10})
     }
 
     down = function() {
-        const topPosition = plane.position().top
-        let newTopPosition = topPosition + 10
-        plane.css({top: newTopPosition})
+        plane.css({top: plane.position().top + 10})
     }
 
     up = function() {
-        const topPosition = plane.position().top
-        let newTopPosition = topPosition - 10
-        plane.css({top: newTopPosition})
+        plane.css({top: plane.position().top - 10})
     }
 
     touch = function() {
@@ -82,8 +89,6 @@
             targetLeft - planeLeft > -40 &&
             targetTop - planeTop < 40 &&
             targetTop - planeTop > -40) {
-            console.log(planeLeft - targetLeft)
-            console.log("touch");
             setPositionOfTarget()
             incrementScore()
         }
@@ -93,19 +98,15 @@
 
         switch (event.key) {
             case "ArrowDown":
-                console.log("down")
                 down()
                 break;
             case "ArrowUp":
-                console.log("up")
                 up()
                 break;
             case "ArrowLeft":
-                console.log("left")
                 left()
                 break;
             case "ArrowRight":
-                console.log("right")
                 right()
                 break;
         }
