@@ -32,10 +32,6 @@
         <label for="bankaccounts">Kies een bankrekening:</label>
 
         <select name="bankaccounts" id="bankaccounts">
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
         </select>
     </div>
     <div th:case="${false}"><a href="/login"><h2>Log in om knaken te verdienen!</h2></a></div>
@@ -69,8 +65,12 @@
             success: function(data) {
                 console.log("succes ajax request")
                 let bankAccounts = data.bankAccounts
-                $.each(bankAccounts, function(key, naam) {
-                    console.log(naam)
+                $.each(bankAccounts, function(key, account) {
+                    let name = account.accountName
+                    console.log(name)
+                    let option = new Option(name, name)
+                    $(option).html(name)
+                    $("#bankaccounts").append(option)
                 })
             },
             error: function() {
