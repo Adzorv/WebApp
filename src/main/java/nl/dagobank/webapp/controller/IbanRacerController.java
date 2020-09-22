@@ -43,7 +43,6 @@ public class IbanRacerController {
             List<BankAccount> bankAccounts = bankAccountService.getAllAccountsFromCustomer( customer );
             response.setBankAccounts( bankAccounts );
         }
-        System.out.println( customer );
         return response;
     }
 

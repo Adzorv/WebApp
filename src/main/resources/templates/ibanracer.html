@@ -27,6 +27,20 @@
 <i id="plane" class="glyphicon glyphicon-plane"></i>
 <i id="target" class="glyphicon glyphicon-star"></i>
 <h2>Score: <span id="score">0</span></h2>
+<div th:switch="${session.user != null}">
+    <div th:case="${true}">
+        <label for="bankaccounts">Kies een bankrekening:</label>
+
+        <select name="bankaccounts" id="bankaccounts">
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+        </select>
+    </div>
+    <div th:case="${false}"><a href="/login"><h2>Log in om knaken te verdienen!</h2></a></div>
+</div>
+
 </body>
 <script>
     const plane = $('#plane');
@@ -43,7 +57,7 @@
 
     function setPositionOfTarget() {
         let newLeft = getRandomInt($(document).width() - 100)
-        let newTop = getRandomInt($(document).height() -100)
+        let newTop = getRandomInt($(document).height() - 100)
         target.css({left: newLeft, top: newTop})
     }
 
@@ -53,8 +67,11 @@
             contentType: "application/json",
             url: "getBankAccounts",
             success: function(data) {
-                console.log(data)
                 console.log("succes ajax request")
+                let bankAccounts = data.bankAccounts
+                $.each(bankAccounts, function(key, naam) {
+                    console.log(naam)
+                })
             },
             error: function() {
                 console.log("error ajax request")
