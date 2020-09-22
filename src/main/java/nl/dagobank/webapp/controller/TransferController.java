@@ -39,17 +39,13 @@ public class TransferController {
     @PostMapping("/executeTransfer{id}")
     public String executeTransferHandler(@RequestParam("id") int id,
                                          @ModelAttribute TransferForm transferForm) {
-
-        BankAccount selectedBankAccount = bankAccountService.getBankAccountById(id);
+        BankAccount senderBankAccount = bankAccountService.getBankAccountById(id);
+        BankAccount receivingBankAccount = bankAccountService.findBankAccountByIban(transferForm.getIBAN());
         BigDecimal amount = transferForm.getAmount();
-        if (!transferService.checkBalanceBeforeTransfer(amount, selectedBankAccount)) {
-            return "redirect:/transferError?id=" + id;
-        } else {
-            transferService.getFundsFromSendingAccount(amount, selectedBankAccount);
-            BankAccount recievingBankAccount = bankAccountService.findBankAccountByIban(transferForm.getIBAN());
-            transferService.createAndSaveTransaction(selectedBankAccount, recievingBankAccount, amount, transferForm.getDescription(), LocalDate.now());
-            transferService.putFundsInReceivingAccount(recievingBankAccount, amount);
+        if (transferService.performTransaction(senderBankAccount, receivingBankAccount, amount, transferForm.getDescription())) {
             return "redirect:/accountView?id=" + id;
+        } else {
+            return "redirect:/transferError?id=" + id;
         }
     }
 
@@ -59,5 +55,4 @@ public class TransferController {
         return "transferError";
 
     }
-
 }

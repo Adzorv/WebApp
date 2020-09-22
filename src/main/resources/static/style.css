@@ -379,6 +379,13 @@ h2.txtext, h4.txtext {
     margin-left: 50px;
 }
 
+h1.black-text, h3.black-text {
+    color: #000000;
+    font-family: Roboto;
+    line-height: 25px;
+    font-size: 18px;
+}
+
 
 
 
