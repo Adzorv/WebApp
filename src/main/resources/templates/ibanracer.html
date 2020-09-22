@@ -31,6 +31,17 @@
     console.log(plane);
     console.log(plane.position().left);
 
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * Math.floor(max));
+    }
+
+    function setPositionOfTarget() {
+        let newLeft = getRandomInt($(document).width() - 100)
+        let newTop = getRandomInt($(document).height() -100)
+        console.log(newLeft + " " + newTop)
+        target.css({left: newLeft, top: newTop})
+    }
+
 
     right = function() {
         const leftPosition = plane.position().left
@@ -62,9 +73,13 @@
         let targetTop = target.position().top
         let targetLeft = target.position().left
 
-        if (targetLeft - planeLeft < 40 && targetTop - planeTop < 40) {
+        if (targetLeft - planeLeft < 40 &&
+            targetLeft - planeLeft > -40 &&
+            targetTop - planeTop < 40 &&
+            targetTop - planeTop > -40) {
             console.log(planeLeft - targetLeft)
             console.log("touch");
+            setPositionOfTarget()
         }
     }
 
