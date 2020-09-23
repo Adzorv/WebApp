@@ -98,16 +98,14 @@ public class BankAccountService {
     }
 
 
-    public void generateBankAccountNameAndPutInModel(Model model, ModelAndView modelAndView) {
-        Customer user = (Customer) model.getAttribute("user");
-        String bankAccountName = user.getFullName() + "'s rekening " + (getNumberOfBankAccountsOfCustomer(user)+1);
-        modelAndView.addObject("bankAccountName", bankAccountName);
+    public String generateBankAccountNameFromUserNameAndNumberOfAccounts(Customer customer) {
+        String bankAccountName = customer.getFullName() + "'s rekening " + (getNumberOfBankAccountsOfCustomer(customer)+1);
+        return bankAccountName;
     }
 
-    public PrivateAccount createAndSavePrivateAccount(String bankAccountName, Model model) {
-        Customer user = (Customer) model.getAttribute("user");
+    public PrivateAccount createAndSavePrivateAccount(String bankAccountName, Customer customer) {
         PrivateAccount privateAccount = new PrivateAccount();
-        privateAccount.setAccountHolder(user);
+        privateAccount.setAccountHolder(customer);
         privateAccount.setAccountName(bankAccountName);
         privateAccount.setBalance(BANKACCOUNT_BEGINBALANCE_GIFT);
         String iban = ibanGenerator.createIban().toString();
