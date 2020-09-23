@@ -1,5 +1,6 @@
 package nl.dagobank.webapp.controller;
 
+import nl.dagobank.webapp.backingbeans.AjaxIbanracerBalanceResponse;
 import nl.dagobank.webapp.backingbeans.AjaxIbanracerResponse;
 import nl.dagobank.webapp.dao.BankAccountDao;
 import nl.dagobank.webapp.domain.BankAccount;
@@ -9,10 +10,7 @@ import nl.dagobank.webapp.service.BankAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -46,5 +44,15 @@ public class IbanRacerController {
         return response;
     }
 
+    @GetMapping( "getBankAccountBalance" )
+    @ResponseBody
+    public AjaxIbanracerBalanceResponse getBalance( @RequestParam String id ) {
+        System.out.println("hiero");
+        System.out.println(id);
+        AjaxIbanracerBalanceResponse response = new AjaxIbanracerBalanceResponse();
+        BankAccount bankAccount = bankAccountService.getBankAccountById( Integer.valueOf( id ) );
+        response.setBalance( bankAccount.getBalance() );
+        return response;
+    }
 
 }

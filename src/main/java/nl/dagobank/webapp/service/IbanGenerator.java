@@ -26,7 +26,6 @@ public class IbanGenerator {
     public Iban createIban() {
       //  while (!privateAccountDao.existsByIban(iban)) {
         while (!bankAccountDao.existsByIban(iban)) {
-            System.out.println("hiero");
             try {
                 Iban iban = Iban.random(CountryCode.NL);
                 iban = Iban.random();
