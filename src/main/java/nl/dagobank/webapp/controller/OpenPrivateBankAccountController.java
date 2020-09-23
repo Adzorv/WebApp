@@ -31,6 +31,7 @@ public class OpenPrivateBankAccountController {
         Customer user = (Customer) model.getAttribute("user");
         ModelAndView modelAndView = new ModelAndView("openPrivateBankAccountSuccess");
         privateAccount = bankAccountService.createAndSavePrivateAccount(bankAccountName, user);
+        modelAndView.addObject("privateAccount", privateAccount);
         return modelAndView;
     }
 }

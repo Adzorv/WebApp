@@ -20,15 +20,12 @@ import java.util.List;
 @SessionAttributes("user")
 public class ConnectBankAccountController {
 
-    BankAccountHolderTokenService bankAccountHolderTokenService;
-    BankAccountService bankAccountService;
     FacadeServiceBankAccountHolderToken_BancAccount facadeService;
 
     @Autowired
-    public ConnectBankAccountController(FacadeServiceBankAccountHolderToken_BancAccount facadeService, BankAccountHolderTokenService bankAccountHolderTokenService, BankAccountService bankAccountService) {
+    public ConnectBankAccountController(FacadeServiceBankAccountHolderToken_BancAccount facadeService) {
         this.facadeService = facadeService;
-        this.bankAccountHolderTokenService = bankAccountHolderTokenService;
-        this.bankAccountService = bankAccountService;
+
     }
 
 

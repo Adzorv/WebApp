@@ -3,6 +3,7 @@ package nl.dagobank.webapp.service;
 import nl.dagobank.webapp.domain.BankAccount;
 import nl.dagobank.webapp.domain.BankAccountHolderToken;
 import nl.dagobank.webapp.domain.Customer;
+import nl.dagobank.webapp.domain.PrivateAccount;
 import nl.dagobank.webapp.exception.customerAlreadySecondaryAccountHolderException;
 import nl.dagobank.webapp.exception.noValidTokenException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,7 @@ public class FacadeServiceBankAccountHolderToken_BancAccount {
                 throw new customerAlreadySecondaryAccountHolderException("User " + customer.getFullName() +" is already a secondary account holder");
             } else {
                 bankAccountToAddCustomer.getSecondaryAccountHolders().add(customer);
+                bankAccountService.savePrivateAccount((PrivateAccount)bankAccountToAddCustomer);
             }
         }
     }

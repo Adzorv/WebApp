@@ -30,7 +30,7 @@ public class AddAccountHolderController {
 
     @GetMapping("/addAccountHolder")
     ModelAndView addAccountHolderHandler(@RequestParam("id") int id, Model model) {
-        ModelAndView modelAndView = new ModelAndView("addAccountHolder")
+        ModelAndView modelAndView = new ModelAndView("addAccountHolder");
         modelAndView.addObject("error", "");
         modelAndView.addObject("selectedBankAccount", bankAccountService.getBankAccountById(id));
         return modelAndView;
