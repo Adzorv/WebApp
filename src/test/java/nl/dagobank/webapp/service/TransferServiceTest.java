@@ -42,16 +42,12 @@ public class TransferServiceTest {
         bankAccount1.setBalance(new BigDecimal(100));
         bankAccount1.setIban("IBAN1111111111");
         bankAccount1.setAccountHolder(customer2);
-        System.out.println("print bankaccount");
-        System.out.println(bankAccount1);
 
         bankAccount2.setAccountName("Private Account 2");
         bankAccount2.setId(2);
         bankAccount2.setBalance(new BigDecimal(100));
         bankAccount2.setIban("IBAN2222222222");
         bankAccount2.setAccountHolder(customer2);
-        System.out.println("print bankaccount");
-        System.out.println(bankAccount2);
     }
 
     @Test
