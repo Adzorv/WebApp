@@ -28,7 +28,7 @@ public class AddAccountHolderController {
         this.bankAccountService = bankAccountService;
     }
 
-    @GetMapping("/addAccountHolder{id}")
+    @GetMapping("/addAccountHolder")
     String addAccountHolderHandler(@RequestParam("id") int id, Model model) {
         model.addAttribute("error", "");
         model.addAttribute("selectedBankAccount", bankAccountService.getBankAccountById(id));

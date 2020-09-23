@@ -3,6 +3,8 @@ package nl.dagobank.webapp.service;
 import nl.dagobank.webapp.dao.BankAccountDao;
 import nl.dagobank.webapp.dao.BusinessAccountDao;
 import nl.dagobank.webapp.domain.*;
+import org.iban4j.CountryCode;
+import org.iban4j.Iban;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,11 +16,16 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
+
 public class BankAccountServiceTest {
 
     private BankAccountDao mockBankAccountDao = Mockito.mock(BankAccountDao.class);
     private BusinessAccountDao mockBusinessAccountDao = Mockito.mock(BusinessAccountDao.class);
     private IbanGenerator mockIbanGenerator = Mockito.mock(IbanGenerator.class);
+
 
     BankAccountService bankAccountService = new BankAccountService(mockBankAccountDao, mockBusinessAccountDao, mockIbanGenerator);
 
@@ -92,7 +99,7 @@ public class BankAccountServiceTest {
         bankAccountsList.add(bankAccount2);
         bankAccountsList.add(bankAccount3);
 
-        Mockito.when(mockBankAccountDao.findAllByAccountHolderOrSecondaryAccountHoldersContains(customer1, customer1)).thenReturn(bankAccountsList);
+        when(mockBankAccountDao.findAllByAccountHolderOrSecondaryAccountHoldersContains(customer1, customer1)).thenReturn(bankAccountsList);
 
         List<BankAccount> receivedBankAccounts = bankAccountService.getAllAccountsFromCustomer(customer1);
 
@@ -131,12 +138,12 @@ public class BankAccountServiceTest {
     @Test
     void generateBankAccountNameAndPutInModelTest(){
         Model mockModel = Mockito.mock(Model.class);
-        Mockito.when(mockModel.getAttribute("user")).thenReturn(customer1);
+        when(mockModel.getAttribute("user")).thenReturn(customer1);
 
         List<BankAccount> bankAccountsList = new ArrayList<>();
         bankAccountsList.add(bankAccount1);
 
-        Mockito.when(mockBankAccountDao.findAllByAccountHolder(customer1)).thenReturn(bankAccountsList);
+        when(mockBankAccountDao.findAllByAccountHolder(customer1)).thenReturn(bankAccountsList);
 
         ModelAndView modelAndView = new ModelAndView("testmodelandView");
 
@@ -145,10 +152,20 @@ public class BankAccountServiceTest {
         String found = modelAndView.getModel().get("bankAccountName").toString();
         String expected = customer1.getFullName() + "'s rekening 2";
         Assert.assertEquals(found,expected);
-
-
-
-
-
     }
+
+    @Test
+    void createAndSavePrivateAccountTest(){
+        Iban iban = new Iban.Builder().buildRandom();
+        PrivateAccount mockBankAccount = Mockito.mock(PrivateAccount.class);
+        Model mockModel = Mockito.mock(Model.class);
+        when(mockModel.getAttribute("user")).thenReturn(customer1);
+        when(mockIbanGenerator.createIban()).thenReturn(iban);
+        PrivateAccount actual = bankAccountService.createAndSavePrivateAccount("testBankAccountName", mockModel);
+
+        Assert.assertNotNull(actual);
+        Assert.assertEquals(actual.getAccountName(), "testBankAccountName");
+        Assert.assertEquals(actual.getAccountHolder(), customer1);
+
+        }
 }

@@ -110,9 +110,10 @@ public class BankAccountService {
         privateAccount.setAccountHolder(user);
         privateAccount.setAccountName(bankAccountName);
         privateAccount.setBalance(BANKACCOUNT_BEGINBALANCE_GIFT);
-        Iban iban = ibanGenerator.createIban();
-        privateAccount.setIban(iban.toString());
+        String iban = ibanGenerator.createIban().toString();
+        privateAccount.setIban(iban);
         savePrivateAccount(privateAccount);
         return  privateAccount;
     }
+
 }

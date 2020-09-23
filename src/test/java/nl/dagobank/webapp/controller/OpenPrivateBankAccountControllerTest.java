@@ -68,13 +68,12 @@ public class OpenPrivateBankAccountControllerTest {
 
         PrivateAccount privateAccount = Mockito.mock(PrivateAccount.class);
 
-        Mockito.when(bankAccountService.createAndSavePrivateAccount(any(), any())).thenReturn(privateAccount);
-
         try {
             MockHttpServletRequestBuilder postRequest =
                     MockMvcRequestBuilders.post("/openAndSaveBankAccount");
             postRequest.param("bankAccountName", "testname");
             postRequest.session(session);
+            postRequest.flashAttr("privateAccount", privateAccount);
             ResultActions resultActions = mockMvc.perform(postRequest);
             resultActions.andDo(print()).andExpect(status().isOk()).andExpect(view().name("openPrivateBankAccountSuccess"));
 
