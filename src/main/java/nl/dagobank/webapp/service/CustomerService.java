@@ -43,6 +43,10 @@ public class CustomerService {
         customerDao.save( customer );
     }
 
+    public Customer saveCustomerWithReturn(Customer customer){
+        return customerDao.save( customer );
+    }
+
     public LoginValidatorCustomer validateCredentials( LoginForm loginForm ) {
         loginValidator.validateCredentials( loginForm );
         return loginValidator;

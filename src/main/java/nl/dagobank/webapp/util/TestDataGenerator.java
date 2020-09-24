@@ -99,19 +99,19 @@ public class TestDataGenerator {
     }
 
 
-    String generateRandomEmailFromMailPrefix(String mailprefix){
+    public String generateRandomEmailFromMailPrefix(String mailprefix){
         int randomIndex = (int)(Math.random() * MAILADRESS_DOMAINS.length());
         return mailprefix + "@" + MAILADRESS_DOMAINS[randomIndex];
     }
 
-    String generateTelephoneNumberFromUniqueId(int id){
+    public String generateTelephoneNumberFromUniqueId(int id){
         int lengthOfId = String.valueOf(id).length();
         int lengthOfSeed = String.valueOf(TELEFOON_NUMBER_SEED).length();
         String trimmedBaseNumber = String.valueOf(TELEFOON_NUMBER_SEED).substring(0,lengthOfSeed - lengthOfId - 1);
         return trimmedBaseNumber + String.valueOf(id);
     }
 
-    LocalDate getRandomBirthDate(int minAge, int maxAge){
+    public LocalDate getRandomBirthDate(int minAge, int maxAge){
         final int DAYS_OF_YEAR = 365;
         long randomAge = (minAge + (long)(Math.random() * ((maxAge - minAge) + 1)));
         long randomDays = (long)(Math.random() * (DAYS_OF_YEAR + 1));
