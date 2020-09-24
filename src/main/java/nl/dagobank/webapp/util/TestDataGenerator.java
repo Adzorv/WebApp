@@ -22,7 +22,7 @@ public class TestDataGenerator {
     static final String FIRST_NAME_PATH = "src/main/resources/testdata/firstname.xml";
     static final String LAST_NAME_PATH = "src/main/resources/testdata/surname.xml";
     static final String ADRESSES_PATH = "src/main/resources/testdata/10000Adresses.csv";
-    static final String[] MAILADRESS_DOMAINS = ["gmail.nl", "zigo.nl", "bluewin.nl", "online.nl"];
+    static final String[] MAILADRESS_DOMAINS = {"gmail.nl", "zigo.nl", "bluewin.nl", "online.nl"};
     static final int TELEFOON_NUMBER_SEED = 0600000000;
 
     public TestDataGenerator() {
@@ -67,7 +67,9 @@ public class TestDataGenerator {
 
     return  names;
     }
-    //PostcodeID;PostCodePK;PostCode;PostcodeNummers;PostcodeLetters;Straat;MinNummer;MaxNummer;Plaats;Gemeente;Provincie
+
+    //format of file:
+    // PostcodeID;PostCodePK;PostCode;PostcodeNummers;PostcodeLetters;Straat;MinNummer;MaxNummer;Plaats;Gemeente;Provincie
     public List<Address> readAdressesFromFile(int numberOfLines){
         List<Address> output = new ArrayList<>();
         File input = new File(ADRESSES_PATH);
