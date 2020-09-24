@@ -169,7 +169,7 @@ public class BankAccountServiceTest {
 
         }
 
-    @Test
+/*    @Test
     void getTop10Businesses() {
         BusinessAccount b1 = new BusinessAccount();
         BusinessAccount b2 = new BusinessAccount();
@@ -204,5 +204,5 @@ public class BankAccountServiceTest {
         b4.setKvkNumber( 2 );
         b4.setKvkNumber( 2 );
         b5.setKvkNumber( 2 );
-    }
+    }*/
 }
