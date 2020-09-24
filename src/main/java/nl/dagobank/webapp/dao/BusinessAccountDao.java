@@ -28,4 +28,6 @@ public interface BusinessAccountDao extends CrudRepository<BusinessAccount, Inte
     List<SbiAverage> getAverageBalancePerSector();
 
     List<BusinessAccount> findAll();
+
+    BusinessAccount findByKvkNumber( int kvkNumber );
 }

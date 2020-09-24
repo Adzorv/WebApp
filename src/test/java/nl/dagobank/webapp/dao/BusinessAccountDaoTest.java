@@ -2,6 +2,7 @@ package nl.dagobank.webapp.dao;
 
 import nl.dagobank.webapp.dao.dto.BalanceSumPerBusiness;
 import nl.dagobank.webapp.dao.dto.SbiAverage;
+import nl.dagobank.webapp.domain.BankAccount;
 import nl.dagobank.webapp.domain.BusinessAccount;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -89,6 +90,7 @@ class BusinessAccountDaoTest {
         assertThat( sumCompany1.equals( sums.get( 0 ).getBalance() ) );
         assertThat( sumCompany2.equals( sums.get( 1 ).getBalance() ) );
     }
+
 
     @Test
     void getAverageBalanceBySbiCode() {

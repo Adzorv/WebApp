@@ -82,14 +82,15 @@ public class BankAccountService {
     }
 
     public List<BusinessAccount> getTop10Businesses() {
-        List<BusinessAccount> allBusinessAccounts = businessAccountDao.findAll();
-
-        List<BusinessAccount> top10 = allBusinessAccounts.stream().sorted( Comparator.comparing( BankAccount::getBalance ).reversed() ).limit( 10 ).collect( Collectors.toList() );
-
-//        allBusinessAccounts.sort( Comparator.comparing( BankAccount::getBalance ) );
-
-        return top10;
-//        return businessAccountDao.getSumBalance( PageRequest.of( 0, 10 ) );
+//        List<BusinessAccount> allBusinessAccounts = businessAccountDao.findAll();
+        List<BalanceSumPerBusiness> sumPerBusinesses = businessAccountDao.getSumBalance( PageRequest.of( 0, 10 ) );
+        List<BusinessAccount> allAccounts = new ArrayList<>();
+        for ( BalanceSumPerBusiness sumPerBusiness : sumPerBusinesses ) {
+            BusinessAccount ba = businessAccountDao.findByKvkNumber( sumPerBusiness.getKvkNumber() );
+            allAccounts.add( ba );
+        }
+//        return allBusinessAccounts.stream().sorted( Comparator.comparing( BankAccount::getBalance ).reversed() ).limit( 10 ).collect( Collectors.toList() );
+        return allAccounts;
     }
 
     public List<SbiAverage> getAverageBalancePerSector() {
