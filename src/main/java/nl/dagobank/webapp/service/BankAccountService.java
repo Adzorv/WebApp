@@ -1,14 +1,13 @@
 package nl.dagobank.webapp.service;
 
-import nl.dagobank.webapp.backingbeans.BalanceSumPerBusiness;
-import nl.dagobank.webapp.controller.OpenPrivateBankAccountController;
 import nl.dagobank.webapp.dao.BankAccountDao;
 import nl.dagobank.webapp.dao.BusinessAccountDao;
+import nl.dagobank.webapp.dao.dto.BalanceSumPerBusiness;
 import nl.dagobank.webapp.dao.dto.SbiAverage;
 import nl.dagobank.webapp.domain.BankAccount;
+import nl.dagobank.webapp.domain.BusinessAccount;
 import nl.dagobank.webapp.domain.Customer;
 import nl.dagobank.webapp.domain.PrivateAccount;
-import org.iban4j.Iban;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -17,8 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Service
 public class BankAccountService {
@@ -80,8 +81,16 @@ public class BankAccountService {
        return ( bankAccount.getAccountHolder().equals(customer) || bankAccount.getSecondaryAccountHolders().contains(customer) );
     }
 
-    public List<BalanceSumPerBusiness> getTop10Businesses() {
-        return businessAccountDao.getSumBalance( PageRequest.of( 0, 10 ) );
+    public List<BusinessAccount> getTop10Businesses() {
+//        List<BusinessAccount> allBusinessAccounts = businessAccountDao.findAll();
+        List<BalanceSumPerBusiness> sumPerBusinesses = businessAccountDao.getSumBalance( PageRequest.of( 0, 10 ) );
+        List<BusinessAccount> allAccounts = new ArrayList<>();
+        for ( BalanceSumPerBusiness sumPerBusiness : sumPerBusinesses ) {
+            BusinessAccount ba = businessAccountDao.findByKvkNumber( sumPerBusiness.getKvkNumber() );
+            allAccounts.add( ba );
+        }
+//        return allBusinessAccounts.stream().sorted( Comparator.comparing( BankAccount::getBalance ).reversed() ).limit( 10 ).collect( Collectors.toList() );
+        return allAccounts;
     }
 
     public List<SbiAverage> getAverageBalancePerSector() {

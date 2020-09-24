@@ -134,7 +134,7 @@ public class BankAccountServiceTest {
     }
 
     @Test
-    void generateBankAccountNameAndPutInModelTest(){
+    void generateBankAccountNameAndPutInModelTest() {
         Model mockModel = Mockito.mock(Model.class);
         when(mockModel.getAttribute("user")).thenReturn(customer1);
 
@@ -164,4 +164,41 @@ public class BankAccountServiceTest {
         Assert.assertEquals(actual.getAccountHolder(), customer1);
 
         }
+
+/*    @Test
+    void getTop10Businesses() {
+        BusinessAccount b1 = new BusinessAccount();
+        BusinessAccount b2 = new BusinessAccount();
+        BusinessAccount b3 = new BusinessAccount();
+        BusinessAccount b4 = new BusinessAccount();
+        BusinessAccount b5 = new BusinessAccount();
+        BusinessAccount b6 = new BusinessAccount();
+        BusinessAccount b7 = new BusinessAccount();
+        BusinessAccount b8 = new BusinessAccount();
+        BusinessAccount b9 = new BusinessAccount();
+        BusinessAccount b10 = new BusinessAccount();
+        BusinessAccount b11 = new BusinessAccount();
+
+        // Set balance
+        b1.setBalance( new BigDecimal( 10 ) );
+        b2.setBalance( new BigDecimal( 20 ) );
+        b3.setBalance( new BigDecimal( 30 ) );
+        b4.setBalance( new BigDecimal( 40 ) );
+        b5.setBalance( new BigDecimal( 50 ) );
+        b6.setBalance( new BigDecimal( 60 ) );
+        b7.setBalance( new BigDecimal( 70 ) );
+        b8.setBalance( new BigDecimal( 80 ) );
+        b9.setBalance( new BigDecimal( 90 ) );
+        b10.setBalance( new BigDecimal( 100 ) );
+        b11.setBalance( new BigDecimal( 111 ) );
+
+        // Set kvkNumber
+        b1.setKvkNumber( 1 );
+        b2.setKvkNumber( 1 );
+        b3.setKvkNumber( 1 );
+        b4.setKvkNumber( 2 );
+        b4.setKvkNumber( 2 );
+        b4.setKvkNumber( 2 );
+        b5.setKvkNumber( 2 );
+    }*/
 }

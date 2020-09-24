@@ -65,6 +65,5 @@ public class Address {
     @Override
     public String toString() {
         return String.format(streetName + " " + houseNumber + " " + houseNumberAnnex +  " " + postCode + " " + city);
-
     }
 }

@@ -20,6 +20,7 @@
                     <tr th:each="instance, iter : ${top10balance}">
                         <td th:text="${iter.index + 1}"></td>
                         <td th:text="${instance.businessName}"></td>
+                        <td>KVK<span th:text="${instance.kvkNumber}"></span></td>
                         <td>€<span th:text="${instance.balance}"></span></td>
                     </tr>
                 </table>

@@ -25,9 +25,11 @@ public class IbanGenerator {
 
     public Iban createIban() {
       //  while (!privateAccountDao.existsByIban(iban)) {
-        while (!bankAccountDao.existsByIban(iban)) {
+        Iban iban = Iban.random(CountryCode.NL);
+
+        while (!bankAccountDao.existsByIban(iban.toFormattedString())) {
             try {
-                Iban iban = Iban.random(CountryCode.NL);
+
                 iban = Iban.random();
                 iban = new Iban.Builder()
                         .countryCode(CountryCode.NL)

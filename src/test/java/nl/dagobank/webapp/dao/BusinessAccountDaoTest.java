@@ -1,7 +1,8 @@
 package nl.dagobank.webapp.dao;
 
-import nl.dagobank.webapp.backingbeans.BalanceSumPerBusiness;
+import nl.dagobank.webapp.dao.dto.BalanceSumPerBusiness;
 import nl.dagobank.webapp.dao.dto.SbiAverage;
+import nl.dagobank.webapp.domain.BankAccount;
 import nl.dagobank.webapp.domain.BusinessAccount;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -47,10 +48,14 @@ class BusinessAccountDaoTest {
         businessAccount1.setBusinessName( "Company1" );
         businessAccount2.setBusinessName( "Company1" );
         businessAccount3.setBusinessName( "Company1" );
+        businessAccount1.setKvkNumber( 11122233 );
+        businessAccount2.setKvkNumber( 11122233 );
+        businessAccount3.setKvkNumber( 11122233 );
 
         //Sector B => Company2
         businessAccount4.setBusinessName( "Company2" );
         businessAccount4.setSbiCode( "B" );
+        businessAccount4.setKvkNumber( 22233344 );
 
         //Set Balance
         amounts1 = new ArrayList<>( Arrays.asList( 100, 200, 300 ) );
@@ -85,6 +90,7 @@ class BusinessAccountDaoTest {
         assertThat( sumCompany1.equals( sums.get( 0 ).getBalance() ) );
         assertThat( sumCompany2.equals( sums.get( 1 ).getBalance() ) );
     }
+
 
     @Test
     void getAverageBalanceBySbiCode() {
