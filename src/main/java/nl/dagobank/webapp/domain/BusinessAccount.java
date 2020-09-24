@@ -18,11 +18,19 @@ public class BusinessAccount extends BankAccount {
     }
 
     public BusinessAccount(OpenBusinessAccountForm openBusinessAccountForm) {
-        super();
-        this.businessName = openBusinessAccountForm.getBusinessName();
-        this.kvkNumber = openBusinessAccountForm.getKvkNumber();
-        this.sbiCode = openBusinessAccountForm.getSbiCode();
+        this(
+                openBusinessAccountForm.getBusinessName(),
+                openBusinessAccountForm.getKvkNumber(),
+                openBusinessAccountForm.getSbiCode()
+        );
 
+    }
+
+    public BusinessAccount( String businessName, int kvkNumber, String sbiCode ) {
+        super();
+        this.businessName = businessName;
+        this.kvkNumber = kvkNumber;
+        this.sbiCode = sbiCode;
     }
 
 
