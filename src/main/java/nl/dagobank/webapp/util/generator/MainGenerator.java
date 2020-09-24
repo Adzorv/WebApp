@@ -6,7 +6,7 @@ public class MainGenerator {
 
     public static void main( String[] args ) {
 //        BsnSetter.createUserScript();
-        BsnGenerator bsnGenerator = new BsnGenerator(  );
+        BsnGenerator bsnGenerator = new BsnGenerator( 111222333 );
         System.out.println(bsnGenerator.next());
         System.out.println(bsnGenerator.next());
 
