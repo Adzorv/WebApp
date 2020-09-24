@@ -53,8 +53,8 @@ public class TransferControllerTest {
         session.setAttribute("user", mockCustomer);
     }
 
-    /*@Test
-    public void performTransferTest() {
+    @Test
+    public void executeTransferTest() {
         PrivateAccount privateAccount = Mockito.mock(PrivateAccount.class);
         Mockito.when(bankAccountService.createAndSavePrivateAccount(any(), any())).thenReturn(privateAccount);
         try {
@@ -68,5 +68,5 @@ public class TransferControllerTest {
             e.printStackTrace();
             fail();
         }
-    }*/
+    }
 }

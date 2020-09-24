@@ -5,6 +5,7 @@ import nl.dagobank.webapp.domain.BankAccount;
 import nl.dagobank.webapp.service.BankAccountService;
 import nl.dagobank.webapp.service.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,19 @@ public class TransferController {
     @Autowired
     TransferService transferService;
 
+
+    @GetMapping("/checkIban")
+    public ResponseEntity getBankAccount(@RequestParam("iban") String iban,
+                                         @RequestParam("fullname") String fullName) {
+        BankAccount bankAccount = bankAccountService.findBankAccountByIban(iban);
+        if (bankAccount == null) {
+            return ResponseEntity.badRequest().body("Wrong/Not existing IBAN!");
+        }
+        if(!bankAccount.getAccountName().equals(fullName)){
+            return ResponseEntity.badRequest().body("IBAN doesn't match receiver full name!");
+        }
+        return ResponseEntity.ok(bankAccount);
+    }
 
     @GetMapping("/transfer{id}")
     public ModelAndView transactionHandler(@RequestParam("id") int id, Model model) {

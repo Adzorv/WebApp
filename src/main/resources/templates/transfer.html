@@ -47,5 +47,44 @@
     </div>
 </div>
 </main>
+<script>
+
+    //
+    // $('#submit-btn-check').submit(function(e) {
+    //     var err = 0;
+    //     if($("#errorMessage").contents().length != 0){
+    //         console.log($("#errorMessage").html());
+    //             err = 1;
+    //         }
+    //     if (err != 0) {
+    //         console.log('errors');
+    //         return false;
+    //     }
+    //     console.log('submitted');
+    // });
+    $("#rec-iban").on('focusout', function() {
+        checkIban();
+    });
+
+    function checkIban() {
+        var iban = $("#rec-iban").val();
+        var userFullName = $("#user-full-name").val();
+        console.log(iban);
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/checkIban",
+            data: { iban: iban, fullname: userFullName },
+            success: function (data) {
+                $("#errorMessage").html("");
+                console.log("THIS IS THE CONTROLLER RESPONSE: ");
+                console.log(data);
+            },
+            error: function (data) {
+                console.log(data.responseText)
+                $("#errorMessage").html(data.responseText);
+            },
+        });
+    }
+</script>
 </body>
 </html>
