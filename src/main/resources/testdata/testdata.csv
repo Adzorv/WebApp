@@ -1,0 +1,13 @@
+﻿PostcodeID;PostCodePK;PostCode;PostcodeNummers;PostcodeLetters;Straat;MinNummer;MaxNummer;Plaats;Gemeente;Provincie
+1;6651EH_22;6651EH;6651;EH;Genechtstraat;22;32;Druten;Druten;Gelderland
+2;1189WK_2;1189WK;1189;WK;De Wijde Blik;2;30;Amstelveen;Amstelveen;Noord-Holland
+3;1065VL_3;1065VL;1065;VL;Jacob Geelstraat;3;11;Amsterdam;Amsterdam;Noord-Holland
+4;8471RK_24;8471RK;8471;RK;Beatrixstraat;24;36;Wolvega;Weststellingwerf;Friesland
+5;7231JH_78;7231JH;7231;JH;Breegraven;78;102;Warnsveld;Zutphen;Gelderland
+6;6828AA_1;6828AA;6828;AA;Apeldoornsestraat;1;1;Arnhem;Arnhem;Gelderland
+7;1951HL_4;1951HL;1951;HL;Witte Hekweg;4;88;Velsen-Noord;Velsen;Noord-Holland
+8;1561AT_107;1561AT;1561;AT;Noorderhoofdstraat;107;189;Krommenie;Zaanstad;Noord-Holland
+9;9202LB_1;9202LB;9202;LB;Donia;1;32;Drachten;Smallingerland;Friesland
+10;4701LV_2;4701LV;4701;LV;Burgemeester Schoonheijtstraat;2;44;Roosendaal;Roosendaal;Noord-Brabant
+11;1741JV_2;1741JV;1741;JV;George Breitnerstraat;2;1006;Schagen;Schagen;Noord-Holland
+12;1433BL_1;1433BL;1433;BL;Voltastraat;1;11;Kudelstaart;Aalsmeer;Noord-Holland
