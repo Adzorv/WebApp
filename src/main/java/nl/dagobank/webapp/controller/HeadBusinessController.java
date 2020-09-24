@@ -50,12 +50,6 @@ public class HeadBusinessController {
     private void addOverviewsToModel() {
         modelAndView.addObject( "top10balance", bankAccountService.getTop10Businesses() );
         modelAndView.addObject( "averagePerSector", bankAccountService.getAverageBalancePerSector() );
-        List<SumTransactionsPerBusiness> result = transactionService.getTop10SumTransactions();
-        System.out.println(result.size());
-        for ( SumTransactionsPerBusiness sumTransactionsPerBusiness : result ) {
-            System.out.println(sumTransactionsPerBusiness.getSumTransactions());
-            System.out.println(sumTransactionsPerBusiness.getBusinessName());
-        }
         modelAndView.addObject( "top10transactions", transactionService.getTop10SumTransactions() );
     }
 

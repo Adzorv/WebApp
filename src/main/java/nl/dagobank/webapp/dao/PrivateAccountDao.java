@@ -1,6 +1,7 @@
 package nl.dagobank.webapp.dao;
 
 import nl.dagobank.webapp.dao.dto.SumBalancePrivateAccounts;
+import nl.dagobank.webapp.domain.Customer;
 import nl.dagobank.webapp.domain.PrivateAccount;
 import org.iban4j.Iban;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +17,8 @@ public interface PrivateAccountDao extends CrudRepository<PrivateAccount, Intege
 
     @Query( "SELECT pa.accountHolder AS accountHolder, SUM(pa.balance) AS sumBalance FROM PrivateAccount AS pa GROUP BY accountHolder")
     List<SumBalancePrivateAccounts> getSumBalancePerPrivateAccount( Pageable pageable);
+
+    List<PrivateAccount> findAllByAccountHolder( Customer customer );
 }
 
 
