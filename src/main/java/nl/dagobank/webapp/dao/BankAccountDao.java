@@ -10,11 +10,10 @@ import java.util.List;
 
 @Repository
 public interface BankAccountDao extends CrudRepository<BankAccount, Integer> {
-    boolean existsByIban(Iban iban);
+    boolean existsByIban(String iban);
     List<BankAccount> findAllByAccountHolder(User accountHolder);
     List<BankAccount> findAllByAccountHolderOrSecondaryAccountHoldersContains(Customer customer, Customer customer2);
     BankAccount findByIban(String iban);
-
 }
 //fixme: duplicate code
 

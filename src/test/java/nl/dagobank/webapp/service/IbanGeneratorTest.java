@@ -1,5 +1,5 @@
 //TODO nullpointer op actual
-/*
+
 package nl.dagobank.webapp.service;
 
 import org.iban4j.Iban;
@@ -22,4 +22,5 @@ class IbanGeneratorTest {
                 System.out.println(actual.toString());
             }
     }
-}*/
+}
+

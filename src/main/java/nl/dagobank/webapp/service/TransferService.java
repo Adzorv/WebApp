@@ -44,6 +44,14 @@ public class TransferService {
         }
     }
 
+    /*public boolean checkIfIbanExists(BankAccount receiver) {
+        if (bankAccountDao.existsByIban(receiver.getIban())) {
+            return true;
+        }else{
+            return false;
+        }
+    }*/
+
     public void putFundsInReceivingAccount(BankAccount bankAccount, BigDecimal amount) {
         BigDecimal updatedBalance = bankAccount.getBalance();
         updatedBalance = updatedBalance.add(amount);
