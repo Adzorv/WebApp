@@ -136,7 +136,7 @@ public class BankAccountServiceTest {
     }
 
     @Test
-    void generateBankAccountNameAndPutInModelTest(){
+    void generateBankAccountNameAndPutInModelTest() {
         Model mockModel = Mockito.mock(Model.class);
         when(mockModel.getAttribute("user")).thenReturn(customer1);
 
