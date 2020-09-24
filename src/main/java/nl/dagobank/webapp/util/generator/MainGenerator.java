@@ -6,9 +6,10 @@ public class MainGenerator {
 
     public static void main( String[] args ) {
 //        BsnSetter.createUserScript();
-        Iterator<Integer> bsnGenerator = BsnWriter.getBsn( 564234215 , 100000000).iterator();
+        BsnGenerator bsnGenerator = new BsnGenerator(  );
         System.out.println(bsnGenerator.next());
         System.out.println(bsnGenerator.next());
+
     }
 
 }

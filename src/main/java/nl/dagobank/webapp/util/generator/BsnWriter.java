@@ -48,30 +48,26 @@ public class BsnWriter {
         return BsnUtil.isCorrect( inputBSN );
     }
 
-    public static Iterable<Integer> getBsn( Integer start, Integer roof ) {
+    public static Iterable<Integer> getBsn( Integer start ) {
 
 
         return () -> new Iterator<Integer>() {
 
-            private Integer baseNumber = start;
-            private Integer roofNumber = baseNumber + roof;
-
-            private Integer currentBsn = 0;
+            private int currentBsn = start;
 
             @Override
             public boolean hasNext() {
-                return currentBsn < roofNumber;
+                return true;
             }
 
             @Override
             public Integer next() {
-                while ( !BsnUtil.isCorrect( start ) ) {
-                    currentBsn = start + 1;
+                System.out.println( currentBsn );
+                while ( !BsnUtil.isCorrect( currentBsn ) ) {
+                    currentBsn++;
                 }
                 return currentBsn;
             }
         };
     }
-
-
 }
