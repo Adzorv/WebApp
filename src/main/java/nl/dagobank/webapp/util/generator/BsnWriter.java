@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Iterator;
+import java.util.Spliterator;
+import java.util.function.Consumer;
 
 public class BsnWriter {
 
@@ -43,6 +46,31 @@ public class BsnWriter {
 
     private static boolean isCorrectBsn( int inputBSN ) {
         return BsnUtil.isCorrect( inputBSN );
+    }
+
+    public static Iterable<Integer> getBsn( Integer start, Integer roof ) {
+
+
+        return () -> new Iterator<Integer>() {
+
+            private Integer baseNumber = start;
+            private Integer roofNumber = baseNumber + roof;
+
+            private Integer currentBsn = 0;
+
+            @Override
+            public boolean hasNext() {
+                return currentBsn < roofNumber;
+            }
+
+            @Override
+            public Integer next() {
+                while ( !BsnUtil.isCorrect( start ) ) {
+                    currentBsn = start + 1;
+                }
+                return currentBsn;
+            }
+        };
     }
 
 
