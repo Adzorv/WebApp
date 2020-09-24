@@ -29,10 +29,11 @@ public class AddAccountHolderController {
     }
 
     @GetMapping("/addAccountHolder")
-    String addAccountHolderHandler(@RequestParam("id") int id, Model model) {
-        model.addAttribute("error", "");
-        model.addAttribute("selectedBankAccount", bankAccountService.getBankAccountById(id));
-        return "addAccountHolder";
+    ModelAndView addAccountHolderHandler(@RequestParam("id") int id, Model model) {
+        ModelAndView modelAndView = new ModelAndView("addAccountHolder");
+        modelAndView.addObject("error", "");
+        modelAndView.addObject("selectedBankAccount", bankAccountService.getBankAccountById(id));
+        return modelAndView;
     }
 
     @PostMapping("addAccountHolder")
@@ -51,7 +52,6 @@ public class AddAccountHolderController {
             bankAccountHolderTokenService.saveBankAccountHolderToken(bankAccountHolderToken);
             modelAndView.setViewName("bankAccountHolderTokenSuccess");
             modelAndView.addObject("bankAccountHolderToken", bankAccountHolderToken);
-
         } else {
             modelAndView.setViewName("addAccountHolder");
             modelAndView.addObject("error", "Extra Rekeninghouder moet een bestaande klant login naam zijn, en mag niet je eigen naam zijn!");

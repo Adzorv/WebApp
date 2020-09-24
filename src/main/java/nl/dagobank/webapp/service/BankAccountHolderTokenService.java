@@ -3,6 +3,7 @@ package nl.dagobank.webapp.service;
 import nl.dagobank.webapp.dao.BankAccountHolderTokenDao;
 import nl.dagobank.webapp.domain.BankAccountHolderToken;
 import nl.dagobank.webapp.domain.Customer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public class BankAccountHolderTokenService {
 
     private final BankAccountHolderTokenDao bankAccountHolderTokenDao;
 
+    @Autowired
     public BankAccountHolderTokenService(BankAccountHolderTokenDao bankAccountHolderTokenDao) {
         super();
         this.bankAccountHolderTokenDao = bankAccountHolderTokenDao;

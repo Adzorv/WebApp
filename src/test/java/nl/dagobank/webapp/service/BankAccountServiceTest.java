@@ -3,7 +3,6 @@ package nl.dagobank.webapp.service;
 import nl.dagobank.webapp.dao.BankAccountDao;
 import nl.dagobank.webapp.dao.BusinessAccountDao;
 import nl.dagobank.webapp.domain.*;
-import org.iban4j.CountryCode;
 import org.iban4j.Iban;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 public class BankAccountServiceTest {
@@ -147,9 +145,7 @@ public class BankAccountServiceTest {
 
         ModelAndView modelAndView = new ModelAndView("testmodelandView");
 
-        bankAccountService.generateBankAccountNameAndPutInModel(mockModel, modelAndView);
-
-        String found = modelAndView.getModel().get("bankAccountName").toString();
+        String found = bankAccountService.generateBankAccountNameFromUserNameAndNumberOfAccounts(customer1);
         String expected = customer1.getFullName() + "'s rekening 2";
         Assert.assertEquals(found,expected);
     }
@@ -161,7 +157,7 @@ public class BankAccountServiceTest {
         Model mockModel = Mockito.mock(Model.class);
         when(mockModel.getAttribute("user")).thenReturn(customer1);
         when(mockIbanGenerator.createIban()).thenReturn(iban);
-        PrivateAccount actual = bankAccountService.createAndSavePrivateAccount("testBankAccountName", mockModel);
+        PrivateAccount actual = bankAccountService.createAndSavePrivateAccount("testBankAccountName", customer1);
 
         Assert.assertNotNull(actual);
         Assert.assertEquals(actual.getAccountName(), "testBankAccountName");
