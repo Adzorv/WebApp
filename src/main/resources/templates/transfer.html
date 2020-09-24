@@ -15,7 +15,7 @@
             <div class="card-body">
                 <h4 class="txtext">Rekening naam: <span th:text="${selectedBankAccount.accountName}"/></h4>
                 <h4 class="txtext">Rekening nummer: <span th:text="${selectedBankAccount.iban}"/></h4>
-                <h4 class="txtext">Saldo: <span th:text="${selectedBankAccount.balance}"/></h4>
+                <h4 class="txtext">Saldo: <span id="send-balance" th:text="${selectedBankAccount.balance}"/></h4>
             </div>
         </div>
     </div>
@@ -26,7 +26,7 @@
             <form th:action="@{/executeTransfer(id=${selectedBankAccount.id})}" method="post" th:object="${TransferForm}">
                 <table>
                     <tr>
-                        <td>Bedrag*:</td><td><input type="number" step="any" name="input_amount" th:field="*{amount}" placeholder="amount" required></td>
+                        <td>Bedrag*:</td><td><input id="rec-amount" type="number" step="any" name="input_amount" th:field="*{amount}" placeholder="amount" required></td>
                     </tr>
                     <tr>
                         <td>Naam*:</td><td><input id="user-full-name" type="text" name="input_name" th:field="*{UserFullName}" placeholder="volle naam" pattern="[A-Za-z ]{1,}" required></td>
@@ -50,19 +50,18 @@
 </main>
 <script>
 
+    $("#rec-amount").on('focusout', function() {
+        var amount = $("#rec-amount").val();
+        var userBalance =$("#send-balance").val();
+        if($('#send-balance').contents().length != 0){
+            var sending = parseFloat(amount);
+            var funds = parseFloat(userBalance);
 
-    // $('#submit-btn-check').submit(function(e) {
-    //     var err = 0;
-    //     if($("#errorMessage").contents().length != 0){
-    //         console.log($("#errorMessage").html());
-    //             err = 1;
-    //         }
-    //     if (err != 0) {
-    //         console.log('errors');
-    //         return false;
-    //     }
-    //     console.log('submitted');
-    // });
+            if(sending > funds ) {
+                $("#errorMessage").html("NOT ENOUGH BALANCE");
+            }
+        }
+    });
 
     $("#rec-iban").on('focusout', function() {
         console.log("focus out werkt");

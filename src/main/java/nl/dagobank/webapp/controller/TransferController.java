@@ -32,8 +32,7 @@ public class TransferController {
 
     @GetMapping("checkIban")
     @ResponseBody
-    public AjaxIbanCheckResponse getBankAccount( String iban, String fullname ) {
-
+    public AjaxIbanCheckResponse getBankAccount( String iban, String fullname) {
         BankAccount bankAccount = bankAccountService.findBankAccountByIban(iban);
         AjaxIbanCheckResponse response = new AjaxIbanCheckResponse();
         response.setIbanCorrect( false );
@@ -45,7 +44,6 @@ public class TransferController {
         fullName.append( bankAccount.getAccountHolder().getFullName().getFirstName() )
                 .append( " " )
                 .append( bankAccount.getAccountHolder().getFullName().getLastName() );
-
         if(!fullName.toString().equals(fullname)){
             response.setMsg( "IBAN doesn't match receiver full name!" );
             return response;
