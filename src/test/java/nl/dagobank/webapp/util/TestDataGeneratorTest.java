@@ -1,6 +1,8 @@
 package nl.dagobank.webapp.util;
 
 import nl.dagobank.webapp.domain.Address;
+import nl.dagobank.webapp.service.CustomerService;
+import nl.dagobank.webapp.service.TestDataUserService;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -49,6 +51,5 @@ public class TestDataGeneratorTest {
         System.out.println(adresses.size());
         System.out.println(adresses);
     }
-
 
 }

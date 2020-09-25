@@ -7,6 +7,7 @@ import nl.dagobank.webapp.dao.PrivateAccountDao;
 import nl.dagobank.webapp.domain.BusinessAccount;
 import nl.dagobank.webapp.domain.Customer;
 import nl.dagobank.webapp.domain.PrivateAccount;
+import nl.dagobank.webapp.service.TestDataUserService;
 import nl.dagobank.webapp.util.generator.BusinessGenerator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,19 +30,26 @@ public class SeedDatabaseController {
     private CustomerDao customerDao;
     private PrivateAccountDao privateAccountDao;
     private BusinessAccountDao businessAccountDao;
+    private TestDataUserService testDataUserService;
 
 
     @Autowired
-    public SeedDatabaseController( CustomerDao customerDao, PrivateAccountDao privateAccountDao, BusinessAccountDao businessAccountDao ) {
+    public SeedDatabaseController( CustomerDao customerDao, PrivateAccountDao privateAccountDao, BusinessAccountDao businessAccountDao, TestDataUserService testDataUserService ) {
         this.customerDao = customerDao;
         this.privateAccountDao = privateAccountDao;
         this.businessAccountDao = businessAccountDao;
+        this.testDataUserService = testDataUserService;
+
     }
 
     @GetMapping( "vuldatabase" )
     public ModelAndView fillDatabase( Model model ) {
         LOG.info( "vuldatabse controller reached" );
+        testDataUserService.createAndSaveUsers(400);
+        LOG.info( "finished creating users");
+        LOG.info( "add Private Bank Accounts");
         giveUsersPrivateBankAccounts();
+        LOG.info( "add Business Bank Accounts");
         giveUsersBusinessBankAccounts();
         return new ModelAndView( "homepage" );
     }

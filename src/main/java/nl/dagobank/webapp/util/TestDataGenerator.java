@@ -79,13 +79,10 @@ public class TestDataGenerator {
             while(reader.hasNextLine() && (count < numberOfLines + 1)){
                 if (count == 0){
                     String line = reader.nextLine();
-                    System.out.println(line);
                 } else {
                     String line = reader.nextLine();
-                    System.out.println(line);
                     String[] fields = line.split(";");
                     for (int i = 0; i < fields.length; i++) {
-                        //System.out.println(fields[i]);
                     }
                     Address address = new Address(fields[5], Integer.parseInt(fields[6]), "", fields[2], fields[8]);
                     output.add(address);
@@ -100,7 +97,7 @@ public class TestDataGenerator {
 
 
     public String generateRandomEmailFromMailPrefix(String mailprefix){
-        int randomIndex = (int)(Math.random() * MAILADRESS_DOMAINS.length());
+        int randomIndex = (int)(Math.random() * MAILADRESS_DOMAINS.length);
         return mailprefix + "@" + MAILADRESS_DOMAINS[randomIndex];
     }
 

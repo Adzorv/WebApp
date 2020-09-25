@@ -1,5 +1,6 @@
 package nl.dagobank.webapp.service;
 
+import nl.dagobank.webapp.dao.CustomerDao;
 import nl.dagobank.webapp.domain.*;
 import nl.dagobank.webapp.util.TestDataGenerator;
 import nl.dagobank.webapp.util.generator.BsnGenerator;
@@ -7,18 +8,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Service
 public class TestDataUserService {
 
     CustomerService customerService;
+    CustomerDao customerDao;
 
     @Autowired
-    public TestDataUserService(CustomerService customerService) {
+    public TestDataUserService(CustomerService customerService, CustomerDao customerDao) {
         this.customerService = customerService;
+        this.customerDao = customerDao;
     }
 
-    void createAndSaveUsersWithNameAdressAndBSN(int numberOfUsers) {
+    public void createAndSaveUsers(int numberOfUsers) {
         TestDataGenerator generator = new TestDataGenerator();
         final int LENGTH_OF_PASSWORD = 3;
         List<String> firstNames = generator.readFirstnamesFromFile(numberOfUsers);
@@ -26,11 +31,13 @@ public class TestDataUserService {
         List<String> surnames = generator.readLastNameFromFile(numberOfUsers);
         List<Address> adresses = generator.readAdressesFromFile(numberOfUsers);
         BsnGenerator bsnGenerator = new BsnGenerator(111222333);
-        UsernameGenerator usernameGenerator = new UsernameGenerator();
+        UsernameGenerator usernameGenerator = new UsernameGenerator(customerDao);
         PasswordGenerator passwordGenerator = new PasswordGenerator();
-
+        Logger LOG = LogManager.getFormatterLogger(TestDataUserService.class);
 
         for (int i = 0; i < numberOfUsers; i++) {
+            if( i % 100 == 0){ LOG.info( i + " Customers saved to database..." ); }
+
             PersonalDetails personalDetails = new PersonalDetails(generator.getRandomBirthDate(18, 100), bsnGenerator.next());
 
             String firstName = firstNames.get(getRandomIndex(firstNames.size()));

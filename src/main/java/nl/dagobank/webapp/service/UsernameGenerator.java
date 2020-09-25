@@ -9,8 +9,14 @@ import org.springframework.stereotype.Service;
 public class UsernameGenerator {
     private String userName;
 
-    @Autowired
+
     public CustomerDao customerDao;
+
+    @Autowired
+    public UsernameGenerator(CustomerDao customerDao) {
+        this.customerDao = customerDao;
+    }
+
 
     public UsernameGenerator() {
     }
