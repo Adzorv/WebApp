@@ -52,7 +52,7 @@ public class SeedDatabaseController {
         LOG.info( "vuldatabse controller reached" );
         testDataUserService.createStandardTestUsers();
         LOG.info("created standard users");
-        testDataUserService.createAndSaveUsers(400);
+        testDataUserService.createAndSaveUsers(100);
         LOG.info( "finished creating users");
         LOG.info( "add Private Bank Accounts");
         giveUsersPrivateBankAccounts();
