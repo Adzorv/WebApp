@@ -4,10 +4,13 @@ import nl.dagobank.webapp.backingbeans.Business;
 import nl.dagobank.webapp.dao.BusinessAccountDao;
 import nl.dagobank.webapp.dao.CustomerDao;
 import nl.dagobank.webapp.dao.PrivateAccountDao;
+import nl.dagobank.webapp.domain.BankAccount;
 import nl.dagobank.webapp.domain.BusinessAccount;
 import nl.dagobank.webapp.domain.Customer;
 import nl.dagobank.webapp.domain.PrivateAccount;
 import nl.dagobank.webapp.service.TestDataUserService;
+import nl.dagobank.webapp.service.TransactionService;
+import nl.dagobank.webapp.service.TransferService;
 import nl.dagobank.webapp.util.generator.BusinessGenerator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,14 +34,16 @@ public class SeedDatabaseController {
     private PrivateAccountDao privateAccountDao;
     private BusinessAccountDao businessAccountDao;
     private TestDataUserService testDataUserService;
+    private TransferService transactionService;
 
 
     @Autowired
-    public SeedDatabaseController( CustomerDao customerDao, PrivateAccountDao privateAccountDao, BusinessAccountDao businessAccountDao, TestDataUserService testDataUserService ) {
+    public SeedDatabaseController( CustomerDao customerDao, PrivateAccountDao privateAccountDao, BusinessAccountDao businessAccountDao, TestDataUserService testDataUserService, TransferService transactionService ) {
         this.customerDao = customerDao;
         this.privateAccountDao = privateAccountDao;
         this.businessAccountDao = businessAccountDao;
         this.testDataUserService = testDataUserService;
+        this.transactionService = transactionService;
 
     }
 
@@ -51,6 +56,8 @@ public class SeedDatabaseController {
         giveUsersPrivateBankAccounts();
         LOG.info( "add Business Bank Accounts");
         giveUsersBusinessBankAccounts();
+        LOG.info( "generating transactions");
+        generateTransactions();
         return new ModelAndView( "homepage" );
     }
 
@@ -132,4 +139,18 @@ public class SeedDatabaseController {
         return account;
     }
 
+    private void generateTransactions() {
+        List<BusinessAccount> allAccounts = businessAccountDao.findAll();
+        int ceiling = allAccounts.size();
+        for ( BusinessAccount account : allAccounts ) {
+            int randomAmountOfTransactions = ThreadLocalRandom.current().nextInt( 1, 10 );
+            for ( int i = 0 ; i < randomAmountOfTransactions ; i++ ) {
+                int randomId = ThreadLocalRandom.current().nextInt( 0, ceiling );
+                BigDecimal randomAmmount = new BigDecimal( ThreadLocalRandom.current().nextInt( 10, 10000 ) );
+                if ( allAccounts.get(randomId).getId() != account.getId() ) {
+                    transactionService.performTransaction( account, allAccounts.get( randomId ), randomAmmount, "transactie" );
+                }
+            }
+        }
+    }
 }
