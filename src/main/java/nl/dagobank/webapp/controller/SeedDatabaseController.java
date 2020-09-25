@@ -50,7 +50,7 @@ public class SeedDatabaseController {
     @GetMapping( "vuldatabase" )
     public ModelAndView fillDatabase( Model model ) {
         LOG.info( "vuldatabse controller reached" );
-        testDataUserService.createAndSaveUsers();
+        testDataUserService.createStandardTestUsers();
         LOG.info("created standard users");
         testDataUserService.createAndSaveUsers(400);
         LOG.info( "finished creating users");
