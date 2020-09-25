@@ -1,12 +1,14 @@
 package nl.dagobank.webapp.service;
 
 import nl.dagobank.webapp.dao.CustomerDao;
+import nl.dagobank.webapp.dao.EmployeeDao;
 import nl.dagobank.webapp.domain.*;
 import nl.dagobank.webapp.util.TestDataGenerator;
 import nl.dagobank.webapp.util.generator.BsnGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,11 +18,29 @@ public class TestDataUserService {
 
     CustomerService customerService;
     CustomerDao customerDao;
+    EmployeeDao employeeDao;
 
     @Autowired
-    public TestDataUserService(CustomerService customerService, CustomerDao customerDao) {
+    public TestDataUserService(CustomerService customerService, CustomerDao customerDao, EmployeeDao employeeDao) {
         this.customerService = customerService;
         this.customerDao = customerDao;
+        this.employeeDao = employeeDao;
+    }
+
+    public void createStandardTestUsers(){
+        Employee hoofdMkb = new Employee();
+        hoofdMkb.setRole("HoofdMKB");
+        hoofdMkb.setInlogCredentials(new InlogCredentials("HoofdMKB","hmkb"));
+        hoofdMkb.setPersonalDetails(new PersonalDetails(LocalDate.now(), 111222333));
+        hoofdMkb.setAddress(new Address("mkbstraat", 25, "A", "8271 AG", "Houten"));
+        employeeDao.save(hoofdMkb);
+
+        Customer testCustomer = new Customer();
+        testCustomer.setInlogCredentials(new InlogCredentials("test", "test"));
+        testCustomer.setPersonalDetails(new PersonalDetails(LocalDate.now().minusYears(50), 111222334));
+        testCustomer.setAddress(new Address("teststraat", 11, "B", "8888 UU","Testplaats"));
+        customerDao.save(testCustomer);
+
     }
 
     public void createAndSaveUsers(int numberOfUsers) {

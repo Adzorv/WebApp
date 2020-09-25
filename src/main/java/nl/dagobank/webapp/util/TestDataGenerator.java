@@ -12,6 +12,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +21,10 @@ import java.util.Scanner;
 
 public class TestDataGenerator {
 
-    static final String FIRST_NAME_PATH = "src/main/resources/testdata/firstname.xml";
-    static final String LAST_NAME_PATH = "src/main/resources/testdata/surname.xml";
-    static final String ADRESSES_PATH = "src/main/resources/testdata/10000Adresses.csv";
+    static final String FIRST_NAME_PATH = "src/main/resources/static/firstname.xml";
+    static final String LAST_NAME_PATH = "src/main/resources/static/surname.xml";
+    static final String ADRESSES_PATH = "src/main/resources/static/10000Adresses.csv";
+
     static final String[] MAILADRESS_DOMAINS = {"gmail.nl", "zigo.nl", "bluewin.nl", "online.nl"};
     static final int TELEFOON_NUMBER_SEED = 0600000000;
 
@@ -39,6 +42,7 @@ public class TestDataGenerator {
     public List<String> readPrefixFromFile(int numberOfNames) {
         return readListFromXMLforTag(LAST_NAME_PATH, numberOfNames, "prefix");
     }
+
 
     private List<String> readListFromXMLforTag(String filePath, int numberOfNames, String tag){
         List<String> names = new ArrayList<>();
