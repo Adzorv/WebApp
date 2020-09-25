@@ -52,19 +52,6 @@ input[type=text], input[type=number], input[type=date], textarea, select{
     color: black;
 }
 
-
-
-
-
-
-.wave {
-    position: absolute;
-    width: 100%;
-    bottom: -140px;
-    color: #fff;
-    opacity: 1;
-}
-
 header {
     position: fixed;
     top: 0;
@@ -134,13 +121,19 @@ header ul li a {
 }
 
 .our-partners {
-    padding: 0 80px;
+    padding: 0 50px;
     position: relative;
+    background-color: #fff;
+    z-index: -1;
 }
 
 .our-partners h3 {
     font-size: 28px;
     margin-bottom: 15px;
+    margin-top: 15px;
+    padding-top: 20px;
+    color: black;
+
 }
 
 .our-partners hr {
