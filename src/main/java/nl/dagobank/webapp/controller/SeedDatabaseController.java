@@ -66,7 +66,10 @@ public class SeedDatabaseController {
             Customer customer = allCustomers.next();
             List<PrivateAccount> allPrivateAccounts = privateAccountDao.findAllByAccountHolder( customer );
             if ( allPrivateAccounts.size() == 0 ) {
-                int bsn = customer.getPersonalDetails().getBsn();
+                privateAccountDao.save(generateRandomPrivateAccount( customer, ibanIterator ));
+                LOG.info( "PrivateAccount created for Customer " + customer.getId() );
+
+/*                int bsn = customer.getPersonalDetails().getBsn();
                 int lastNumberOfBsn = bsn % 10;
                 if ( lastNumberOfBsn == 0 ) {
                     PrivateAccount privateAccount = generateRandomPrivateAccount( customer, ibanIterator );
@@ -78,7 +81,7 @@ public class SeedDatabaseController {
                         privateAccountDao.save( privateAccount );
                     }
                     LOG.info( lastNumberOfBsn + " PrivateAccounts created for Customer " + customer.getId() );
-                }
+                }*/
             }
         }
     }
@@ -107,7 +110,8 @@ public class SeedDatabaseController {
             if ( customer.getId() % 5 == 0 ) {
                 int lastNumberOfBsn = customer.getPersonalDetails().getBsn() % 10;
                 Business mainBusiness = businessGenerator.next();
-                for ( int i = 0 ; i < lastNumberOfBsn ; i++ ) {
+                businessAccountDao.save(generateRandomBusinessAccount( customer, mainBusiness, ibanIterator ));
+                /*for ( int i = 0 ; i < lastNumberOfBsn ; i++ ) {
                     if ( i % 3 == 0 ) {
                         BusinessAccount businessAccount = generateRandomBusinessAccount( customer, businessGenerator.next(), ibanIterator );
                         businessAccountDao.save( businessAccount );
@@ -115,8 +119,8 @@ public class SeedDatabaseController {
                         BusinessAccount businessAccount = generateRandomBusinessAccount( customer, mainBusiness, ibanIterator );
                         businessAccountDao.save( businessAccount );
                     }
-                }
-                LOG.info( lastNumberOfBsn + " BusinessAccounts created for Customer " + customer.getId() );
+                }*/
+                LOG.info( "BusinessAccount created for Customer " + customer.getId() );
             }
         }
     }
