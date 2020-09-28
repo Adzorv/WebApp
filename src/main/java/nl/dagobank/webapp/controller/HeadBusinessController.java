@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -32,10 +33,10 @@ public class HeadBusinessController {
         modelAndView = new ModelAndView();
     }
 
-    @GetMapping( "overzichtmkb" )
-    public ModelAndView overview( Model model ) {
+    @GetMapping( "werknemer/{overview}" )
+    public ModelAndView overview( Model model, @PathVariable String overview ) {
         if ( userIsLoggedInAndEmployee( model ) ) {
-            if ( employeeIsHeadMKB() ) {
+            if ( employeeIsHeadMKB() && overview.equals( "overzichtmkb" ) ) {
                 addOverviewsToModel();
                 modelAndView.setViewName( OVERVIEW );
             } else {
@@ -46,6 +47,24 @@ public class HeadBusinessController {
         }
         return modelAndView;
     }
+
+/*    @GetMapping( "werknemer/{overview}" )
+    public String overviewTest( Model model, @PathVariable() String overview ) {
+        if ( overview.equals( "overzichtmkb" ) ) {
+            addOverviewsToModel();
+        }
+//        if ( userIsLoggedInAndEmployee( model ) ) {
+//            if ( employeeIsHeadMKB() ) {
+//                addOverviewsToModel();
+//                modelAndView.setViewName( OVERVIEW );
+//            } else {
+//                modelAndView.setViewName( NO_ACCESS );
+//            }
+//        } else {
+//            modelAndView.setViewName( NO_ACCESS );
+//        }
+        return OVERVIEW;
+    }*/
 
     private void addOverviewsToModel() {
         modelAndView.addObject( "top10balance", bankAccountService.getTop10Businesses() );
