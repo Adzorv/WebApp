@@ -21,9 +21,9 @@ import java.util.Scanner;
 
 public class TestDataGenerator {
 
-    static final String FIRST_NAME_PATH = "src/main/resources/static/firstname.xml";
-    static final String LAST_NAME_PATH = "src/main/resources/static/surname.xml";
-    static final String ADRESSES_PATH = "src/main/resources/static/10000Adresses.csv";
+    static final String FIRST_NAME_PATH = "/static/firstname.xml";
+    static final String LAST_NAME_PATH = "/static/surname.xml";
+    static final String ADRESSES_PATH = "/static/10000Adresses.csv";
     static final String[] MAILADRESS_DOMAINS = {"gmail.nl", "zigo.nl", "bluewin.nl", "online.nl"};
     static final int TELEFOON_NUMBER_SEED = 0600000000;
 
@@ -48,7 +48,7 @@ public class TestDataGenerator {
         List<String> names = new ArrayList<>();
         try {
             XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
-            XMLEventReader reader = xmlInputFactory.createXMLEventReader(new FileInputStream(filePath));
+            XMLEventReader reader = xmlInputFactory.createXMLEventReader(getClass().getResourceAsStream(filePath));
             int count = 0;
             while (reader.hasNext() && count < numberOfNames) {
                 XMLEvent nextEvent = reader.nextEvent();
@@ -76,10 +76,10 @@ public class TestDataGenerator {
     // PostcodeID;PostCodePK;PostCode;PostcodeNummers;PostcodeLetters;Straat;MinNummer;MaxNummer;Plaats;Gemeente;Provincie
     public List<Address> readAdressesFromFile(int numberOfLines){
         List<Address> output = new ArrayList<>();
-        File input = new File(ADRESSES_PATH);
+        //File input = new File(ADRESSES_PATH);
         int count = 0;
         try {
-            Scanner reader = new Scanner(input);
+            Scanner reader = new Scanner(getClass().getResourceAsStream(ADRESSES_PATH));
             while(reader.hasNextLine() && (count < numberOfLines + 1)){
                 if (count == 0){
                     String line = reader.nextLine();
