@@ -13,4 +13,6 @@ public interface EmployeeDao extends CrudRepository<Employee, Integer> {
 
     Optional<Employee> findByRole( String role );
 
+    Boolean existsByRole(String role);
+
 }
