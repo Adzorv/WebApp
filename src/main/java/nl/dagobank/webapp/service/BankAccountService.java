@@ -2,8 +2,8 @@ package nl.dagobank.webapp.service;
 
 import nl.dagobank.webapp.dao.BankAccountDao;
 import nl.dagobank.webapp.dao.BusinessAccountDao;
-import nl.dagobank.webapp.dao.dto.BalanceSumPerBusiness;
-import nl.dagobank.webapp.dao.dto.SbiAverage;
+import nl.dagobank.webapp.dto.BalanceSumPerBusiness;
+import nl.dagobank.webapp.dto.SbiAverage;
 import nl.dagobank.webapp.domain.BankAccount;
 import nl.dagobank.webapp.domain.BusinessAccount;
 import nl.dagobank.webapp.domain.Customer;
@@ -11,15 +11,11 @@ import nl.dagobank.webapp.domain.PrivateAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
 
 @Service
 public class BankAccountService {

@@ -1,6 +1,6 @@
 package nl.dagobank.webapp.dao;
 
-import nl.dagobank.webapp.dao.dto.SumTransactionsPerBusiness;
+import nl.dagobank.webapp.dto.SumTransactionsPerBusiness;
 import nl.dagobank.webapp.domain.*;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;

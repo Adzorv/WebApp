@@ -1,6 +1,6 @@
 package nl.dagobank.webapp.service;
 
-import nl.dagobank.webapp.dao.dto.SumTransactionsPerBusiness;
+import nl.dagobank.webapp.dto.SumTransactionsPerBusiness;
 import nl.dagobank.webapp.dao.TransactionDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;

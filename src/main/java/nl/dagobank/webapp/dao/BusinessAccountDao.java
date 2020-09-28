@@ -1,7 +1,7 @@
 package nl.dagobank.webapp.dao;
 
-import nl.dagobank.webapp.dao.dto.BalanceSumPerBusiness;
-import nl.dagobank.webapp.dao.dto.SbiAverage;
+import nl.dagobank.webapp.dto.BalanceSumPerBusiness;
+import nl.dagobank.webapp.dto.SbiAverage;
 import nl.dagobank.webapp.domain.BusinessAccount;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;

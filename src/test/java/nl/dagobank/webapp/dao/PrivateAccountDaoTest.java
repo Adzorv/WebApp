@@ -2,7 +2,7 @@
 
 package nl.dagobank.webapp.dao;
 
-import nl.dagobank.webapp.dao.dto.SumBalancePrivateAccounts;
+import nl.dagobank.webapp.dto.SumBalancePrivateAccounts;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

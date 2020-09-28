@@ -1,6 +1,6 @@
 package nl.dagobank.webapp.dao;
 
-import nl.dagobank.webapp.dao.dto.SumBalancePrivateAccounts;
+import nl.dagobank.webapp.dto.SumBalancePrivateAccounts;
 import nl.dagobank.webapp.domain.Customer;
 import nl.dagobank.webapp.domain.PrivateAccount;
 import org.iban4j.Iban;

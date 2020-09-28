@@ -3,7 +3,7 @@
 
 package nl.dagobank.webapp.dao;
 
-import nl.dagobank.webapp.dao.dto.SumTransactionsPerBusiness;
+import nl.dagobank.webapp.dto.SumTransactionsPerBusiness;
 import nl.dagobank.webapp.domain.BankAccount;
 import nl.dagobank.webapp.domain.Transaction;
 import org.junit.jupiter.api.BeforeEach;

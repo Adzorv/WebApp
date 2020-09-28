@@ -1,6 +1,5 @@
 package nl.dagobank.webapp.controller;
 
-import nl.dagobank.webapp.dao.dto.SumTransactionsPerBusiness;
 import nl.dagobank.webapp.domain.Employee;
 import nl.dagobank.webapp.service.BankAccountService;
 import nl.dagobank.webapp.service.TransactionService;
@@ -11,8 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
 
 
 @Controller
