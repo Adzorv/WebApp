@@ -22,17 +22,20 @@ public class LoginController {
 
     private static final String POSTLOGIN_VIEW = "redirect:/overview", LOGIN_VIEW = "login";
     private static final Logger LOG = LogManager.getLogger( LoginController.class );
+    private static final String USERNAME_ERROR = "Gebruikersnaam bestaat niet";
 
     @ModelAttribute( "loginform" )
     public LoginForm getLoginForm() {
         return loginForm;
     }
+    private LoginForm loginForm;
+    private CustomerService customerService;
 
     @Autowired
-    private CustomerDao customerDao;
-    private LoginForm loginForm = new LoginForm();
-    @Autowired
-    private CustomerService customerService;
+    public LoginController( CustomerService customerService ) {
+        this.customerService = customerService;
+        loginForm = new LoginForm();
+    }
 
     @GetMapping( "login" )
     public String login() {
@@ -40,7 +43,6 @@ public class LoginController {
     }
 
     @PostMapping( "login" )
-    @CrossOrigin(origins="*", allowedHeaders = "*")
     public String loginAttempt( Model model, LoginForm loginForm ) {
         LoginValidatorCustomer lv = customerService.validateCredentials( loginForm );
         String view;
@@ -63,7 +65,7 @@ public class LoginController {
         UsernameResponse usernameResponse = new UsernameResponse( username.getUsername() );
         boolean customer = customerService.isRegisteredUserName( name );
         if ( !customer ) {
-            usernameResponse.setError( "Gebruikersnaam bestaat niet" );
+            usernameResponse.setError( USERNAME_ERROR );
         }
         return usernameResponse;
     }
