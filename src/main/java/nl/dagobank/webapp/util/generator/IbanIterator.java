@@ -1,4 +1,4 @@
-package nl.dagobank.webapp.controller;
+package nl.dagobank.webapp.util.generator;
 
 import org.iban4j.CountryCode;
 import org.iban4j.Iban;

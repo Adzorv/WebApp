@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
@@ -24,39 +25,33 @@ public class LoginController {
     private static final Logger LOG = LogManager.getLogger( LoginController.class );
     private static final String USERNAME_ERROR = "Gebruikersnaam bestaat niet";
 
-    @ModelAttribute( "loginform" )
-    public LoginForm getLoginForm() {
-        return loginForm;
-    }
-    private LoginForm loginForm;
     private CustomerService customerService;
 
     @Autowired
     public LoginController( CustomerService customerService ) {
         this.customerService = customerService;
-        loginForm = new LoginForm();
     }
 
     @GetMapping( "login" )
-    public String login() {
-        return "login";
+    public ModelAndView login( Model model ) {
+        model.addAttribute( "loginform", new LoginForm() );
+        return new ModelAndView( "login" );
     }
 
     @PostMapping( "login" )
-    public String loginAttempt( Model model, LoginForm loginForm ) {
-        LoginValidatorCustomer lv = customerService.validateCredentials( loginForm );
-        String view;
+    public ModelAndView loginAttempt( Model model, @ModelAttribute LoginForm loginform ) {
+        LoginValidatorCustomer lv = customerService.validateCredentials( loginform );
+        ModelAndView mav = new ModelAndView();
         if ( lv.isUserValidated() && lv.isPasswordValidated() ) {
             model.addAttribute( "user", lv.getCustomer() );
-            view = POSTLOGIN_VIEW;
+            mav.setViewName( POSTLOGIN_VIEW );
         } else {
-            model.addAttribute( "loginform", loginForm );
-            view = LOGIN_VIEW;
+            model.addAttribute( "loginform", loginform );
+            mav.setViewName( LOGIN_VIEW );
         }
         LOG.info( lv.getLogMessage() );
-        return view;
+        return mav;
     }
-
 
     @PostMapping( "/usernameCheck" )
     public @ResponseBody
