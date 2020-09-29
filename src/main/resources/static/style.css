@@ -265,10 +265,10 @@ footer.sh_footer {
     background-color: #ffc107;
     border-radius: 30px;
     padding: 40px;
-    width: 300px;
-    height: 200px;
-    margin-top: 50px;
+    width: 50%;
+    height: 50%;
     color: black;
+    margin-top: 40px;
 }
 
 .loginbox.employee {
@@ -276,7 +276,17 @@ footer.sh_footer {
 }
 
 .loginboxwrap {
-    margin-left: 100px;
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+
+.boxposition {
+    width: 400px;
+    height: 400px;
+    border: 5px solid green;
+    margin: 40px auto;
+    padding-top: 40px;
 }
 
 .shadow {
@@ -346,7 +356,6 @@ td.error span {
 }
 
 .table {
-    color: #000000;
     font-family: Roboto;
     font-style: normal;
     font-weight: 300;
@@ -357,6 +366,8 @@ td.error span {
     text-align: center;
     letter-spacing: 0.04em;
 }
+
+
 
 h2.txtext, h4.txtext {
     color: #000000;
@@ -420,6 +431,8 @@ div.backgroundsquare {
     margin-bottom: 40px;
     margin-left: auto;
 }
+
+
 
 
 
