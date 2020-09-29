@@ -2,20 +2,28 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:insert="fragments/head" :: head>
     <title>Open Privérekening</title>
-
-
 </head>
 <body>
 <div th:insert="fragments/navigation :: navigation"></div>
-<h1>Open particulier rekening</h1>
-<p> Hoi <span th:text="${user.fullName}"/>. Je kunt de naam van de bankrekening nog aanpassen. Geef hier de gewenste naam in.</p>
 
-<p> Naam van nieuwe bankrekening</p>
+<div class="backgroundsquare">
+    <div class="row">
+        <div class="column">
+            <div class="container">
+                <h1>Openen particuliere rekening</h1>
+                <p> Hoi <span th:text="${user.fullName}"/> .Vul hieronder de gewenste rekeningnaam in: </p>
+                <form method="post" th:action="@{openAndSaveBankAccount}">
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Vul naam rekening in: </label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="vul naam rekening in..." name="bankAccountName" th:value="${bankAccountName}">
+                    <input type="submit" name="aanmakenRekening" value="Maak rekening aan"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
-<form method="post" th:action="@{openAndSaveBankAccount}">
-    <p><input type="text" name="bankAccountName" th:value="${bankAccountName}"></p>
-    <input type="submit" name="aanmakenRekening" value="Maak rekening aan"/>
-</form>
 
 <div th:insert="fragments/footer :: footer"></div>
 </body>
