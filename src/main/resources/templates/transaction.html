@@ -27,15 +27,18 @@
                 <table>
                     <tr>
                         <td>Bedrag*:</td><td><input id="rec-amount" type="number" step="any" name="input_amount" th:field="*{amount}" placeholder="Bedrag" required
-                                                    oninvalid="this.setCustomValidity('Vul het bedrag in')"></td>
+                                                    oninvalid="this.setCustomValidity('Vul het bedrag in')"
+                                                    oninput="setCustomValidity('')"></td>
                     </tr>
                     <tr>
                         <td>Naam*:</td><td><input id="user-full-name" type="text" name="input_name" th:field="*{UserFullName}" placeholder="Volle naam"
-                                                  pattern="[A-Za-z ]{1,}" required oninvalid="this.setCustomValidity('Vul uw volledige naam in')"></td>
+                                                  pattern="[A-Za-z ]{1,}" required oninvalid="this.setCustomValidity('Vul uw volledige naam in')"
+                                                  oninput="setCustomValidity('')"></td>
                     </tr>
                     <tr>
                         <td>IBAN*:</td><td><input id="rec-iban" type="text" name="input_IBAN" th:field="*{IBAN}" placeholder="IBAN" required
-                                                  oninvalid="this.setCustomValidity('Vul uw volledige IBAN')"></td>
+                                                  oninvalid="this.setCustomValidity('Vul uw volledige IBAN')"
+                                                  oninput="setCustomValidity('')"></td>
                     </tr>
                     <tr>
                         <td>Beschrijving:</td><td><input type="text" name="input_description" th:field="*{description}" placeholder="Beschrijving" ></td>
