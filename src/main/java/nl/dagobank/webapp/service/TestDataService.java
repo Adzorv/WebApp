@@ -31,7 +31,7 @@ public class TestDataService {
     PrivateAccountDao privateAccountDao;
     BankAccountHolderTokenDao bankAccountHolderTokenDao;
     LoginAttemptDao loginAttemptDao;
-    TransferService transferService;
+    TransactionService transactionService;
 
     Logger LOG = LogManager.getFormatterLogger(TestDataService.class);
 
@@ -46,7 +46,7 @@ public class TestDataService {
             PrivateAccountDao privateAccountDao,
             BankAccountHolderTokenDao bankAccountHolderTokenDao,
             LoginAttemptDao loginAttemptDao,
-            TransferService transferService
+            TransactionService transactionService
     ) {
         this.customerService = customerService;
         this.customerDao = customerDao;
@@ -57,7 +57,7 @@ public class TestDataService {
         this.privateAccountDao = privateAccountDao;
         this.bankAccountHolderTokenDao = bankAccountHolderTokenDao;
         this.loginAttemptDao = loginAttemptDao;
-        this.transferService = transferService;
+        this.transactionService = transactionService;
     }
 
 
@@ -260,7 +260,7 @@ public class TestDataService {
                 int randomId = ThreadLocalRandom.current().nextInt( 0, ceiling );
                 BigDecimal randomAmmount = new BigDecimal( ThreadLocalRandom.current().nextInt( 10, 10000 ) );
                 if ( allAccounts.get(randomId).getId() != account.getId() ) {
-                    transferService.performTransaction( account, allAccounts.get( randomId ), randomAmmount, "transactie" );
+                    transactionService.performTransaction( account, allAccounts.get( randomId ), randomAmmount, "transactie" );
                 }
             }
         }

@@ -2,7 +2,6 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head  th:insert="fragments/head :: head">
     <meta charset="UTF-8">
-    <title>Overboeken</title>
 </head>
 <div th:insert="fragments/navigation :: navigation"></div>
 <body>
@@ -21,41 +20,49 @@
     </div>
 </div>
 <div class="login-container dagobertBackground">
+    <div id="wrap2">
     <div class="loginboxwrap">
         <div class="transferbox">
             <form th:action="@{/executeTransfer(id=${selectedBankAccount.id})}" method="post" th:object="${TransferForm}">
                 <table>
                     <tr>
-                        <td>Bedrag*:</td><td><input id="rec-amount" type="number" step="any" name="input_amount" th:field="*{amount}" placeholder="Bedrag" required></td>
+                        <td>Bedrag*:</td><td><input id="rec-amount" type="number" step="any" name="input_amount" th:field="*{amount}" placeholder="Bedrag" required
+                                                    oninvalid="this.setCustomValidity('Vul het bedrag in')"></td>
                     </tr>
                     <tr>
-                        <td>Naam*:</td><td><input id="user-full-name" type="text" name="input_name" th:field="*{UserFullName}" placeholder="Volle naam" pattern="[A-Za-z ]{1,}" required></td>
+                        <td>Naam*:</td><td><input id="user-full-name" type="text" name="input_name" th:field="*{UserFullName}" placeholder="Volle naam"
+                                                  pattern="[A-Za-z ]{1,}" required oninvalid="this.setCustomValidity('Vul uw volledige naam in')"></td>
                     </tr>
                     <tr>
-                        <td>IBAN*:</td><td><input id="rec-iban" type="text" name="input_IBAN" th:field="*{IBAN}" placeholder="IBAN" required></td>
+                        <td>IBAN*:</td><td><input id="rec-iban" type="text" name="input_IBAN" th:field="*{IBAN}" placeholder="IBAN" required
+                                                  oninvalid="this.setCustomValidity('Vul uw volledige IBAN')"></td>
                     </tr>
                     <tr>
                         <td>Beschrijving:</td><td><input type="text" name="input_description" th:field="*{description}" placeholder="Beschrijving" ></td>
                     </tr>
                 </table>
-                <input type="submit" value="Submit">
+                <input type="submit" value="Verzenden" id="submit">
             </form>
         </div>
         <p id="error" style="color: red"></p>
+    </div>
     </div>
 </div>
 </main>
 <script>
 
     $("#rec-amount").on('focusout', function() {
+        console.log("focus Werkt")
         var amount = $("#rec-amount").val();
-        var userBalance =$("#send-balance").val();
-        if($('#send-balance').contents().length != 0){
+        var userBalance = $("#send-balance").val();
+        console.log(userBalance);
+        if($('#send-balance').contents().length !== 0){
             var sending = parseFloat(amount);
             var funds = parseFloat(userBalance);
-
+            console.log(sending);
+            console.log(funds);
             if(sending > funds ) {
-                $("#errorMessage").html("NOT ENOUGH BALANCE");
+                $("#errorMessage").html("Onvoldoende saldo");
             }
         }
     });
@@ -81,6 +88,13 @@
             },
         });
     }
+
+    /*$("#submit").mousedown(function (event) {
+        setTimeout(function () {
+            if (
+
+        })
+    })*/
 </script>
 </body>
 </html>
