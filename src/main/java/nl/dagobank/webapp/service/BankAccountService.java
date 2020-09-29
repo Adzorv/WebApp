@@ -45,6 +45,10 @@ public class BankAccountService {
         return bankAccountDao.findAllByAccountHolder(customer);
     }
 
+    public List<BusinessAccount> findAllBusinessAccountsByCustomer( Customer customer ) {
+        return businessAccountDao.findAllByAccountHolder( customer );
+    }
+
     public List<BankAccount> getAllAccountsFromCustomer( Customer customer) {
         List<BankAccount> bankaccounts = bankAccountDao.findAllByAccountHolderOrSecondaryAccountHoldersContains(customer, customer);
         List<BankAccount> sortedBankAccounts = new ArrayList<>();
@@ -60,8 +64,6 @@ public class BankAccountService {
         }
         return sortedBankAccounts;
     }
-
-
 
 
     public int getNumberOfBankAccountsOfCustomer( Customer customer ) {

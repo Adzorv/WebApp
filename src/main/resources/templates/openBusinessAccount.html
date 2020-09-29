@@ -6,8 +6,9 @@
 <body>
 <div th:insert="fragments/navigation :: navigation"></div>
 <main class="wrap">
-    <h1> Hoi <span th:text="${customerName}"/> !</h1>
+    <h1> Hoi <span th:text="${customerName}"/></h1>
     <h2>Vul het formulier in voor het openen van een zakelijke rekening</h2>
+    <button></button>
     <form method="post" th:action="@{openBusinessAccount}" th:object="${openBusinessAccountForm}">
         <table>
             <tr>

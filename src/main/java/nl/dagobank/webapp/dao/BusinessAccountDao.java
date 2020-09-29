@@ -1,5 +1,6 @@
 package nl.dagobank.webapp.dao;
 
+import nl.dagobank.webapp.domain.Customer;
 import nl.dagobank.webapp.dto.BalanceSumPerBusiness;
 import nl.dagobank.webapp.dto.SbiAverage;
 import nl.dagobank.webapp.domain.BusinessAccount;
@@ -30,4 +31,6 @@ public interface BusinessAccountDao extends CrudRepository<BusinessAccount, Inte
     List<BusinessAccount> findAll();
 
     BusinessAccount findByKvkNumber( int kvkNumber );
+
+    List<BusinessAccount> findAllByAccountHolder( Customer customer );
 }

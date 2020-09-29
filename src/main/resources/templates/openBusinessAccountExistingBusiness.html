@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/head" :: head>
+    <title>Open zakelijke rekening</title>
+</head>
+<body>
+<div th:insert="fragments/navigation :: navigation"></div>
+<main class="wrap">
+    <h1>Hoi <span th:text="${user.fullName}"/></h1>
+    <h2>Kies een bedrijf</h2>
+
+    <th:block th:each="business : ${businesses}">
+        <form method="post" th:action="@{open-zakelijke-rekening}" th:object="${openBusinessAccountForm}"
+              id="${business.businessName}">
+            <table>
+                <tr>
+                    <td>Bedrijfsnaam:</td>
+                    <td>
+                        <select name="businesses" id="businesses">
+                            <option>Kies bedrijf</option>
+                        </select>
+                    </td>
+                    <td><input id="input_businessName" type="hidden" th:field="*{businessName}" disabled></td>
+                </tr>
+                <tr>
+                    <td>KVK nummer:</td>
+                    <td><input id="input_kvkNumber" type="text" th:field="*{kvkNumber}" disabled></td>
+                </tr>
+                <tr>
+                    <td>Sector:</td>
+                    <td><input id="input_sbiCode" type="text" th:field="*{sbiCode}" disabled></td>
+                </tr>
+                <tr>
+                    <td>Naam van deze rekening:</td>
+                    <td><input type="text" th:name="bankAccountName"></td>
+                </tr>
+                <tr>
+                    <td><input class="button_bottom" type="submit" name="businessAccountOpened"
+                               value="Open zakelijke rekening"/></td>
+                </tr>
+            </table>
+        </form>
+    </th:block>
+
+
+    <a href="/open-zakelijke-rekening/nieuwbedrijf">Open een zakelijke rekening voor een nieuw bedrijf</a>
+</main>
+<div th:insert="fragments/footer :: footer"></div>
+</body>
+</html>
+
+<script>
+    let globalBusinesses = null;
+
+    $("document").ready(
+        function () {
+            getAllBusiness();
+        }
+    );
+
+
+    let fillBusinessDropdown = function (businesses) {
+        $.each(businesses, function (key, business) {
+            console.log("business: " + business)
+            let name = business.businessName;
+            let option = new Option(name, name);
+            $(option).html(name);
+            $("#businesses").append(option)
+        });
+    };
+
+    let getAllBusiness = function () {
+        let businesses = null;
+        $.ajax({
+            url: "getAllBusinesses",
+            type: "get",
+            success: function (response) {
+                console.log("ajax success");
+                businesses = response;
+                globalBusinesses = response;
+                console.log("businesses: " + businesses);
+                fillBusinessDropdown(businesses);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+        })
+    };
+
+    $("#businesses").change(function () {
+        let selected = $(this).children("option:selected").val();
+        console.log(selected);
+
+        $.each(globalBusinesses, function (key, business) {
+            if (business.businessName === selected) {
+                console.log("if statement is true");
+                let businessName = business.businessName;
+                let kvkNumber = business.kvkNumber;
+                let sbiCode = business.sbiCode;
+                $("#input_businessName").val(businessName);
+                $("#input_kvkNumber").val(kvkNumber);
+                $("#input_sbiCode").val(sbiCode);
+                return false
+            } else {
+                $("#input_businessName").val("");
+                $("#input_kvkNumber").val("");
+                $("#input_sbiCode").val("");
+            }
+        })
+    });
+
+
+</script>
