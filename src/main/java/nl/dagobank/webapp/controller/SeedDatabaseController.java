@@ -59,6 +59,7 @@ public class SeedDatabaseController {
         giveUsersBusinessBankAccounts();
         LOG.info( "generating transactions");
         generateTransactions();
+        LOG.info( "finished creating transactions");
         return new ModelAndView( "homepage" );
     }
 
