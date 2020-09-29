@@ -35,18 +35,18 @@
             </tr>
             <tr>
                 <td>Postcode*:</td>
-                <td><input type="text" name="input_post_code" th:field="*{postCode}" placeholder="0000XX"
+                <td><input type="text" id="postcode" name="input_post_code" th:field="*{postCode}" placeholder="0000XX"
                            pattern="[0-9]{4}[A-Za-z]{2}" required ></td>
             </tr>
             <tr>
-                <td>Straat*:</td>
-                <td><input type="text" name="input_streetName" th:field="*{streetName}" placeholder="Straatnaam"
-                           required></td>
+                <td>Huisnummer*:</td>
+                <td><input type="text" id="housenumber" name="input_houseNumber" th:field="*{houseNumber}" placeholder="000"
+                           pattern="[0-9]{1,}" required > </td>
             </tr>
             <tr>
-                <td>Huisnummer*:</td>
-                <td><input type="text" name="input_houseNumber" th:field="*{houseNumber}" placeholder="000"
-                           pattern="[0-9]{1,}" required ></td>
+                <td>Straat*:</td>
+                <td><input type="text" id="street" name="input_streetName" th:field="*{streetName}" placeholder="Straatnaam"
+                           required></td>
             </tr>
             <tr>
                 <td>Toevoeging:</td>
@@ -55,7 +55,7 @@
             </tr>
             <tr>
                 <td> Woonplaats*:</td>
-                <td><input type="text" name="input_city" th:field="*{city}" placeholder="Woonplaats"
+                <td><input type="text" id="city" name="input_city" th:field="*{city}" placeholder="Woonplaats"
                            pattern="[A-Za-z ]{1,}" required ></td>
             </tr>
             <tr>
@@ -77,6 +77,39 @@
             </tr>
         </table>
     </form>
+
+
+    <script>
+        var leaveStreetinputEvent = document.getElementById("housenumber").addEventListener('blur', getStreetFromSite);
+    function getStreetFromSite(){
+        var postcode = document.getElementById("postcode").value;
+        var huisnummer = document.getElementById("housenumber").value;
+
+        const url = `https://postcode.tech/api/v1/postcode?postcode=${postcode}&number=${huisnummer}`;
+
+        var request = new XMLHttpRequest();
+        request.open('GET', url, true);
+        request.setRequestHeader('Authorization', 'Bearer 05f0f3b1-dc8c-494d-aa48-449b5c906bfd')
+        request.setRequestHeader('Content-Type', 'application/json'); // x-www-urlencoded
+        request.setRequestHeader('Accept', 'application/json');
+        request.send();
+
+        request.onreadystatechange = function() {
+            if(request.readyState === XMLHttpRequest.DONE){
+                if(request.status === 200){
+                    console.log(request.response);
+                    var responseObject = JSON.parse(request.response);
+                    var street = responseObject.street;
+                    console.log(street);
+                    document.getElementById("street").value = responseObject.street;
+                    document.getElementById("city").value = responseObject.city;
+                } else {
+                console.log("iets ging fout: status " + request.status + " " + request.statusText);
+                }
+            }
+       }
+    }
+    </script>
 
     <div th:insert="fragments/footer :: footer"></div>
 </main>
