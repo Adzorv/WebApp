@@ -335,6 +335,13 @@ td.error span {
     margin-left: 10px;
 }
 
+td.error {
+    color: red;
+    font-style: italic;
+    text-align: left;
+    margin-left: 0px;
+}
+
 .dagobertBackground {
     background: rgba(0, 0, 0, 0.5) url(img/bg1.jpg) no-repeat;
     background-positon: center;
