@@ -1,12 +1,12 @@
 package nl.dagobank.webapp.service;
 
 import nl.dagobank.webapp.backingbeans.Business;
-import nl.dagobank.webapp.controller.IbanIterator;
 import nl.dagobank.webapp.dao.*;
 import nl.dagobank.webapp.domain.*;
 import nl.dagobank.webapp.util.TestDataGenerator;
 import nl.dagobank.webapp.util.generator.BsnGenerator;
 import nl.dagobank.webapp.util.generator.BusinessGenerator;
+import nl.dagobank.webapp.util.generator.IbanIterator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -190,9 +190,6 @@ public class TestDataService {
             Customer customer = allCustomers.next();
             List<PrivateAccount> allPrivateAccounts = privateAccountDao.findAllByAccountHolder(customer);
             if (allPrivateAccounts.size() == 0) {
-                privateAccountDao.save(generateRandomPrivateAccount(customer, ibanIterator));
-                LOG.info("PrivateAccount created for Customer " + customer.getId());
-
                 int bsn = customer.getPersonalDetails().getBsn();
                 int lastNumberOfBsn = bsn % 10;
                 int numberOfBankAccounts = lastNumberOfBsn / 2 + 1;
