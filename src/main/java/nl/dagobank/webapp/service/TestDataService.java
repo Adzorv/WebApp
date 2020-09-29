@@ -253,9 +253,9 @@ public class TestDataService {
     }
 
     public void generateTransactions() {
-        List<BusinessAccount> allAccounts = businessAccountDao.findAll();
+        List<BankAccount> allAccounts = bankAccountDao.findAll();
         int ceiling = allAccounts.size();
-        for ( BusinessAccount account : allAccounts ) {
+        for ( BankAccount account : allAccounts ) {
             int randomAmountOfTransactions = ThreadLocalRandom.current().nextInt( 1, 10 );
             for ( int i = 0 ; i < randomAmountOfTransactions ; i++ ) {
                 int randomId = ThreadLocalRandom.current().nextInt( 0, ceiling );
@@ -263,6 +263,24 @@ public class TestDataService {
                 if ( allAccounts.get(randomId).getId() != account.getId() ) {
                     transactionService.performTransaction( account, allAccounts.get( randomId ), randomAmmount, "transactie" );
                 }
+            }
+        }
+    }
+
+    public void addRandomSecondaryBankAccountHolders() {
+        List<BankAccount> allAccounts = bankAccountDao.findAll();
+        int ceiling = allAccounts.size();
+        boolean addAccountHolder = true;
+        for (BankAccount account : allAccounts) {
+            if (addAccountHolder) {
+                int randomId = ThreadLocalRandom.current().nextInt(0, ceiling-1);
+                account.getSecondaryAccountHolders().add(allAccounts.get(randomId).getAccountHolder());
+                allAccounts.get(randomId).getSecondaryAccountHolders().add(account.getAccountHolder());
+                bankAccountDao.save(account);
+                addAccountHolder = false;
+                LOG.info("Add secondary account holder voor user " + account.getAccountHolder().getFullName());
+            } else {
+                addAccountHolder = true;
             }
         }
     }

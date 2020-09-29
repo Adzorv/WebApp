@@ -2,6 +2,7 @@ package nl.dagobank.webapp.domain;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,7 +20,7 @@ public abstract class BankAccount {
     private Customer accountHolder;
 
     @ManyToMany(fetch=FetchType.EAGER)
-    private List<Customer> secondaryAccountHolders;
+    private List<Customer> secondaryAccountHolders = new ArrayList<>();
 
     private String iban;
     private BigDecimal balance;

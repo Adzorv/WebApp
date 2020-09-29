@@ -44,8 +44,10 @@ public class SeedDatabaseController {
         testDataService.giveUsersBusinessBankAccounts();
         LOG.info( "generating transactions");
         testDataService.generateTransactions();
-        LOG.info("finished generating test data");
         LOG.info( "finished creating transactions");
+        LOG.info( "adding secondary account holders");
+        testDataService.addRandomSecondaryBankAccountHolders();
+        LOG.info("finished generating test data");
         return new ModelAndView( "homepage" );
     }
 
