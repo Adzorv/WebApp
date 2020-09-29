@@ -38,7 +38,7 @@ public class OpenBusinessAccountController {
         this.businessAccountDao = businessAccountDao;
     }
 
-    @GetMapping( "open-zakelijke-rekening" )
+    @GetMapping( "openBusinessAccount" )
     public ModelAndView openBusinessAccountLandingPage( Model model, @ModelAttribute OpenBusinessAccountForm openBusinessAccountForm ) {
         ModelAndView mav = new ModelAndView();
         if ( model.getAttribute( "user" ) != null ) {
@@ -59,20 +59,17 @@ public class OpenBusinessAccountController {
         mav.addObject( "businesses", businesses );
         mav.addObject( "businessesJson", jsonBusiness );
         return mav;
-
     }
 
-    @PostMapping( "open-zakelijke-rekening" )
+/*    @PostMapping( "open-zakelijke-rekening" )
     public ModelAndView openAccountForExistingBusiness( Model model, @ModelAttribute OpenBusinessAccountForm openBusinessAccountForm ) {
         ModelAndView mav = new ModelAndView( "openBusinessAccountSuccessful" );
         return mav;
-
-    }
+    }*/
 
     @GetMapping( "getAllBusinesses" )
     @ResponseBody
     public ArrayList<Business> getAllBusinesses( Model model ) {
-        System.out.println( "In getAllBusiness getmapping " );
         ArrayList<Business> businesses = new ArrayList<>();
         Customer customer = (Customer) model.getAttribute( "user" );
         List<BusinessAccount> accounts = bankAccountService.findAllBusinessAccountsByCustomer( customer );
@@ -83,7 +80,7 @@ public class OpenBusinessAccountController {
         return businesses;
     }
 
-    @GetMapping( "openBusinessAccount" )
+/*    @GetMapping( "openBusinessAccount" )
     public ModelAndView openBusinessAccountHandler( Model model ) {
         ModelAndView openBusinessAccountPage = new ModelAndView( "openBusinessAccount" );
         Customer customer = (Customer) model.getAttribute( "user" );
@@ -91,21 +88,24 @@ public class OpenBusinessAccountController {
         model.addAttribute( "sbiCodes", sbiCodes );
         openBusinessAccountPage.addObject( "openBusinessAccountForm", new OpenBusinessAccountForm() );
         return openBusinessAccountPage;
-    }
+    }*/
 
     @PostMapping( "openBusinessAccount" )
-    public ModelAndView openBusinessAccountSuccessfulHandler( @ModelAttribute OpenBusinessAccountForm openBusinessAccountForm, Model model, BusinessAccount businessAccount ) {
-        if ( !bankAccountService.isCompanyValid( openBusinessAccountForm.getKvkNumber() ) ) {
-            return showBusinessAccountOpenedSuccess( openBusinessAccountForm, model, businessAccount );
+    public ModelAndView openBusinessAccountSuccessfulHandler( @ModelAttribute OpenBusinessAccountForm openBusinessAccountForm, Model model ) {
+        System.out.println( openBusinessAccountForm );
+        System.out.println( openBusinessAccountForm.getKvkNumber() );
+        return showBusinessAccountOpenedSuccess( openBusinessAccountForm, model, new BusinessAccount() );
+/*        if ( !bankAccountService.isCompanyValid( openBusinessAccountForm.getKvkNumber() ) ) {
+
+            return showBusinessAccountOpenedSuccess( openBusinessAccountForm, model, new BusinessAccount() );
         } else {
             return showOpenAnotherAccount( openBusinessAccountForm, model );
-        }
+        }*/
     }
-
 
     private ModelAndView showBusinessAccountOpenedSuccess( @ModelAttribute OpenBusinessAccountForm openBusinessAccountForm, Model model, BusinessAccount businessAccount ) {
         ModelAndView businessAccountOpenened = new ModelAndView( "openBusinessAccountSuccessful" );
-        Customer customer = (Customer) model.getAttribute( "user" );//FIXME: check how this works
+        Customer customer = (Customer) model.getAttribute( "user" );
         businessAccount.setAccountHolder( customer );
         businessAccount.setBusinessName( openBusinessAccountForm.getBusinessName() );
         businessAccount.setKvkNumber( openBusinessAccountForm.getKvkNumber() );

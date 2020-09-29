@@ -8,10 +8,7 @@
 <main class="wrap">
     <h1>Hoi <span th:text="${user.fullName}"/></h1>
     <h2>Kies een bedrijf</h2>
-
-    <th:block th:each="business : ${businesses}">
-        <form method="post" th:action="@{open-zakelijke-rekening}" th:object="${openBusinessAccountForm}"
-              id="form">
+        <form method="post" th:action="@{openBusinessAccount}" th:object="${openBusinessAccountForm}">
             <table>
                 <tr>
                     <td>Nieuw of bestaand bedrijf:</td>
@@ -23,19 +20,21 @@
                 </tr>
                 <tr>
                     <td>Bedrijfsnaam:</td>
-                    <td><input id="input_businessName" type="text" th:field="*{businessName}"></td>
+                    <td><input id="input_businessName" name="input_businessName" type="text" th:field="*{businessName}"></td>
                 </tr>
                 <tr>
                     <td>KVK nummer:</td>
-                    <td><input id="input_kvkNumber" type="text" th:field="*{kvkNumber}"></td>
+                    <td><input id="input_kvkNumber" name="input_kvkNumber" type="text" th:field="*{kvkNumber}"></td>
                 </tr>
                 <tr>
                     <td>Sector:</td>
-                    <td><input id="input_sbiCode" type="text" th:field="*{sbiCode}"></td>
+                    <td><select th:field="*{sbiCode}" id="input_sbiCode">
+                        <option th:each="sbiCode : ${openBusinessAccountForm.sbiCodes}" th:value="${sbiCode}" th:text="${sbiCode}"></option>
+                    </select></td>
                 </tr>
                 <tr>
                     <td>Naam van deze rekening:</td>
-                    <td><input type="text" th:name="bankAccountName"></td>
+                    <td><input id="input_accountName" type="text" th:field="*{bankAccountName}"></td>
                 </tr>
                 <tr>
                     <td><input class="button_bottom" type="submit" name="businessAccountOpened"
@@ -43,7 +42,6 @@
                 </tr>
             </table>
         </form>
-    </th:block>
 
 
     <a href="/open-zakelijke-rekening/nieuwbedrijf">Open een zakelijke rekening voor een nieuw bedrijf</a>
@@ -63,7 +61,6 @@
 
     let fillBusinessDropdown = function (businesses) {
         $.each(businesses, function (key, business) {
-            console.log("business: " + business)
             let name = business.businessName;
             let option = new Option(name, name);
             $(option).html(name);
@@ -97,12 +94,15 @@
                 let businessName = business.businessName;
                 let kvkNumber = business.kvkNumber;
                 let sbiCode = business.sbiCode;
+
                 input_name.val(businessName);
                 input_kvk.val(kvkNumber);
                 input_sbi.val(sbiCode);
-                input_name.attr('disabled', true);
-                input_kvk.attr('disabled', true);
-                input_sbi.attr('disabled', true);
+
+                input_name.attr('readonly', true);
+                input_kvk.attr('readonly', true);
+                input_sbi.attr('readonly', true);
+
                 return false
             } else if (selected === "Nieuw bedrijf") {
                 console.log("hiero")
