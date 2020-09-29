@@ -40,7 +40,7 @@
                         <td>Beschrijving:</td><td><input type="text" name="input_description" th:field="*{description}" placeholder="Beschrijving" ></td>
                     </tr>
                 </table>
-                <input type="submit" value="Submit">
+                <input type="submit" value="Verzenden" id="submit">
             </form>
         </div>
         <p id="error" style="color: red"></p>
@@ -86,6 +86,13 @@
             },
         });
     }
+
+    /*$("#submit").mousedown(function (event) {
+        setTimeout(function () {
+            if (
+
+        })
+    })*/
 </script>
 </body>
 </html>
