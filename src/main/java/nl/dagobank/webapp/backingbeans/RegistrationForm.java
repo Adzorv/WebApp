@@ -9,14 +9,14 @@ public class RegistrationForm {
     private String lastName;
     private String phoneNumber;
     private String streetName;
-    private int houseNumber;
+    private Integer houseNumber;
     private String houseNumberAnnex;
     private String postCode;
     private String city;
     private String email;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate birthDate;
-    private int bsn;
+    private Integer bsn;
 
     public RegistrationForm() {
     }
@@ -61,7 +61,7 @@ public class RegistrationForm {
         this.streetName = streetName;
     }
 
-    public int getHouseNumber() {
+    public Integer getHouseNumber() {
         return houseNumber;
     }
 
@@ -109,7 +109,7 @@ public class RegistrationForm {
        this.birthDate = birthday;
     }
 
-    public int getBsn() {
+    public Integer getBsn() {
         return bsn;
     }
 

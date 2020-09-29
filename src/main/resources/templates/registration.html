@@ -34,24 +34,24 @@
                            pattern="[0-9 +]{8,}" required ></td>
             </tr>
             <tr>
+                <td>Postcode*:</td>
+                <td><input type="text" name="input_post_code" th:field="*{postCode}" placeholder="0000XX"
+                           pattern="[0-9]{4}[A-Za-z]{2}" required ></td>
+            </tr>
+            <tr>
                 <td>Straat*:</td>
                 <td><input type="text" name="input_streetName" th:field="*{streetName}" placeholder="Straatnaam"
                            required></td>
             </tr>
             <tr>
                 <td>Huisnummer*:</td>
-                <td><input type="number" name="input_houseNumber" th:field="*{houseNumber}" placeholder="000"
+                <td><input type="text" name="input_houseNumber" th:field="*{houseNumber}" placeholder="000"
                            pattern="[0-9]{1,}" required ></td>
             </tr>
             <tr>
                 <td>Toevoeging:</td>
                 <td><input type="text" name="input_house_number_annex" th:field="*{houseNumberAnnex}"
                            placeholder="Toevoeging"></td>
-            </tr>
-            <tr>
-                <td>Postcode*:</td>
-                <td><input type="text" name="input_post_code" th:field="*{postCode}" placeholder="0000XX"
-                           pattern="[0-9]{4}[A-Za-z]{2}" required ></td>
             </tr>
             <tr>
                 <td> Woonplaats*:</td>
@@ -69,7 +69,7 @@
             </tr>
             <tr>
                 <td>BSN*:</td>
-                <td><input type="number" name="bsn" th:field="*{bsn}" placeholder="111222333" required ></td>
+                <td><input type="text" name="bsn" th:field="*{bsn}" placeholder="111222333" required ></td>
                 <td class="error"><span th:text="${bsnError}"></span></td>
             </tr>
             <tr>
