@@ -1,5 +1,7 @@
 package nl.dagobank.webapp.backingbeans;
 
+import java.util.Objects;
+
 public class Business {
 
     private String businessName;
@@ -48,5 +50,20 @@ public class Business {
                 ", kvkNumber=" + kvkNumber +
                 ", sbiCode='" + sbiCode + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals( Object o ) {
+        if ( this == o ) return true;
+        if ( o == null || getClass() != o.getClass() ) return false;
+        Business business = (Business) o;
+        return kvkNumber == business.kvkNumber &&
+                Objects.equals( businessName, business.businessName ) &&
+                Objects.equals( sbiCode, business.sbiCode );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash( businessName, kvkNumber, sbiCode );
     }
 }

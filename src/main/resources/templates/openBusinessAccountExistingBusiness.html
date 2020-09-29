@@ -37,14 +37,15 @@
                     <td><input id="input_accountName" type="text" th:field="*{bankAccountName}"></td>
                 </tr>
                 <tr>
+                    <td><span class="error" th:text="${openBusinessAccountForm.error}"></span></td>
+                </tr>
+                <tr>
                     <td><input class="button_bottom" type="submit" name="businessAccountOpened"
                                value="Open zakelijke rekening"/></td>
                 </tr>
+
             </table>
         </form>
-
-
-    <a href="/open-zakelijke-rekening/nieuwbedrijf">Open een zakelijke rekening voor een nieuw bedrijf</a>
 </main>
 <div th:insert="fragments/footer :: footer"></div>
 </body>
@@ -98,15 +99,11 @@
                 input_kvk.val(kvkNumber).attr('readonly', true);
                 input_sbi.val(sbiCode).attr('readonly', true);
 
-  /*              input_name.attr('readonly', true);
-                input_kvk.attr('readonly', true);
-                input_sbi.attr('readonly', true);*/
-
                 return false
             } else if (selected === "Nieuw bedrijf") {
-                input_name.attr('disabled', false);
-                input_kvk.attr('disabled', false);
-                input_sbi.attr('disabled', false);
+                input_name.attr('readonly', false);
+                input_kvk.attr('readonly', false);
+                input_sbi.attr('readonly', false);
                 $("#input_businessName").val("");
                 $("#input_kvkNumber").val("");
                 $("#input_sbiCode").val("");

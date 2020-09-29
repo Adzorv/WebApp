@@ -48,7 +48,7 @@ form {
     padding:  5% 0;
 }
 
-input[type=text], input[type=number], input[type=date], textarea, select{
+input[type=text], input[type=number], input[type=date], textarea, select {
     color: black;
     margin-bottom: 10px;
 }
@@ -330,6 +330,13 @@ p.error span {
 }
 
 td.error span {
+    color: red;
+    font-style: italic;
+    text-align: center;
+    margin-left: 10px;
+}
+
+.error {
     color: red;
     font-style: italic;
     text-align: center;

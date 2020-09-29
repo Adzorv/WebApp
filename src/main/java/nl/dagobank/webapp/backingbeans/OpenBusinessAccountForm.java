@@ -11,6 +11,7 @@ public class OpenBusinessAccountForm {
             "C: Industrie", "D: Productie en Distributie van en handel in energie ",
             "E: Winning en distributie van water", "F: Bouwnijverheid", "G: Groot- en detailhandel", "H: Vervoer en opslag");
     private String bankAccountName;
+    private String error;
 
 
     public OpenBusinessAccountForm() {
@@ -54,5 +55,13 @@ public class OpenBusinessAccountForm {
 
     public void setBankAccountName(String bankAccountName) {
         this.bankAccountName = bankAccountName;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError( String error ) {
+        this.error = error;
     }
 }
