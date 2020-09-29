@@ -33,6 +33,7 @@ public class OpenBusinessAccountController {
     private BankAccountService bankAccountService;
     private BusinessAccountDao businessAccountDao;
 
+    @Autowired
     public OpenBusinessAccountController( BankAccountDao bankAccountDao, IbanGenerator ibanGenerator, BankAccountService bankAccountService, BusinessAccountDao businessAccountDao ) {
         this.bankAccountDao = bankAccountDao;
         this.ibanGenerator = ibanGenerator;
