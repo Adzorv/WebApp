@@ -24,7 +24,7 @@
                 <table class="table" th:each="item : ${sumBalanceList}">
                     <tbody>
                     <tr>
-                        <th scope="row" th:text="${item.accountHolder}"></th>
+                        <th scope="row" th:text="${item.accountHolder.getFullName}"></th>
                         <td th:text="${item.sumBalance}"></td>
                     </tr>
                     </tbody>

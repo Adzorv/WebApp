@@ -60,6 +60,7 @@ public class SeedDatabaseController {
         LOG.info( "generating transactions");
         testDataService.generateTransactions();
         LOG.info("finished generating test data");
+        LOG.info( "finished creating transactions");
         return new ModelAndView( "homepage" );
     }
 

@@ -321,6 +321,20 @@ p.loginError span {
     margin-left: 10px;
 }
 
+p.error span {
+    color: red;
+    font-style: italic;
+    text-align: center;
+    margin-left: 10px;
+}
+
+td.error span {
+    color: red;
+    font-style: italic;
+    text-align: center;
+    margin-left: 10px;
+}
+
 .dagobertBackground {
     background: rgba(0, 0, 0, 0.5) url(img/bg1.jpg) no-repeat;
     background-positon: center;
