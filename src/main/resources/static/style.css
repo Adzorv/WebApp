@@ -53,6 +53,13 @@ input[type=text], input[type=number], input[type=date], textarea, select {
     margin-bottom: 10px;
 }
 
+input {
+    border: none;
+    background-color: white;
+    border-radius: 4px;
+    padding-left: 4px;
+}
+
 header {
     position: fixed;
     top: 0;
@@ -182,6 +189,8 @@ h1.intro {
     left: 50%;
 }
 
+
+
 .button_bottom {
     background-color: #ffc107;
     border: none;
@@ -193,7 +202,73 @@ h1.intro {
     display: inline-block;
     font-size: 16px;
     margin: 25% auto;
+}
 
+.buttonStandard {
+    background-color: #ffc107;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.buttonWhite {
+    background-color: white;
+    color: black;
+}
+
+.buttonSmall {
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.buttonSmall:hover {
+    color: white;
+}
+
+
+.buttonInline {
+    display: inline-block;
+}
+
+.buttonBlock {
+    display: block;
+    text-align: center;
+    width: 100%;
+    margin-top: 10px;
+}
+
+
+.buttonStandard:hover, .button_bottom:hover, .button:hover {
+    background-color: #ff9127;
+}
+
+.buttonWhite:hover {
+    background-color: #eeeeee;
+    color: black;
+}
+
+.center {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+
+
+a.noLink:hover {
+    text-decoration: none;
+    color: white;
 }
 
 .sh_title {
@@ -266,9 +341,12 @@ footer.sh_footer {
     border-radius: 30px;
     padding: 40px;
     width: 300px;
-    height: 200px;
     margin-top: 50px;
     color: black;
+}
+
+.loginbox form {
+    padding: 0;
 }
 
 .loginbox.employee {
@@ -339,7 +417,7 @@ td.error span {
 .error {
     color: red;
     font-style: italic;
-    text-align: center;
+    text-align: left;
     margin-left: 10px;
 }
 
@@ -383,7 +461,7 @@ h2.txtext, h4.txtext {
 }
 
 .buttontx {
-    margin: auto;
+    /*margin: auto;*/
     background-color: #ffc107;
     border: none;
     border-radius: 8px;
@@ -428,6 +506,9 @@ div.backgroundsquare {
     margin-left: auto;
 }
 
+.spacedLeft {
+    margin-left: 50px;
+}
 
 
 
