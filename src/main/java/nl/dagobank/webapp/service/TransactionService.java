@@ -33,8 +33,8 @@ public class TransactionService {
         return transactionDao.findSumOfTransactsionsPerBusinessAccount(PageRequest.of(0, 10));
     }
 
-    public List <Transaction> getAllTransactions() {
-        return (List <Transaction>) transactionDao.findAll();
+    public List<Transaction> getAllTransactions() {
+        return (List<Transaction>) transactionDao.findAll();
     }
 
     public void getFundsFromSendingAccount(BigDecimal amount, BankAccount bankAccount) {
@@ -43,11 +43,7 @@ public class TransactionService {
     }
 
     public boolean checkIfEnoughBalance(BigDecimal amount, BankAccount bankAccount) {
-        if (bankAccount.getBalance().compareTo(amount) >= 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return (bankAccount.getBalance().compareTo(amount) >= 0);
     }
 
     /*public boolean checkIfIbanExists(BankAccount receiver) {
