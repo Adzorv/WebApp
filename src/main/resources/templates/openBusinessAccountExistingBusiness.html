@@ -105,10 +105,9 @@
 
                 return false
             } else if (selected === "Nieuw bedrijf") {
-                console.log("hiero")
-                input_name.attr('disabled', false);
-                input_kvk.attr('disabled', false);
-                input_sbi.attr('disabled', false);
+                input_name.attr('readonly', false);
+                input_kvk.attr('readonly', false);
+                input_sbi.attr('readonly', false);
                 $("#input_businessName").val("");
                 $("#input_kvkNumber").val("");
                 $("#input_sbiCode").val("");
