@@ -66,7 +66,6 @@
             $(option).html(name);
             $("#businesses").append(option)
         });
-        // $("#businesses").append(new Option("Nieuw bedrijf", "Nieuw bedrijf"))
     };
 
     let getAllBusiness = function () {
@@ -95,17 +94,16 @@
                 let kvkNumber = business.kvkNumber;
                 let sbiCode = business.sbiCode;
 
-                input_name.val(businessName);
-                input_kvk.val(kvkNumber);
-                input_sbi.val(sbiCode);
+                input_name.val(businessName).attr('readonly', true);
+                input_kvk.val(kvkNumber).attr('readonly', true);
+                input_sbi.val(sbiCode).attr('readonly', true);
 
-                input_name.attr('readonly', true);
+  /*              input_name.attr('readonly', true);
                 input_kvk.attr('readonly', true);
-                input_sbi.attr('readonly', true);
+                input_sbi.attr('readonly', true);*/
 
                 return false
             } else if (selected === "Nieuw bedrijf") {
-                console.log("hiero")
                 input_name.attr('disabled', false);
                 input_kvk.attr('disabled', false);
                 input_sbi.attr('disabled', false);

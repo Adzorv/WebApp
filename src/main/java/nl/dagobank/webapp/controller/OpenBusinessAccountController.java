@@ -18,7 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static nl.dagobank.webapp.backingbeans.OpenBusinessAccountForm.sbiCodes;
 
@@ -69,8 +71,8 @@ public class OpenBusinessAccountController {
 
     @GetMapping( "getAllBusinesses" )
     @ResponseBody
-    public ArrayList<Business> getAllBusinesses( Model model ) {
-        ArrayList<Business> businesses = new ArrayList<>();
+    public Set<Business> getAllBusinesses( Model model ) {
+        Set<Business> businesses = new HashSet<>();
         Customer customer = (Customer) model.getAttribute( "user" );
         List<BusinessAccount> accounts = bankAccountService.findAllBusinessAccountsByCustomer( customer );
         for ( BusinessAccount account : accounts ) {
