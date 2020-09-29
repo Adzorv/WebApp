@@ -11,24 +11,27 @@
 
     <th:block th:each="business : ${businesses}">
         <form method="post" th:action="@{open-zakelijke-rekening}" th:object="${openBusinessAccountForm}"
-              id="${business.businessName}">
+              id="form">
             <table>
                 <tr>
-                    <td>Bedrijfsnaam:</td>
+                    <td>Nieuw of bestaand bedrijf:</td>
                     <td>
                         <select name="businesses" id="businesses">
-                            <option>Kies bedrijf</option>
+                            <option>Nieuw bedrijf</option>
                         </select>
                     </td>
-                    <td><input id="input_businessName" type="hidden" th:field="*{businessName}" disabled></td>
+                </tr>
+                <tr>
+                    <td>Bedrijfsnaam:</td>
+                    <td><input id="input_businessName" type="text" th:field="*{businessName}"></td>
                 </tr>
                 <tr>
                     <td>KVK nummer:</td>
-                    <td><input id="input_kvkNumber" type="text" th:field="*{kvkNumber}" disabled></td>
+                    <td><input id="input_kvkNumber" type="text" th:field="*{kvkNumber}"></td>
                 </tr>
                 <tr>
                     <td>Sector:</td>
-                    <td><input id="input_sbiCode" type="text" th:field="*{sbiCode}" disabled></td>
+                    <td><input id="input_sbiCode" type="text" th:field="*{sbiCode}"></td>
                 </tr>
                 <tr>
                     <td>Naam van deze rekening:</td>
@@ -58,7 +61,6 @@
         }
     );
 
-
     let fillBusinessDropdown = function (businesses) {
         $.each(businesses, function (key, business) {
             console.log("business: " + business)
@@ -67,19 +69,16 @@
             $(option).html(name);
             $("#businesses").append(option)
         });
+        // $("#businesses").append(new Option("Nieuw bedrijf", "Nieuw bedrijf"))
     };
 
     let getAllBusiness = function () {
-        let businesses = null;
         $.ajax({
             url: "getAllBusinesses",
             type: "get",
             success: function (response) {
-                console.log("ajax success");
-                businesses = response;
                 globalBusinesses = response;
-                console.log("businesses: " + businesses);
-                fillBusinessDropdown(businesses);
+                fillBusinessDropdown(response);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(textStatus, errorThrown);
@@ -89,18 +88,30 @@
 
     $("#businesses").change(function () {
         let selected = $(this).children("option:selected").val();
-        console.log(selected);
 
+        let input_name = $("#input_businessName");
+        let input_kvk = $("#input_kvkNumber");
+        let input_sbi = $("#input_sbiCode");
         $.each(globalBusinesses, function (key, business) {
             if (business.businessName === selected) {
-                console.log("if statement is true");
                 let businessName = business.businessName;
                 let kvkNumber = business.kvkNumber;
                 let sbiCode = business.sbiCode;
-                $("#input_businessName").val(businessName);
-                $("#input_kvkNumber").val(kvkNumber);
-                $("#input_sbiCode").val(sbiCode);
+                input_name.val(businessName);
+                input_kvk.val(kvkNumber);
+                input_sbi.val(sbiCode);
+                input_name.attr('disabled', true);
+                input_kvk.attr('disabled', true);
+                input_sbi.attr('disabled', true);
                 return false
+            } else if (selected === "Nieuw bedrijf") {
+                console.log("hiero")
+                input_name.attr('disabled', false);
+                input_kvk.attr('disabled', false);
+                input_sbi.attr('disabled', false);
+                $("#input_businessName").val("");
+                $("#input_kvkNumber").val("");
+                $("#input_sbiCode").val("");
             } else {
                 $("#input_businessName").val("");
                 $("#input_kvkNumber").val("");
@@ -108,6 +119,4 @@
             }
         })
     });
-
-
 </script>
