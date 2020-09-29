@@ -20,6 +20,7 @@
     </div>
 </div>
 <div class="login-container dagobertBackground">
+    <div id="wrap2">
     <div class="loginboxwrap">
         <div class="transferbox">
             <form th:action="@{/executeTransfer(id=${selectedBankAccount.id})}" method="post" th:object="${TransferForm}">
@@ -44,6 +45,7 @@
             </form>
         </div>
         <p id="error" style="color: red"></p>
+    </div>
     </div>
 </div>
 </main>

@@ -1,16 +1,6 @@
 package nl.dagobank.webapp.controller;
 
-import nl.dagobank.webapp.backingbeans.Business;
-import nl.dagobank.webapp.dao.BusinessAccountDao;
-import nl.dagobank.webapp.dao.CustomerDao;
-import nl.dagobank.webapp.dao.PrivateAccountDao;
-import nl.dagobank.webapp.domain.BusinessAccount;
-import nl.dagobank.webapp.domain.Customer;
-import nl.dagobank.webapp.domain.PrivateAccount;
 import nl.dagobank.webapp.service.TestDataService;
-import nl.dagobank.webapp.service.TransferService;
-import nl.dagobank.webapp.util.generator.BusinessGenerator;
-import nl.dagobank.webapp.util.generator.IbanIterator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.math.BigDecimal;
-import java.util.Iterator;
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Controller
 public class SeedDatabaseController {

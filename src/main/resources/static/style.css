@@ -50,6 +50,7 @@ form {
 
 input[type=text], input[type=number], input[type=date], textarea, select{
     color: black;
+    margin-bottom: 10px;
 }
 
 header {
@@ -408,10 +409,3 @@ h1.black-text, h3.black-text {
     width: 900px;
     margin: 0 auto;
 }
-
-
-
-
-
-
-
