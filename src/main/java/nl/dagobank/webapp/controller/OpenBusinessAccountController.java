@@ -1,6 +1,6 @@
 package nl.dagobank.webapp.controller;
 
-import com.google.gson.Gson;
+
 import nl.dagobank.webapp.backingbeans.Business;
 import nl.dagobank.webapp.backingbeans.OpenBusinessAccountForm;
 import nl.dagobank.webapp.dao.BankAccountDao;

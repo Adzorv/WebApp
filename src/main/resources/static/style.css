@@ -340,13 +340,8 @@ footer.sh_footer {
     background-color: #ffc107;
     border-radius: 30px;
     padding: 40px;
-/*<<<<<<< HEAD*/
     width: 50%;
     height: 50%;
-/*=======*/
-/*    width: 300px;*/
-/*    margin-top: 50px;*/
-/*>>>>>>> openBusinessAccount*/
     color: black;
     margin-top: 40px;
 }
@@ -429,6 +424,7 @@ td.error span {
     text-align: center;
     margin-left: 10px;
 }
+
 
 .error {
     color: red;
