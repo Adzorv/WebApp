@@ -81,7 +81,8 @@
             </tr>
             <tr>
                 <td>BSN*:</td>
-                <td><input type="text" name="bsn" th:field="*{bsn}" placeholder="111222333" required
+                <td><input type="text" name="bsn" th:field="*{bsn}" placeholder="111222333" pattern="[0-9]{9}"
+                           required
                            oninvalid="this.setCustomValidity('Voer een geldige BSN in.  Bijv: 123456789')"
                            oninput="setCustomValidity('')"></td>
                 <td class="error"><span th:text="${bsnError}"></span></td>
