@@ -97,6 +97,7 @@ public class TestDataService {
     }
 
     public void deleteAllUsersData() {
+        deleteAllLoginAttempts();
         deleteAllBankAccounts();
         deleteAllCustomers();
         deleteAllEmployees();
