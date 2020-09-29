@@ -21,9 +21,13 @@ function getStreetFromSite(){
                 deleteError()
                 document.getElementById("street").value = responseObject.street;
                 document.getElementById("city").value = responseObject.city;
+                document.getElementById("street").setAttribute("class", "fieldOk");
+                document.getElementById("city").setAttribute("class", "fieldOk");
             } else {
                 console.log(request.status + " " + request.statusText);
                 deleteError();
+                document.getElementById("street").removeAttribute("class", "fieldOk");
+                document.getElementById("city").removeAttribute("class", "fieldOk");
                 showError("combinatie van postcode/huisnummer is onbekend.")
             }
         }

@@ -55,14 +55,9 @@
             </tr>
             <tr>
                 <td>Straat*:</td>
-                <td><input type="text" name="input_streetName" th:field="*{streetName}" placeholder="Straatnaam" required
+                <td><input type="text" id="street" name="input_streetName" th:field="*{streetName}" placeholder="Straatnaam" required
                            oninvalid="this.setCustomValidity('Voer uw straatnaam in')"
                            oninput="setCustomValidity('')"></td>
-            </tr>
-            <tr>
-                <td>Straat*:</td>
-                <td><input type="text" id="street" name="input_streetName" th:field="*{streetName}" placeholder="Straatnaam"
-                           required></td>
             </tr>
             <tr>
                 <td> Woonplaats*:</td>

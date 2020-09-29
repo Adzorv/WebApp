@@ -425,6 +425,10 @@ td.error span {
     margin-left: 10px;
 }
 
+.fieldOk {
+    background-color: palegreen;
+}
+
 
 .error {
     color: red;
