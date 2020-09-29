@@ -41,6 +41,7 @@ public class BusinessGenerator {
 
     public Business next() {
         createBusiness();
+        
         return currentBusiness;
     }
 }
