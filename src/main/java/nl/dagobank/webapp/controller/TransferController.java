@@ -37,7 +37,7 @@ public class TransferController {
         AjaxIbanCheckResponse response = new AjaxIbanCheckResponse();
         response.setIbanCorrect( false );
         if (bankAccount == null) {
-            response.setMsg( "Wrong/Not existing IBAN!" );
+            response.setMsg( "Onjuiste/niet-bestaande IBAN!" );
             return response;
         }
         StringBuilder fullName = new StringBuilder();
@@ -45,7 +45,7 @@ public class TransferController {
                 .append( " " )
                 .append( bankAccount.getAccountHolder().getFullName().getLastName() );
         if(!fullName.toString().equals(fullname)){
-            response.setMsg( "IBAN doesn't match receiver full name!" );
+            response.setMsg( "IBAN klopt niet met de naam" );
             return response;
         }
         response.setMsg( "" );
@@ -76,7 +76,7 @@ public class TransferController {
 
     @RequestMapping("/transferError")
     public String getTransferErrorPage(Model model) {
-        model.addAttribute("errorMessage", "ERROR: Insufficient fund to perform this operation!");
+        model.addAttribute("errorMessage", "ERROR: Onvoldoende saldo");
         return "transferError";
 
     }

@@ -8,11 +8,10 @@ public class TransferForm {
     //private UserFullName userFullName;
     private String userFullName;
     private String IBAN;
-    private String paymentCode;
+
     private String description;
 
     public TransferForm() {super(); }
-
 
     public BigDecimal getAmount() {
         return amount;
@@ -22,20 +21,9 @@ public class TransferForm {
         this.amount = amount;
     }
 
-//    public UserFullName getUserFullName() {
-//        return userFullName;
-//    }
-
-
     public String getUserFullName() {
         return userFullName;
     }
-
-    // public void setUserFullName(UserFullName userFullName) {
-//        this.userFullName = userFullName;
-//    }
-//
-
 
     public void setUserFullName(String userFullName) {
         this.userFullName = userFullName;
@@ -47,14 +35,6 @@ public class TransferForm {
 
     public void setIBAN(String IBAN) {
         this.IBAN = IBAN;
-    }
-
-    public String getPaymentCode() {
-        return paymentCode;
-    }
-
-    public void setPaymentCode(String paymentCode) {
-        this.paymentCode = paymentCode;
     }
 
     public String getDescription() {
