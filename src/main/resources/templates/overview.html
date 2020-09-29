@@ -8,44 +8,40 @@
 <div class="about-section">
     <h1 class="intro">Rekeningenoverzicht</h1>
 </div>
-
+<div class="center space-between">
+    <a class="buttonStandard noLink" th:href="@{openPrivateBankAccount}">Open particuliere rekening</a>
+    <a class="buttonStandard noLink" th:href="@{openBusinessAccount}">Open zakelijke rekening</a>
+    <a class="buttonStandard noLink" th:href="@{connectBankAccount}">Koppel rekening</a>
+</div>
 <div class="backgroundsquare">
-<div class="row">
-    <div class="column">
-        <div class="card">
-            <div class="container">
-                <table>
-                    <tr th:each="rekening : ${bankAccounts}">
-                        <h3><span class="glyphicon glyphicon-credit-card" ></span>
-                            <span th:if="${rekening instanceof T(nl.dagobank.webapp.domain.PrivateAccount)}">Particuliere rekening</span>
-                            <span th:if="${rekening instanceof T(nl.dagobank.webapp.domain.BusinessAccount)}">Zakelijke rekening</span></h3>
-                        <p class="title" th:text="${rekening.accountName}"></p>
-                        <p class="title" th:text="${rekening.accountHolder.fullName}"></p>
+    <div class="row">
+        <div class="column">
+            <div class="card">
+                <div class="container">
+                    <table>
+                        <tr th:each="rekening : ${bankAccounts}">
+                            <h3><span class="glyphicon glyphicon-credit-card"></span>
+                                <span th:if="${rekening instanceof T(nl.dagobank.webapp.domain.PrivateAccount)}">Particuliere rekening</span>
+                                <span th:if="${rekening instanceof T(nl.dagobank.webapp.domain.BusinessAccount)}">Zakelijke rekening</span>
+                            </h3>
+                            <p class="title" th:text="${rekening.accountName}"></p>
+                            <p class="title" th:text="${rekening.accountHolder.fullName}"></p>
 
-                        <div class="title" th:each="additionalAccountHolder : ${rekening.secondaryAccountHolders}">
-                            <p class="title" th:text="${additionalAccountHolder.fullName + ' |'}" ></p>
-                        </div>
+                            <div class="title" th:each="additionalAccountHolder : ${rekening.secondaryAccountHolders}">
+                                <p class="title" th:text="${additionalAccountHolder.fullName + ' |'}"></p>
+                            </div>
 
-                        <p th:text="${rekening.iban +  '&emsp;' + '&emsp;' +'&#8364;' + '  ' + rekening.balance}"></p>
-                        <a th:href="@{/accountView(id=${rekening.id})}">
-                            <button >Toon alle transacties</button>
-                        </a>
-                        <hr>
-                    </tr>
-                    <tr>
-                        <td class="button">
-                            <button class="buttontx"><p><a th:href="@{openPrivateBankAccount}">Open particuliere rekening</a></p></button>
+                            <p th:text="${rekening.iban +  '&emsp;' + '&emsp;' +'&#8364;' + '  ' + rekening.balance}"></p>
+                            <a class="buttonStandard buttonSmall noLink" th:href="@{/accountView(id=${rekening.id})}">
+                                Toon alle transacties
+                            </a>
                             <hr>
-                            <button class="buttontx"><p><a th:href="@{openBusinessAccount}">Open zakelijke rekening</a></p></button>
-                            <hr>
-                            <button class="buttontx"><p><a th:href="@{connectBankAccount}">Koppel rekening</a></p></button>
-                        </td>
-                    </tr>
-                </table>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <div th:insert="fragments/footer :: footer"></div>

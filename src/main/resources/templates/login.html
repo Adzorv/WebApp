@@ -20,8 +20,7 @@
                                    placeholder="gebruikersnaam">
                             <input class="loginInput" type="password" name="input_id" th:field="*{password}"
                                    placeholder="wachtwoord">
-                            <input class="buttonLogin" type="submit" value="inloggen">
-
+                            <input class="buttonStandard buttonSmall buttonWhite buttonBlock" type="submit" value="inloggen">
                         </form>
                     </div>
                 </div>
@@ -34,8 +33,10 @@
     </div>
 
     <div th:case="${false}">
-        <p>Hoi <span th:text="${user.fullName.firstName}"/>, je bent al ingelogd!</p>
-        <a href="/logout">Uitloggen</a>
+        <div class="spacedLeft">
+            <p>Hoi <span th:text="${user.fullName.firstName}"/>, je bent al ingelogd!</p>
+            <a class="buttonStandard buttonSmall noLink" href="/logout">Uitloggen</a>
+        </div>
     </div>
 </div>
 

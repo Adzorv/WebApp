@@ -7,7 +7,7 @@
 <div th:insert="fragments/navigation :: navigation"></div>
 <main class="wrap">
     <h1>Hoi <span th:text="${user.fullName}"/></h1>
-    <h2>Kies een bedrijf</h2>
+    <h2>Vul het formulier in om een nieuwe bedrijfsrekening te openen. <br>Kies een bedrijf uit de dropdown als je een extra rekening wilt openen voor een al bestaand bedrijf</h2>
         <form method="post" th:action="@{openBusinessAccount}" th:object="${openBusinessAccountForm}">
             <table>
                 <tr>
@@ -37,14 +37,15 @@
                     <td><input id="input_accountName" type="text" th:field="*{bankAccountName}"></td>
                 </tr>
                 <tr>
+                    <td><span class="error" th:text="${openBusinessAccountForm.error}"></span></td>
+                </tr>
+                <tr>
                     <td><input class="button_bottom" type="submit" name="businessAccountOpened"
                                value="Open zakelijke rekening"/></td>
                 </tr>
+
             </table>
         </form>
-
-
-    <a href="/open-zakelijke-rekening/nieuwbedrijf">Open een zakelijke rekening voor een nieuw bedrijf</a>
 </main>
 <div th:insert="fragments/footer :: footer"></div>
 </body>
@@ -66,7 +67,6 @@
             $(option).html(name);
             $("#businesses").append(option)
         });
-        // $("#businesses").append(new Option("Nieuw bedrijf", "Nieuw bedrijf"))
     };
 
     let getAllBusiness = function () {
@@ -95,13 +95,9 @@
                 let kvkNumber = business.kvkNumber;
                 let sbiCode = business.sbiCode;
 
-                input_name.val(businessName);
-                input_kvk.val(kvkNumber);
-                input_sbi.val(sbiCode);
-
-                input_name.attr('readonly', true);
-                input_kvk.attr('readonly', true);
-                input_sbi.attr('readonly', true);
+                input_name.val(businessName).attr('readonly', true);
+                input_kvk.val(kvkNumber).attr('readonly', true);
+                input_sbi.val(sbiCode).attr('readonly', true);
 
                 return false
             } else if (selected === "Nieuw bedrijf") {

@@ -7,9 +7,8 @@
 <div th:insert="fragments/navigation :: navigation"></div>
 <main>
     <h1>Openen zakelijke rekening is gelukt</h1>
-
-<p>Er is een nieuwe zakelijke rekening geopened met de volgende gegevens.</p>
-<p th:text="${bankaccount}"></p> <!--fixme: how to have it over several lines?-->
+    <p>Er is een nieuwe zakelijke rekening geopened.</p>
+    <a class="buttonStandard noLink" href="/overview">Ga naar rekening overzicht</a>
 </main>
 <div th:insert="fragments/footer :: footer"></div>
 </body>

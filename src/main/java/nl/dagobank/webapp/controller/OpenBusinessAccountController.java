@@ -55,25 +55,63 @@ public class OpenBusinessAccountController {
             Business business = new Business( account.getBusinessName(), account.getKvkNumber(), account.getSbiCode() );
             businesses.add( business );
         }
-        Gson gson = new Gson();
-        String jsonBusiness = gson.toJson( businesses );
-
-        mav.addObject( "businesses", businesses );
-        mav.addObject( "businessesJson", jsonBusiness );
         return mav;
     }
-
-/*    @PostMapping( "open-zakelijke-rekening" )
-    public ModelAndView openAccountForExistingBusiness( Model model, @ModelAttribute OpenBusinessAccountForm openBusinessAccountForm ) {
-        ModelAndView mav = new ModelAndView( "openBusinessAccountSuccessful" );
-        return mav;
-    }*/
 
     @GetMapping( "getAllBusinesses" )
     @ResponseBody
     public Set<Business> getAllBusinesses( Model model ) {
         Set<Business> businesses = new HashSet<>();
         Customer customer = (Customer) model.getAttribute( "user" );
+        return getAllBusinessFor( customer );
+    }
+
+    @PostMapping( "openBusinessAccount" )
+    public ModelAndView openBusinessAccountSuccessfulHandler( @ModelAttribute OpenBusinessAccountForm openBusinessAccountForm, Model model ) {
+        Customer customer = (Customer) model.getAttribute( "user" );
+        Set<Business> existingBusinesses = getAllBusinessFor( customer );
+        Business newBusiness = new Business( openBusinessAccountForm.getBusinessName(), openBusinessAccountForm.getKvkNumber(), openBusinessAccountForm.getSbiCode() );
+        for ( Business business : existingBusinesses ) {
+            if ( business.getKvkNumber() == newBusiness.getKvkNumber() ) {
+                if ( !business.getBusinessName().equals( newBusiness.getBusinessName() ) ) {
+                    openBusinessAccountForm.setError( "Dit KVK nummer is al geregistreerd onder een andere naam." );
+                    return new ModelAndView( "openBusinessAccountExistingBusiness" );
+                } else if ( !business.getSbiCode().equals( newBusiness.getSbiCode() ) ) {
+                    openBusinessAccountForm.setError( "Dit KVK nummer is al geregistreerd onder een andere sector." );
+                    return new ModelAndView( "openBusinessAccountExistingBusiness" );
+                }
+            }
+        }
+        BusinessAccount businessAccount = saveBusinessAccount( customer, openBusinessAccountForm );
+        return new ModelAndView(  "openBusinessAccountSuccessful" ).addObject( "bankaccount", businessAccount );
+    }
+
+/*    private ModelAndView checkBusinessNameAndSbiCode( Business currentBusiness, Business newBusiness, OpenBusinessAccountForm openBusinessAccountForm ) {
+        if ( !currentBusiness.getBusinessName().equals( newBusiness.getBusinessName() ) ) {
+            System.out.println("hiero 2");
+            openBusinessAccountForm.setError( "Dit KVK nummer is al geregistreerd onder een andere naam." );
+            return new ModelAndView( "openBusinessAccountExistingBusiness" );
+        } else if ( !currentBusiness.getSbiCode().equals( newBusiness.getSbiCode() ) ) {
+            openBusinessAccountForm.setError( "Dit KVK nummer is al geregistreerd onder een andere sector." );
+            return new ModelAndView( "openBusinessAccountExistingBusiness" );
+        }
+    }*/
+
+    private BusinessAccount saveBusinessAccount( Customer customer, OpenBusinessAccountForm openBusinessAccountForm ) {
+        BusinessAccount businessAccount = new BusinessAccount();
+        businessAccount.setAccountHolder( customer );
+        businessAccount.setBusinessName( openBusinessAccountForm.getBusinessName() );
+        businessAccount.setKvkNumber( openBusinessAccountForm.getKvkNumber() );
+        businessAccount.setSbiCode( openBusinessAccountForm.getSbiCode() );
+        businessAccount.setAccountName( openBusinessAccountForm.getBankAccountName() );
+        businessAccount.setBalance( new BigDecimal( "25" ) );
+        businessAccount.setIban( ibanGenerator.createIban().toString() );
+        businessAccountDao.save( businessAccount );
+        return businessAccount;
+    }
+
+    private Set<Business> getAllBusinessFor( Customer customer ) {
+        Set<Business> businesses = new HashSet<>();
         List<BusinessAccount> accounts = bankAccountService.findAllBusinessAccountsByCustomer( customer );
         for ( BusinessAccount account : accounts ) {
             Business business = new Business( account.getBusinessName(), account.getKvkNumber(), account.getSbiCode() );
@@ -81,79 +119,4 @@ public class OpenBusinessAccountController {
         }
         return businesses;
     }
-
-/*    @GetMapping( "openBusinessAccount" )
-    public ModelAndView openBusinessAccountHandler( Model model ) {
-        ModelAndView openBusinessAccountPage = new ModelAndView( "openBusinessAccount" );
-        Customer customer = (Customer) model.getAttribute( "user" );
-        openBusinessAccountPage.addObject( "customerName", customer.getFullName() );
-        model.addAttribute( "sbiCodes", sbiCodes );
-        openBusinessAccountPage.addObject( "openBusinessAccountForm", new OpenBusinessAccountForm() );
-        return openBusinessAccountPage;
-    }*/
-
-    @PostMapping( "openBusinessAccount" )
-    public ModelAndView openBusinessAccountSuccessfulHandler( @ModelAttribute OpenBusinessAccountForm openBusinessAccountForm, Model model ) {
-        System.out.println( openBusinessAccountForm );
-        System.out.println( openBusinessAccountForm.getKvkNumber() );
-        return showBusinessAccountOpenedSuccess( openBusinessAccountForm, model, new BusinessAccount() );
-/*        if ( !bankAccountService.isCompanyValid( openBusinessAccountForm.getKvkNumber() ) ) {
-
-            return showBusinessAccountOpenedSuccess( openBusinessAccountForm, model, new BusinessAccount() );
-        } else {
-            return showOpenAnotherAccount( openBusinessAccountForm, model );
-        }*/
-    }
-
-    private ModelAndView showBusinessAccountOpenedSuccess( @ModelAttribute OpenBusinessAccountForm openBusinessAccountForm, Model model, BusinessAccount businessAccount ) {
-        ModelAndView businessAccountOpenened = new ModelAndView( "openBusinessAccountSuccessful" );
-        Customer customer = (Customer) model.getAttribute( "user" );
-        businessAccount.setAccountHolder( customer );
-        businessAccount.setBusinessName( openBusinessAccountForm.getBusinessName() );
-        businessAccount.setKvkNumber( openBusinessAccountForm.getKvkNumber() );
-        businessAccount.setSbiCode( openBusinessAccountForm.getSbiCode() );
-        businessAccount.setAccountName( openBusinessAccountForm.getBankAccountName() );
-        businessAccount.setBalance( new BigDecimal( "25" ) );
-        Iban iban = ibanGenerator.createIban();
-        businessAccount.setIban( iban.toString() );
-        businessAccountDao.save( businessAccount );
-        businessAccountOpenened.addObject( "bankaccount", businessAccount );
-        return businessAccountOpenened;
-    }
-
-    private ModelAndView showOpenAnotherAccount( OpenBusinessAccountForm openBusinessAccountForm, Model model ) {
-        ModelAndView openAnotherBusinessAccount = new ModelAndView( "openAnotherBusinessAccount" );
-        return openAnotherBusinessAccount;
-    }
-
-    @PostMapping( "openAnotherBusinessAccount" )
-    public ModelAndView openAnotherBusinessAccount( @RequestParam( "bankAccountName" ) String bankAccountName, Model model, BusinessAccount businessAccount ) {
-        ModelAndView openBusinessAccountSuccessful = new ModelAndView( "openBusinessAccountSuccessful" );
-        createAndSaveAnotherBusinessAccount( bankAccountName, model, businessAccount );
-        openBusinessAccountSuccessful.addObject( "bankaccount", businessAccount );
-        return openBusinessAccountSuccessful;
-    }
-
-    private BusinessAccount createAndSaveAnotherBusinessAccount( String bankAccountName, Model model, BusinessAccount businessAccount ) {
-        Customer customer = (Customer) model.getAttribute( "user" );
-        businessAccount = (BusinessAccount) model.getAttribute( "businessAccount" );
-        businessAccount.setAccountHolder( customer );
-        businessAccount.setAccountName( bankAccountName );
-        businessAccount.setBalance( new BigDecimal( "25" ) );
-        Iban iban = ibanGenerator.createIban();
-        businessAccount.setIban( iban.toString() );
-        businessAccount.getBusinessName();
-        businessAccount.getKvkNumber();
-        businessAccount.getSbiCode();
-
-       /*
-        businessAccount.setBusinessName(businessAccount.getBusinessName());//fixme: how to retrieve the information of the company
-        businessAccount.setKvkNumber(businessAccount.getKvkNumber());
-        businessAccount.setSbiCode(businessAccount.getSbiCode());*/
-        businessAccountDao.save( businessAccount );
-        return businessAccount;
-
-    }
-
-
 }
