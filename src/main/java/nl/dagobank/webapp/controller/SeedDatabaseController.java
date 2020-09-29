@@ -47,7 +47,7 @@ public class SeedDatabaseController {
         LOG.info("created standard users");
         System.out.println("amount");
         System.out.println(amount);
-        if ( amount != null ) {
+        if ( amount != null && amount.intValue() != 0 ) {
             testDataService.createAndSaveUsers(amount);
         } else {
             testDataService.createAndSaveUsers(DEFAULT_AMOUNT_OF_USERS_TO_GENERATE);

@@ -148,7 +148,7 @@ public class TestDataService {
         PasswordGenerator passwordGenerator = new PasswordGenerator();
 
         for (int i = 0; i < numberOfUsers; i++) {
-            if (i % 100 == 0) {
+            if (i % 50 == 0) {
                 LOG.info(i + " Customers saved to database...");
             }
             PersonalDetails personalDetails = new PersonalDetails(generator.getRandomBirthDate(18, 100), bsnGenerator.next());
