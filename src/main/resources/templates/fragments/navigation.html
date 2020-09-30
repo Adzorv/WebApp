@@ -24,7 +24,7 @@
                     <li><a href="/ibanracer"><span class="glyphicon glyphicon-plane"></span> Ibanracer</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right" th:switch="${session.user != null}">
-                    <li th:if="${session.user != null}">
+                    <li th:if="${session.user != null && session.user instanceof T(nl.dagobank.webapp.domain.Customer)}">
                         <a href="/overview"><span class="glyphicon glyphicon-th-list"></span> Rekeningen overzicht </a>
                     </li>
                     <li><a href="/registration"><span class="glyphicon glyphicon-user"></span> Registreren</a></li>
