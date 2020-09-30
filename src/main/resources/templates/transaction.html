@@ -57,7 +57,7 @@
     $("#rec-amount").on('focusout', function() {
         console.log("focus Werkt")
         var amount = $("#rec-amount").val();
-        var userBalance = $("#send-balance").val();
+        var userBalance = $("#send-balance").html();
         console.log(userBalance);
         if($('#send-balance').contents().length !== 0){
             var sending = parseFloat(amount);
@@ -65,7 +65,7 @@
             console.log(sending);
             console.log(funds);
             if(sending > funds ) {
-                $("#errorMessage").html("Onvoldoende saldo");
+                $("#error").html("Onvoldoende saldo");
             }
         }
     });
