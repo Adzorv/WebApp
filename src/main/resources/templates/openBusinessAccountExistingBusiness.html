@@ -7,7 +7,7 @@
 <div th:insert="fragments/navigation :: navigation"></div>
 <main class="wrap">
     <h1>Hoi <span th:text="${user.fullName}"/></h1>
-    <h2>Vul het formulier in om een nieuwe bedrijfsrekening te openen. <br>Kies een bedrijf uit de dropdown als je een extra rekening wilt openen voor een al bestaand bedrijf</h2>
+    <p>Vul het formulier in om een nieuwe bedrijfsrekening te openen. <br>Kies een bedrijf uit de dropdown als je een extra rekening wilt openen voor een al bestaand bedrijf</p>
         <form method="post" th:action="@{openBusinessAccount}" th:object="${openBusinessAccountForm}">
             <table>
                 <tr>
@@ -24,7 +24,7 @@
                 </tr>
                 <tr>
                     <td>KVK nummer:</td>
-                    <td><input id="input_kvkNumber" name="input_kvkNumber" type="text" th:field="*{kvkNumber}"></td>
+                    <td><input id="input_kvkNumber" name="input_kvkNumber" type="text" autocomplete="cc-csc" th:field="*{kvkNumber}"></td>
                 </tr>
                 <tr>
                     <td>Sector:</td>

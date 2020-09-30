@@ -6,7 +6,38 @@
 <body>
 <div th:insert="fragments/navigation :: navigation"></div>
 <main>
-<h1>Wij zijn zo fantastisch</h1>
+
+
+    <br><br>
+    <h1>Team</h1>
+    <button class="buttontx" id="button1">Klik hier om ons team te bekijken. </button>
+    <div id="team"></div>
+
+    <script>
+        document.getElementById('button1').addEventListener('click', loadUser);
+        function loadUser(){
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'team.json', true);
+
+            xhr.onload = function(){
+                if(this.status == 200){
+                    var team = JSON.parse(this.responseText);
+
+                    var output = '';
+
+                    for(var i in team) {
+                        output += '<ul>' +
+                            '<li>Naam: ' + team[i].name + '</li>' +
+                            '<li>Email: ' + team[i].email + '</li>' +
+                            '</ul>';
+                    }
+                    document.getElementById('team').innerHTML = output;
+                }
+            }
+            xhr.send();
+        }
+    </script>
+
 </main>
 <div th:insert="fragments/footer :: footer"></div>
 

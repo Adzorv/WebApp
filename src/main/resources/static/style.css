@@ -35,9 +35,9 @@
 }
 
 body {
-    background-color: black;
+    background: rgba(0, 0, 0, 0.5) url(img/bg1.jpg) no-repeat;
     font-family: "Roboto", sans-serif;
-    color: white;
+    color: navajowhite;
     font-size: 1.5em;
 }
 main {
@@ -512,7 +512,7 @@ h1.black-text, h3.black-text {
     margin: 0 auto;
 }
 div.backgroundsquare {
-    background-color: white;
+    background-color: #ffc107;
     color:black;
     width: 80%;
     height: 80%;
