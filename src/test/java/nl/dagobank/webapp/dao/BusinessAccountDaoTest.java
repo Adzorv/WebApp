@@ -73,7 +73,7 @@ class BusinessAccountDaoTest {
     }
 
 
-    @Test
+/*    @Test
     void getSumBalance() {
         //Calculate sum
         BigDecimal sumCompany1 = new BigDecimal( amounts1.stream().mapToDouble( i -> i ).sum() );
@@ -88,7 +88,7 @@ class BusinessAccountDaoTest {
                 .isGreaterThan( sums.get( 1 ).getBalance() );
         assertThat( sumCompany1.equals( sums.get( 0 ).getBalance() ) );
         assertThat( sumCompany2.equals( sums.get( 1 ).getBalance() ) );
-    }
+    }*/
 
 
     @Test

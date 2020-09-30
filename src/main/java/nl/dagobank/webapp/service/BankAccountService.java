@@ -74,20 +74,17 @@ public class BankAccountService {
         return bankAccountDao.findById( bankAccount.getId() ).get().getSecondaryAccountHolders().contains(customer);
     }
 
-
     public boolean isCustomerFirstOrSecundairyAccountHolder(Customer customer, BankAccount bankAccount){
        return ( bankAccount.getAccountHolder().equals(customer) || bankAccount.getSecondaryAccountHolders().contains(customer) );
     }
 
     public List<BusinessAccount> getTop10Businesses() {
-//        List<BusinessAccount> allBusinessAccounts = businessAccountDao.findAll();
-        List<BalanceSumPerBusiness> sumPerBusinesses = businessAccountDao.getSumBalance( PageRequest.of( 0, 10 ) );
+        List<BalanceSumPerBusiness> balanceSumPerBusinesses = businessAccountDao.getSumBalance( PageRequest.of( 0, 10 ) );
         List<BusinessAccount> allAccounts = new ArrayList<>();
-        for ( BalanceSumPerBusiness sumPerBusiness : sumPerBusinesses ) {
-            BusinessAccount ba = businessAccountDao.findByKvkNumber( sumPerBusiness.getKvkNumber() );
+        for ( BalanceSumPerBusiness sumPerBusiness : balanceSumPerBusinesses ) {
+            BusinessAccount ba = businessAccountDao.findFirstByKvkNumber( sumPerBusiness.getKvkNumber() );
             allAccounts.add( ba );
         }
-//        return allBusinessAccounts.stream().sorted( Comparator.comparing( BankAccount::getBalance ).reversed() ).limit( 10 ).collect( Collectors.toList() );
         return allAccounts;
     }
 
@@ -100,9 +97,6 @@ public class BankAccountService {
         return privateAccount;
     }
 
-    public boolean isCompanyValid(int kvkNumber) {
-        return businessAccountDao.existsByKvkNumber(kvkNumber);
-    }
 
 
     public String generateBankAccountNameFromUserNameAndNumberOfAccounts(Customer customer) {
@@ -119,6 +113,10 @@ public class BankAccountService {
         privateAccount.setIban(iban);
         savePrivateAccount(privateAccount);
         return  privateAccount;
+    }
+
+    public void saveBusinessAccount( BusinessAccount businessAccount ) {
+        businessAccountDao.save( businessAccount );
     }
 
 }
