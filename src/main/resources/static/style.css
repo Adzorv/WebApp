@@ -37,7 +37,7 @@
 body {
     background: rgba(0, 0, 0, 0.5) url(img/bg1.jpg) no-repeat;
     font-family: "Roboto", sans-serif;
-    color: navajowhite;
+    color: whitesmoke;
     font-size: 1.5em;
 }
 main {
@@ -365,13 +365,23 @@ td.error span {
 
 
 
-h2.txtext, h4.txtext {
+h2.txtext, h4.txtext, h1.txtext {
     color: #000000;
     font-family: Roboto;
     line-height: 19px;
     display: flex;
     align-items: center;
     text-align: center;
+    font-size: medium;
+    font-weight: normal;
+}
+
+.txtext {
+    color: #000000;
+    font-family: Roboto;
+    line-height: 21px;
+    font-size: medium;
+    font-weight: normal;
 }
 
 .containertx {
@@ -541,6 +551,10 @@ select {
 .buttonWhite:hover {
     background-color: #eeeeee;
     color: black;
+}
+
+.jumbotron {
+    background-color: #ffc107;
 }
 
 
