@@ -12,9 +12,8 @@
     <h2>Vul het registratie formulier in</h2>
     <form method="post" th:action="@{registration}" id="registrationform" th:object="${registrationForm}">
         <table id="registrationtable" class="loginform">
-            <tr>* verplicht</tr>
             <tr>
-                <td>Voornaam*:</td>
+                <td>Voornaam:</td>
                 <td><input type="text" name="input_firstName" th:field="*{firstName}" placeholder="Voornaam"
                            pattern="[A-Za-z ]{1,}" required oninvalid="this.setCustomValidity('Vul uw voornaam')"
                            oninput="setCustomValidity('')"></td>
@@ -25,25 +24,25 @@
                            pattern="[A-Za-z ]{1,}"></td>
             </tr>
             <tr>
-                <td>Achternaam*:</td>
+                <td>Achternaam:</td>
                 <td><input type="text" name="input_lastName" th:field="*{lastName}" placeholder="Achternaam"
                            pattern="[A-Za-z ]{1,}" required oninvalid="this.setCustomValidity('Vul uw achternaam')"
                            oninput="setCustomValidity('')"></td>
             </tr>
             <tr>
-                <td>Telefoon*:</td>
+                <td>Telefoon:</td>
                 <td><input type="text" name="input_phoneNumber" th:field="*{phoneNumber}" placeholder="0612345678"
                            pattern="[0-9 +]{8,}" required oninvalid="this.setCustomValidity('Voer een geldig telefoonnummer in.  ' +
                             'Bijv: 0611118888')" oninput="setCustomValidity('')"></td>
             </tr>
             <tr>
-                <td>Postcode*:</td>
+                <td>Postcode:</td>
                 <td><input type="text" id="postcode" name="input_post_code" placeholder="0000XX"
                            pattern="[0-9]{4}[A-Za-z]{2}" required oninvalid="this.setCustomValidity('Voer een Nederlandse postcode in.  ' +
                             'Bijv: 1234AB')" th:field="*{postCode}" oninput="setCustomValidity('')"></td>
             </tr>
             <tr id="housenumberRow">
-                <td>Huisnummer*:</td>
+                <td>Huisnummer:</td>
                 <td><input type="text" id="housenumber" name="input_houseNumber" th:field="*{houseNumber}" placeholder="000"
                            pattern="[0-9]{1,}" required oninvalid="this.setCustomValidity('Voer uw huisnummer in')"
                            oninput="setCustomValidity('')"></td>
@@ -54,19 +53,19 @@
                            placeholder="Toevoeging" ></td>
             </tr>
             <tr>
-                <td>Straat*:</td>
+                <td>Straat:</td>
                 <td><input type="text" id="street" name="input_streetName" th:field="*{streetName}" placeholder="Straatnaam" required
                            oninvalid="this.setCustomValidity('Voer uw straatnaam in')"
                            oninput="setCustomValidity('')"></td>
             </tr>
             <tr>
-                <td> Woonplaats*:</td>
+                <td> Woonplaats:</td>
                 <td><input type="text" id="city" name="input_city" th:field="*{city}" placeholder="Woonplaats"
                            pattern="[A-Za-z ]{1,}" required oninvalid="this.setCustomValidity('Voer uw woonplaats in')"
                            oninput="setCustomValidity('')"></td>
             </tr>
             <tr>
-                <td>Email*:</td>
+                <td>Email:</td>
                 <td><input type="text" name="input_email" th:field="*{email}" placeholder="naam@email.com"
                            pattern="\b[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}\b" required
                            oninvalid="this.setCustomValidity('Voer een geldig e-mailadres in.\n'+
@@ -74,13 +73,13 @@
                            oninput="setCustomValidity('')"></td>
             </tr>
             <tr>
-                <td>Geboortedatum*:</td>
+                <td>Geboortedatum:</td>
                 <td><input type="date" name="input_birth_date" th:field="*{birthDate}" required
                            oninvalid="this.setCustomValidity('Voer een geldige geboortedatum in')"
                            oninput="setCustomValidity('')"></td>
             </tr>
             <tr>
-                <td>BSN*:</td>
+                <td>BSN:</td>
                 <td><input type="text" name="bsn" th:field="*{bsn}" placeholder="111222333" pattern="[0-9]{9}"
                            required
                            oninvalid="this.setCustomValidity('Voer een geldige BSN in.  Bijv: 123456789')"

@@ -13,31 +13,52 @@
     <a class="buttonStandard noLink" th:href="@{openBusinessAccount}">Open zakelijke rekening</a>
     <a class="buttonStandard noLink" th:href="@{connectBankAccount}">Koppel rekening</a>
 </div>
-<div class="backgroundsquare">
-    <div class="row">
-        <div class="column">
-            <div class="card">
-                <div class="container">
-                    <table>
-                        <tr th:each="rekening : ${bankAccounts}">
-                            <h3><span class="glyphicon glyphicon-credit-card"></span>
-                                <span th:if="${rekening instanceof T(nl.dagobank.webapp.domain.PrivateAccount)}">Particuliere rekening</span>
-                                <span th:if="${rekening instanceof T(nl.dagobank.webapp.domain.BusinessAccount)}">Zakelijke rekening</span>
-                            </h3>
-                            <p class="title" th:text="${rekening.accountName}"></p>
-                            <p class="title" th:text="${rekening.accountHolder.fullName}"></p>
 
-                            <div class="title" th:each="additionalAccountHolder : ${rekening.secondaryAccountHolders}"
-                                th:text="${additionalAccountHolder.fullName + ' |'}">
-                            </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-8"><div th:each="rekening : ${bankAccounts}">
+                    <h3>
+                        <span class="glyphicon glyphicon-credit-card"></span>
+                    <span th:if="${rekening instanceof T(nl.dagobank.webapp.domain.PrivateAccount)}">Particuliere rekening</span>
+                    <span th:if="${rekening instanceof T(nl.dagobank.webapp.domain.BusinessAccount)}">Zakelijke rekening</span>
+                    </h3>
+                    <p class="title" th:text="${rekening.accountName}"></p>
+                    <p class="title" th:text="${rekening.accountHolder.fullName}"></p>
+                    <p>
+                        <span class="title" th:each="additionalAccountHolder : ${rekening.secondaryAccountHolders}" th:text="${additionalAccountHolder.fullName + ' |'}">
+                        </span>
+                    </p>
+                    <p th:text="${rekening.iban +  '&emsp;' + '&emsp;' +'&#8364;' + '  ' + rekening.balance}"></p>
+                    <a class="buttonStandard buttonSmall noLink" th:href="@{/accountView(id=${rekening.id})}">
+                        Toon alle transacties
+                    </a>
+                  </div>
+                </div>
+                <div class="col-2"></div>
+            </div>
+        </div>
 
-                            <p th:text="${rekening.iban +  '&emsp;' + '&emsp;' +'&#8364;' + '  ' + rekening.balance}"></p>
-                            <a class="buttonStandard buttonSmall noLink" th:href="@{/accountView(id=${rekening.id})}">
-                                Toon alle transacties
-                            </a>
-                            <hr>
-                        </tr>
-                    </table>
+<!--                    <table>-->
+<!--                        <tr th:each="rekening : ${bankAccounts}">-->
+<!--                            <h3><span class="glyphicon glyphicon-credit-card"></span>-->
+<!--                                <span th:if="${rekening instanceof T(nl.dagobank.webapp.domain.PrivateAccount)}">Particuliere rekening</span>-->
+<!--                                <span th:if="${rekening instanceof T(nl.dagobank.webapp.domain.BusinessAccount)}">Zakelijke rekening</span>-->
+<!--                            </h3>-->
+
+<!--                            <span class="title" th:each="additionalAccountHolder : ${rekening.secondaryAccountHolders}"-->
+<!--                                 th:text="${additionalAccountHolder.fullName + ' |'}">-->
+<!--                            </span>-->
+
+<!--                            <p class="title" th:text="${rekening.accountName}"></p>-->
+<!--                            <p class="title" th:text="${rekening.accountHolder.fullName}"></p>-->
+<!--                            <p th:text="${rekening.iban +  '&emsp;' + '&emsp;' +'&#8364;' + '  ' + rekening.balance}"></p>-->
+<!--                            <a class="buttonStandard buttonSmall noLink" th:href="@{/accountView(id=${rekening.id})}">-->
+<!--                                Toon alle transacties-->
+<!--                            </a>-->
+<!--                            <hr>-->
+<!--                        </tr>-->
+<!--                    </table>-->
                 </div>
             </div>
         </div>

@@ -7,12 +7,14 @@
 <div th:insert="fragments/navigation :: navigation"></div>
 <h2></h2>
 <h1> Particulier rekening aangemaakt.</h1>
-<p> Beste <span th:text="${user.fullName}"></span>, een nieuwe particulier rekening met de naam  -
-<span th:text="${privateAccount.accountName}"></span> - en IBAN <span th:text="${privateAccount.iban}"></span> is aangemaakt.</p>
-<p> Klanten ontvangen op nieuwe rekeningen een welkom bonus van <span th:text="${privateAccount.balance}"></span> &#8364;.</p>
+<p> Beste <span th:text="${user.fullName}"></span>, een nieuwe particulier rekening met de naam -
+    <span th:text="${privateAccount.accountName}"></span> - en IBAN <span th:text="${privateAccount.iban}"></span> is
+    aangemaakt.</p>
+<p> Klanten ontvangen op nieuwe rekeningen een welkom bonus van <span th:text="${privateAccount.balance}"></span>
+    &#8364;.</p>
 <p> Deze bonus is meteen op je nieuwe rekening gestort.</p>
 
-<h3 class="sh_button"> <a href="/overview">terug naar overzicht</a> </h3>
+<h3 class="sh_button"><a href="/overview">terug naar overzicht</a></h3>
 <div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>

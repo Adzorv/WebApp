@@ -4,56 +4,69 @@
     <title>Open zakelijke rekening</title>
 </head>
 <body>
-<div th:insert="fragments/navigation :: navigation"></div>
-<main class="wrap">
-    <h1>Hoi <span th:text="${user.fullName} +','"/></h1>
-    <p>Vul het formulier in om een nieuwe bedrijfsrekening te openen. <br>Kies een bedrijf uit de dropdown als je een
-        extra rekening wilt openen voor een al bestaand bedrijf.</p>
-    <form class="open-business-account" method="post" th:action="@{openBusinessAccount}"
-          th:object="${openBusinessAccountForm}">
-        <table>
-            <tr>
-                <td>Nieuw of bestaand bedrijf:</td>
-                <td>
-                    <select name="businesses" id="businesses">
-                        <option>Nieuw bedrijf</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Bedrijfsnaam:</td>
-                <td><input id="input_businessName" name="input_businessName" type="text" th:field="*{businessName}">
-                </td>
-            </tr>
-            <tr>
-                <td>KVK nummer:</td>
-                <td><input id="input_kvkNumber" name="input_kvkNumber" type="text" th:field="*{kvkNumber}"></td>
-            </tr>
-            <tr>
-                <td>Sector:</td>
-                <td>
-                    <div class="custom-select">
-                        <select th:field="*{sbiCode}" id="input_sbiCode">
-                            <option th:each="sbiCode : ${openBusinessAccountForm.sbiCodes}" th:value="${sbiCode}"
-                                    th:text="${sbiCode}"></option>
-                        </select></div>
-                </td>
-            </tr>
-            <tr>
-                <td>Naam van deze rekening:</td>
-                <td><input id="input_accountName" type="text" th:field="*{bankAccountName}"></td>
-            </tr>
-            <tr>
-                <td><span class="error" th:text="${openBusinessAccountForm.error}"></span></td>
-            </tr>
-            <tr>
-                <td><input class="button_bottom" type="submit" name="businessAccountOpened"
-                           value="Open zakelijke rekening"/></td>
-            </tr>
 
-        </table>
-    </form>
-</main>
+<div th:insert="fragments/navigation :: navigation"></div>
+            <main class="wrap">
+                <div class="container">
+                    <div class="jumbotron">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="txtext">Hallo - <span th:text="${user.fullName} +','"/></h2>
+                                <p class="txtext">Vul het formulier in om een nieuwe bedrijfsrekening te openen. <br>Kies een bedrijf uit de dropdown als je een
+                                    extra rekening wilt openen voor een al bestaand bedrijf.</p>
+                            </div>
+                            <div class="card-body">
+                                <form  class="open-business-account" method="post" th:action="@{openBusinessAccount}"
+                                      th:object="${openBusinessAccountForm}">
+                                    <table>
+                                        <tr>
+                                            <td class="txtext">Nieuw of bestaand bedrijf:</td>
+                                            <td class="txtext">
+                                                <select name="businesses" id="businesses">
+                                                    <option>Nieuw bedrijf</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="txtext">Bedrijfsnaam:</td>
+                                            <td class="txtext"><input id="input_businessName" name="input_businessName" type="text" th:field="*{businessName}">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="txtext">KVK nummer:</td>
+                                            <td class="txtext"><input id="input_kvkNumber" name="input_kvkNumber" type="text" th:field="*{kvkNumber}"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="txtext">Sector:</td>
+                                            <td class="txtext">
+                                                <div class="custom-select">
+                                                    <select th:field="*{sbiCode}" id="input_sbiCode">
+                                                        <option th:each="sbiCode : ${openBusinessAccountForm.sbiCodes}" th:value="${sbiCode}"
+                                                                th:text="${sbiCode}"></option>
+                                                    </select></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="txtext">Naam van deze rekening:</td>
+                                            <td class="txtext"><input id="input_accountName" type="text" th:field="*{bankAccountName}"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="error" th:text="${openBusinessAccountForm.error}"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="buttonWhite" type="submit" name="businessAccountOpened"
+                                                       value="Open zakelijke rekening"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </main>
 <div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>
