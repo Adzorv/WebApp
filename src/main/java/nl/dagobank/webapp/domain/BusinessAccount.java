@@ -1,10 +1,13 @@
 package nl.dagobank.webapp.domain;
 
+import nl.dagobank.webapp.backingbeans.AccountInfo;
+import nl.dagobank.webapp.backingbeans.Business;
 import nl.dagobank.webapp.backingbeans.OpenBusinessAccountForm;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import java.util.List;
 
 
 @Entity
@@ -15,6 +18,7 @@ public class BusinessAccount extends BankAccount {
     private String sbiCode;
 
     public BusinessAccount() {
+        super();
     }
 
     public BusinessAccount(OpenBusinessAccountForm openBusinessAccountForm) {
@@ -26,6 +30,13 @@ public class BusinessAccount extends BankAccount {
 
     }
 
+    public BusinessAccount( AccountInfo accountInfo, Customer accountHolder, String businessName, int kvkNumber, String sbiCode ) {
+        super( accountInfo, accountHolder );
+        this.businessName = businessName;
+        this.kvkNumber = kvkNumber;
+        this.sbiCode = sbiCode;
+    }
+
     public BusinessAccount( String businessName, int kvkNumber, String sbiCode ) {
         super();
         this.businessName = businessName;
@@ -33,6 +44,12 @@ public class BusinessAccount extends BankAccount {
         this.sbiCode = sbiCode;
     }
 
+    public BusinessAccount( AccountInfo accountInfo, Customer accountHolder, Business business ) {
+        super( accountInfo, accountHolder );
+        this.businessName = business.getBusinessName();
+        this.kvkNumber = business.getKvkNumber();
+        this.sbiCode = business.getSbiCode();
+    }
 
     public String getBusinessName() {
         return businessName;

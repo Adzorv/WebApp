@@ -1,5 +1,7 @@
 package nl.dagobank.webapp.domain;
 
+import nl.dagobank.webapp.backingbeans.AccountInfo;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -20,13 +22,23 @@ public abstract class BankAccount {
     private Customer accountHolder;
 
     @ManyToMany(fetch=FetchType.EAGER)
-    private List<Customer> secondaryAccountHolders = new ArrayList<>();
+    private List<Customer> secondaryAccountHolders;
 
     private String iban;
     private BigDecimal balance;
 
-    public BankAccount(){
-        super();
+    public static final int START_BALANCE = 25;
+
+    public BankAccount( AccountInfo accountInfo, Customer accountHolder ) {
+        this.accountName = accountInfo.getAccountName();
+        this.accountHolder = accountHolder;
+        this.secondaryAccountHolders = new ArrayList<>();
+        this.iban = accountInfo.getIban();
+        this.balance = new BigDecimal( START_BALANCE );
+    }
+
+    public BankAccount() {
+        this(new AccountInfo("", ""), null );
     }
 
     @Override
@@ -79,17 +91,6 @@ public abstract class BankAccount {
     }
 
 
-
-//    public List<Transaction> getTransations() {
-//        return transations;
-//    }
-
-    //    public void setTransations(List<Transaction> transations) {
-//        this.transations = transations;
-//    }
-
-
-
     public void setSecondaryAccountHolders( List<Customer> secondaryAccountHolders ) {
         this.secondaryAccountHolders = secondaryAccountHolders;
     }
@@ -100,14 +101,10 @@ public abstract class BankAccount {
         if ( o == null || getClass() != o.getClass() ) return false;
         BankAccount that = (BankAccount) o;
         return id == that.id
-                &&
-                Objects.equals( accountName, that.accountName )
+                && Objects.equals( accountName, that.accountName )
                 && Objects.equals( accountHolder, that.accountHolder )
-//                && Objects.equals( secondaryAccountHolders, that.secondaryAccountHolders )
                 && Objects.equals( iban, that.iban )
                 && Objects.equals( balance, that.balance )
-   //             && Objects.equals( BANKACCOUNT_BEGINBALANCE_GIFT, that.BANKACCOUNT_BEGINBALANCE_GIFT )
-//                && Objects.equals( TESTIBAN, that.TESTIBAN )
                 ;
     }
 

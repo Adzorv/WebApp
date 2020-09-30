@@ -1,6 +1,7 @@
 package nl.dagobank.webapp.controller;
 
 
+import nl.dagobank.webapp.backingbeans.AccountInfo;
 import nl.dagobank.webapp.backingbeans.Business;
 import nl.dagobank.webapp.backingbeans.OpenBusinessAccountForm;
 import nl.dagobank.webapp.domain.BusinessAccount;
@@ -43,20 +44,12 @@ public class OpenBusinessAccountController extends BaseController {
         } else {
             mav.setViewName( NO_ACCESS_VIEW );
         }
-        Customer customer = (Customer) model.getAttribute( USER_SESSION_ATTR );
-        List<Business> businesses = new ArrayList<>();
-        List<BusinessAccount> accounts = bankAccountService.findAllBusinessAccountsByCustomer( customer );
-        for ( BusinessAccount account : accounts ) {
-            Business business = new Business( account.getBusinessName(), account.getKvkNumber(), account.getSbiCode() );
-            businesses.add( business );
-        }
         return mav;
     }
 
     @GetMapping( "getAllBusinesses" )
     @ResponseBody
     public Set<Business> getAllBusinesses( Model model ) {
-        Set<Business> businesses = new HashSet<>();
         Customer customer = (Customer) model.getAttribute( USER_SESSION_ATTR );
         return getAllBusinessFor( customer );
     }
@@ -82,14 +75,13 @@ public class OpenBusinessAccountController extends BaseController {
     }
 
     private BusinessAccount saveAndCreateBusinessAccount( Customer customer, OpenBusinessAccountForm openBusinessAccountForm ) {
-        BusinessAccount businessAccount = new BusinessAccount();
-        businessAccount.setAccountHolder( customer );
-        businessAccount.setBusinessName( openBusinessAccountForm.getBusinessName() );
-        businessAccount.setKvkNumber( openBusinessAccountForm.getKvkNumber() );
-        businessAccount.setSbiCode( openBusinessAccountForm.getSbiCode() );
-        businessAccount.setAccountName( openBusinessAccountForm.getBankAccountName() );
-        businessAccount.setBalance( new BigDecimal( "25" ) );
-        businessAccount.setIban( ibanGenerator.createIban().toString() );
+        AccountInfo accountInfo = new AccountInfo( openBusinessAccountForm.getBankAccountName(), ibanGenerator.createIban().toString() );
+        Business business = new Business(
+                openBusinessAccountForm.getBusinessName(),
+                openBusinessAccountForm.getKvkNumber(),
+                openBusinessAccountForm.getSbiCode()
+        );
+        BusinessAccount businessAccount = new BusinessAccount( accountInfo, customer, business );
         bankAccountService.saveBusinessAccount( businessAccount );
         return businessAccount;
     }
