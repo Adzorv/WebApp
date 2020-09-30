@@ -79,10 +79,10 @@ public class BankAccountService {
     }
 
     public List<BusinessAccount> getTop10Businesses() {
-        List<BalanceSumPerBusiness> sumPerBusinesses = businessAccountDao.getSumBalance( PageRequest.of( 0, 10 ) );
+        List<BalanceSumPerBusiness> balanceSumPerBusinesses = businessAccountDao.getSumBalance( PageRequest.of( 0, 10 ) );
         List<BusinessAccount> allAccounts = new ArrayList<>();
-        for ( BalanceSumPerBusiness sumPerBusiness : sumPerBusinesses ) {
-            BusinessAccount ba = businessAccountDao.findByKvkNumber( sumPerBusiness.getKvkNumber() );
+        for ( BalanceSumPerBusiness sumPerBusiness : balanceSumPerBusinesses ) {
+            BusinessAccount ba = businessAccountDao.findFirstByKvkNumber( sumPerBusiness.getKvkNumber() );
             allAccounts.add( ba );
         }
         return allAccounts;

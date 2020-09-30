@@ -63,7 +63,7 @@
 
     $("document").ready(
         function () {
-            getAllBusiness();
+            getAllBusinesses();
         }
     );
 
@@ -76,7 +76,7 @@
         });
     };
 
-    let getAllBusiness = function () {
+    let getAllBusinesses = function () {
         $.ajax({
             url: "getAllBusinesses",
             type: "get",
@@ -101,11 +101,9 @@
                 let businessName = business.businessName;
                 let kvkNumber = business.kvkNumber;
                 let sbiCode = business.sbiCode;
-
                 input_name.val(businessName).attr('readonly', true);
                 input_kvk.val(kvkNumber).attr('readonly', true);
                 input_sbi.val(sbiCode).attr('readonly', true);
-
                 return false
             } else if (selected === "Nieuw bedrijf") {
                 input_name.attr('readonly', false);

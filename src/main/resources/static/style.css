@@ -53,12 +53,6 @@ input[type=text], input[type=number], input[type=date], textarea, select {
     margin-bottom: 10px;
 }
 
-input {
-    border: none;
-    background-color: white;
-    border-radius: 4px;
-    padding-left: 4px;
-}
 
 header {
     position: fixed;
@@ -202,56 +196,6 @@ h1.intro {
     margin: 25% auto;
 }
 
-.buttonStandard {
-    background-color: #ffc107;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin-bottom: 5px;
-}
-
-.buttonWhite {
-    background-color: white;
-    color: black;
-}
-
-.buttonSmall {
-    padding: 5px 10px;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-.buttonSmall:hover {
-    color: white;
-}
-
-
-.buttonInline {
-    display: inline-block;
-}
-
-.buttonBlock {
-    display: block;
-    text-align: center;
-    width: 100%;
-    margin-top: 10px;
-}
-
-
-.buttonStandard:hover, .button_bottom:hover, .button:hover {
-    background-color: #ff9127;
-}
-
-.buttonWhite:hover {
-    background-color: #eeeeee;
-    color: black;
-}
-
 .center {
     margin: auto;
     width: 50%;
@@ -334,38 +278,6 @@ footer.sh_footer {
 }
 
 
-.loginbox {
-    background-color: #ffc107;
-    border-radius: 30px;
-    padding: 40px;
-    width: 50%;
-    height: 50%;
-    color: black;
-    margin-top: 40px;
-}
-
-.loginbox form {
-    padding: 0;
-}
-
-.loginbox.employee {
-    background-color: #5a6268;
-}
-
-.loginboxwrap {
-    margin: auto;
-    width: 50%;
-    padding: 10px;
-}
-
-.boxposition {
-    width: 400px;
-    height: 400px;
-    border: 5px solid green;
-    margin: 40px auto;
-    padding-top: 40px;
-}
-
 .shadow {
     -webkit-box-shadow: 4px 10px 10px 0px rgba(0, 0, 0, 0.49); /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
     -moz-box-shadow: 4px 10px 10px 0px rgba(0, 0, 0, 0.49); /* Firefox 3.5 - 3.6 */
@@ -428,12 +340,7 @@ td.error span {
 }
 
 
-.error {
-    color: red;
-    font-style: italic;
-    text-align: left;
-    margin-left: 10px;
-}
+
 
 .dagobertBackground {
     background: rgba(0, 0, 0, 0.5) url(img/bg1.jpg) no-repeat;
@@ -509,6 +416,7 @@ h1.black-text, h3.black-text {
     width: 900px;
     margin: 0 auto;
 }
+
 div.backgroundsquare {
     background-color: white;
     color:black;
@@ -529,10 +437,12 @@ form.open-business-account input {
     width: 300px;
 }
 
-/*.custom-select select {*/
-/*    display:none;*/
-/*    width:200px;*/
-/*}*/
+input {
+    border: none;
+    background-color: white;
+    border-radius: 4px;
+    padding-left: 4px;
+}
 
 select {
     -webkit-appearance: none;
@@ -544,6 +454,93 @@ select {
     background-repeat: no-repeat;
     padding-left: 4px;
     border-radius: 4px;
+}
+
+.error {
+    color: red;
+    font-style: italic;
+    text-align: left;
+    margin-left: 10px;
+}
+
+.loginbox {
+    background-color: #ffc107;
+    border-radius: 30px;
+    padding: 40px;
+    width: 50%;
+    height: 50%;
+    color: black;
+    margin-top: 40px;
+}
+
+.loginbox form {
+    padding: 0;
+}
+
+.loginbox.employee {
+    background-color: #5a6268;
+}
+
+.loginboxwrap {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+
+.boxposition {
+    width: 400px;
+    height: 400px;
+    border: 5px solid green;
+    margin: 40px auto;
+    padding-top: 40px;
+}
+
+.buttonStandard {
+    background-color: #ffc107;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.buttonWhite {
+    background-color: white;
+    color: black;
+}
+
+.buttonSmall {
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.buttonSmall:hover {
+    color: white;
+}
+
+.buttonInline {
+    display: inline-block;
+}
+
+.buttonBlock {
+    display: block;
+    text-align: center;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.buttonStandard:hover, .button_bottom:hover, .button:hover {
+    background-color: #ff9127;
+}
+
+.buttonWhite:hover {
+    background-color: #eeeeee;
+    color: black;
 }
 
 
