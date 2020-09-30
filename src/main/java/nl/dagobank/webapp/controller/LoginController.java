@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
-@SessionAttributes( BaseController.USER_MODEL_ATTR )
+@SessionAttributes( BaseController.USER_SESSION_ATTR )
 public class LoginController extends BaseController {
 
     private static final String POSTLOGIN_VIEW = "redirect:/overview", LOGIN_VIEW = "login";
@@ -40,7 +40,7 @@ public class LoginController extends BaseController {
         LoginValidatorCustomer lv = customerService.validateCredentials( loginform );
         ModelAndView mav = new ModelAndView();
         if ( lv.isUserValidated() && lv.isPasswordValidated() ) {
-            model.addAttribute( USER_MODEL_ATTR , lv.getCustomer() );
+            model.addAttribute( USER_SESSION_ATTR, lv.getCustomer() );
             mav.setViewName( POSTLOGIN_VIEW );
         } else {
             model.addAttribute( "loginform", loginform );

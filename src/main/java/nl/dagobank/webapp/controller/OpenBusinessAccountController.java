@@ -3,8 +3,6 @@ package nl.dagobank.webapp.controller;
 
 import nl.dagobank.webapp.backingbeans.Business;
 import nl.dagobank.webapp.backingbeans.OpenBusinessAccountForm;
-import nl.dagobank.webapp.dao.BankAccountDao;
-import nl.dagobank.webapp.dao.BusinessAccountDao;
 import nl.dagobank.webapp.domain.BusinessAccount;
 import nl.dagobank.webapp.domain.Customer;
 import nl.dagobank.webapp.service.BankAccountService;
@@ -22,8 +20,8 @@ import java.util.List;
 import java.util.Set;
 
 @Controller
-@SessionAttributes("user")
-public class OpenBusinessAccountController {
+@SessionAttributes(BaseController.USER_SESSION_ATTR )
+public class OpenBusinessAccountController extends BaseController {
 
     private IbanGenerator ibanGenerator;
     private BankAccountService bankAccountService;
@@ -40,12 +38,12 @@ public class OpenBusinessAccountController {
     @GetMapping( "openBusinessAccount" )
     public ModelAndView openBusinessAccountLandingPage( Model model, @ModelAttribute OpenBusinessAccountForm openBusinessAccountForm ) {
         ModelAndView mav = new ModelAndView();
-        if ( model.getAttribute( "user" ) != null ) {
+        if ( model.getAttribute( USER_SESSION_ATTR ) != null ) {
             mav.setViewName( "openBusinessAccount" );
         } else {
-            mav.setViewName( "geenToegang" );
+            mav.setViewName( NO_ACCESS_VIEW );
         }
-        Customer customer = (Customer) model.getAttribute( "user" );
+        Customer customer = (Customer) model.getAttribute( USER_SESSION_ATTR );
         List<Business> businesses = new ArrayList<>();
         List<BusinessAccount> accounts = bankAccountService.findAllBusinessAccountsByCustomer( customer );
         for ( BusinessAccount account : accounts ) {
@@ -59,13 +57,13 @@ public class OpenBusinessAccountController {
     @ResponseBody
     public Set<Business> getAllBusinesses( Model model ) {
         Set<Business> businesses = new HashSet<>();
-        Customer customer = (Customer) model.getAttribute( "user" );
+        Customer customer = (Customer) model.getAttribute( USER_SESSION_ATTR );
         return getAllBusinessFor( customer );
     }
 
     @PostMapping( "openBusinessAccount" )
     public ModelAndView openBusinessAccountSuccessfulHandler( @ModelAttribute OpenBusinessAccountForm openBusinessAccountForm, Model model ) {
-        Customer customer = (Customer) model.getAttribute( "user" );
+        Customer customer = (Customer) model.getAttribute( USER_SESSION_ATTR );
         Set<Business> existingBusinesses = getAllBusinessFor( customer );
         Business newBusiness = new Business( openBusinessAccountForm.getBusinessName(), openBusinessAccountForm.getKvkNumber(), openBusinessAccountForm.getSbiCode() );
         for ( Business business : existingBusinesses ) {

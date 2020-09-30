@@ -26,6 +26,7 @@ public abstract class BankAccount {
     private BigDecimal balance;
 
     public BankAccount(){
+        super();
     }
 
     @Override

@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
-@SessionAttributes( BaseController.USER_MODEL_ATTR )
+@SessionAttributes( BaseController.USER_SESSION_ATTR )
 public class HeadBusinessController extends BaseController {
 
     private BankAccountService bankAccountService;
@@ -27,7 +27,6 @@ public class HeadBusinessController extends BaseController {
             TOP10_BALANCE_ATTR = "top10balance",
             SECTORAVERAGE_ATTR = "averagePerSector",
             TOP10_TRANSACTIONS_ATTR = "top10transactions";
-
 
     @Autowired
     public HeadBusinessController( BankAccountService bankAccountService, TransactionService transactionService ) {
@@ -66,9 +65,9 @@ public class HeadBusinessController extends BaseController {
     }
 
     private boolean userIsLoggedInAndEmployee( Model model ) {
-        if ( model.containsAttribute( USER_MODEL_ATTR ) ) {
+        if ( model.containsAttribute( USER_SESSION_ATTR ) ) {
             try {
-                employee = (Employee) model.getAttribute( USER_MODEL_ATTR );
+                employee = (Employee) model.getAttribute( USER_SESSION_ATTR );
                 return true;
             } catch ( ClassCastException cce ) {
                 return false;

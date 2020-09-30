@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 
-@Entity//todo: once a name is connected to a kvkNumber and sbiCode it can't be changed. Only kvkNumer is unique
+@Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"businessName", "kvkNumber", "sbiCode"})})
 public class BusinessAccount extends BankAccount {
     private String businessName;

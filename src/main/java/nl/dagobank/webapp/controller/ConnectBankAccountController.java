@@ -28,8 +28,6 @@ public class ConnectBankAccountController {
 
     }
 
-
-
     @GetMapping("connectBankAccount")
     public String connectBankAccountLoaderHandler(Model model){
         model.addAttribute("error", "");
