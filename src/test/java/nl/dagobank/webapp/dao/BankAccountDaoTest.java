@@ -120,7 +120,6 @@ public class BankAccountDaoTest {
         entityManager.flush();
     }
 
-
     @Test
     public void findAllByAccountHolderTest(){
 
