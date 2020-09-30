@@ -12,15 +12,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import static nl.dagobank.webapp.controller.BaseController.USER_SESSION_ATTR;
 
 
 @Controller
-@SessionAttributes( BaseController.USER_SESSION_ATTR )
+@SessionAttributes( USER_SESSION_ATTR )
 public class LoginController extends BaseController {
 
-    private static final String POSTLOGIN_VIEW = "redirect:/overview", LOGIN_VIEW = "login";
-    private static final Logger LOG = LogManager.getLogger( LoginController.class );
-    private static final String USERNAME_ERROR = "Gebruikersnaam bestaat niet";
+    public static final String POSTLOGIN_REDIRECT = "redirect:/overview", LOGIN_VIEW = "login";
+    public static final Logger LOG = LogManager.getLogger( LoginController.class );
+    public static final String USERNAME_ERROR = "Gebruikersnaam bestaat niet";
 
     private CustomerService customerService;
 
@@ -41,7 +42,7 @@ public class LoginController extends BaseController {
         ModelAndView mav = new ModelAndView();
         if ( lv.isUserValidated() && lv.isPasswordValidated() ) {
             model.addAttribute( USER_SESSION_ATTR, lv.getCustomer() );
-            mav.setViewName( POSTLOGIN_VIEW );
+            mav.setViewName( POSTLOGIN_REDIRECT );
         } else {
             model.addAttribute( "loginform", loginform );
             mav.setViewName( LOGIN_VIEW );
