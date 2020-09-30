@@ -525,6 +525,30 @@ div.backgroundsquare {
     margin-left: 50px;
 }
 
+form.open-business-account input {
+    width: 300px;
+}
+
+/*.custom-select select {*/
+/*    display:none;*/
+/*    width:200px;*/
+/*}*/
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;       /* Remove default arrow */
+    background-image: url(data:image/svg+xml;base64,PHN2ZyBmaWxsPSdibGFjaycgaGVpZ2h0PScyNCcgdmlld0JveD0nMCAwIDI0IDI0JyB3aWR0aD0nMjQnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zyc+PHBhdGggZD0nTTcgMTBsNSA1IDUtNXonLz48cGF0aCBkPSdNMCAwaDI0djI0SDB6JyBmaWxsPSdub25lJy8+PC9zdmc+);
+    background-position: top -1px right 4px;
+    width: 300px;
+    background-repeat: no-repeat;
+    padding-left: 4px;
+    border-radius: 4px;
+}
+
+
+
+
 
 
 
