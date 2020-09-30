@@ -9,7 +9,6 @@ import nl.dagobank.webapp.domain.BusinessAccount;
 import nl.dagobank.webapp.domain.Customer;
 import nl.dagobank.webapp.service.BankAccountService;
 import nl.dagobank.webapp.service.IbanGenerator;
-import org.iban4j.Iban;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,30 +21,27 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static nl.dagobank.webapp.backingbeans.OpenBusinessAccountForm.sbiCodes;
-
 @Controller
-@SessionAttributes( { "user", "businessAccount" } )
+@SessionAttributes("user")
 public class OpenBusinessAccountController {
 
-    private BankAccountDao bankAccountDao;
     private IbanGenerator ibanGenerator;
     private BankAccountService bankAccountService;
-    private BusinessAccountDao businessAccountDao;
+    public static final String BUSINESSNAME_EXISTS_ERROR = "Dit KVK nummer is al geregistreerd onder een andere naam.",
+    SECTOR_EXISTS_ERROR = "Dit KVK nummer is al geregistreerd onder een andere sector.";
+
 
     @Autowired
-    public OpenBusinessAccountController( BankAccountDao bankAccountDao, IbanGenerator ibanGenerator, BankAccountService bankAccountService, BusinessAccountDao businessAccountDao ) {
-        this.bankAccountDao = bankAccountDao;
+    public OpenBusinessAccountController( IbanGenerator ibanGenerator, BankAccountService bankAccountService ) {
         this.ibanGenerator = ibanGenerator;
         this.bankAccountService = bankAccountService;
-        this.businessAccountDao = businessAccountDao;
     }
 
     @GetMapping( "openBusinessAccount" )
     public ModelAndView openBusinessAccountLandingPage( Model model, @ModelAttribute OpenBusinessAccountForm openBusinessAccountForm ) {
         ModelAndView mav = new ModelAndView();
         if ( model.getAttribute( "user" ) != null ) {
-            mav.setViewName( "openBusinessAccountExistingBusiness" );
+            mav.setViewName( "openBusinessAccount" );
         } else {
             mav.setViewName( "geenToegang" );
         }
@@ -75,30 +71,19 @@ public class OpenBusinessAccountController {
         for ( Business business : existingBusinesses ) {
             if ( business.getKvkNumber() == newBusiness.getKvkNumber() ) {
                 if ( !business.getBusinessName().equals( newBusiness.getBusinessName() ) ) {
-                    openBusinessAccountForm.setError( "Dit KVK nummer is al geregistreerd onder een andere naam." );
-                    return new ModelAndView( "openBusinessAccountExistingBusiness" );
+                    openBusinessAccountForm.setError( BUSINESSNAME_EXISTS_ERROR );
+                    return new ModelAndView( "openBusinessAccount" );
                 } else if ( !business.getSbiCode().equals( newBusiness.getSbiCode() ) ) {
-                    openBusinessAccountForm.setError( "Dit KVK nummer is al geregistreerd onder een andere sector." );
-                    return new ModelAndView( "openBusinessAccountExistingBusiness" );
+                    openBusinessAccountForm.setError( SECTOR_EXISTS_ERROR );
+                    return new ModelAndView( "openBusinessAccount" );
                 }
             }
         }
-        BusinessAccount businessAccount = saveBusinessAccount( customer, openBusinessAccountForm );
+        BusinessAccount businessAccount = saveAndCreateBusinessAccount( customer, openBusinessAccountForm );
         return new ModelAndView(  "openBusinessAccountSuccessful" ).addObject( "bankaccount", businessAccount );
     }
 
-/*    private ModelAndView checkBusinessNameAndSbiCode( Business currentBusiness, Business newBusiness, OpenBusinessAccountForm openBusinessAccountForm ) {
-        if ( !currentBusiness.getBusinessName().equals( newBusiness.getBusinessName() ) ) {
-            System.out.println("hiero 2");
-            openBusinessAccountForm.setError( "Dit KVK nummer is al geregistreerd onder een andere naam." );
-            return new ModelAndView( "openBusinessAccountExistingBusiness" );
-        } else if ( !currentBusiness.getSbiCode().equals( newBusiness.getSbiCode() ) ) {
-            openBusinessAccountForm.setError( "Dit KVK nummer is al geregistreerd onder een andere sector." );
-            return new ModelAndView( "openBusinessAccountExistingBusiness" );
-        }
-    }*/
-
-    private BusinessAccount saveBusinessAccount( Customer customer, OpenBusinessAccountForm openBusinessAccountForm ) {
+    private BusinessAccount saveAndCreateBusinessAccount( Customer customer, OpenBusinessAccountForm openBusinessAccountForm ) {
         BusinessAccount businessAccount = new BusinessAccount();
         businessAccount.setAccountHolder( customer );
         businessAccount.setBusinessName( openBusinessAccountForm.getBusinessName() );
@@ -107,7 +92,7 @@ public class OpenBusinessAccountController {
         businessAccount.setAccountName( openBusinessAccountForm.getBankAccountName() );
         businessAccount.setBalance( new BigDecimal( "25" ) );
         businessAccount.setIban( ibanGenerator.createIban().toString() );
-        businessAccountDao.save( businessAccount );
+        bankAccountService.saveBusinessAccount( businessAccount );
         return businessAccount;
     }
 
