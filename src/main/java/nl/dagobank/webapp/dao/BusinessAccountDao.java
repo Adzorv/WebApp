@@ -25,7 +25,8 @@ public interface BusinessAccountDao extends CrudRepository<BusinessAccount, Inte
                     "FROM BusinessAccount AS b GROUP BY b.kvkNumber ORDER BY balance DESC" )
     List<BalanceSumPerBusiness> getSumBalance( Pageable pageable );
 
-    @Query( "SELECT ba.sbiCode as sbiCode, AVG(ba.balance) AS balanceAverage FROM BusinessAccount AS ba WHERE sbiCode IS NOT NULL GROUP BY sbiCode ORDER BY balanceAverage DESC")
+    @Query( "SELECT ba.sbiCode as sbiCode, AVG(ba.balance) AS balanceAverage " +
+            "FROM BusinessAccount AS ba WHERE sbiCode IS NOT NULL GROUP BY sbiCode ORDER BY balanceAverage DESC")
     List<SbiAverage> getAverageBalancePerSector();
 
     BusinessAccount findFirstByKvkNumber( int kvkNumber );

@@ -123,4 +123,9 @@ class LoginControllerTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    void loginWithLoginValidator() {
+
+    }
 }
