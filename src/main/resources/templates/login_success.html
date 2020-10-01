@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/html">
-<head th:insert="fragments/head :: head">
+<head>
+    <th:block th:insert="fragments/head :: head"></th:block>
     <title>Ingelogd</title>
 </head>
+
 <body th:object="${user}">
 <h1>Welkom <span th:text="${user.bsn}"></span></h1>
 
