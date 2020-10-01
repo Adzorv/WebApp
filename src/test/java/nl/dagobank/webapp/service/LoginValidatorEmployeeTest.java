@@ -41,8 +41,12 @@ class LoginValidatorEmployeeTest {
         loginForm.setPassword( "wrongPassword" );
         loginValidatorEmployee.validateCredentials( loginForm );
         assertThat( loginValidatorEmployee.isLoginValidated() ).isFalse();
-        assertThat( loginValidatorEmployee.getLogMessage() ).isNotNull().isNotEqualTo( "" ).isEqualTo( LoginValidatorEmployee.WRONG_CREDENTIALS_LOG_MESSAGE );
-        assertThat( loginForm.getGeneralError() ).isNotNull().isNotEqualTo( "" ).isEqualTo( LoginValidatorEmployee.WRONG_CREDENTIALS_FORM_MESSAGE );
+        assertThat( loginValidatorEmployee.getLogMessage() )
+                .isNotNull().isNotEqualTo( "" )
+                .isEqualTo( LoginValidatorEmployee.WRONG_CREDENTIALS_LOG_MESSAGE );
+        assertThat( loginForm.getGeneralError() )
+                .isNotNull().isNotEqualTo( "" )
+                .isEqualTo( LoginValidatorEmployee.WRONG_CREDENTIALS_FORM_MESSAGE );
 
         // Wrong username + correct password test
         loginForm.setUsername( "wrongUsername" );
@@ -58,3 +62,4 @@ class LoginValidatorEmployeeTest {
         assertThat( loginValidatorEmployee.isLoginValidated() ).isTrue();
     }
 }
+

@@ -39,8 +39,7 @@ class LoginControllerTest {
 
     @MockBean
     CustomerService customerService;
-//    @MockBean
-//    LoginAttemptDao mockLoginAttemtDao;
+
     @MockBean
     LoginValidatorCustomer mockLoginValidatorCustomer;
 

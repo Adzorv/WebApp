@@ -15,9 +15,6 @@ import java.util.*;
 
 import static org.assertj.core.api.Assertions.*;
 
-//@DataJpaTest
-//@RunWith( SpringRunner.class )
-//@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @DataJpaTest( properties = "spring.jpa.database-platform=org.hibernate.dialect.H2Dialect" )
 class BusinessAccountDaoTest {
 
@@ -73,7 +70,7 @@ class BusinessAccountDaoTest {
     }
 
 
-/*    @Test
+    @Test
     void getSumBalance() {
         //Calculate sum
         BigDecimal sumCompany1 = new BigDecimal( amounts1.stream().mapToDouble( i -> i ).sum() );
@@ -88,7 +85,7 @@ class BusinessAccountDaoTest {
                 .isGreaterThan( sums.get( 1 ).getBalance() );
         assertThat( sumCompany1.equals( sums.get( 0 ).getBalance() ) );
         assertThat( sumCompany2.equals( sums.get( 1 ).getBalance() ) );
-    }*/
+    }
 
 
     @Test

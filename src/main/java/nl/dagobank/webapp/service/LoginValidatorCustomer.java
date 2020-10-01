@@ -15,9 +15,7 @@ import java.util.Optional;
 @Service
 public class LoginValidatorCustomer {
 
-    @Autowired
     private CustomerDao customerDao;
-    @Autowired
     private LoginAttemptDao loginAttemptDao;
 
     private LoginAttempt loginAttempt;
@@ -31,6 +29,12 @@ public class LoginValidatorCustomer {
             LOGINERROR_USERNAME = "Gebruikersnaam bestaat niet",
             LOGINERROR_PASSWORD = "Verkeerd wachtwoord";
     private static final int MAXIMUM_TRIES = 3, TIME0UT = 1;
+
+    @Autowired
+    public LoginValidatorCustomer( CustomerDao customerDao, LoginAttemptDao loginAttemptDao ) {
+        this.customerDao = customerDao;
+        this.loginAttemptDao = loginAttemptDao;
+    }
 
     public void validateCredentials( LoginForm loginForm ) {
         this.loginForm = loginForm;

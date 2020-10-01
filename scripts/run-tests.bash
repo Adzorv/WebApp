@@ -10,10 +10,4 @@ cd "${0%/*}/.."
 
 mvn clean test
 
-# example of commands for different languages
-# eslint .         # JS code quality check
-# npm test         # JS unit tests
-# flake8 .         # python code quality check
-# nosetests        # python nose 
-# just put your usual test command here 
 
