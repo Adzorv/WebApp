@@ -1,119 +1,30 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:insert="fragments/head :: head">
+<head>
+    <th:block th:insert="fragments/head :: head">
+    </th:block>
     <title>DagoBank Homepage</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" defer src="ibanracer.js"></script>
+    <link rel="stylesheet" type="text/css" href="ibanracer.css" media="all">
 </head>
-<style>
-    .glyphicon.glyphicon-plane {
-        font-size: 75px;
-        position: relative;
-        left:30px;
-        top:100px;
-    }
-
-    #target {
-        font-size: 75px;
-        position: relative;
-        left: 200px;
-        top: 400px;
-    }
-</style>
 <body>
+<div th:replace="fragments/navigation :: navigation"></div>
 <i id="plane" class="glyphicon glyphicon-plane"></i>
 <i id="target" class="glyphicon glyphicon-star"></i>
-<h3>Score: <span id="score">0</span></h3>
+<h2>Score: <span id="score">0</span></h2>
+<div th:switch="${session.user != null}">
+    <div th:case="${true}">
+
+        <select name="bankaccounts" id="bankaccounts">
+            <option>Kies een bankrekening</option>
+        </select>
+        <h2 id="balance">Saldo: €<span></span></h2>
+    </div>
+    <div th:case="${false}"><a href="/login"><h2>Log in om knaken te verdienen!</h2></a></div>
+</div>
+<p class="timer"></p>
+
+<div th:insert="fragments/footer :: footer"></div>
 </body>
-<script>
-    let plane = $('#plane');
-    let target = $('#target');
-    let score = $('#score');
-    console.log("hallo");
-    console.log(plane);
-    console.log(plane.position().left);
-
-    function getRandomInt(max) {
-        return Math.floor(Math.random() * Math.floor(max));
-    }
-
-    function incrementScore() {
-        score.html(function(i, val) { return +val+1 })
-    }
-
-    function setPositionOfTarget() {
-        let newLeft = getRandomInt($(document).width() - 100)
-        let newTop = getRandomInt($(document).height() -100)
-        console.log(newLeft + " " + newTop)
-        target.css({left: newLeft, top: newTop})
-    }
-
-
-    right = function() {
-        const leftPosition = plane.position().left
-        let newLeftPosition = 10 + leftPosition
-        plane.css({left: newLeftPosition})
-    }
-
-    left = function() {
-        const leftPosition = plane.position().left
-        let newLeftPosition = leftPosition - 10
-        plane.css({left: newLeftPosition})
-    }
-
-    down = function() {
-        const topPosition = plane.position().top
-        let newTopPosition = topPosition + 10
-        plane.css({top: newTopPosition})
-    }
-
-    up = function() {
-        const topPosition = plane.position().top
-        let newTopPosition = topPosition - 10
-        plane.css({top: newTopPosition})
-    }
-
-    touch = function() {
-        let planeTop = plane.position().top
-        let planeLeft = plane.position().left
-        let targetTop = target.position().top
-        let targetLeft = target.position().left
-
-        if (targetLeft - planeLeft < 40 &&
-            targetLeft - planeLeft > -40 &&
-            targetTop - planeTop < 40 &&
-            targetTop - planeTop > -40) {
-            console.log(planeLeft - targetLeft)
-            console.log("touch");
-            setPositionOfTarget()
-            incrementScore()
-        }
-    }
-
-    window.addEventListener("keydown", function(event) {
-
-        switch (event.key) {
-            case "ArrowDown":
-                console.log("down")
-                down()
-                break;
-            case "ArrowUp":
-                console.log("up")
-                up()
-                break;
-            case "ArrowLeft":
-                console.log("left")
-                left()
-                break;
-            case "ArrowRight":
-                console.log("right")
-                right()
-                break;
-        }
-        event.preventDefault()
-        touch()
-    }, true);
-
-
-
-</script>
 </html>

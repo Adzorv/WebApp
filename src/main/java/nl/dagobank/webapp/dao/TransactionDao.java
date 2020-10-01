@@ -1,6 +1,6 @@
 package nl.dagobank.webapp.dao;
 
-import nl.dagobank.webapp.dao.dto.SumTransactionsPerBusiness;
+import nl.dagobank.webapp.dto.SumTransactionsPerBusiness;
 import nl.dagobank.webapp.domain.*;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -23,7 +23,7 @@ public interface TransactionDao extends CrudRepository<Transaction, Integer> {
             "sum(CASE WHEN BA.id = T.debit_account_id THEN 1 ELSE 0 END) AS debitCount " +
             "FROM bank_account BA JOIN transaction T ON BA.id = T.credit_account_id OR BA.id = T.debit_account_id " +
             "WHERE dtype = 'BusinessAccount'" +
-            "GROUP BY BA.business_name", nativeQuery = true )
+            "GROUP BY BA.business_name ORDER BY sumTransactions DESC", nativeQuery = true )
     List<SumTransactionsPerBusiness> findSumOfTransactsionsPerBusinessAccount( Pageable pageable );
 
 //    @Query(value = "SELECT c.year AS yearComment, COUNT(c.*) AS totalComment "

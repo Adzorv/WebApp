@@ -15,17 +15,20 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class RegistrationController {
-    @Autowired
-    CustomerService customerService;
-    @Autowired
-    UsernameGenerator usernameGenerator;
-    @Autowired
-    PasswordGenerator passwordGenerator;
-    @Autowired
-    CustomerDao customerDao;
+    private CustomerService customerService;
+    private UsernameGenerator usernameGenerator;
+    private PasswordGenerator passwordGenerator;
+    private CustomerDao customerDao;
 
-    UserFactory userFactory;
+    private UserFactory userFactory;
 
+    @Autowired
+    public RegistrationController( CustomerService customerService, UsernameGenerator usernameGenerator, PasswordGenerator passwordGenerator, CustomerDao customerDao ) {
+        this.customerService = customerService;
+        this.usernameGenerator = usernameGenerator;
+        this.passwordGenerator = passwordGenerator;
+        this.customerDao = customerDao;
+    }
 
     @GetMapping("registration")
     public ModelAndView registrationPageHandle() {
@@ -34,7 +37,7 @@ public class RegistrationController {
         return registrationPage;
     }
 
-    @PostMapping("register")
+    @PostMapping("registration")
     public ModelAndView registrationHandler(@ModelAttribute RegistrationForm registrationForm, Model model) {
         String userName = usernameGenerator.createUsername(registrationForm.getFirstName(), registrationForm.getLastName());
         String password = passwordGenerator.generate(10);
@@ -58,15 +61,15 @@ public class RegistrationController {
 
 
     private ModelAndView showRegistrationFailedPage(RegistrationForm registrationForm, Model model) {
-        ModelAndView registrationFailedView = new ModelAndView("registration_failed");
+        ModelAndView registrationFailedView = new ModelAndView("registration");
         if (customerService.checkIfBSNIsInDB(registrationForm.getBsn())) {
-            model.addAttribute("bsnValue", "BSNFoundInDB");
+            model.addAttribute("bsnError", "BSN bestaat al!");
             return registrationFailedView;
         } else if (!customerService.checkIfBSNIsCorrect(registrationForm.getBsn())) {
-            model.addAttribute("bsnValue", "BSNInvalid");
+            model.addAttribute("bsnError", "Foute BSN code");
             return registrationFailedView;
         } else {
-            model.addAttribute("bsnValue", "default");
+            model.addAttribute("bsnError", "");
             return registrationFailedView;
         }
     }

@@ -1,30 +1,32 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <head th:insert="fragments/head :: head">
-    <meta charset="UTF-8">
+    <th:block th:insert="fragments/head :: head"></th:block>
     <title>Overzicht</title>
 </head>
+
 <body>
 <div th:insert="fragments/navigation :: navigation"></div>
 
-
-<div th:switch="${session.user?.role == 'HoofdParticulier'}">
-    <p th:case="${true}">Welkom, Hoofd Particulier</p>
-    <p th:case="${false}">Hallo, jij mag hier niet komen</p>
-</div>
 
 <div class="container">
     <div class="jumbotron">
         <div class="card">
             <div class="card-header">
                 <h2 class="txtext">Overzicht top 10 particulieren</h2>
+                <h2 class="txtext">
+                    <div th:switch="${session.user?.role == 'HoofdParticulier'}">
+                        <p th:case="${true}">Welkom, Hoofd Particulier</p>
+                        <p th:case="${false}">Hallo, jij mag hier niet komen</p>
+                    </div>
+                </h2>
             </div>
             <div class="card-body">
                 <table class="table" th:each="item : ${sumBalanceList}">
                     <tbody>
                     <tr>
-                        <th scope="row" th:text="${item.accountHolder}"></th>
+                        <th scope="row" th:text="${ item.accountHolder.fullName}"></th>
+                        <td>&#8364;</td>
                         <td th:text="${item.sumBalance}"></td>
                     </tr>
                     </tbody>
@@ -33,10 +35,6 @@
         </div>
     </div>
 </div>
-
-
-
-
 
 
 <div th:insert="fragments/footer :: footer"></div>

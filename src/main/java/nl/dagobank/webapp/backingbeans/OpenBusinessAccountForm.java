@@ -5,12 +5,13 @@ import java.util.List;
 
 public class OpenBusinessAccountForm {
     private String businessName;
-    private int kvkNumber;
+    private Integer kvkNumber;
     private String sbiCode;
     public static List<String> sbiCodes = Arrays.asList("Maak een keuze...", "A: Landbouw, bosbouw en Visserij", "B: Winning van Delftstoffen ",
             "C: Industrie", "D: Productie en Distributie van en handel in energie ",
             "E: Winning en distributie van water", "F: Bouwnijverheid", "G: Groot- en detailhandel", "H: Vervoer en opslag");
     private String bankAccountName;
+    private String error;
 
 
     public OpenBusinessAccountForm() {
@@ -24,11 +25,11 @@ public class OpenBusinessAccountForm {
         this.businessName = businessName;
     }
 
-    public int getKvkNumber() {
+    public Integer getKvkNumber() {
         return kvkNumber;
     }
 
-    public void setKvkNumber(int kvkNumber) {
+    public void setKvkNumber(Integer kvkNumber) {
         this.kvkNumber = kvkNumber;
     }
 
@@ -54,5 +55,13 @@ public class OpenBusinessAccountForm {
 
     public void setBankAccountName(String bankAccountName) {
         this.bankAccountName = bankAccountName;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError( String error ) {
+        this.error = error;
     }
 }

@@ -3,7 +3,6 @@ package nl.dagobank.webapp.service;
 import nl.dagobank.webapp.dao.BankAccountDao;
 import nl.dagobank.webapp.dao.TransactionDao;
 import nl.dagobank.webapp.domain.*;
-import nl.dagobank.webapp.service.TransferService;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,16 +10,14 @@ import org.junit.jupiter.api.TestInstance;
 import org.mockito.Mockito;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.List;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class TransferServiceTest {
+public class TransactionServiceTest {
 
     private BankAccountDao mockBankAccountDao = Mockito.mock(BankAccountDao.class);
     private TransactionDao mockTransactionDao = Mockito.mock(TransactionDao.class);
 
-    private TransferService transferService = new TransferService(mockTransactionDao, mockBankAccountDao);
+    private TransactionService transactionService = new TransactionService(mockTransactionDao, mockBankAccountDao);
 
     Customer customer1 = new Customer();
     Customer customer2 = new Customer();
@@ -52,7 +49,7 @@ public class TransferServiceTest {
 
     @Test
     public void testTransferSuccessful(){
-        transferService.performTransaction(bankAccount1, bankAccount2, new BigDecimal(50),
+        transactionService.performTransaction(bankAccount1, bankAccount2, new BigDecimal(50),
                 "test 1");
         Assert.assertEquals(new BigDecimal(50), bankAccount1.getBalance());
         Assert.assertEquals(new BigDecimal(150), bankAccount2.getBalance());
@@ -60,7 +57,7 @@ public class TransferServiceTest {
 
     @Test
     public void testInsufficientFund(){
-        boolean isSuccess = transferService.performTransaction(bankAccount1, bankAccount2, new BigDecimal(500),
+        boolean isSuccess = transactionService.performTransaction(bankAccount1, bankAccount2, new BigDecimal(500),
                 "test 1");
         Assert.assertFalse(isSuccess);
 

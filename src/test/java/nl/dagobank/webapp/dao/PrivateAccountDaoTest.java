@@ -1,8 +1,8 @@
 //TODO refactor to DataJPATest with H2Database
-/*
+
 package nl.dagobank.webapp.dao;
 
-import nl.dagobank.webapp.dao.dto.SumBalancePrivateAccounts;
+import nl.dagobank.webapp.dto.SumBalancePrivateAccounts;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,6 +31,6 @@ class PrivateAccountDaoTest {
             System.out.println(sumBalancePrivateAccounts.getAccountHolder());
             System.out.println(sumBalancePrivateAccounts.getSumBalance());
         }
-//        result.forEach(System.out::println);
+        result.forEach(System.out::println);
     }
-}*/
+}

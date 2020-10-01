@@ -1,13 +1,16 @@
 package nl.dagobank.webapp.domain;
 
+import nl.dagobank.webapp.backingbeans.AccountInfo;
+import nl.dagobank.webapp.backingbeans.Business;
 import nl.dagobank.webapp.backingbeans.OpenBusinessAccountForm;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import java.util.List;
 
 
-@Entity//todo: once a name is connected to a kvkNumber and sbiCode it can't be changed. Only kvkNumer is unique
+@Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"businessName", "kvkNumber", "sbiCode"})})
 public class BusinessAccount extends BankAccount {
     private String businessName;
@@ -15,16 +18,38 @@ public class BusinessAccount extends BankAccount {
     private String sbiCode;
 
     public BusinessAccount() {
+        super();
     }
 
     public BusinessAccount(OpenBusinessAccountForm openBusinessAccountForm) {
-        super();
-        this.businessName = openBusinessAccountForm.getBusinessName();
-        this.kvkNumber = openBusinessAccountForm.getKvkNumber();
-        this.sbiCode = openBusinessAccountForm.getSbiCode();
+        this(
+                openBusinessAccountForm.getBusinessName(),
+                openBusinessAccountForm.getKvkNumber(),
+                openBusinessAccountForm.getSbiCode()
+        );
 
     }
 
+    public BusinessAccount( AccountInfo accountInfo, Customer accountHolder, String businessName, int kvkNumber, String sbiCode ) {
+        super( accountInfo, accountHolder );
+        this.businessName = businessName;
+        this.kvkNumber = kvkNumber;
+        this.sbiCode = sbiCode;
+    }
+
+    public BusinessAccount( String businessName, int kvkNumber, String sbiCode ) {
+        super();
+        this.businessName = businessName;
+        this.kvkNumber = kvkNumber;
+        this.sbiCode = sbiCode;
+    }
+
+    public BusinessAccount( AccountInfo accountInfo, Customer accountHolder, Business business ) {
+        super( accountInfo, accountHolder );
+        this.businessName = business.getBusinessName();
+        this.kvkNumber = business.getKvkNumber();
+        this.sbiCode = business.getSbiCode();
+    }
 
     public String getBusinessName() {
         return businessName;

@@ -34,7 +34,7 @@ public class AccountViewController {
         this.bankAccountService = bankAccountService;
     }
 
-    @GetMapping("/accountView{id}")
+    @GetMapping("/accountView")
     ModelAndView AccountViewHandler(@RequestParam("id") int id, Model model) {
         Customer customer = (Customer)model.getAttribute("user");
         ModelAndView modelAndView = new ModelAndView("transactionOverview");

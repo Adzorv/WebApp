@@ -1,4 +1,5 @@
-package nl.dagobank.webapp.dao.dto;
+package nl.dagobank.webapp.dto;
+
 
 import nl.dagobank.webapp.domain.Customer;
 

@@ -1,19 +1,16 @@
 package nl.dagobank.webapp.service;
 
-import nl.dagobank.webapp.backingbeans.BalanceSumPerBusiness;
-import nl.dagobank.webapp.controller.OpenPrivateBankAccountController;
 import nl.dagobank.webapp.dao.BankAccountDao;
 import nl.dagobank.webapp.dao.BusinessAccountDao;
-import nl.dagobank.webapp.dao.dto.SbiAverage;
+import nl.dagobank.webapp.dto.BalanceSumPerBusiness;
+import nl.dagobank.webapp.dto.SbiAverage;
 import nl.dagobank.webapp.domain.BankAccount;
+import nl.dagobank.webapp.domain.BusinessAccount;
 import nl.dagobank.webapp.domain.Customer;
 import nl.dagobank.webapp.domain.PrivateAccount;
-import org.iban4j.Iban;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -48,6 +45,10 @@ public class BankAccountService {
         return bankAccountDao.findAllByAccountHolder(customer);
     }
 
+    public List<BusinessAccount> findAllBusinessAccountsByCustomer( Customer customer ) {
+        return businessAccountDao.findAllByAccountHolder( customer );
+    }
+
     public List<BankAccount> getAllAccountsFromCustomer( Customer customer) {
         List<BankAccount> bankaccounts = bankAccountDao.findAllByAccountHolderOrSecondaryAccountHoldersContains(customer, customer);
         List<BankAccount> sortedBankAccounts = new ArrayList<>();
@@ -65,8 +66,6 @@ public class BankAccountService {
     }
 
 
-
-
     public int getNumberOfBankAccountsOfCustomer( Customer customer ) {
         return bankAccountDao.findAllByAccountHolder(customer).size();
     }
@@ -75,13 +74,18 @@ public class BankAccountService {
         return bankAccountDao.findById( bankAccount.getId() ).get().getSecondaryAccountHolders().contains(customer);
     }
 
-
     public boolean isCustomerFirstOrSecundairyAccountHolder(Customer customer, BankAccount bankAccount){
        return ( bankAccount.getAccountHolder().equals(customer) || bankAccount.getSecondaryAccountHolders().contains(customer) );
     }
 
-    public List<BalanceSumPerBusiness> getTop10Businesses() {
-        return businessAccountDao.getSumBalance( PageRequest.of( 0, 10 ) );
+    public List<BusinessAccount> getTop10Businesses() {
+        List<BalanceSumPerBusiness> balanceSumPerBusinesses = businessAccountDao.getSumBalance( PageRequest.of( 0, 10 ) );
+        List<BusinessAccount> allAccounts = new ArrayList<>();
+        for ( BalanceSumPerBusiness sumPerBusiness : balanceSumPerBusinesses ) {
+            BusinessAccount ba = businessAccountDao.findFirstByKvkNumber( sumPerBusiness.getKvkNumber() );
+            allAccounts.add( ba );
+        }
+        return allAccounts;
     }
 
     public List<SbiAverage> getAverageBalancePerSector() {
@@ -93,27 +97,26 @@ public class BankAccountService {
         return privateAccount;
     }
 
-    public boolean isCompanyValid(int kvkNumber) {
-        return businessAccountDao.existsByKvkNumber(kvkNumber);
+
+
+    public String generateBankAccountNameFromUserNameAndNumberOfAccounts(Customer customer) {
+        String bankAccountName = customer.getFullName() + "'s rekening " + (getNumberOfBankAccountsOfCustomer(customer)+1);
+        return bankAccountName;
     }
 
-
-    public void generateBankAccountNameAndPutInModel(Model model, ModelAndView modelAndView) {
-        Customer user = (Customer) model.getAttribute("user");
-        String bankAccountName = user.getFullName() + "'s rekening " + (getNumberOfBankAccountsOfCustomer(user)+1);
-        modelAndView.addObject("bankAccountName", bankAccountName);
-    }
-
-    public PrivateAccount createAndSavePrivateAccount(String bankAccountName, Model model) {
-        Customer user = (Customer) model.getAttribute("user");
+    public PrivateAccount createAndSavePrivateAccount(String bankAccountName, Customer customer) {
         PrivateAccount privateAccount = new PrivateAccount();
-        privateAccount.setAccountHolder(user);
+        privateAccount.setAccountHolder(customer);
         privateAccount.setAccountName(bankAccountName);
         privateAccount.setBalance(BANKACCOUNT_BEGINBALANCE_GIFT);
         String iban = ibanGenerator.createIban().toString();
         privateAccount.setIban(iban);
         savePrivateAccount(privateAccount);
         return  privateAccount;
+    }
+
+    public void saveBusinessAccount( BusinessAccount businessAccount ) {
+        businessAccountDao.save( businessAccount );
     }
 
 }

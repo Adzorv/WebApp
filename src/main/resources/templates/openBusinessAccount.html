@@ -1,42 +1,137 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:insert="fragments/head" :: head>
+<head>
+    <th:block th:insert="fragments/head :: head"></th:block>
     <title>Open zakelijke rekening</title>
 </head>
+
 <body>
+
 <div th:insert="fragments/navigation :: navigation"></div>
-<main class="wrap">
-    <h1> Hoi <span th:text="${customerName}"/> !</h1>
-    <h2>Vul het formulier in voor het openen van een zakelijke rekening</h2>
-    <form method="post" th:action="@{openBusinessAccount}" th:object="${openBusinessAccountForm}">
-        <table>
-            <tr>
-                <td>Bedrijfsnaam :</td>
-                <td><input type="text" name="input_businessName" th:field="*{businessName}" required/></td>
-            </tr>
-            <tr>
-                <td>KvK nummer :</td>
-                <td><input  type="text" name="input_kvkNumber" th:field="*{kvkNumber}"
-                            pattern="^((?!(0))[0-9]{8})$" required placeholder="12345678"/></td>
-            </tr>
-            <tr>
-                <td>SBI-code :</td>
-                <td><select th:field="*{sbiCode}">
-                    <option th:each="sbiCode : ${sbiCodes}" th:value="${sbiCode}" th:text="${sbiCode}"></option>
-                    <option value="Maak een keuze..." selected disabled>Maak een keuze...</option>
-                </select></td>
-            </tr>
-            <tr>
-                <td>Naam van deze rekening :</td>
-                <td><input type="text" name="input_bankAccountName" th:field="*{bankAccountName}" required/></td>
-            </tr>
-            <tr>
-                <td><input class="button_bottom" type="submit" name="businessAccountOpened"
-                           value="Open zakelijke rekening"/></td>
-            </tr>
-        </table>
-    </form>
-</main>
+            <main class="wrap">
+                <div class="container">
+                    <div class="jumbotron">
+                        <div class="card">
+                            <div class="card-header">
+                                <h1><span th:text="${user.fullName} +','"/></h1>
+                                <p class="txtext">Vul het formulier in om een nieuwe bedrijfsrekening te openen. <br>Kies een bedrijf uit de dropdown als je een
+                                    extra rekening wilt openen voor een al bestaand bedrijf.</p>
+                            </div>
+                            <div class="card-body">
+                                <form  class="open-business-account" method="post" th:action="@{openBusinessAccount}"
+                                      th:object="${openBusinessAccountForm}">
+                                    <table>
+                                        <tr>
+                                            <td class="txtext">Nieuw of bestaand bedrijf:</td>
+                                            <td class="txtext">
+                                                <select name="businesses" id="businesses">
+                                                    <option>Nieuw bedrijf</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="txtext">Bedrijfsnaam:</td>
+                                            <td class="txtext"><input id="input_businessName" name="input_businessName" type="text" th:field="*{businessName}">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="txtext">KVK nummer:</td>
+                                            <td class="txtext"><input id="input_kvkNumber" name="input_kvkNumber" type="text" th:field="*{kvkNumber}"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="txtext">Sector:</td>
+                                            <td class="txtext">
+                                                <div class="custom-select">
+                                                    <select th:field="*{sbiCode}" id="input_sbiCode">
+                                                        <option th:each="sbiCode : ${openBusinessAccountForm.sbiCodes}" th:value="${sbiCode}"
+                                                                th:text="${sbiCode}"></option>
+                                                    </select></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="txtext">Naam van deze rekening:</td>
+                                            <td class="txtext"><input id="input_accountName" type="text" th:field="*{bankAccountName}"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="error" th:text="${openBusinessAccountForm.error}"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="buttonWhite" type="submit" name="businessAccountOpened"
+                                                       value="Open zakelijke rekening"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </main>
 <div th:insert="fragments/footer :: footer"></div>
 </body>
 </html>
+
+<script>
+    let globalBusinesses = null;
+
+    $("document").ready(
+        function () {
+            getAllBusinesses();
+        }
+    );
+
+    let fillBusinessDropdown = function (businesses) {
+        $.each(businesses, function (key, business) {
+            let name = business.businessName;
+            let option = new Option(name, name);
+            $(option).html(name);
+            $("#businesses").append(option)
+        });
+    };
+
+    let getAllBusinesses = function () {
+        $.ajax({
+            url: "getAllBusinesses",
+            type: "get",
+            success: function (response) {
+                globalBusinesses = response;
+                fillBusinessDropdown(response);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+        })
+    };
+
+    $("#businesses").change(function () {
+        let selected = $(this).children("option:selected").val();
+
+        let input_name = $("#input_businessName");
+        let input_kvk = $("#input_kvkNumber");
+        let input_sbi = $("#input_sbiCode");
+        $.each(globalBusinesses, function (key, business) {
+            if (business.businessName === selected) {
+                let businessName = business.businessName;
+                let kvkNumber = business.kvkNumber;
+                let sbiCode = business.sbiCode;
+                input_name.val(businessName).attr('readonly', true);
+                input_kvk.val(kvkNumber).attr('readonly', true);
+                input_sbi.val(sbiCode).attr('readonly', true);
+                return false
+            } else if (selected === "Nieuw bedrijf") {
+                input_name.attr('readonly', false);
+                input_kvk.attr('readonly', false);
+                input_sbi.attr('readonly', false);
+                $("#input_businessName").val("");
+                $("#input_kvkNumber").val("");
+                $("#input_sbiCode").val("");
+            } else {
+                $("#input_businessName").val("");
+                $("#input_kvkNumber").val("");
+                $("#input_sbiCode").val("");
+            }
+        })
+    });
+</script>

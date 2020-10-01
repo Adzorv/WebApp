@@ -15,9 +15,7 @@ import java.util.Optional;
 @Service
 public class LoginValidatorCustomer {
 
-    @Autowired
     private CustomerDao customerDao;
-    @Autowired
     private LoginAttemptDao loginAttemptDao;
 
     private LoginAttempt loginAttempt;
@@ -25,21 +23,17 @@ public class LoginValidatorCustomer {
     private Customer customer;
     private boolean userValidated, passwordValidated;
     private String logMessage;
-    private static final String WRONGUSER,
-            WRONGPASSWORD,
-            SUCCESS,
-            LOGINERROR_USERNAME,
-            LOGINERROR_PASSWORD;
-    private static final int MAXIMUM_TRIES, TIME0UT;
+    private static final String WRONGUSER = "Wrong username",
+            WRONGPASSWORD = "Wrong password",
+            SUCCESS = "Gebruiker ingelogd",
+            LOGINERROR_USERNAME = "Gebruikersnaam bestaat niet",
+            LOGINERROR_PASSWORD = "Verkeerd wachtwoord";
+    private static final int MAXIMUM_TRIES = 3, TIME0UT = 1;
 
-    static {
-        WRONGUSER = "Wrong username";
-        WRONGPASSWORD = "Wrong password";
-        SUCCESS = "Gebruiker ingelogd";
-        LOGINERROR_USERNAME = "Gebruikersnaam bestaat niet";
-        LOGINERROR_PASSWORD = "Verkeerd wachtwoord";
-        MAXIMUM_TRIES = 3;
-        TIME0UT = 1;
+    @Autowired
+    public LoginValidatorCustomer( CustomerDao customerDao, LoginAttemptDao loginAttemptDao ) {
+        this.customerDao = customerDao;
+        this.loginAttemptDao = loginAttemptDao;
     }
 
     public void validateCredentials( LoginForm loginForm ) {
@@ -119,18 +113,6 @@ public class LoginValidatorCustomer {
         loginAttempt.setBlockedUntil( blockedUntil );
         loginForm.setLoginAttemptsError( String.format( "3x fout ingelogd! Je mag pas weer inloggen om %s", blockedUntil.toLocalTime().format( DateTimeFormatter.ofPattern( "HH:mm:ss" ) ) ) );
         loginAttemptDao.save( loginAttempt );
-    }
-
-    private boolean passwordCheck() {
-        if ( customer.getInlogCredentials().getPassword().equals( loginForm.getPassword() ) ) {
-            setLogMessage( SUCCESS + " | " + customer );
-            loginAttemptDao.delete( loginAttempt );
-            return true;
-        } else {
-            setLogMessage( WRONGPASSWORD + " | " + loginForm.getPassword() );
-            return false;
-
-        }
     }
 
     public boolean isUserValidated() {

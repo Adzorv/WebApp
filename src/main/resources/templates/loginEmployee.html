@@ -1,39 +1,35 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/html">
-<head th:insert="fragments/head :: head">
-    <title>Login</title>
+
+<head>
+    <title>Login medewerker</title>
+    <th:block th:insert="fragments/head :: head"></th:block>
 </head>
 <body>
 <!--FIXME: How to show the active tab?-->
 <div th:replace="fragments/navigation :: navigation"></div>
-<div th:switch="${user == null}">
-    <div th:case="${true}">
-        <div class="login-container dagobertBackground">
-            <div class="loginboxwrap">
-                <div class="loginbox employee shadow">
+
+<div class="login-container dagobertBackground">
+    <div class="loginboxwrap">
+        <div class="loginbox employee shadow">
 
 
-                    <h2>Login werknemer</h2>
+            <h2>Login werknemer</h2>
 
-                    <div>
-                        <form method="post" th:action="@{werknemer}" th:object="${loginform}">
-                            <input class="loginInput" type="text" name="input_name" th:field="*{username}"
-                                   placeholder="gebruikersnaam">
-                            <input class="loginInput" type="password" name="input_id" th:field="*{password}"
-                                   placeholder="wachtwoord">
-                            <input class="buttonLogin" type="submit" value="inloggen">
+            <div>
+                <form method="post" th:action="@{werknemer}" th:object="${loginform}">
+                    <input class="loginInput" type="text" name="input_name" th:field="*{username}"
+                           placeholder="gebruikersnaam">
+                    <input class="loginInput" type="password" name="input_id" th:field="*{password}"
+                           placeholder="wachtwoord">
+                    <input class="buttonLogin" type="submit" value="inloggen">
 
-                        </form>
-                    </div>
-                </div>
-                <p class="loginError"><span th:text="${loginform.generalError}"></span></p>
+                </form>
             </div>
         </div>
+        <p class="loginError"><span th:text="${loginform.generalError}"></span></p>
     </div>
-    <div th:case="${false}">
-        <p>Hoi <span th:text="${user.fullName.firstName}"/>, je bent al ingelogd!</p>
-        <a href="/logout">Uitloggen</a>
-    </div>
+</div>
 </div>
 
 

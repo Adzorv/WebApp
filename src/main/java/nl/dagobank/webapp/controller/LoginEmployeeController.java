@@ -46,7 +46,7 @@ public class LoginEmployeeController {
             Employee employee = lv.getEmployee();
             model.addAttribute( "user", employee );
             if ( employee.getRole().equals( "HoofdMKB" )) {
-                mav.setViewName( "redirect:/overzichtmkb" );
+                mav.setViewName( "redirect:werknemer/overzichtmkb" );
             } else if ( employee.getRole().equals( "HoofdParticulier" )) {
                 mav.setViewName( "redirect:/overzichtparticulier" );
             }
