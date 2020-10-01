@@ -15,9 +15,6 @@ import java.util.*;
 
 import static org.assertj.core.api.Assertions.*;
 
-//@DataJpaTest
-//@RunWith( SpringRunner.class )
-//@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @DataJpaTest( properties = "spring.jpa.database-platform=org.hibernate.dialect.H2Dialect" )
 class BusinessAccountDaoTest {
 
